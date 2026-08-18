@@ -1,0 +1,266 @@
+{
+  "meta": {
+    "siteName": "R-X — Studio d'ergonomie web",
+    "home": {
+      "title": "R-X — Studio d'ergonomie & design d'interface",
+      "description": "R-X conçoit et refond des interfaces web sobres, lisibles et efficaces. Conception UI/UX, prototypes, design systems — l'utilisateur au centre."
+    },
+    "services": {
+      "title": "Services — Conception UI/UX",
+      "description": "Maquettes et prototypes, refonte d'interface, design system, responsive : la conception UI/UX de l'esquisse à l'écran."
+    },
+    "work": {
+      "title": "Réalisations",
+      "description": "Études de cas : refonte de tableau de bord SaaS, parcours d'achat e-commerce, onboarding d'application santé."
+    },
+    "about": {
+      "title": "À propos",
+      "description": "R-X, comme rayons X : un studio indépendant qui regarde sous la surface des interfaces."
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Parlons de votre projet d'interface. Réponse sous deux jours ouvrés."
+    },
+    "legal": {
+      "title": "Mentions légales",
+      "description": "Mentions légales du site r-x.fr."
+    }
+  },
+  "nav": {
+    "home": "Accueil",
+    "services": "Services",
+    "work": "Réalisations",
+    "about": "À propos",
+    "contact": "Contact",
+    "menuOpen": "Ouvrir le menu",
+    "menuClose": "Fermer le menu"
+  },
+  "lang": {
+    "label": "Changer de langue",
+    "fr": "Français",
+    "en": "English"
+  },
+  "home": {
+    "eyebrow": "Studio d'ergonomie & design d'interface",
+    "titleA": "L'utilisateur",
+    "titleB": "au centre.",
+    "lede": "R-X conçoit et refond des interfaces web sobres, lisibles, efficaces — pour que vos utilisateurs trouvent, comprennent et agissent sans effort.",
+    "ctaServices": "Voir nos services",
+    "ctaContact": "Discuter de votre projet",
+    "ringCenter": "vous êtes ici",
+    "scrollHint": "Défiler",
+    "approach": {
+      "eyebrow": "Notre approche",
+      "title": "Trois temps, un cap",
+      "items": [
+        {
+          "title": "Comprendre",
+          "text": "Qui sont vos utilisateurs, ce qu'ils cherchent, ce qui les freine. Chaque projet commence par un regard honnête sur l'existant."
+        },
+        {
+          "title": "Concevoir",
+          "text": "Architecture, wireframes, maquettes haute fidélité, prototypes cliquables : l'interface se construit décision par décision, jamais par habitude."
+        },
+        {
+          "title": "Affiner",
+          "text": "Tests, retours, itérations. Nous polissons jusqu'à ce que chaque écran devienne évident — et que plus rien ne dépasse."
+        }
+      ]
+    },
+    "manifesto": {
+      "lead": "Une bonne interface ne se remarque pas.",
+      "emph": "Elle se traverse."
+    },
+    "process": {
+      "eyebrow": "La méthode",
+      "title": "Quatre étapes, pas une de plus",
+      "steps": [
+        {
+          "title": "Écoute",
+          "text": "Un premier échange pour cerner votre activité, vos objectifs et vos contraintes. Sans jargon, sans engagement."
+        },
+        {
+          "title": "Structure",
+          "text": "Architecture de l'information, parcours utilisateurs, hiérarchie des contenus : le squelette avant la peau."
+        },
+        {
+          "title": "Design",
+          "text": "Maquettes haute fidélité et prototype interactif, dans un langage visuel qui vous ressemble."
+        },
+        {
+          "title": "Transmission",
+          "text": "Spécifications claires pour vos développeurs, fichiers organisés, et un œil attentif jusqu'à la mise en ligne."
+        }
+      ]
+    },
+    "work": {
+      "eyebrow": "Réalisations",
+      "title": "Des interfaces qui font leurs preuves",
+      "cta": "Toutes nos réalisations"
+    },
+    "cta": {
+      "title": "Un projet, une question ?",
+      "text": "Un brief d'une page ou trois lignes dans un email : tout commence par un message.",
+      "button": "Écrivez-nous"
+    }
+  },
+  "services": {
+    "eyebrow": "Services",
+    "title": "Conception UI/UX, de l'esquisse à l'écran",
+    "lede": "Un seul métier, fait sérieusement : concevoir des interfaces que vos utilisateurs comprennent au premier regard.",
+    "offers": [
+      {
+        "title": "Maquettes & prototypes",
+        "text": "Des wireframes aux maquettes haute fidélité, jusqu'au prototype cliquable que vous pouvez mettre entre de vraies mains — avant d'écrire une ligne de code."
+      },
+      {
+        "title": "Refonte d'interface",
+        "text": "Moderniser un outil vieillissant sans dérouter celles et ceux qui l'utilisent chaque jour. On garde ce qui marche, on répare ce qui freine."
+      },
+      {
+        "title": "Design system",
+        "text": "Une bibliothèque de composants cohérente et documentée, pour que vos équipes construisent vite et juste — aujourd'hui comme dans deux ans."
+      },
+      {
+        "title": "Responsive & mobile",
+        "text": "Pensé pour tous les écrans dès le premier trait : mobile, tablette, desktop, et les largeurs improbables entre les trois."
+      }
+    ],
+    "deliverables": {
+      "eyebrow": "Livrables",
+      "title": "Ce que vous recevez",
+      "items": [
+        "Fichiers sources Figma organisés et nommés",
+        "Prototype interactif partageable",
+        "Spécifications d'intégration pour vos développeurs",
+        "Accompagnement pendant l'intégration"
+      ]
+    },
+    "cta": {
+      "title": "Votre interface mérite mieux ?",
+      "text": "Décrivez-nous votre outil, votre site ou votre idée — on vous dit franchement ce qu'on en pense.",
+      "button": "Parler de votre projet"
+    }
+  },
+  "work": {
+    "eyebrow": "Réalisations",
+    "title": "Des interfaces qui font leurs preuves",
+    "lede": "Trois études de cas pour montrer la méthode. La vôtre pourrait être la prochaine.",
+    "challengeLabel": "Le défi",
+    "resultLabel": "Le résultat",
+    "projects": [
+      {
+        "name": "Clairière",
+        "sector": "SaaS RH — tableau de bord",
+        "tags": ["Refonte", "Design system"],
+        "challenge": "Un back-office dense, accumulé au fil des ans, où chaque information demandait sept clics et deux souvenirs.",
+        "result": "Repensé écran par écran : moins de colonnes, plus de décisions. Les équipes RH retrouvent l'essentiel en deux clics."
+      },
+      {
+        "name": "Comptoir",
+        "sector": "E-commerce artisanal",
+        "tags": ["Parcours d'achat", "Mobile"],
+        "challenge": "Un catalogue soigné mais un tunnel d'achat qui multipliait les étapes — et les abandons.",
+        "result": "Un parcours raccourci et rassurant, du produit au paiement. Le panier cesse d'être un point de fuite."
+      },
+      {
+        "name": "Pulso",
+        "sector": "Application santé",
+        "tags": ["Onboarding", "Accessibilité"],
+        "challenge": "Un premier parcours patient anxiogène, pensé pour le service informatique plutôt que pour la salle d'attente.",
+        "result": "Étapes courtes, gros caractères, langage humain. Une application utilisable même un mauvais jour."
+      }
+    ],
+    "note": "Projets illustratifs, présentés à titre d'exemple de méthode.",
+    "cta": {
+      "title": "Votre projet ici ?",
+      "text": "Racontez-nous où ça coince : c'est souvent le début d'une belle étude de cas.",
+      "button": "Nous contacter"
+    }
+  },
+  "about": {
+    "eyebrow": "À propos",
+    "title": "R-X, comme rayons X",
+    "lede": "Nous regardons sous la surface des interfaces : ce que les utilisateurs font vraiment, pas ce qu'on suppose qu'ils font.",
+    "storyTitle": "Un studio compact, volontairement",
+    "story1": "R-X est un studio indépendant de conception UI/UX. Compact par choix : les personnes qui écoutent vos enjeux sont celles qui dessinent vos écrans. Pas d'intermédiaire, pas de perte en ligne.",
+    "story2": "Nous croyons aux interfaces sobres. Pas austères — sobres : chaque élément gagne sa place en servant l'utilisateur, ou il sort. C'est exigeant pour nous, reposant pour tout le monde.",
+    "valuesEyebrow": "Nos convictions",
+    "valuesTitle": "Trois règles, aucune exception",
+    "values": [
+      {
+        "title": "Sobriété",
+        "text": "Le superflu se paie en attention. Nous dessinons ce qui sert, nous retirons ce qui décore."
+      },
+      {
+        "title": "Rigueur",
+        "text": "Chaque choix s'explique : une grille, un contraste, un mot. Rien n'est là par hasard."
+      },
+      {
+        "title": "Transparence",
+        "text": "Des devis clairs, des délais tenus — et la vérité quand quelque chose coince."
+      }
+    ],
+    "cta": {
+      "title": "Envie de voir votre interface aux rayons X ?",
+      "text": "Envoyez-nous une adresse ou une capture d'écran, on vous dit ce qu'on y voit.",
+      "button": "Écrivez-nous"
+    }
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Parlons de votre projet",
+    "lede": "Un brief d'une page ou trois lignes dans un email : tout commence par un message.",
+    "emailLabel": "Écrivez-nous",
+    "copy": "Copier l'adresse",
+    "copied": "Adresse copiée !",
+    "mailto": "Ouvrir votre messagerie",
+    "reply": "Réponse sous deux jours ouvrés.",
+    "faqTitle": "Questions fréquentes",
+    "faq": [
+      {
+        "q": "Comment démarre un projet ?",
+        "a": "Par un échange gratuit d'une trentaine de minutes, en visio. Vous racontez, nous questionnons — puis nous vous envoyons une proposition écrite, claire et sans surprise."
+      },
+      {
+        "q": "Travaillez-vous à distance ?",
+        "a": "Oui, entièrement. Des points réguliers en visio, un prototype partagé en continu : vous voyez le projet avancer sans attendre la grande révélation finale."
+      },
+      {
+        "q": "Quels sont vos délais ?",
+        "a": "De deux à six semaines selon l'ampleur, annoncés dès la proposition. Si un imprévu bouscule le calendrier, vous le savez avant nous d'avoir fini de l'écrire."
+      }
+    ]
+  },
+  "legal": {
+    "title": "Mentions légales",
+    "editor": {
+      "title": "Éditeur du site",
+      "text": "R-X — [Raison sociale à compléter]\n[Forme juridique, capital social]\n[Adresse du siège social]\n[Numéro SIRET]\nDirecteur de la publication : [À compléter]\nContact : contact@r-x.fr"
+    },
+    "host": {
+      "title": "Hébergement",
+      "text": "Infomaniak Network SA\nRue Eugène-Marziano 25\n1227 Genève, Suisse\nwww.infomaniak.com"
+    },
+    "ip": {
+      "title": "Propriété intellectuelle",
+      "text": "L'ensemble des contenus de ce site (textes, visuels, identité graphique) est la propriété de R-X, sauf mention contraire. Toute reproduction sans autorisation préalable est interdite."
+    },
+    "privacy": {
+      "title": "Données personnelles",
+      "text": "Ce site ne dépose aucun cookie, n'embarque aucun traceur et ne collecte aucune donnée personnelle. Les emails que vous nous adressez ne servent qu'à vous répondre."
+    }
+  },
+  "footer": {
+    "tagline": "Studio d'ergonomie web — des interfaces claires pour des utilisateurs sereins.",
+    "navTitle": "Navigation",
+    "contactTitle": "Contact",
+    "legal": "Mentions légales",
+    "rights": "Tous droits réservés."
+  },
+  "notFound": {
+    "title": "Page introuvable",
+    "text": "Cette page n'existe pas — ou plus. L'ergonomie commence par de bons chemins ; celui-ci n'en est pas un.",
+    "back": "Retour à l'accueil"
+  }
+}

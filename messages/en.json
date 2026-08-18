@@ -1,0 +1,266 @@
+{
+  "meta": {
+    "siteName": "R-X — Web ergonomics studio",
+    "home": {
+      "title": "R-X — Ergonomics & interface design studio",
+      "description": "R-X designs and redesigns clear, legible, effective web interfaces. UI/UX design, prototypes, design systems — with the user at the centre."
+    },
+    "services": {
+      "title": "Services — UI/UX design",
+      "description": "Mockups and prototypes, interface redesign, design systems, responsive: UI/UX design from first sketch to final screen."
+    },
+    "work": {
+      "title": "Work",
+      "description": "Case studies: SaaS dashboard redesign, e-commerce checkout flow, health app onboarding."
+    },
+    "about": {
+      "title": "About",
+      "description": "R-X, as in X-ray: an independent studio that looks beneath the surface of interfaces."
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Let's talk about your interface project. Reply within two working days."
+    },
+    "legal": {
+      "title": "Legal notice",
+      "description": "Legal notice for r-x.fr."
+    }
+  },
+  "nav": {
+    "home": "Home",
+    "services": "Services",
+    "work": "Work",
+    "about": "About",
+    "contact": "Contact",
+    "menuOpen": "Open menu",
+    "menuClose": "Close menu"
+  },
+  "lang": {
+    "label": "Switch language",
+    "fr": "Français",
+    "en": "English"
+  },
+  "home": {
+    "eyebrow": "Ergonomics & interface design studio",
+    "titleA": "The user",
+    "titleB": "at the centre.",
+    "lede": "R-X designs and redesigns clear, legible, effective web interfaces — so your users can find, understand and act without effort.",
+    "ctaServices": "See our services",
+    "ctaContact": "Discuss your project",
+    "ringCenter": "you are here",
+    "scrollHint": "Scroll",
+    "approach": {
+      "eyebrow": "Our approach",
+      "title": "Three movements, one direction",
+      "items": [
+        {
+          "title": "Understand",
+          "text": "Who your users are, what they're looking for, what slows them down. Every project starts with an honest look at what exists."
+        },
+        {
+          "title": "Design",
+          "text": "Architecture, wireframes, high-fidelity mockups, clickable prototypes: the interface is built decision by decision, never by habit."
+        },
+        {
+          "title": "Refine",
+          "text": "Testing, feedback, iteration. We polish until every screen becomes obvious — and nothing sticks out."
+        }
+      ]
+    },
+    "manifesto": {
+      "lead": "A good interface goes unnoticed.",
+      "emph": "You simply pass through it."
+    },
+    "process": {
+      "eyebrow": "The method",
+      "title": "Four steps, not one more",
+      "steps": [
+        {
+          "title": "Listening",
+          "text": "A first conversation to understand your business, your goals and your constraints. No jargon, no commitment."
+        },
+        {
+          "title": "Structure",
+          "text": "Information architecture, user journeys, content hierarchy: the skeleton before the skin."
+        },
+        {
+          "title": "Design",
+          "text": "High-fidelity mockups and an interactive prototype, in a visual language that feels like you."
+        },
+        {
+          "title": "Handover",
+          "text": "Clear specifications for your developers, organised files, and a careful eye until launch."
+        }
+      ]
+    },
+    "work": {
+      "eyebrow": "Work",
+      "title": "Interfaces that prove themselves",
+      "cta": "All our work"
+    },
+    "cta": {
+      "title": "A project, a question?",
+      "text": "A one-page brief or three lines in an email: everything starts with a message.",
+      "button": "Write to us"
+    }
+  },
+  "services": {
+    "eyebrow": "Services",
+    "title": "UI/UX design, from sketch to screen",
+    "lede": "One craft, taken seriously: designing interfaces your users understand at first glance.",
+    "offers": [
+      {
+        "title": "Mockups & prototypes",
+        "text": "From wireframes to high-fidelity mockups, all the way to a clickable prototype you can put into real hands — before writing a single line of code."
+      },
+      {
+        "title": "Interface redesign",
+        "text": "Modernising an ageing tool without losing the people who use it every day. We keep what works and fix what slows them down."
+      },
+      {
+        "title": "Design system",
+        "text": "A coherent, documented component library, so your teams build fast and build right — today and two years from now."
+      },
+      {
+        "title": "Responsive & mobile",
+        "text": "Designed for every screen from the very first line: mobile, tablet, desktop, and all the improbable widths in between."
+      }
+    ],
+    "deliverables": {
+      "eyebrow": "Deliverables",
+      "title": "What you receive",
+      "items": [
+        "Organised, properly named Figma source files",
+        "A shareable interactive prototype",
+        "Integration specifications for your developers",
+        "Support throughout the integration"
+      ]
+    },
+    "cta": {
+      "title": "Does your interface deserve better?",
+      "text": "Tell us about your tool, your site or your idea — we'll give you our honest opinion.",
+      "button": "Talk about your project"
+    }
+  },
+  "work": {
+    "eyebrow": "Work",
+    "title": "Interfaces that prove themselves",
+    "lede": "Three case studies to show the method. Yours could be next.",
+    "challengeLabel": "The challenge",
+    "resultLabel": "The result",
+    "projects": [
+      {
+        "name": "Clairière",
+        "sector": "HR SaaS — dashboard",
+        "tags": ["Redesign", "Design system"],
+        "challenge": "A dense back office, accumulated over the years, where every piece of information took seven clicks and two memories.",
+        "result": "Rethought screen by screen: fewer columns, more decisions. HR teams now find what matters in two clicks."
+      },
+      {
+        "name": "Comptoir",
+        "sector": "Artisan e-commerce",
+        "tags": ["Checkout flow", "Mobile"],
+        "challenge": "A carefully curated catalogue, but a checkout that multiplied steps — and abandoned carts.",
+        "result": "A shorter, reassuring journey from product to payment. The cart stops being an exit door."
+      },
+      {
+        "name": "Pulso",
+        "sector": "Health application",
+        "tags": ["Onboarding", "Accessibility"],
+        "challenge": "A stressful first patient journey, designed for the IT department rather than the waiting room.",
+        "result": "Short steps, large type, human language. An app you can use even on a bad day."
+      }
+    ],
+    "note": "Illustrative projects, shown as examples of the method.",
+    "cta": {
+      "title": "Your project here?",
+      "text": "Tell us where it hurts: that's often how a good case study begins.",
+      "button": "Contact us"
+    }
+  },
+  "about": {
+    "eyebrow": "About",
+    "title": "R-X, as in X-ray",
+    "lede": "We look beneath the surface of interfaces: what users actually do, not what we assume they do.",
+    "storyTitle": "A compact studio, on purpose",
+    "story1": "R-X is an independent UI/UX design studio. Compact by choice: the people who listen to your challenges are the ones who design your screens. No middle layer, no signal loss.",
+    "story2": "We believe in restrained interfaces. Not austere — restrained: every element earns its place by serving the user, or it goes. Demanding for us, restful for everyone else.",
+    "valuesEyebrow": "What we believe",
+    "valuesTitle": "Three rules, zero exceptions",
+    "values": [
+      {
+        "title": "Restraint",
+        "text": "Clutter is paid for in attention. We draw what serves, and remove what merely decorates."
+      },
+      {
+        "title": "Rigour",
+        "text": "Every choice can be explained: a grid, a contrast, a word. Nothing is there by accident."
+      },
+      {
+        "title": "Transparency",
+        "text": "Clear quotes, deadlines kept — and the truth when something gets stuck."
+      }
+    ],
+    "cta": {
+      "title": "Want your interface X-rayed?",
+      "text": "Send us a URL or a screenshot, and we'll tell you what we see.",
+      "button": "Write to us"
+    }
+  },
+  "contact": {
+    "eyebrow": "Contact",
+    "title": "Let's talk about your project",
+    "lede": "A one-page brief or three lines in an email: everything starts with a message.",
+    "emailLabel": "Write to us",
+    "copy": "Copy address",
+    "copied": "Address copied!",
+    "mailto": "Open your email app",
+    "reply": "Reply within two working days.",
+    "faqTitle": "Frequently asked questions",
+    "faq": [
+      {
+        "q": "How does a project start?",
+        "a": "With a free thirty-minute video call. You talk, we ask questions — then we send you a written proposal, clear and without surprises."
+      },
+      {
+        "q": "Do you work remotely?",
+        "a": "Yes, entirely. Regular video check-ins and a continuously shared prototype: you watch the project move forward instead of waiting for a grand final reveal."
+      },
+      {
+        "q": "What are your lead times?",
+        "a": "Two to six weeks depending on scope, stated in the proposal. If something unexpected shifts the schedule, you'll know immediately."
+      }
+    ]
+  },
+  "legal": {
+    "title": "Legal notice",
+    "editor": {
+      "title": "Site publisher",
+      "text": "R-X — [Company name to complete]\n[Legal form, share capital]\n[Registered office address]\n[SIRET number]\nPublication director: [To complete]\nContact: contact@r-x.fr"
+    },
+    "host": {
+      "title": "Hosting",
+      "text": "Infomaniak Network SA\nRue Eugène-Marziano 25\n1227 Geneva, Switzerland\nwww.infomaniak.com"
+    },
+    "ip": {
+      "title": "Intellectual property",
+      "text": "All content on this site (texts, visuals, graphic identity) is the property of R-X unless stated otherwise. Any reproduction without prior authorisation is prohibited."
+    },
+    "privacy": {
+      "title": "Personal data",
+      "text": "This site sets no cookies, embeds no trackers and collects no personal data. The emails you send us are used only to reply to you."
+    }
+  },
+  "footer": {
+    "tagline": "Web ergonomics studio — clear interfaces for calm users.",
+    "navTitle": "Navigation",
+    "contactTitle": "Contact",
+    "legal": "Legal notice",
+    "rights": "All rights reserved."
+  },
+  "notFound": {
+    "title": "Page not found",
+    "text": "This page doesn't exist — or not anymore. Good ergonomics starts with good paths; this isn't one of them.",
+    "back": "Back to home"
+  }
+}

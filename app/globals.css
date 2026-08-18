@@ -1,26 +1,172 @@
 @import "tailwindcss";
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  /* Palette — sable / sauge / terracotta, tons pastels */
+  --sand: #f6f1e6;
+  --sand-deep: #ede5d2;
+  --sand-card: #fbf8f0;
+  --ink: #2e3428;
+  --ink-soft: #5c6353;
+  --sage: #a9bfa0;
+  --sage-strong: #6e8a62;
+  --sage-deep: #43573b;
+  --terra: #dfa184;
+  --terra-strong: #c1714b;
+  --terra-soft: #f3dccb;
+  --line: #ddd3bd;
 }
 
 @theme inline {
-  --color-background: var(--background);
-  --color-foreground: var(--foreground);
-  --font-sans: var(--font-geist-sans);
-  --font-mono: var(--font-geist-mono);
+  --color-sand: var(--sand);
+  --color-sand-deep: var(--sand-deep);
+  --color-sand-card: var(--sand-card);
+  --color-ink: var(--ink);
+  --color-ink-soft: var(--ink-soft);
+  --color-sage: var(--sage);
+  --color-sage-strong: var(--sage-strong);
+  --color-sage-deep: var(--sage-deep);
+  --color-terra: var(--terra);
+  --color-terra-strong: var(--terra-strong);
+  --color-terra-soft: var(--terra-soft);
+  --color-line: var(--line);
+  --font-display: var(--font-display);
+  --font-body: var(--font-body);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
+html {
+  scroll-behavior: smooth;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
   }
 }
 
 body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+  background: var(--sand);
+  color: var(--ink);
+  font-family: var(--font-body), system-ui, sans-serif;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+::selection {
+  background: var(--terra-soft);
+  color: var(--ink);
+}
+
+:focus-visible {
+  outline: 2px solid var(--sage-strong);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+@layer components {
+  .container-site {
+    @apply mx-auto w-full max-w-6xl px-6;
+  }
+  .btn {
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300;
+  }
+  .btn-primary {
+    @apply bg-ink text-sand-card hover:bg-sage-deep;
+  }
+  .btn-secondary {
+    @apply border border-line bg-sand-card text-ink hover:border-sage-strong hover:text-sage-deep;
+  }
+  .eyebrow {
+    @apply inline-flex items-center gap-2.5 text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-sage-deep;
+  }
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:border-sage hover:shadow-[0_16px_40px_-20px_rgba(46,52,40,0.35)];
+  }
+}
+
+/* ——— Anneaux : rotations et pulsations (compositor-friendly) ——— */
+@keyframes ring-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+.ring-rotor {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ring-spin var(--spin, 60s) linear infinite;
+}
+
+.ring-rotor--reverse {
+  animation-direction: reverse;
+}
+
+@keyframes ring-pulse {
+  0% {
+    transform: scale(1);
+    opacity: 0.65;
+  }
+  70% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+  100% {
+    transform: scale(2.1);
+    opacity: 0;
+  }
+}
+
+.ring-pulse {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ring-pulse 3.4s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+@keyframes scroll-hint {
+  0%,
+  100% {
+    transform: translateY(0);
+    opacity: 0.9;
+  }
+  50% {
+    transform: translateY(6px);
+    opacity: 0.4;
+  }
+}
+
+.scroll-hint-dot {
+  animation: scroll-hint 1.8s ease-in-out infinite;
+}
+
+@keyframes scanline {
+  0%,
+  100% {
+    transform: translateY(-72px);
+  }
+  50% {
+    transform: translateY(72px);
+  }
+}
+
+.scanline {
+  animation: scanline 5s ease-in-out infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ring-rotor,
+  .ring-pulse,
+  .scroll-hint-dot,
+  .scanline {
+    animation: none;
+  }
+}
+
+/* Grain de papier très léger sur tout le site */
+body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 50;
+  pointer-events: none;
+  opacity: 0.028;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='160' height='160'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2'/%3E%3C/filter%3E%3Crect width='160' height='160' filter='url(%23n)'/%3E%3C/svg%3E");
 }
