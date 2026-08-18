@@ -20,7 +20,7 @@ export default function Footer() {
       <div className="container-site pt-14 md:pt-16">
         <p
           aria-hidden="true"
-          className="text-outline-sand -mb-[0.09em] font-display text-[clamp(5rem,20vw,15rem)] font-bold leading-none tracking-tight opacity-60"
+          className="-mb-[0.09em] font-display text-[clamp(5rem,20vw,15rem)] font-bold leading-none tracking-tight text-sand/12"
         >
           R-X
         </p>

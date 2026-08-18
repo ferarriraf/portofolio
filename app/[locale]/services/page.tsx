@@ -45,7 +45,7 @@ export default async function ServicesPage({ params }: Props) {
                 >
                   <span
                     aria-hidden="true"
-                    className="text-outline-ink absolute top-6 right-8 font-display text-6xl font-bold opacity-50 md:text-7xl"
+                    className="absolute top-6 right-8 font-display text-6xl font-bold text-ink/10 md:text-7xl"
                   >
                     0{i + 1}
                   </span>
@@ -70,7 +70,7 @@ export default async function ServicesPage({ params }: Props) {
         <div className="container-site grid gap-12 py-24 md:py-32 lg:grid-cols-[1fr_1.3fr] lg:items-center">
           <div>
             <Reveal>
-              <span className="eyebrow text-sage">{t("deliverables.eyebrow")}</span>
+              <span className="eyebrow">{t("deliverables.eyebrow")}</span>
             </Reveal>
             <SplitHeading
               text={t("deliverables.title")}

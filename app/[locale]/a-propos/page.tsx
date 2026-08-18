@@ -106,7 +106,7 @@ export default async function AboutPage({ params }: Props) {
                   >
                     <span
                       aria-hidden="true"
-                      className="text-outline-ink absolute top-5 right-7 font-display text-5xl font-bold opacity-50"
+                      className="absolute top-5 right-7 font-display text-5xl font-bold text-ink/10"
                     >
                       0{i + 1}
                     </span>

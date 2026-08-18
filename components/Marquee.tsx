@@ -16,7 +16,9 @@ export default function Marquee({ items, className }: MarqueeProps) {
           className="flex items-center font-display text-3xl font-bold tracking-tight md:text-5xl"
         >
           <span
-            className={`px-6 md:px-9 ${i % 2 ? "text-outline-ink" : "text-ink"}`}
+            className={`px-6 md:px-9 ${
+              ["text-ink", "text-terra-strong", "text-sage-strong"][i % 3]
+            }`}
           >
             {item}
           </span>

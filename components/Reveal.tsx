@@ -11,14 +11,13 @@ type RevealProps = {
   variant?: "fade" | "mask";
 };
 
-const EASE = [0.22, 1, 0.36, 1] as const;
-
 /**
- * Apparition au scroll, une seule fois, pilotée par useInView sur
- * un conteneur jamais rogné (un élément masqué par son propre
- * clip-path est invisible pour l'IntersectionObserver).
- * - "fade" : translation + fondu.
- * - "mask" : dévoilement par masque, de haut en bas (pour les visuels).
+ * Parti pris éditorial : le contenu texte s'affiche directement,
+ * sans apparition au scroll (variant "fade" = simple conteneur).
+ * Seuls les visuels gardent un dévoilement par masque ("mask"),
+ * piloté par useInView sur un conteneur jamais rogné — un élément
+ * masqué par son propre clip-path est invisible pour
+ * l'IntersectionObserver.
  */
 export default function Reveal({
   children,
@@ -29,9 +28,9 @@ export default function Reveal({
   const reduce = useReducedMotion();
   const ref = useRef<HTMLDivElement>(null);
   const inView = useInView(ref, { once: true, margin: "-70px" });
-  const shown = inView || !!reduce;
 
   if (variant === "mask") {
+    const shown = inView || !!reduce;
     return (
       <div ref={ref} className={className}>
         <motion.div
@@ -43,7 +42,7 @@ export default function Reveal({
           animate={{
             clipPath: shown ? "inset(0% 0% 0% 0%)" : "inset(0% 0% 100% 0%)",
           }}
-          transition={{ duration: 0.9, delay, ease: EASE }}
+          transition={{ duration: 0.8, delay, ease: [0.22, 1, 0.36, 1] }}
         >
           {children}
         </motion.div>
@@ -51,15 +50,5 @@ export default function Reveal({
     );
   }
 
-  return (
-    <motion.div
-      ref={ref}
-      className={className}
-      initial={reduce ? { opacity: 1 } : { opacity: 0, y: 30 }}
-      animate={shown ? { opacity: 1, y: 0 } : { opacity: 0, y: 30 }}
-      transition={{ duration: 0.7, delay, ease: EASE }}
-    >
-      {children}
-    </motion.div>
-  );
+  return <div className={className}>{children}</div>;
 }

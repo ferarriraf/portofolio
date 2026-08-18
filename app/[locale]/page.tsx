@@ -40,6 +40,23 @@ export default async function HomePage({ params }: Props) {
     <>
       {/* ——— Hero centré : l'anneau 3D devant le titre ——— */}
       <section className="relative overflow-hidden">
+        {/* Halos pastel très doux dans le fond */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -top-40 -left-52 size-[42rem]"
+          style={{
+            background:
+              "radial-gradient(closest-side, rgba(169,191,160,0.5), transparent 72%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute -right-60 -bottom-48 size-[46rem]"
+          style={{
+            background:
+              "radial-gradient(closest-side, rgba(223,161,132,0.42), transparent 72%)",
+          }}
+        />
         <div className="container-site relative flex min-h-svh flex-col items-center justify-center pt-32 pb-16 text-center lg:pt-28">
           <Reveal className="relative z-30">
             <span className="eyebrow">
@@ -56,8 +73,8 @@ export default async function HomePage({ params }: Props) {
             </Ring3D>
           </div>
 
-          {/* La légende vit sous la bande métallique, pas dessous */}
-          <Reveal delay={0.9} className="relative z-30 mt-24 md:mt-28">
+          {/* La légende vit sous la bande métallique, pas dessus */}
+          <Reveal delay={0.9} className="relative z-30 mt-44 md:mt-72">
             <span className="inline-flex items-center gap-2 text-base font-medium italic text-terra-strong md:text-lg">
               <span className="relative flex size-2.5" aria-hidden="true">
                 <span className="ring-pulse absolute inset-0 rounded-full border border-terra-strong" />
@@ -140,7 +157,11 @@ export default async function HomePage({ params }: Props) {
             {steps.map((step, i) => (
               <li key={step.title} className="h-full">
                 <Reveal delay={0.07 * i} className="h-full">
-                  <span className="text-outline-ink font-display text-6xl font-bold md:text-7xl">
+                  <span
+                    className={`font-display text-6xl font-bold md:text-7xl ${
+                      i % 2 ? "text-sage-strong" : "text-terra"
+                    }`}
+                  >
                     0{i + 1}
                   </span>
                   <h3 className="mt-5 font-display text-xl font-bold text-ink">
@@ -208,10 +229,12 @@ export default async function HomePage({ params }: Props) {
                   </span>
                 </div>
                 <ul className="mt-3 flex flex-wrap gap-2">
-                  {p.tags.map((tag) => (
+                  {p.tags.map((tag, ti) => (
                     <li
                       key={tag}
-                      className="rounded-full border border-line bg-sand-card px-3 py-1 text-xs font-medium text-ink-soft"
+                      className={`rounded-full px-3 py-1 text-xs font-semibold text-ink-soft ${
+                        ti % 2 ? "bg-terra-wash" : "bg-sage-wash"
+                      }`}
                     >
                       {tag}
                     </li>

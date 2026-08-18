@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import { motion, useReducedMotion } from "framer-motion";
 
 /**
@@ -19,6 +19,8 @@ export default function Ring3D({ children }: { children: ReactNode }) {
   const farRef = useRef<HTMLDivElement>(null);
   const nearRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
+  // WebGL indisponible (désactivé, ancien matériel…) → images fixes
+  const [fallback, setFallback] = useState(false);
 
   useEffect(() => {
     const farHost = farRef.current;
@@ -198,6 +200,10 @@ export default function Ring3D({ children }: { children: ReactNode }) {
           // Point d'accès debug : forcer une frame depuis la console
           (window as unknown as Record<string, unknown>).__ringDebug = {
             render: renderAll,
+            setBase: () => {
+              setRotation(BASE_X, BASE_Y);
+              renderAll();
+            },
             canvases: [farHost.firstChild, nearHost.firstChild],
           };
         }
@@ -210,8 +216,9 @@ export default function Ring3D({ children }: { children: ReactNode }) {
           disposeAll();
         };
       } catch (err) {
-        // L'anneau est décoratif : en cas de pépin WebGL on ne casse pas la page
-        console.error("[Ring3D]", err);
+        // WebGL indisponible : on bascule sur les images pré-rendues
+        if (!disposed) setFallback(true);
+        console.warn("[Ring3D] rendu 3D indisponible, images fixes utilisées", err);
       }
     })();
 
@@ -221,9 +228,10 @@ export default function Ring3D({ children }: { children: ReactNode }) {
     };
   }, [reduce]);
 
-  // Calé pour que la bande proche ne morde que le bas de la 2e ligne
+  // Large : l'anneau déborde sur les côtés, quitte à être rogné en
+  // haut/bas. Calé pour que la bande proche morde le bas de la 2e ligne.
   const layerClass =
-    "pointer-events-none absolute top-[calc(50%+0.75rem)] left-1/2 aspect-square w-[min(96vw,46rem)] -translate-x-1/2 -translate-y-1/2";
+    "pointer-events-none absolute top-[calc(50%+0.75rem)] left-1/2 aspect-square w-[min(124vw,62rem)] -translate-x-1/2 -translate-y-1/2";
 
   const entrance = reduce
     ? { initial: { opacity: 1 }, animate: { opacity: 1 } }
@@ -241,14 +249,22 @@ export default function Ring3D({ children }: { children: ReactNode }) {
     <div className="relative flex w-full flex-col items-center">
       {/* Moitié lointaine : derrière le contenu */}
       <motion.div aria-hidden="true" className={`${layerClass} z-0`} {...entrance}>
-        <div ref={farRef} className="h-full w-full" />
+        {fallback ? (
+          <img src="/ring-far.png" alt="" className="h-full w-full" />
+        ) : (
+          <div ref={farRef} className="h-full w-full" />
+        )}
       </motion.div>
 
       <div className="relative z-10 flex flex-col items-center">{children}</div>
 
       {/* Moitié proche : devant le contenu */}
       <motion.div aria-hidden="true" className={`${layerClass} z-20`} {...entrance}>
-        <div ref={nearRef} className="h-full w-full" />
+        {fallback ? (
+          <img src="/ring-near.png" alt="" className="h-full w-full" />
+        ) : (
+          <div ref={nearRef} className="h-full w-full" />
+        )}
       </motion.div>
     </div>
   );

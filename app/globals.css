@@ -76,13 +76,13 @@ body {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300;
   }
   .btn-primary {
-    @apply bg-ink text-sand-card hover:bg-sage-deep;
+    @apply bg-terra-strong text-sand-card hover:bg-ink;
   }
   .btn-secondary {
     @apply border border-line bg-sand-card text-ink hover:border-sage-strong hover:text-sage-deep;
   }
   .eyebrow {
-    @apply inline-flex items-center gap-2.5 text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-sage-deep;
+    @apply inline-flex items-center gap-2.5 rounded-full bg-sage-wash px-4 py-1.5 text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-sage-deep;
   }
   .card-hover {
     @apply transition-all duration-300 hover:-translate-y-1 hover:border-sage hover:shadow-[0_16px_40px_-20px_rgba(46,52,40,0.35)];
@@ -92,35 +92,6 @@ body {
   }
   .btn-light {
     @apply bg-sand text-ink hover:bg-sand-card;
-  }
-}
-
-/* ——— Typo en contour (outline) ——— */
-.text-outline-ink {
-  -webkit-text-stroke: 1.5px var(--ink);
-  color: transparent;
-}
-
-.text-outline-sand {
-  -webkit-text-stroke: 1.5px var(--sand);
-  color: transparent;
-}
-
-/* Titre en contour qui se remplit au survol de sa rangée */
-.stroke-fill-hover {
-  -webkit-text-stroke: 1.5px var(--ink);
-  color: transparent;
-  transition: color 0.4s ease;
-}
-
-.group:hover .stroke-fill-hover {
-  color: var(--ink);
-}
-
-@media (max-width: 767px) {
-  .stroke-fill-hover {
-    -webkit-text-stroke: 0px transparent;
-    color: var(--ink);
   }
 }
 
