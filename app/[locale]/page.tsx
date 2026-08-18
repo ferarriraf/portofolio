@@ -1,16 +1,15 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import {
-  ArrowRight,
-  PenTool,
-  Search,
-  SlidersHorizontal,
-} from "lucide-react";
+import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
-import Rings from "@/components/Rings";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
 import CaseCover from "@/components/CaseCover";
+import GrandArc from "@/components/GrandArc";
+import HeroTitle from "@/components/HeroTitle";
+import Marquee from "@/components/Marquee";
+import ApproachList from "@/components/ApproachList";
+import SplitHeading from "@/components/SplitHeading";
 import { RingGlyph } from "@/components/Logo";
 import { pageMetadata } from "@/lib/seo";
 
@@ -21,7 +20,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata(locale, "home", "/");
 }
 
-const approachIcons = [Search, PenTool, SlidersHorizontal];
 const coverVariants = ["dashboard", "shop"] as const;
 
 export default async function HomePage({ params }: Props) {
@@ -32,198 +30,180 @@ export default async function HomePage({ params }: Props) {
 
   const approach = t.raw("approach.items") as { title: string; text: string }[];
   const steps = t.raw("process.steps") as { title: string; text: string }[];
+  const marquee = t.raw("marquee") as string[];
   const projects = (
     tw.raw("projects") as { name: string; sector: string; tags: string[] }[]
   ).slice(0, 2);
 
   return (
     <>
-      {/* ——— Hero : l'utilisateur au centre ——— */}
+      {/* ——— Hero : typo géante + grands arcs ——— */}
       <section className="relative overflow-hidden">
-        <div className="container-site grid items-center gap-8 pt-32 pb-16 lg:min-h-svh lg:grid-cols-[1.05fr_0.9fr] lg:pt-24 lg:pb-24">
-          <div>
-            <Reveal>
-              <span className="eyebrow">
-                <RingGlyph size={15} />
-                {t("eyebrow")}
-              </span>
-            </Reveal>
-            <Reveal delay={0.08}>
-              <h1 className="mt-6 font-display text-5xl font-bold leading-[1.04] tracking-tight text-ink md:text-7xl">
-                {t("titleA")}{" "}
-                <br />
-                <span className="text-terra-strong">{t("titleB")}</span>
-              </h1>
-            </Reveal>
-            <Reveal delay={0.16}>
-              <p className="mt-7 max-w-xl text-lg leading-relaxed text-ink-soft">
-                {t("lede")}
-              </p>
-            </Reveal>
-            <Reveal delay={0.24}>
-              <div className="mt-10 flex flex-wrap gap-3">
-                <Link href="/services" className="btn btn-primary group">
-                  {t("ctaServices")}
-                  <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-                </Link>
-                <Link href="/contact" className="btn btn-secondary">
-                  {t("ctaContact")}
-                </Link>
-              </div>
-            </Reveal>
-          </div>
-
-          <Rings
-            centerLabel={t("ringCenter")}
-            className="mx-auto aspect-square w-full max-w-95 lg:max-w-none"
+        <GrandArc className="pointer-events-none absolute -top-44 right-[-30rem] w-300 opacity-90 md:right-[-26rem] lg:right-[-20rem]" />
+        <div className="container-site relative flex min-h-svh flex-col justify-center pt-36 pb-20 lg:pt-28">
+          <Reveal>
+            <span className="eyebrow">
+              <RingGlyph size={15} />
+              {t("eyebrow")}
+            </span>
+          </Reveal>
+          <HeroTitle
+            lineA={t("titleA")}
+            lineB={t("titleB")}
+            caption={t("ringCenter")}
           />
+          <Reveal delay={0.4}>
+            <p className="mt-10 max-w-xl text-xl leading-relaxed text-ink-soft">
+              {t("lede")}
+            </p>
+          </Reveal>
+          <Reveal delay={0.5}>
+            <div className="mt-10 flex flex-wrap gap-4">
+              <Link href="/services" className="btn btn-primary btn-lg group">
+                {t("ctaServices")}
+                <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+              </Link>
+              <Link href="/contact" className="btn btn-secondary btn-lg">
+                {t("ctaContact")}
+              </Link>
+            </div>
+          </Reveal>
         </div>
-
-        <div
-          aria-hidden="true"
-          className="pointer-events-none absolute bottom-7 left-1/2 hidden -translate-x-1/2 flex-col items-center gap-2.5 lg:flex"
-        >
-          <span className="text-[0.68rem] font-semibold uppercase tracking-[0.22em] text-ink-soft">
-            {t("scrollHint")}
-          </span>
-          <span className="scroll-hint-dot block h-7 w-px bg-ink-soft/70" />
-        </div>
+        <Marquee items={marquee} className="relative" />
       </section>
 
-      {/* ——— Approche : trois temps ——— */}
-      <section className="container-site py-24">
+      {/* ——— Approche : liste éditoriale, titres en contour ——— */}
+      <section className="container-site py-24 md:py-32">
         <Reveal>
           <span className="eyebrow">
             <RingGlyph size={15} />
             {t("approach.eyebrow")}
           </span>
-          <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold tracking-tight text-ink md:text-5xl">
-            {t("approach.title")}
-          </h2>
         </Reveal>
-        <div className="mt-12 grid gap-5 md:grid-cols-3">
-          {approach.map((item, i) => {
-            const Icon = approachIcons[i];
-            return (
-              <Reveal key={item.title} delay={0.08 * i} className="h-full">
-                <article className="card-hover group h-full rounded-2xl border border-line bg-sand-card p-8">
-                  <span className="relative inline-flex size-14 items-center justify-center">
-                    <span className="absolute inset-0 rounded-full border border-sage transition-transform duration-500 group-hover:scale-110" />
-                    <span className="absolute inset-2 rounded-full border border-terra/70 transition-transform duration-500 group-hover:scale-90" />
-                    <Icon className="size-5 text-sage-deep" />
-                  </span>
-                  <h3 className="mt-6 font-display text-xl font-bold text-ink">
-                    {item.title}
-                  </h3>
-                  <p className="mt-3 leading-relaxed text-ink-soft">
-                    {item.text}
-                  </p>
-                </article>
-              </Reveal>
-            );
-          })}
+        <SplitHeading
+          text={t("approach.title")}
+          delay={0.06}
+          className="mt-5 max-w-3xl font-display text-[clamp(2.4rem,5.5vw,4.5rem)] font-bold leading-[1.04] tracking-tight text-ink"
+        />
+        <div className="mt-14">
+          <ApproachList items={approach} />
         </div>
       </section>
 
-      {/* ——— Manifeste ——— */}
-      <section className="border-y border-line bg-sand-deep">
-        <div className="container-site py-20 md:py-28">
+      {/* ——— Manifeste : bloc encre, plein contraste ——— */}
+      <section className="relative overflow-hidden bg-ink-deep text-sand">
+        <GrandArc className="pointer-events-none absolute -bottom-125 -left-60 w-225 opacity-40" />
+        <div className="container-site relative py-24 md:py-40">
+          <RingGlyph size={26} />
+          <p className="mt-8 max-w-4xl font-display text-[clamp(2.2rem,6vw,5.5rem)] font-bold leading-[1.05] tracking-tight">
+            <SplitHeading as="span" text={t("manifesto.lead")} className="text-sand" />{" "}
+            <SplitHeading
+              as="span"
+              text={t("manifesto.emph")}
+              delay={0.25}
+              className="text-terra"
+            />
+          </p>
+        </div>
+      </section>
+
+      {/* ——— Méthode : bloc sauge, numéros en contour ——— */}
+      <section className="border-b border-line bg-sage-wash">
+        <div className="container-site py-24 md:py-32">
           <Reveal>
-            <RingGlyph size={24} />
-            <p className="mt-7 max-w-3xl font-display text-3xl font-bold leading-tight tracking-tight text-ink md:text-5xl">
-              {t("manifesto.lead")}{" "}
-              <span className="text-terra-strong">{t("manifesto.emph")}</span>
-            </p>
+            <span className="eyebrow">
+              <RingGlyph size={15} />
+              {t("process.eyebrow")}
+            </span>
           </Reveal>
-        </div>
-      </section>
-
-      {/* ——— Méthode : quatre étapes ——— */}
-      <section className="container-site py-24">
-        <Reveal>
-          <span className="eyebrow">
-            <RingGlyph size={15} />
-            {t("process.eyebrow")}
-          </span>
-          <h2 className="mt-4 max-w-2xl font-display text-3xl font-bold tracking-tight text-ink md:text-5xl">
-            {t("process.title")}
-          </h2>
-        </Reveal>
-        <ol className="mt-12 grid gap-x-8 gap-y-10 md:grid-cols-2 lg:grid-cols-4">
-          {steps.map((step, i) => (
-            <li key={step.title} className="h-full">
-              <Reveal delay={0.07 * i} className="h-full">
-                <div className="flex items-center gap-3">
-                  <span className="font-display text-2xl font-bold text-terra-strong">
+          <SplitHeading
+            text={t("process.title")}
+            delay={0.06}
+            className="mt-5 max-w-3xl font-display text-[clamp(2.4rem,5.5vw,4.5rem)] font-bold leading-[1.04] tracking-tight text-ink"
+          />
+          <ol className="mt-16 grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-4">
+            {steps.map((step, i) => (
+              <li key={step.title} className="h-full">
+                <Reveal delay={0.07 * i} className="h-full">
+                  <span className="text-outline-ink font-display text-6xl font-bold md:text-7xl">
                     0{i + 1}
                   </span>
-                  <span aria-hidden="true" className="h-px flex-1 bg-line" />
-                </div>
-                <h3 className="mt-4 font-display text-lg font-bold text-ink">
-                  {step.title}
-                </h3>
-                <p className="mt-2 text-sm leading-relaxed text-ink-soft">
-                  {step.text}
-                </p>
-              </Reveal>
-            </li>
-          ))}
-        </ol>
+                  <h3 className="mt-5 font-display text-xl font-bold text-ink">
+                    {step.title}
+                  </h3>
+                  <p className="mt-2.5 leading-relaxed text-ink-soft">
+                    {step.text}
+                  </p>
+                </Reveal>
+              </li>
+            ))}
+          </ol>
+        </div>
       </section>
 
       {/* ——— Réalisations en vitrine ——— */}
-      <section className="container-site pb-24">
+      <section className="container-site py-24 md:py-32">
         <Reveal>
-          <div className="flex flex-wrap items-end justify-between gap-4">
+          <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
               <span className="eyebrow">
                 <RingGlyph size={15} />
                 {t("work.eyebrow")}
               </span>
-              <h2 className="mt-4 max-w-xl font-display text-3xl font-bold tracking-tight text-ink md:text-5xl">
-                {t("work.title")}
-              </h2>
+              <SplitHeading
+                text={t("work.title")}
+                className="mt-5 max-w-2xl font-display text-[clamp(2.4rem,5.5vw,4.5rem)] font-bold leading-[1.04] tracking-tight text-ink"
+              />
             </div>
             <Link
               href="/realisations"
-              className="group inline-flex items-center gap-2 text-sm font-semibold text-sage-deep transition-colors hover:text-ink"
+              className="group inline-flex items-center gap-2 pb-2 text-sm font-semibold text-sage-deep transition-colors hover:text-ink"
             >
               {t("work.cta")}
               <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
             </Link>
           </div>
         </Reveal>
-        <div className="mt-12 grid gap-6 md:grid-cols-2">
+        <div className="mt-14 grid gap-x-8 gap-y-14 md:grid-cols-2">
           {projects.map((p, i) => (
-            <Reveal key={p.name} delay={0.08 * i} className="h-full">
-              <Link href="/realisations" className="group block h-full">
-                <article className="card-hover h-full overflow-hidden rounded-2xl border border-line bg-sand-card">
-                  <div className="aspect-4/3 overflow-hidden border-b border-line">
-                    <div className="h-full w-full transition-transform duration-500 group-hover:scale-[1.04]">
-                      <CaseCover variant={coverVariants[i]} />
-                    </div>
+            <Link
+              key={p.name}
+              href="/realisations"
+              className="group block"
+            >
+              <Reveal variant="mask" delay={0.08 * i}>
+                <div className="overflow-hidden rounded-3xl">
+                  <div className="aspect-4/3 transition-transform duration-700 ease-out group-hover:scale-[1.04]">
+                    <CaseCover variant={coverVariants[i]} />
                   </div>
-                  <div className="p-7">
+                </div>
+              </Reveal>
+              <Reveal delay={0.08 * i + 0.15}>
+                <div className="mt-6 flex items-center justify-between gap-4">
+                  <div>
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">
                       {p.sector}
                     </p>
-                    <h3 className="mt-2 font-display text-2xl font-bold text-ink">
+                    <h3 className="mt-1.5 font-display text-2xl font-bold text-ink md:text-3xl">
                       {p.name}
                     </h3>
-                    <ul className="mt-4 flex flex-wrap gap-2">
-                      {p.tags.map((tag) => (
-                        <li
-                          key={tag}
-                          className="rounded-full border border-line bg-sand px-3 py-1 text-xs font-medium text-ink-soft"
-                        >
-                          {tag}
-                        </li>
-                      ))}
-                    </ul>
                   </div>
-                </article>
-              </Link>
-            </Reveal>
+                  <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-full border border-ink/20 text-ink transition-all duration-300 group-hover:bg-ink group-hover:text-sand">
+                    <ArrowUpRight className="size-5" />
+                  </span>
+                </div>
+                <ul className="mt-3 flex flex-wrap gap-2">
+                  {p.tags.map((tag) => (
+                    <li
+                      key={tag}
+                      className="rounded-full border border-line bg-sand-card px-3 py-1 text-xs font-medium text-ink-soft"
+                    >
+                      {tag}
+                    </li>
+                  ))}
+                </ul>
+              </Reveal>
+            </Link>
           ))}
         </div>
       </section>

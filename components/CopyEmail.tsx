@@ -27,13 +27,13 @@ export default function CopyEmail({ email }: { email: string }) {
   }
 
   return (
-    <div className="relative overflow-hidden rounded-3xl border border-line bg-sand-card px-8 py-14 text-center md:py-16">
-      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-sage-deep">
+    <div className="relative overflow-hidden rounded-3xl bg-terra-wash px-8 py-14 text-center md:py-20">
+      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-terra-strong">
         {t("emailLabel")}
       </span>
       <a
         href={`mailto:${email}`}
-        className="mt-4 block font-display text-3xl font-bold tracking-tight text-ink transition-colors hover:text-sage-deep md:text-5xl"
+        className="mt-5 block font-display text-[clamp(1.9rem,5.5vw,4.5rem)] font-bold tracking-tight text-ink transition-colors hover:text-terra-strong"
       >
         {email}
       </a>

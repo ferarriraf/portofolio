@@ -1,5 +1,6 @@
 import Reveal from "./Reveal";
 import RingsDecor from "./RingsDecor";
+import SplitHeading from "./SplitHeading";
 import { RingGlyph } from "./Logo";
 
 type PageHeaderProps = {
@@ -10,8 +11,8 @@ type PageHeaderProps = {
 
 export default function PageHeader({ eyebrow, title, lede }: PageHeaderProps) {
   return (
-    <header className="relative overflow-hidden pt-36 pb-12 md:pt-44 md:pb-16">
-      <RingsDecor className="pointer-events-none absolute -top-24 -right-28 w-105 opacity-70 max-md:hidden" />
+    <header className="relative overflow-hidden pt-36 pb-12 md:pt-48 md:pb-16">
+      <RingsDecor className="pointer-events-none absolute -top-28 -right-32 w-130 max-md:hidden" />
       <div className="container-site relative">
         <Reveal>
           <span className="eyebrow">
@@ -19,14 +20,15 @@ export default function PageHeader({ eyebrow, title, lede }: PageHeaderProps) {
             {eyebrow}
           </span>
         </Reveal>
-        <Reveal delay={0.08}>
-          <h1 className="mt-5 max-w-3xl font-display text-4xl font-bold tracking-tight text-ink md:text-6xl">
-            {title}
-          </h1>
-        </Reveal>
+        <SplitHeading
+          as="h1"
+          text={title}
+          delay={0.08}
+          className="mt-6 max-w-4xl font-display text-[clamp(2.75rem,7.5vw,6.5rem)] font-bold leading-[1.02] tracking-tight text-ink"
+        />
         {lede && (
-          <Reveal delay={0.16}>
-            <p className="mt-6 max-w-2xl text-lg leading-relaxed text-ink-soft">
+          <Reveal delay={0.25}>
+            <p className="mt-7 max-w-2xl text-xl leading-relaxed text-ink-soft">
               {lede}
             </p>
           </Reveal>

@@ -49,6 +49,14 @@
     "ctaContact": "Discuss your project",
     "ringCenter": "you are here",
     "scrollHint": "Scroll",
+    "marquee": [
+      "Ergonomics",
+      "Interfaces",
+      "Design systems",
+      "Prototypes",
+      "Accessibility",
+      "User research"
+    ],
     "approach": {
       "eyebrow": "Our approach",
       "title": "Three movements, one direction",

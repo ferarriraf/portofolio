@@ -14,6 +14,9 @@
   --terra-strong: #c1714b;
   --terra-soft: #f3dccb;
   --line: #ddd3bd;
+  --ink-deep: #24291f;
+  --sage-wash: #dde8d3;
+  --terra-wash: #f6e2d0;
 }
 
 @theme inline {
@@ -29,6 +32,9 @@
   --color-terra-strong: var(--terra-strong);
   --color-terra-soft: var(--terra-soft);
   --color-line: var(--line);
+  --color-ink-deep: var(--ink-deep);
+  --color-sage-wash: var(--sage-wash);
+  --color-terra-wash: var(--terra-wash);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
 }
@@ -80,6 +86,58 @@ body {
   }
   .card-hover {
     @apply transition-all duration-300 hover:-translate-y-1 hover:border-sage hover:shadow-[0_16px_40px_-20px_rgba(46,52,40,0.35)];
+  }
+  .btn-lg {
+    @apply px-8 py-4 text-base;
+  }
+  .btn-light {
+    @apply bg-sand text-ink hover:bg-sand-card;
+  }
+}
+
+/* ——— Typo en contour (outline) ——— */
+.text-outline-ink {
+  -webkit-text-stroke: 1.5px var(--ink);
+  color: transparent;
+}
+
+.text-outline-sand {
+  -webkit-text-stroke: 1.5px var(--sand);
+  color: transparent;
+}
+
+/* Titre en contour qui se remplit au survol de sa rangée */
+.stroke-fill-hover {
+  -webkit-text-stroke: 1.5px var(--ink);
+  color: transparent;
+  transition: color 0.4s ease;
+}
+
+.group:hover .stroke-fill-hover {
+  color: var(--ink);
+}
+
+@media (max-width: 767px) {
+  .stroke-fill-hover {
+    -webkit-text-stroke: 0px transparent;
+    color: var(--ink);
+  }
+}
+
+/* ——— Bandeau défilant ——— */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee var(--marquee-speed, 38s) linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
   }
 }
 

@@ -7,15 +7,15 @@
     },
     "services": {
       "title": "Services — Conception UI/UX",
-      "description": "Maquettes et prototypes, refonte d'interface, design system, responsive : la conception UI/UX de l'esquisse à l'écran."
+      "description": "Maquettes et prototypes, refonte d'interface, design system, responsive : la conception UI/UX de l'esquisse à l'écran."
     },
     "work": {
       "title": "Réalisations",
-      "description": "Études de cas : refonte de tableau de bord SaaS, parcours d'achat e-commerce, onboarding d'application santé."
+      "description": "Études de cas : refonte de tableau de bord SaaS, parcours d'achat e-commerce, onboarding d'application santé."
     },
     "about": {
       "title": "À propos",
-      "description": "R-X, comme rayons X : un studio indépendant qui regarde sous la surface des interfaces."
+      "description": "R-X, comme rayons X : un studio indépendant qui regarde sous la surface des interfaces."
     },
     "contact": {
       "title": "Contact",
@@ -49,6 +49,14 @@
     "ctaContact": "Discuter de votre projet",
     "ringCenter": "vous êtes ici",
     "scrollHint": "Défiler",
+    "marquee": [
+      "Ergonomie",
+      "Interfaces",
+      "Design system",
+      "Prototypes",
+      "Accessibilité",
+      "Recherche utilisateur"
+    ],
     "approach": {
       "eyebrow": "Notre approche",
       "title": "Trois temps, un cap",
@@ -59,7 +67,7 @@
         },
         {
           "title": "Concevoir",
-          "text": "Architecture, wireframes, maquettes haute fidélité, prototypes cliquables : l'interface se construit décision par décision, jamais par habitude."
+          "text": "Architecture, wireframes, maquettes haute fidélité, prototypes cliquables : l'interface se construit décision par décision, jamais par habitude."
         },
         {
           "title": "Affiner",
@@ -81,7 +89,7 @@
         },
         {
           "title": "Structure",
-          "text": "Architecture de l'information, parcours utilisateurs, hiérarchie des contenus : le squelette avant la peau."
+          "text": "Architecture de l'information, parcours utilisateurs, hiérarchie des contenus : le squelette avant la peau."
         },
         {
           "title": "Design",
@@ -99,15 +107,15 @@
       "cta": "Toutes nos réalisations"
     },
     "cta": {
-      "title": "Un projet, une question ?",
-      "text": "Un brief d'une page ou trois lignes dans un email : tout commence par un message.",
+      "title": "Un projet, une question ?",
+      "text": "Un brief d'une page ou trois lignes dans un email : tout commence par un message.",
       "button": "Écrivez-nous"
     }
   },
   "services": {
     "eyebrow": "Services",
     "title": "Conception UI/UX, de l'esquisse à l'écran",
-    "lede": "Un seul métier, fait sérieusement : concevoir des interfaces que vos utilisateurs comprennent au premier regard.",
+    "lede": "Un seul métier, fait sérieusement : concevoir des interfaces que vos utilisateurs comprennent au premier regard.",
     "offers": [
       {
         "title": "Maquettes & prototypes",
@@ -123,7 +131,7 @@
       },
       {
         "title": "Responsive & mobile",
-        "text": "Pensé pour tous les écrans dès le premier trait : mobile, tablette, desktop, et les largeurs improbables entre les trois."
+        "text": "Pensé pour tous les écrans dès le premier trait : mobile, tablette, desktop, et les largeurs improbables entre les trois."
       }
     ],
     "deliverables": {
@@ -137,7 +145,7 @@
       ]
     },
     "cta": {
-      "title": "Votre interface mérite mieux ?",
+      "title": "Votre interface mérite mieux ?",
       "text": "Décrivez-nous votre outil, votre site ou votre idée — on vous dit franchement ce qu'on en pense.",
       "button": "Parler de votre projet"
     }
@@ -154,7 +162,7 @@
         "sector": "SaaS RH — tableau de bord",
         "tags": ["Refonte", "Design system"],
         "challenge": "Un back-office dense, accumulé au fil des ans, où chaque information demandait sept clics et deux souvenirs.",
-        "result": "Repensé écran par écran : moins de colonnes, plus de décisions. Les équipes RH retrouvent l'essentiel en deux clics."
+        "result": "Repensé écran par écran : moins de colonnes, plus de décisions. Les équipes RH retrouvent l'essentiel en deux clics."
       },
       {
         "name": "Comptoir",
@@ -173,18 +181,18 @@
     ],
     "note": "Projets illustratifs, présentés à titre d'exemple de méthode.",
     "cta": {
-      "title": "Votre projet ici ?",
-      "text": "Racontez-nous où ça coince : c'est souvent le début d'une belle étude de cas.",
+      "title": "Votre projet ici ?",
+      "text": "Racontez-nous où ça coince : c'est souvent le début d'une belle étude de cas.",
       "button": "Nous contacter"
     }
   },
   "about": {
     "eyebrow": "À propos",
     "title": "R-X, comme rayons X",
-    "lede": "Nous regardons sous la surface des interfaces : ce que les utilisateurs font vraiment, pas ce qu'on suppose qu'ils font.",
+    "lede": "Nous regardons sous la surface des interfaces : ce que les utilisateurs font vraiment, pas ce qu'on suppose qu'ils font.",
     "storyTitle": "Un studio compact, volontairement",
-    "story1": "R-X est un studio indépendant de conception UI/UX. Compact par choix : les personnes qui écoutent vos enjeux sont celles qui dessinent vos écrans. Pas d'intermédiaire, pas de perte en ligne.",
-    "story2": "Nous croyons aux interfaces sobres. Pas austères — sobres : chaque élément gagne sa place en servant l'utilisateur, ou il sort. C'est exigeant pour nous, reposant pour tout le monde.",
+    "story1": "R-X est un studio indépendant de conception UI/UX. Compact par choix : les personnes qui écoutent vos enjeux sont celles qui dessinent vos écrans. Pas d'intermédiaire, pas de perte en ligne.",
+    "story2": "Nous croyons aux interfaces sobres. Pas austères — sobres : chaque élément gagne sa place en servant l'utilisateur, ou il sort. C'est exigeant pour nous, reposant pour tout le monde.",
     "valuesEyebrow": "Nos convictions",
     "valuesTitle": "Trois règles, aucune exception",
     "values": [
@@ -194,7 +202,7 @@
       },
       {
         "title": "Rigueur",
-        "text": "Chaque choix s'explique : une grille, un contraste, un mot. Rien n'est là par hasard."
+        "text": "Chaque choix s'explique : une grille, un contraste, un mot. Rien n'est là par hasard."
       },
       {
         "title": "Transparence",
@@ -202,7 +210,7 @@
       }
     ],
     "cta": {
-      "title": "Envie de voir votre interface aux rayons X ?",
+      "title": "Envie de voir votre interface aux rayons X ?",
       "text": "Envoyez-nous une adresse ou une capture d'écran, on vous dit ce qu'on y voit.",
       "button": "Écrivez-nous"
     }
@@ -210,24 +218,24 @@
   "contact": {
     "eyebrow": "Contact",
     "title": "Parlons de votre projet",
-    "lede": "Un brief d'une page ou trois lignes dans un email : tout commence par un message.",
+    "lede": "Un brief d'une page ou trois lignes dans un email : tout commence par un message.",
     "emailLabel": "Écrivez-nous",
     "copy": "Copier l'adresse",
-    "copied": "Adresse copiée !",
+    "copied": "Adresse copiée !",
     "mailto": "Ouvrir votre messagerie",
     "reply": "Réponse sous deux jours ouvrés.",
     "faqTitle": "Questions fréquentes",
     "faq": [
       {
-        "q": "Comment démarre un projet ?",
+        "q": "Comment démarre un projet ?",
         "a": "Par un échange gratuit d'une trentaine de minutes, en visio. Vous racontez, nous questionnons — puis nous vous envoyons une proposition écrite, claire et sans surprise."
       },
       {
-        "q": "Travaillez-vous à distance ?",
-        "a": "Oui, entièrement. Des points réguliers en visio, un prototype partagé en continu : vous voyez le projet avancer sans attendre la grande révélation finale."
+        "q": "Travaillez-vous à distance ?",
+        "a": "Oui, entièrement. Des points réguliers en visio, un prototype partagé en continu : vous voyez le projet avancer sans attendre la grande révélation finale."
       },
       {
-        "q": "Quels sont vos délais ?",
+        "q": "Quels sont vos délais ?",
         "a": "De deux à six semaines selon l'ampleur, annoncés dès la proposition. Si un imprévu bouscule le calendrier, vous le savez avant nous d'avoir fini de l'écrire."
       }
     ]
@@ -236,7 +244,7 @@
     "title": "Mentions légales",
     "editor": {
       "title": "Éditeur du site",
-      "text": "R-X — [Raison sociale à compléter]\n[Forme juridique, capital social]\n[Adresse du siège social]\n[Numéro SIRET]\nDirecteur de la publication : [À compléter]\nContact : contact@r-x.fr"
+      "text": "R-X — [Raison sociale à compléter]\n[Forme juridique, capital social]\n[Adresse du siège social]\n[Numéro SIRET]\nDirecteur de la publication : [À compléter]\nContact : contact@r-x.fr"
     },
     "host": {
       "title": "Hébergement",
@@ -260,7 +268,7 @@
   },
   "notFound": {
     "title": "Page introuvable",
-    "text": "Cette page n'existe pas — ou plus. L'ergonomie commence par de bons chemins ; celui-ci n'en est pas un.",
+    "text": "Cette page n'existe pas — ou plus. L'ergonomie commence par de bons chemins ; celui-ci n'en est pas un.",
     "back": "Retour à l'accueil"
   }
 }

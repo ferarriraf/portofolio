@@ -11,6 +11,7 @@ type CtaBandProps = {
   href?: AppPathname;
 };
 
+/** Grande bande d'appel à l'action, pleine largeur, terracotta pastel. */
 export default function CtaBand({
   title,
   text,
@@ -18,22 +19,22 @@ export default function CtaBand({
   href = "/contact",
 }: CtaBandProps) {
   return (
-    <section className="container-site pb-24 md:pb-28">
-      <Reveal>
-        <div className="relative overflow-hidden rounded-3xl border border-line bg-sand-card px-8 py-14 md:px-14">
-          <RingsDecor className="pointer-events-none absolute -top-28 -right-24 w-95 opacity-60 max-sm:hidden" />
-          <div className="relative">
-            <h2 className="max-w-xl font-display text-3xl font-bold tracking-tight text-ink md:text-4xl">
-              {title}
-            </h2>
-            <p className="mt-4 max-w-md leading-relaxed text-ink-soft">{text}</p>
-            <Link href={href} className="btn btn-primary group mt-8">
-              {buttonLabel}
-              <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
-            </Link>
-          </div>
-        </div>
-      </Reveal>
+    <section className="relative overflow-hidden border-y border-terra/40 bg-terra-wash">
+      <RingsDecor className="pointer-events-none absolute -right-32 -bottom-48 w-130 opacity-70 max-sm:hidden" />
+      <div className="container-site relative py-20 md:py-28">
+        <Reveal>
+          <h2 className="max-w-3xl font-display text-4xl font-bold tracking-tight text-ink md:text-6xl">
+            {title}
+          </h2>
+          <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-soft">
+            {text}
+          </p>
+          <Link href={href} className="btn btn-primary btn-lg group mt-10">
+            {buttonLabel}
+            <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
+          </Link>
+        </Reveal>
+      </div>
     </section>
   );
 }

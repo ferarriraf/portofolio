@@ -36,13 +36,14 @@ export default async function WorkPage({ params }: Props) {
         {projects.map((p, i) => (
           <Reveal key={p.name}>
             <article className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
-              <div
-                className={`overflow-hidden rounded-3xl border border-line ${
-                  i % 2 === 1 ? "lg:order-2" : ""
-                }`}
+              <Reveal
+                variant="mask"
+                className={i % 2 === 1 ? "lg:order-2" : ""}
               >
-                <CaseCover variant={coverVariants[i]} />
-              </div>
+                <div className="overflow-hidden rounded-3xl">
+                  <CaseCover variant={coverVariants[i]} />
+                </div>
+              </Reveal>
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">
                   {p.sector}

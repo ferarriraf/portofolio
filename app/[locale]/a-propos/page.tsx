@@ -95,17 +95,25 @@ export default async function AboutPage({ params }: Props) {
               {t("valuesTitle")}
             </h2>
           </Reveal>
-          <div className="mt-12 grid gap-5 md:grid-cols-3">
+          <div className="mt-12 grid gap-6 md:grid-cols-3">
             {values.map((value, i) => {
               const Icon = valueIcons[i];
+              const tones = ["bg-sage-wash", "bg-terra-wash", "bg-sand-card"];
               return (
                 <Reveal key={value.title} delay={0.07 * i} className="h-full">
-                  <article className="card-hover group h-full rounded-2xl border border-line bg-sand-card p-8">
-                    <span className="relative inline-flex size-12 items-center justify-center">
-                      <span className="absolute inset-0 rounded-full border border-sage transition-transform duration-500 group-hover:scale-110" />
-                      <Icon className="size-5 text-sage-deep" />
+                  <article
+                    className={`group relative h-full overflow-hidden rounded-3xl p-8 transition-transform duration-300 hover:-translate-y-1 md:p-10 ${tones[i]}`}
+                  >
+                    <span
+                      aria-hidden="true"
+                      className="text-outline-ink absolute top-5 right-7 font-display text-5xl font-bold opacity-50"
+                    >
+                      0{i + 1}
                     </span>
-                    <h3 className="mt-5 font-display text-xl font-bold text-ink">
+                    <span className="inline-flex size-14 items-center justify-center rounded-full bg-ink text-sand transition-transform duration-500 group-hover:rotate-12">
+                      <Icon className="size-5" />
+                    </span>
+                    <h3 className="mt-6 font-display text-2xl font-bold text-ink">
                       {value.title}
                     </h3>
                     <p className="mt-3 leading-relaxed text-ink-soft">
