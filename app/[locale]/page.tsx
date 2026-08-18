@@ -7,6 +7,7 @@ import CtaBand from "@/components/CtaBand";
 import CaseCover from "@/components/CaseCover";
 import GrandArc from "@/components/GrandArc";
 import HeroTitle from "@/components/HeroTitle";
+import Ring3D from "@/components/Ring3D";
 import Marquee from "@/components/Marquee";
 import ApproachList from "@/components/ApproachList";
 import SplitHeading from "@/components/SplitHeading";
@@ -37,28 +38,42 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <>
-      {/* ——— Hero : typo géante + grands arcs ——— */}
+      {/* ——— Hero centré : l'anneau 3D devant le titre ——— */}
       <section className="relative overflow-hidden">
-        <GrandArc className="pointer-events-none absolute -top-44 right-[-30rem] w-300 opacity-90 md:right-[-26rem] lg:right-[-20rem]" />
-        <div className="container-site relative flex min-h-svh flex-col justify-center pt-36 pb-20 lg:pt-28">
-          <Reveal>
+        <div className="container-site relative flex min-h-svh flex-col items-center justify-center pt-32 pb-16 text-center lg:pt-28">
+          <Reveal className="relative z-30">
             <span className="eyebrow">
               <RingGlyph size={15} />
               {t("eyebrow")}
             </span>
           </Reveal>
-          <HeroTitle
-            lineA={t("titleA")}
-            lineB={t("titleB")}
-            caption={t("ringCenter")}
-          />
-          <Reveal delay={0.4}>
-            <p className="mt-10 max-w-xl text-xl leading-relaxed text-ink-soft">
+
+          {/* Le titre est pris dans la profondeur de l'anneau :
+              bande lointaine derrière lui, bande proche devant */}
+          <div className="mt-8 w-full">
+            <Ring3D>
+              <HeroTitle lineA={t("titleA")} lineB={t("titleB")} />
+            </Ring3D>
+          </div>
+
+          {/* La légende vit sous la bande métallique, pas dessous */}
+          <Reveal delay={0.9} className="relative z-30 mt-24 md:mt-28">
+            <span className="inline-flex items-center gap-2 text-base font-medium italic text-terra-strong md:text-lg">
+              <span className="relative flex size-2.5" aria-hidden="true">
+                <span className="ring-pulse absolute inset-0 rounded-full border border-terra-strong" />
+                <span className="size-2.5 rounded-full bg-terra-strong" />
+              </span>
+              {t("ringCenter")}
+            </span>
+          </Reveal>
+
+          <Reveal delay={0.45} className="relative z-30">
+            <p className="mx-auto mt-8 max-w-xl text-xl leading-relaxed text-ink-soft">
               {t("lede")}
             </p>
           </Reveal>
-          <Reveal delay={0.5}>
-            <div className="mt-10 flex flex-wrap gap-4">
+          <Reveal delay={0.55} className="relative z-30">
+            <div className="mt-9 flex flex-wrap justify-center gap-4">
               <Link href="/services" className="btn btn-primary btn-lg group">
                 {t("ctaServices")}
                 <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
