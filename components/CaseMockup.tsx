@@ -6,6 +6,7 @@ type Etat = "avant" | "apres";
 export type MockupTextes = {
   dashboard: {
     titre: string;
+    menus: string[];
     colonnes: string[];
     lignes: string[][];
     apresTitre: string;
@@ -85,7 +86,7 @@ function Dashboard({
         <div className="flex items-center justify-between border-b border-[#cfcabb] bg-[#e7e4db] px-3 py-1.5">
           <span className="font-semibold text-[#6b675d]">{t.titre}</span>
           <span className="flex gap-1.5 text-[0.5rem] text-[#8b8679]">
-            {["Fichier", "Édition", "Aide"].map((m) => (
+            {t.menus.map((m) => (
               <span key={m}>{m}</span>
             ))}
           </span>

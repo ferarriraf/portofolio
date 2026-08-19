@@ -286,7 +286,12 @@
           }
         ],
         "apresAction": "Approve all 12",
-        "recherche": "Search…"
+        "recherche": "Search…",
+        "menus": [
+          "File",
+          "Edit",
+          "Help"
+        ]
       },
       "shop": {
         "etapes": [
@@ -418,7 +423,8 @@
         "studio": "Specifications and handover.",
         "client": "Your developers take over."
       }
-    ]
+    ],
+    "timelineYou": "you"
   },
   "contact": {
     "eyebrow": "Contact",

@@ -93,7 +93,7 @@ export default async function LocaleLayout({
         name: "R-X",
         description: tm("home.description"),
         url: "https://www.r-x.fr",
-        logo: "https://www.r-x.fr/opengraph-image",
+        logo: "https://www.r-x.fr/og/fr",
         foundingDate: "2026",
         areaServed: "FR",
         knowsLanguage: ["fr", "en"],

@@ -59,6 +59,19 @@ export default function Topbar() {
     };
   }, [open]);
 
+  // Si la fenêtre repasse en largeur desktop pendant que le menu est
+  // ouvert, l'overlay disparaît en CSS : on ferme aussi l'état, sinon
+  // le défilement resterait verrouillé sans aucun moyen de le rendre.
+  useEffect(() => {
+    if (!open) return;
+    const mq = window.matchMedia("(min-width: 768px)");
+    const onChange = () => {
+      if (mq.matches) setOpen(false);
+    };
+    mq.addEventListener("change", onChange);
+    return () => mq.removeEventListener("change", onChange);
+  }, [open]);
+
   // Échap ferme ; Tab reste enfermé dans le menu tant qu'il est ouvert
   const onOverlayKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Escape") {
@@ -132,7 +145,7 @@ export default function Topbar() {
             onClick={() => setOpen(true)}
             aria-label={t("menuOpen")}
             aria-expanded={open}
-            aria-controls="menu-mobile"
+            aria-controls={open ? "menu-mobile" : undefined}
             className="inline-flex size-10 items-center justify-center rounded-full border border-line bg-sand-card text-ink md:hidden"
           >
             <Menu className="size-5" />
@@ -145,6 +158,7 @@ export default function Topbar() {
           <motion.div
             ref={overlayRef}
             id="menu-mobile"
+            tabIndex={-1}
             role="dialog"
             aria-modal="true"
             aria-label={t("ariaMainMobile")}
@@ -208,7 +222,7 @@ export default function Topbar() {
             </motion.nav>
 
             <div className="container-site mt-auto pb-10">
-              <LangSwitcher />
+              <LangSwitcher onNavigate={() => setOpen(false)} />
             </div>
           </motion.div>
         )}

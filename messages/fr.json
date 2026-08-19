@@ -286,7 +286,12 @@
           }
         ],
         "apresAction": "Valider les 12 congés",
-        "recherche": "Rechercher…"
+        "recherche": "Rechercher…",
+        "menus": [
+          "Fichier",
+          "Édition",
+          "Aide"
+        ]
       },
       "shop": {
         "etapes": [
@@ -418,7 +423,8 @@
         "studio": "Spécifications et passation.",
         "client": "Vos développeurs prennent le relais."
       }
-    ]
+    ],
+    "timelineYou": "vous"
   },
   "contact": {
     "eyebrow": "Contact",

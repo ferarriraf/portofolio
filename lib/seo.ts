@@ -30,6 +30,14 @@ export async function pageMetadata(
       siteName: "R-X",
       type: "website",
       locale: locale === "fr" ? "fr_FR" : "en_GB",
+      images: [
+        {
+          url: `/og/${locale}`,
+          width: 1200,
+          height: 630,
+          alt: t("siteName"),
+        },
+      ],
     },
     alternates: {
       canonical,

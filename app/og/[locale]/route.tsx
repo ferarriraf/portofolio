@@ -1,18 +1,20 @@
 import { ImageResponse } from "next/og";
 
-export const size = { width: 1200, height: 630 };
-export const contentType = "image/png";
-export const alt = "R-X — Studio d'ergonomie & design d'interface";
+export const dynamic = "force-static";
+
+export function generateStaticParams() {
+  return [{ locale: "fr" }, { locale: "en" }];
+}
 
 /**
  * La carte de partage (réseaux sociaux, messageries), dessinée au
- * build dans la palette du site — aucun fichier image à maintenir.
+ * build dans la palette du site — une par langue, à une adresse
+ * stable et sans redirection : /og/fr et /og/en.
  */
-export default async function Image({
-  params,
-}: {
-  params: Promise<{ locale: string }>;
-}) {
+export async function GET(
+  _req: Request,
+  { params }: { params: Promise<{ locale: string }> }
+) {
   const { locale } = await params;
   const fr = locale !== "en";
 
@@ -65,6 +67,6 @@ export default async function Image({
         </div>
       </div>
     ),
-    size
+    { width: 1200, height: 630 }
   );
 }

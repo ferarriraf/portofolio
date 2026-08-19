@@ -111,7 +111,7 @@ export default async function AboutPage({ params }: Props) {
                 </p>
                 <p className="leading-relaxed text-ink-soft">
                   <span className="mr-2 font-mono text-[0.65rem] tracking-wide text-sage-deep uppercase">
-                    vous
+                    {t("timelineYou")}
                   </span>
                   {etape.client}
                 </p>

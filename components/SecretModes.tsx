@@ -142,6 +142,9 @@ export default function SecretModes() {
   const couper = () => {
     setMode(null);
     setCoupes(true);
+    // Le bouton focalisé disparaît avec la pastille : on pose le focus
+    // sur le contenu plutôt que de l'abandonner sur <body>
+    document.getElementById("contenu")?.focus();
     try {
       localStorage.setItem(CLE_OFF, "1");
     } catch {

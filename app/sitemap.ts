@@ -13,16 +13,21 @@ const pages: AppPathname[] = [
   "/mentions-legales",
 ];
 
+/** Chaque page existe deux fois — une entrée par langue, chacune
+    déclarant l'autre en alternative. */
 export default function sitemap(): MetadataRoute.Sitemap {
-  return pages.map((href) => ({
-    url: BASE + getPathname({ locale: "fr", href }),
-    changeFrequency: "monthly",
-    priority: href === "/" ? 1 : 0.7,
-    alternates: {
+  return pages.flatMap((href) => {
+    const alternates = {
       languages: {
         fr: BASE + getPathname({ locale: "fr", href }),
         en: BASE + getPathname({ locale: "en", href }),
       },
-    },
-  }));
+    };
+    return (["fr", "en"] as const).map((locale) => ({
+      url: BASE + getPathname({ locale, href }),
+      changeFrequency: "monthly" as const,
+      priority: href === "/" ? 1 : 0.7,
+      alternates,
+    }));
+  });
 }

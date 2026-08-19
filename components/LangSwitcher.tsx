@@ -4,7 +4,12 @@ import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
 import { FlagFR, FlagGB } from "./Flags";
 
-export default function LangSwitcher() {
+export default function LangSwitcher({
+  onNavigate,
+}: {
+  /** Appelé au clic sur une langue (ex. refermer le menu mobile) */
+  onNavigate?: () => void;
+} = {}) {
   const locale = useLocale();
   const pathname = usePathname();
   const t = useTranslations("lang");
@@ -27,6 +32,7 @@ export default function LangSwitcher() {
             href={pathname}
             locale={o.code}
             aria-current={active ? "true" : undefined}
+            onClick={onNavigate}
             aria-label={o.full}
             className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-1 text-xs font-semibold transition-colors duration-200 ${
               active
