@@ -8,8 +8,6 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import GrandArc from "./GrandArc";
-import { RingGlyph } from "./Logo";
 
 type ManifestoScrollProps = {
   lead: string;
@@ -38,9 +36,7 @@ export default function ManifestoScroll({ lead, emph }: ManifestoScrollProps) {
   if (reduce) {
     return (
       <section className="relative overflow-hidden bg-ink-deep text-sand">
-        <GrandArc className="pointer-events-none absolute -bottom-125 -left-60 w-225 opacity-40" />
         <div className="container-site relative py-24 md:py-40">
-          <RingGlyph size={26} />
           <p className="mt-8 max-w-4xl font-display text-[clamp(2.2rem,6vw,5.5rem)] font-bold leading-[1.05] tracking-tight">
             <span className="text-sand">{lead}</span>{" "}
             <span className="text-terra">{emph}</span>
@@ -57,9 +53,7 @@ export default function ManifestoScroll({ lead, emph }: ManifestoScrollProps) {
       style={{ height: "220vh" }}
     >
       <div className="sticky top-0 flex h-svh items-center overflow-hidden">
-        <GrandArc className="pointer-events-none absolute -bottom-125 -left-60 w-225 opacity-40" />
         <div className="container-site relative">
-          <RingGlyph size={26} />
           <p className="mt-8 max-w-4xl font-display text-[clamp(2.2rem,6vw,5.5rem)] font-bold leading-[1.05] tracking-tight">
             {words.map((item, i) => (
               <Word

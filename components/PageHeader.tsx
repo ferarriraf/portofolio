@@ -1,7 +1,6 @@
 import Reveal from "./Reveal";
-import RingsDecor from "./RingsDecor";
+import SectionLabel from "./SectionLabel";
 import SplitHeading from "./SplitHeading";
-import { RingGlyph } from "./Logo";
 
 type PageHeaderProps = {
   eyebrow: string;
@@ -12,13 +11,9 @@ type PageHeaderProps = {
 export default function PageHeader({ eyebrow, title, lede }: PageHeaderProps) {
   return (
     <header className="relative overflow-hidden pt-36 pb-12 md:pt-48 md:pb-16">
-      <RingsDecor className="pointer-events-none absolute -top-28 -right-32 w-130 max-md:hidden" />
       <div className="container-site relative">
         <Reveal>
-          <span className="eyebrow">
-            <RingGlyph size={15} />
-            {eyebrow}
-          </span>
+          <SectionLabel>{eyebrow}</SectionLabel>
         </Reveal>
         <SplitHeading
           as="h1"

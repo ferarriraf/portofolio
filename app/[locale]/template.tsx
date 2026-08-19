@@ -4,8 +4,9 @@ import { motion, useReducedMotion } from "framer-motion";
 import type { ReactNode } from "react";
 
 /**
- * Transition entre les pages : un fondu court, sans rideau ni délai —
- * la page arrive tout de suite, elle ne se fait pas attendre.
+ * Transition entre les pages : un trait terracotta balaie le haut de
+ * l'écran pendant que le contenu se pose. Court, discret, et il donne
+ * le sentiment d'un chargement maîtrisé plutôt que d'un saut.
  */
 export default function Template({ children }: { children: ReactNode }) {
   const reduce = useReducedMotion();
@@ -13,12 +14,24 @@ export default function Template({ children }: { children: ReactNode }) {
   if (reduce) return <>{children}</>;
 
   return (
-    <motion.div
-      initial={{ opacity: 0 }}
-      animate={{ opacity: 1 }}
-      transition={{ duration: 0.22, ease: "linear" }}
-    >
-      {children}
-    </motion.div>
+    <>
+      <motion.span
+        aria-hidden="true"
+        className="pointer-events-none fixed inset-x-0 top-0 z-[95] h-0.5 origin-left bg-terra-hot"
+        initial={{ scaleX: 0, opacity: 1 }}
+        animate={{ scaleX: 1, opacity: 0 }}
+        transition={{
+          scaleX: { duration: 0.5, ease: [0.4, 0, 0.2, 1] },
+          opacity: { delay: 0.5, duration: 0.25 },
+        }}
+      />
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
+      >
+        {children}
+      </motion.div>
+    </>
   );
 }

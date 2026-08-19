@@ -7,6 +7,8 @@ import { routing } from "@/i18n/routing";
 import Topbar from "@/components/Topbar";
 import Footer from "@/components/Footer";
 import CursorRing from "@/components/CursorRing";
+import BootScreen from "@/components/BootScreen";
+import CookieNotice from "@/components/CookieNotice";
 import "../globals.css";
 
 const display = localFont({
@@ -79,10 +81,12 @@ export default async function LocaleLayout({
     >
       <body className="flex min-h-dvh flex-col overflow-x-clip">
         <NextIntlClientProvider>
+          <BootScreen />
           <CursorRing />
           <Topbar />
           <main className="flex-1">{children}</main>
           <Footer />
+          <CookieNotice />
         </NextIntlClientProvider>
       </body>
     </html>

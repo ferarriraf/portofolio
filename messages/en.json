@@ -116,7 +116,8 @@
       "title": "A project, a question?",
       "text": "A one-page brief or three lines in an email: everything starts with a message.",
       "button": "Write to us"
-    }
+    },
+    "titleHint": "Hover the title — click for the ripple"
   },
   "services": {
     "eyebrow": "Services",
@@ -166,21 +167,30 @@
       {
         "name": "Clairière",
         "sector": "HR SaaS — dashboard",
-        "tags": ["Redesign", "Design system"],
+        "tags": [
+          "Redesign",
+          "Design system"
+        ],
         "challenge": "A dense back office, accumulated over the years, where every piece of information took seven clicks and two memories.",
         "result": "Rethought screen by screen: fewer columns, more decisions. HR teams now find what matters in two clicks."
       },
       {
         "name": "Comptoir",
         "sector": "Artisan e-commerce",
-        "tags": ["Checkout flow", "Mobile"],
+        "tags": [
+          "Checkout flow",
+          "Mobile"
+        ],
         "challenge": "A carefully curated catalogue, but a checkout that multiplied steps — and abandoned carts.",
         "result": "A shorter, reassuring journey from product to payment. The cart stops being an exit door."
       },
       {
         "name": "Pulso",
         "sector": "Health application",
-        "tags": ["Onboarding", "Accessibility"],
+        "tags": [
+          "Onboarding",
+          "Accessibility"
+        ],
         "challenge": "A stressful first patient journey, designed for the IT department rather than the waiting room.",
         "result": "Short steps, large type, human language. An app you can use even on a bad day."
       }
@@ -276,5 +286,12 @@
     "title": "Page not found",
     "text": "This page doesn't exist — or not anymore. Good ergonomics starts with good paths; this isn't one of them.",
     "back": "Back to home"
-  }
+  },
+  "cookies": {
+    "title": "No cookies here",
+    "text": "This site stores nothing on your device: no cookies, no trackers, no analytics. You browse without leaving a trace.",
+    "button": "Got it",
+    "more": "Legal notice"
+  },
+  "loading": "Loading"
 }

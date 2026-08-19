@@ -5,7 +5,6 @@ import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
 import SplitHeading from "@/components/SplitHeading";
-import TiltCard from "@/components/TiltCard";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -35,7 +34,6 @@ export default async function ServicesPage({ params }: Props) {
             const Icon = offerIcons[i];
             return (
               <Reveal key={offer.title} delay={0.06 * i} className="h-full">
-                <TiltCard className="h-full">
                 {/* Une seule teinte pour toute la section : les cartes
                     se distinguent par leur rang, pas par leur couleur */}
                 <article
@@ -58,7 +56,6 @@ export default async function ServicesPage({ params }: Props) {
                     {offer.text}
                   </p>
                 </article>
-                </TiltCard>
               </Reveal>
             );
           })}

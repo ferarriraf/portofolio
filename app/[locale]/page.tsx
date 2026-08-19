@@ -5,7 +5,7 @@ import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
 import CaseCover from "@/components/CaseCover";
-import HeroTitle from "@/components/HeroTitle";
+import MagneticTitle from "@/components/MagneticTitle";
 import Marquee from "@/components/Marquee";
 import ApproachList from "@/components/ApproachList";
 import ManifestoScroll from "@/components/ManifestoScroll";
@@ -13,7 +13,6 @@ import ProcessScroll from "@/components/ProcessScroll";
 import SectionLabel from "@/components/SectionLabel";
 import SelectionFrame from "@/components/SelectionFrame";
 import SplitHeading from "@/components/SplitHeading";
-import TiltCard from "@/components/TiltCard";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -66,9 +65,18 @@ export default async function HomePage({ params }: Props) {
 
           <div className="mt-14 md:mt-16">
             <SelectionFrame label={t("layerLabel")}>
-              <HeroTitle lineA={t("titleA")} lineB={t("titleB")} />
+              <MagneticTitle
+                lineA={t("titleA")}
+                lineB={t("titleB")}
+                className="font-display text-[clamp(3.2rem,9.5vw,8rem)] leading-[0.98] tracking-[-0.035em] text-ink"
+              />
             </SelectionFrame>
           </div>
+          <Reveal delay={1.4} className="relative z-30 mt-5">
+            <span className="text-xs font-medium tracking-wide text-ink-soft/70">
+              {t("titleHint")}
+            </span>
+          </Reveal>
 
           <Reveal delay={0.45} className="relative z-30">
             <p className="mx-auto mt-14 max-w-xl text-xl leading-relaxed text-ink-soft md:mt-16">
@@ -144,13 +152,11 @@ export default async function HomePage({ params }: Props) {
               className="group block"
             >
               <Reveal variant="mask" delay={0.08 * i}>
-                <TiltCard>
-                  <div className="overflow-hidden rounded-3xl">
-                    <div className="aspect-4/3 transition-transform duration-700 ease-out group-hover:scale-[1.04]">
+                  <div className="overflow-hidden rounded-3xl shadow-[0_2px_10px_-6px_rgba(46,52,40,0.3)] transition-all duration-500 ease-out group-hover:-translate-y-1.5 group-hover:shadow-[0_28px_50px_-28px_rgba(46,52,40,0.55)]">
+                    <div className="aspect-4/3 transition-transform duration-700 ease-out group-hover:scale-[1.05]">
                       <CaseCover variant={coverVariants[i]} />
                     </div>
                   </div>
-                </TiltCard>
               </Reveal>
               <Reveal delay={0.08 * i + 0.15}>
                 <div className="mt-6 flex items-center justify-between gap-4">

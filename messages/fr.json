@@ -116,7 +116,8 @@
       "title": "Un projet, une question ?",
       "text": "Un brief d'une page ou trois lignes dans un email : tout commence par un message.",
       "button": "Écrivez-nous"
-    }
+    },
+    "titleHint": "Passez la souris sur le titre — cliquez pour l'onde"
   },
   "services": {
     "eyebrow": "Services",
@@ -166,21 +167,30 @@
       {
         "name": "Clairière",
         "sector": "SaaS RH — tableau de bord",
-        "tags": ["Refonte", "Design system"],
+        "tags": [
+          "Refonte",
+          "Design system"
+        ],
         "challenge": "Un back-office dense, accumulé au fil des ans, où chaque information demandait sept clics et deux souvenirs.",
         "result": "Repensé écran par écran : moins de colonnes, plus de décisions. Les équipes RH retrouvent l'essentiel en deux clics."
       },
       {
         "name": "Comptoir",
         "sector": "E-commerce artisanal",
-        "tags": ["Parcours d'achat", "Mobile"],
+        "tags": [
+          "Parcours d'achat",
+          "Mobile"
+        ],
         "challenge": "Un catalogue soigné mais un tunnel d'achat qui multipliait les étapes — et les abandons.",
         "result": "Un parcours raccourci et rassurant, du produit au paiement. Le panier cesse d'être un point de fuite."
       },
       {
         "name": "Pulso",
         "sector": "Application santé",
-        "tags": ["Onboarding", "Accessibilité"],
+        "tags": [
+          "Onboarding",
+          "Accessibilité"
+        ],
         "challenge": "Un premier parcours patient anxiogène, pensé pour le service informatique plutôt que pour la salle d'attente.",
         "result": "Étapes courtes, gros caractères, langage humain. Une application utilisable même un mauvais jour."
       }
@@ -276,5 +286,12 @@
     "title": "Page introuvable",
     "text": "Cette page n'existe pas — ou plus. L'ergonomie commence par de bons chemins ; celui-ci n'en est pas un.",
     "back": "Retour à l'accueil"
-  }
+  },
+  "cookies": {
+    "title": "Aucun cookie ici",
+    "text": "Ce site ne dépose rien sur votre appareil : ni cookie, ni traceur, ni mesure d'audience. Vous naviguez sans laisser de traces.",
+    "button": "Compris",
+    "more": "Mentions légales"
+  },
+  "loading": "Chargement"
 }

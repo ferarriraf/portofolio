@@ -172,6 +172,66 @@ body {
   animation: scroll-hint 1.8s ease-in-out infinite;
 }
 
+/* Le cadre du réticule : discret, il s'ouvre sur ce qui est cliquable */
+.curseur-boite {
+  opacity: 0;
+  transform: scale(0.55);
+  transition:
+    opacity 0.18s ease,
+    transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.curseur-boite[data-actif="1"] {
+  opacity: 1;
+  transform: scale(1.5);
+}
+
+/* ——— Écran de démarrage ——— */
+@keyframes boot-logo {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.boot-logo {
+  animation: boot-logo 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+@keyframes boot-barre {
+  from {
+    transform: scaleX(0);
+  }
+  to {
+    transform: scaleX(1);
+  }
+}
+
+.boot-barre {
+  animation: boot-barre 1.15s cubic-bezier(0.4, 0, 0.2, 1) both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .boot-logo,
+  .boot-barre {
+    animation: none;
+  }
+}
+
+/* Montée des lignes du titre à l'arrivée */
+@keyframes title-rise {
+  from {
+    transform: translateY(108%);
+  }
+  to {
+    transform: translateY(0);
+  }
+}
+
 /* ——— Signature R-X : la zone cliquable se révèle au survol ———
    Un rectangle en pointillés, comme sur un wireframe : l'objet du
    métier devient l'interaction du site. */

@@ -2,7 +2,6 @@ import { ArrowRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import type { AppPathname } from "@/i18n/routing";
 import Reveal from "./Reveal";
-import RingsDecor from "./RingsDecor";
 
 type CtaBandProps = {
   title: string;
@@ -20,7 +19,6 @@ export default function CtaBand({
 }: CtaBandProps) {
   return (
     <section className="relative overflow-hidden bg-terra-deep text-sand-card">
-      <RingsDecor className="pointer-events-none absolute -right-32 -bottom-48 w-130 opacity-25 max-sm:hidden" />
       <div className="container-site relative py-20 md:py-28">
         <Reveal>
           <h2 className="max-w-3xl font-display text-4xl font-bold tracking-tight md:text-6xl">

@@ -1,5 +1,3 @@
-import { RingGlyph } from "./Logo";
-
 type SectionLabelProps = {
   /** Numéro de section, affiché en Nº00X */
   n?: number;
@@ -23,7 +21,6 @@ export default function SectionLabel({
         invert ? "text-sage" : "text-sage-deep"
       }`}
     >
-      <RingGlyph size={15} />
       {typeof n === "number" && (
         <>
           <span className={invert ? "text-sand/60" : "text-ink/45"}>

@@ -1,67 +1,103 @@
 "use client";
 
-import { useEffect, useState } from "react";
-import { motion, useMotionValue, useSpring } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
 
 /**
- * Signature interactive du site : un anneau qui suit le pointeur
- * et s'élargit sur les éléments cliquables. Le curseur natif reste
- * visible — l'anneau l'accompagne, il ne le remplace pas.
- * Désactivé sur écrans tactiles.
+ * Réticule d'inspection : une croix fine suit le pointeur et affiche
+ * ses coordonnées, comme dans un outil de design. Sur un élément
+ * cliquable, la croix s'ouvre en cadre de sélection.
+ *
+ * Tout est écrit directement dans le DOM depuis la boucle d'animation :
+ * repasser par l'état React à chaque mouvement de souris ferait rendre
+ * la page entière soixante fois par seconde.
  */
 export default function CursorRing() {
-  const [enabled, setEnabled] = useState(false);
-  const [hot, setHot] = useState(false);
-  const x = useMotionValue(-100);
-  const y = useMotionValue(-100);
-  const sx = useSpring(x, { stiffness: 400, damping: 30 });
-  const sy = useSpring(y, { stiffness: 400, damping: 30 });
+  const [actif, setActif] = useState(false);
+  const wrap = useRef<HTMLDivElement>(null);
+  const boite = useRef<HTMLSpanElement>(null);
+  const coord = useRef<HTMLSpanElement>(null);
 
   useEffect(() => {
     if (!window.matchMedia("(pointer: fine)").matches) return;
-    // différé d'une frame : activer l'état en pleine phase d'effet
-    // provoquerait un rendu en cascade
-    const t = requestAnimationFrame(() => setEnabled(true));
+    // via un timer plutôt qu'une frame : le réticule doit s'installer
+    // même si l'onglet démarre en arrière-plan
+    const t = setTimeout(() => setActif(true), 0);
+    return () => clearTimeout(t);
+  }, []);
+
+  useEffect(() => {
+    if (!actif) return;
+    const el = wrap.current;
+    if (!el) return;
+
+    let x = -200;
+    let y = -200;
+    let cible = false;
+    let rafId = 0;
+    let enAttente = false;
+
+    const peindre = () => {
+      enAttente = false;
+      el.style.transform = `translate3d(${x}px, ${y}px, 0)`;
+      if (boite.current) {
+        boite.current.dataset.actif = cible ? "1" : "0";
+      }
+      if (coord.current) {
+        coord.current.textContent = `${Math.round(x)} · ${Math.round(y)}`;
+      }
+    };
 
     const onMove = (e: PointerEvent) => {
-      x.set(e.clientX);
-      y.set(e.clientY);
-      const target = e.target as Element | null;
-      setHot(!!target?.closest?.("a, button, [role='button'], summary, input, label"));
+      if (e.pointerType !== "mouse") return;
+      x = e.clientX;
+      y = e.clientY;
+      const t = e.target as Element | null;
+      cible = !!t?.closest?.(
+        "a, button, [role='button'], summary, input, label"
+      );
+      if (!enAttente) {
+        enAttente = true;
+        rafId = requestAnimationFrame(peindre);
+      }
     };
     const onLeave = () => {
-      x.set(-100);
-      y.set(-100);
+      x = -200;
+      y = -200;
+      peindre();
     };
 
     window.addEventListener("pointermove", onMove, { passive: true });
     document.documentElement.addEventListener("pointerleave", onLeave);
     return () => {
-      cancelAnimationFrame(t);
+      cancelAnimationFrame(rafId);
       window.removeEventListener("pointermove", onMove);
       document.documentElement.removeEventListener("pointerleave", onLeave);
     };
-  }, [x, y]);
+  }, [actif]);
 
-  if (!enabled) return null;
+  if (!actif) return null;
 
   return (
-    <motion.div
+    <div
+      ref={wrap}
       aria-hidden="true"
-      className="pointer-events-none fixed left-0 top-0 z-[99] hidden md:block"
-      style={{ x: sx, y: sy }}
+      className="pointer-events-none fixed top-0 left-0 z-[99] hidden md:block"
+      style={{ transform: "translate3d(-200px, -200px, 0)" }}
     >
-      <motion.div
-        className="-ml-4 -mt-4 size-8 rounded-full border-[1.5px] border-terra-strong"
-        animate={{
-          scale: hot ? 1.9 : 1,
-          backgroundColor: hot
-            ? "rgba(169, 191, 160, 0.28)"
-            : "rgba(169, 191, 160, 0)",
-          borderColor: hot ? "var(--sage-deep)" : "var(--terra-strong)",
-        }}
-        transition={{ type: "spring", stiffness: 320, damping: 22 }}
+      {/* La croix de visée */}
+      <span className="absolute -left-3 top-0 block h-px w-6 bg-terra-hot/70" />
+      <span className="absolute left-0 -top-3 block h-6 w-px bg-terra-hot/70" />
+      {/* Le cadre, qui s'ouvre sur les éléments cliquables */}
+      <span
+        ref={boite}
+        data-actif="0"
+        className="curseur-boite absolute -left-3.5 -top-3.5 block size-7 rounded-[2px] border border-terra-hot"
       />
-    </motion.div>
+      {/* Les coordonnées */}
+      <span
+        ref={coord}
+        className="absolute top-3 left-4 block font-mono text-[0.6rem] font-medium tracking-tight text-ink-soft/60 tabular-nums"
+      />
+    </div>
   );
 }
