@@ -5,6 +5,7 @@ import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
 import SplitHeading from "@/components/SplitHeading";
+import TiltCard from "@/components/TiltCard";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -40,8 +41,9 @@ export default async function ServicesPage({ params }: Props) {
             const Icon = offerIcons[i];
             return (
               <Reveal key={offer.title} delay={0.06 * i} className="h-full">
+                <TiltCard className="h-full">
                 <article
-                  className={`group relative h-full overflow-hidden rounded-3xl p-8 transition-transform duration-300 hover:-translate-y-1 md:p-12 ${offerTones[i]}`}
+                  className={`group relative h-full overflow-hidden rounded-3xl p-8 md:p-12 ${offerTones[i]}`}
                 >
                   <span
                     aria-hidden="true"
@@ -59,6 +61,7 @@ export default async function ServicesPage({ params }: Props) {
                     {offer.text}
                   </p>
                 </article>
+                </TiltCard>
               </Reveal>
             );
           })}

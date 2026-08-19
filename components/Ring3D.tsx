@@ -66,8 +66,8 @@ export default function Ring3D({ children }: { children: ReactNode }) {
         // un plan de coupe légèrement au-delà du centre (chevauchement)
         const makeLayer = (host: HTMLDivElement, side: "far" | "near") => {
           const scene = new THREE.Scene();
-          const camera = new THREE.PerspectiveCamera(32, 1.5, 0.1, 20);
-          camera.position.set(0, 0, 3.4);
+          const camera = new THREE.PerspectiveCamera(32, 2, 0.1, 20);
+          camera.position.set(0, 0, 2.62);
 
           const renderer = new THREE.WebGLRenderer({
             alpha: true,
@@ -142,8 +142,8 @@ export default function Ring3D({ children }: { children: ReactNode }) {
 
         // Orientation de base : le haut de l'anneau bascule au loin,
         // sa bande basse vient devant — on regarde dans l'ouverture
-        const BASE_X = -1.0;
-        const BASE_Y = -0.16;
+        const BASE_X = -1.16;
+        const BASE_Y = -0.14;
 
         const setPose = (x: number, y: number, spin: number) => {
           for (const l of layers) {
@@ -196,8 +196,8 @@ export default function Ring3D({ children }: { children: ReactNode }) {
           tiltY += (targetY - tiltY) * 0.045;
           // Rotation continue (visible grâce au brossage) + précession
           setPose(
-            BASE_X + Math.sin(t * 0.28) * 0.09 + tiltX,
-            BASE_Y + Math.cos(t * 0.21) * 0.14 + tiltY,
+            BASE_X + Math.sin(t * 0.28) * 0.05 + tiltX * 0.6,
+            BASE_Y + Math.cos(t * 0.21) * 0.1 + tiltY,
             t * 0.22
           );
           renderAll();
@@ -259,10 +259,10 @@ export default function Ring3D({ children }: { children: ReactNode }) {
     };
   }, [reduce]);
 
-  // Panoramique : large sur les côtés, rogné en haut/bas.
-  // Calé pour que la bande proche morde le bas de la 2e ligne.
+  // Panoramique et ENTIER : large sur les côtés, jamais coupé par sa
+  // zone de rendu, descendu sous le menu.
   const layerClass =
-    "pointer-events-none absolute top-[calc(50%-1.5rem)] left-1/2 aspect-[3/2] w-[min(135vw,74rem)] -translate-x-1/2 -translate-y-1/2";
+    "pointer-events-none absolute top-[calc(50%+2.5rem)] left-1/2 aspect-[2/1] w-[min(135vw,74rem)] -translate-x-1/2 -translate-y-1/2";
 
   const entrance = reduce
     ? { initial: { opacity: 1 }, animate: { opacity: 1 } }

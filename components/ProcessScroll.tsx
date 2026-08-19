@@ -8,7 +8,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, MousePointer2 } from "lucide-react";
 import { RingGlyph } from "./Logo";
 
 type Step = { title: string; text: string };
@@ -189,13 +189,32 @@ function ScreenPanel({
   progress: MotionValue<number>;
   children: ReactNode;
 }) {
-  const s = segment(index, count);
-  const opacity = useTransform(progress, [s.in0, s.in1, s.out0, s.out1], [index === 0 ? 1 : 0, 1, 1, index === count - 1 ? 1 : 0]);
-  const scale = useTransform(progress, [s.in0, s.in1, s.out0, s.out1], [index === 0 ? 1 : 1.04, 1, 1, index === count - 1 ? 1 : 0.97]);
+  // Transition balayée : chaque écran recouvre le précédent en se
+  // dévoilant de haut en bas autour de la frontière de son segment.
+  // Les plages restent dans [0,1] : WAAPI refuse les offsets négatifs.
+  const a = index / count;
+  const w = 0.045;
+  const clipPath = useTransform(
+    progress,
+    [Math.max(0, a - w), Math.min(1, a + w)],
+    ["inset(0% 0% 100% 0%)", "inset(0% 0% 0% 0%)"]
+  );
+  const y = useTransform(
+    progress,
+    [Math.max(0, a - w), Math.min(1, a + w)],
+    ["-6%", "0%"]
+  );
+
+  // Le premier écran est le fond : toujours visible, jamais animé
+  if (index === 0) {
+    return <div className="absolute inset-0">{children}</div>;
+  }
 
   return (
-    <motion.div style={{ opacity, scale }} className="absolute inset-0">
-      {children}
+    <motion.div style={{ clipPath }} className="absolute inset-0">
+      <motion.div style={{ y }} className="absolute inset-0">
+        {children}
+      </motion.div>
     </motion.div>
   );
 }
@@ -214,7 +233,18 @@ function BrowserFrame({ children }: { children: ReactNode }) {
         </span>
         <span className="w-12" />
       </div>
-      <div className="relative aspect-[16/10]">{children}</div>
+      <div className="relative aspect-[16/10]">
+        {children}
+        {/* Le curseur qui navigue et clique dans l'écran */}
+        <span
+          aria-hidden="true"
+          className="fake-cursor pointer-events-none absolute z-20 -ml-1 -mt-1"
+        >
+          <span className="fake-cursor-click absolute -inset-3 rounded-full border-2 border-terra-strong" />
+          <span className="fake-cursor-click2 absolute -inset-3 rounded-full border-2 border-sage-strong" />
+          <MousePointer2 className="size-5 fill-ink-deep text-sand drop-shadow-md" />
+        </span>
+      </div>
     </div>
   );
 }
@@ -234,12 +264,12 @@ function ScreenListen() {
             <span className="size-10 rounded-full bg-terra" />
           </div>
         </div>
-        <div className="mt-2 flex items-end justify-center gap-1" aria-hidden="true">
+        <div className="mt-2 flex h-[18px] items-end justify-center gap-1" aria-hidden="true">
           {[8, 14, 10, 18, 12, 7, 15].map((h, i) => (
             <span
               key={i}
-              className="w-1 rounded-full bg-sand/50"
-              style={{ height: h }}
+              className="bar-dance w-1 rounded-full bg-sand/50"
+              style={{ height: h, animationDelay: `${i * 0.13}s` }}
             />
           ))}
         </div>
@@ -248,7 +278,11 @@ function ScreenListen() {
         <span className="h-2.5 w-3/4 rounded-full bg-ink/20" />
         <span className="h-2.5 w-full rounded-full bg-ink/10" />
         <span className="h-2.5 w-5/6 rounded-full bg-ink/10" />
-        <span className="h-2.5 w-2/3 rounded-full bg-terra/50" />
+        {/* La ligne en train de s'écrire, avec son curseur qui clignote */}
+        <span className="flex items-center gap-1">
+          <span className="typing-line h-2.5 rounded-full bg-terra/60" />
+          <span className="caret-blink h-3 w-0.5 shrink-0 bg-ink/60" />
+        </span>
         <span className="h-2.5 w-4/5 rounded-full bg-ink/10" />
         <span className="mt-auto inline-flex h-6 w-24 items-center justify-center rounded-full bg-sage-wash text-[0.55rem] font-semibold tracking-wide text-sage-deep uppercase">
           Notes
@@ -273,8 +307,8 @@ function ScreenWireframe() {
       </div>
       <div className={`relative flex flex-1 items-center justify-center ${box}`}>
         <svg className="absolute inset-0 h-full w-full text-ink/10" aria-hidden="true">
-          <line x1="0" y1="0" x2="100%" y2="100%" stroke="currentColor" strokeWidth="2" />
-          <line x1="100%" y1="0" x2="0" y2="100%" stroke="currentColor" strokeWidth="2" />
+          <line className="dash-march" x1="0" y1="0" x2="100%" y2="100%" stroke="currentColor" strokeWidth="2" />
+          <line className="dash-march" x1="100%" y1="0" x2="0" y2="100%" stroke="currentColor" strokeWidth="2" />
         </svg>
         <span className="relative h-3 w-28 rounded-full bg-ink/20" />
       </div>
@@ -306,7 +340,7 @@ function ScreenDesign() {
         <div className="flex flex-col gap-2">
           <span className="h-3.5 w-32 rounded-full bg-ink/80" />
           <span className="h-2.5 w-24 rounded-full bg-ink/30" />
-          <span className="mt-1 h-6 w-20 rounded-full bg-terra-strong" />
+          <span className="soft-pulse mt-1 h-6 w-20 rounded-full bg-terra-strong" />
         </div>
         <span className="size-14 rounded-full border-4 border-sage-strong bg-sand-card shadow-inner" />
       </div>
@@ -345,9 +379,13 @@ function ScreenLaunch({ onlineLabel }: { onlineLabel: string }) {
           <div className="rounded-lg bg-sage-wash" />
         </div>
       </div>
-      {/* Le sceau de mise en ligne */}
+      {/* Le sceau de mise en ligne, avec ses confettis */}
       <div className="absolute inset-0 flex items-center justify-center bg-ink-deep/20 backdrop-blur-[2px]">
-        <span className="inline-flex items-center gap-2.5 rounded-full bg-ink-deep px-5 py-2.5 shadow-xl">
+        <span aria-hidden="true" className="confetti-float absolute top-1/2 left-[38%] size-2 rounded-full bg-terra" />
+        <span aria-hidden="true" className="confetti-float absolute top-[55%] left-[58%] size-1.5 rounded-full bg-sage" style={{ animationDelay: "0.6s" }} />
+        <span aria-hidden="true" className="confetti-float absolute top-[48%] left-[64%] size-2 rounded-full bg-sand" style={{ animationDelay: "1.2s" }} />
+        <span aria-hidden="true" className="confetti-float absolute top-[58%] left-[43%] size-1.5 rounded-full bg-terra-strong" style={{ animationDelay: "1.8s" }} />
+        <span className="badge-pop inline-flex items-center gap-2.5 rounded-full bg-ink-deep px-5 py-2.5 shadow-xl">
           <span className="flex size-6 items-center justify-center rounded-full bg-sage">
             <Check className="size-4 text-ink-deep" />
           </span>

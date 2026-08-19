@@ -5,13 +5,14 @@ import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
 import CaseCover from "@/components/CaseCover";
-import GrandArc from "@/components/GrandArc";
 import HeroTitle from "@/components/HeroTitle";
 import Ring3D from "@/components/Ring3D";
 import Marquee from "@/components/Marquee";
 import ApproachList from "@/components/ApproachList";
+import ManifestoScroll from "@/components/ManifestoScroll";
 import ProcessScroll from "@/components/ProcessScroll";
 import SplitHeading from "@/components/SplitHeading";
+import TiltCard from "@/components/TiltCard";
 import { RingGlyph } from "@/components/Logo";
 import { pageMetadata } from "@/lib/seo";
 
@@ -75,7 +76,7 @@ export default async function HomePage({ params }: Props) {
           </div>
 
           {/* La légende vit sous la bande métallique, pas dessus */}
-          <Reveal delay={0.9} className="relative z-30 mt-44 md:mt-72">
+          <Reveal delay={0.9} className="relative z-30 mt-36 md:mt-52">
             <span className="inline-flex items-center gap-2 text-base font-medium italic text-terra-strong md:text-lg">
               <span className="relative flex size-2.5" aria-hidden="true">
                 <span className="ring-pulse absolute inset-0 rounded-full border border-terra-strong" />
@@ -123,22 +124,8 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* ——— Manifeste : bloc encre, plein contraste ——— */}
-      <section className="relative overflow-hidden bg-ink-deep text-sand">
-        <GrandArc className="pointer-events-none absolute -bottom-125 -left-60 w-225 opacity-40" />
-        <div className="container-site relative py-24 md:py-40">
-          <RingGlyph size={26} />
-          <p className="mt-8 max-w-4xl font-display text-[clamp(2.2rem,6vw,5.5rem)] font-bold leading-[1.05] tracking-tight">
-            <SplitHeading as="span" text={t("manifesto.lead")} className="text-sand" />{" "}
-            <SplitHeading
-              as="span"
-              text={t("manifesto.emph")}
-              delay={0.25}
-              className="text-terra"
-            />
-          </p>
-        </div>
-      </section>
+      {/* ——— Manifeste : les mots s'illuminent au fil du scroll ——— */}
+      <ManifestoScroll lead={t("manifesto.lead")} emph={t("manifesto.emph")} />
 
       {/* ——— Méthode : l'écran qui se transforme au scroll ——— */}
       <ProcessScroll
@@ -179,11 +166,13 @@ export default async function HomePage({ params }: Props) {
               className="group block"
             >
               <Reveal variant="mask" delay={0.08 * i}>
-                <div className="overflow-hidden rounded-3xl">
-                  <div className="aspect-4/3 transition-transform duration-700 ease-out group-hover:scale-[1.04]">
-                    <CaseCover variant={coverVariants[i]} />
+                <TiltCard>
+                  <div className="overflow-hidden rounded-3xl">
+                    <div className="aspect-4/3 transition-transform duration-700 ease-out group-hover:scale-[1.04]">
+                      <CaseCover variant={coverVariants[i]} />
+                    </div>
                   </div>
-                </div>
+                </TiltCard>
               </Reveal>
               <Reveal delay={0.08 * i + 0.15}>
                 <div className="mt-6 flex items-center justify-between gap-4">

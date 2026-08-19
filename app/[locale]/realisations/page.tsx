@@ -4,6 +4,7 @@ import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
 import CaseCover from "@/components/CaseCover";
+import TiltCard from "@/components/TiltCard";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -40,9 +41,11 @@ export default async function WorkPage({ params }: Props) {
                 variant="mask"
                 className={i % 2 === 1 ? "lg:order-2" : ""}
               >
-                <div className="overflow-hidden rounded-3xl">
-                  <CaseCover variant={coverVariants[i]} />
-                </div>
+                <TiltCard>
+                  <div className="overflow-hidden rounded-3xl">
+                    <CaseCover variant={coverVariants[i]} />
+                  </div>
+                </TiltCard>
               </Reveal>
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">
