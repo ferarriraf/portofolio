@@ -8,7 +8,7 @@ import CaseMockup, { type MockupTextes } from "@/components/CaseMockup";
 import MagneticTitle from "@/components/MagneticTitle";
 import Marquee from "@/components/Marquee";
 import ManifestoScroll from "@/components/ManifestoScroll";
-import ProcessScroll from "@/components/ProcessScroll";
+import ProcessScroll, { type EcranTextes } from "@/components/ProcessScroll";
 import SectionLabel from "@/components/SectionLabel";
 import SelectionFrame from "@/components/SelectionFrame";
 import SplitHeading from "@/components/SplitHeading";
@@ -101,6 +101,7 @@ export default async function HomePage({ params }: Props) {
         title={t("process.title")}
         steps={steps}
         onlineLabel={t("process.online")}
+        ecrans={t.raw("process.screens") as EcranTextes}
       />
 
       {/* ——— Réalisations en vitrine ——— */}

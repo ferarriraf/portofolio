@@ -105,7 +105,20 @@
           "title": "Transmission",
           "text": "Spécifications claires pour vos développeurs, fichiers organisés, et un œil attentif jusqu'à la mise en ligne."
         }
-      ]
+      ],
+      "screens": {
+        "client": "Vous",
+        "notesTitre": "Notes de séance",
+        "notes": [
+          "Objectif : moins d'appels au support",
+          "Cible : équipes terrain",
+          "Contrainte : outil interne existant"
+        ],
+        "enregistrement": "Séance enregistrée",
+        "maquetteTitre": "Vos écrans, en vrai",
+        "maquetteLede": "Prototype cliquable, partageable",
+        "maquetteAction": "Tester"
+      }
     },
     "work": {
       "eyebrow": "Réalisations",

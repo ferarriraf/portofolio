@@ -105,7 +105,20 @@
           "title": "Handover",
           "text": "Clear specifications for your developers, organised files, and a careful eye until launch."
         }
-      ]
+      ],
+      "screens": {
+        "client": "You",
+        "notesTitre": "Session notes",
+        "notes": [
+          "Goal: fewer support calls",
+          "Audience: field teams",
+          "Constraint: existing internal tool"
+        ],
+        "enregistrement": "Session recorded",
+        "maquetteTitre": "Your screens, for real",
+        "maquetteLede": "Clickable, shareable prototype",
+        "maquetteAction": "Try it"
+      }
     },
     "work": {
       "eyebrow": "Work",

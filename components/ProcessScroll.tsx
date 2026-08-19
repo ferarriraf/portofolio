@@ -14,11 +14,22 @@ import SectionLabel from "./SectionLabel";
 
 type Step = { title: string; text: string };
 
+export type EcranTextes = {
+  client: string;
+  notesTitre: string;
+  notes: string[];
+  enregistrement: string;
+  maquetteTitre: string;
+  maquetteLede: string;
+  maquetteAction: string;
+};
+
 type ProcessScrollProps = {
   eyebrow: string;
   title: string;
   steps: Step[];
   onlineLabel: string;
+  ecrans: EcranTextes;
 };
 
 /**
@@ -33,6 +44,7 @@ export default function ProcessScroll({
   title,
   steps,
   onlineLabel,
+  ecrans,
 }: ProcessScrollProps) {
   const ref = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
@@ -47,10 +59,10 @@ export default function ProcessScroll({
   });
 
   const screens = [
-    <ScreenListen key="s1" />,
+    <ScreenListen key="s1" t={ecrans} />,
     <ScreenWireframe key="s2" />,
     <ScreenHeatmap key="s3" />,
-    <ScreenDesign key="s4" />,
+    <ScreenDesign key="s4" t={ecrans} />,
     <ScreenLaunch key="s5" onlineLabel={onlineLabel} />,
   ];
 
@@ -222,18 +234,21 @@ function ScreenPanel({
 /* ——— Les écrans affichés dans l'ordinateur ——— */
 
 /** 01 — Écoute : la visio de découverte et les notes */
-function ScreenListen() {
+function ScreenListen({ t }: { t: EcranTextes }) {
   return (
     <div className="absolute inset-0 grid grid-cols-[1.2fr_1fr] gap-3 bg-sand p-4">
       <div className="flex flex-col rounded-xl bg-ink-deep p-3">
         <div className="grid flex-1 grid-cols-2 gap-2">
-          <div className="flex items-center justify-center rounded-lg bg-sage/25">
+          <div className="relative flex items-center justify-center rounded-lg bg-sage/25">
             <span className="flex size-10 items-center justify-center rounded-full bg-sage font-display text-sm font-bold text-ink-deep">
               R-X
             </span>
           </div>
-          <div className="flex items-center justify-center rounded-lg bg-terra/25">
+          <div className="relative flex items-center justify-center rounded-lg bg-terra/25">
             <span className="size-10 rounded-full bg-terra" />
+            <span className="absolute bottom-1 left-1 rounded bg-ink-deep/70 px-1 py-0.5 text-[0.42rem] font-medium text-sand">
+              {t.client}
+            </span>
           </div>
         </div>
         <div className="mt-2 flex h-[18px] items-end justify-center gap-1" aria-hidden="true">
@@ -246,18 +261,20 @@ function ScreenListen() {
           ))}
         </div>
       </div>
-      <div className="flex flex-col gap-2 rounded-xl bg-sand-card p-3">
-        <span className="h-2.5 w-3/4 rounded-full bg-ink/20" />
-        <span className="h-2.5 w-full rounded-full bg-ink/10" />
-        <span className="h-2.5 w-5/6 rounded-full bg-ink/10" />
+      <div className="flex flex-col gap-1.5 rounded-xl bg-sand-card p-3 text-[0.5rem] leading-snug text-ink-soft">
+        <span className="font-semibold tracking-wide text-sage-deep uppercase">
+          {t.notesTitre}
+        </span>
+        {t.notes.map((note) => (
+          <span key={note}>· {note}</span>
+        ))}
         {/* La ligne en train de s'écrire, avec son curseur qui clignote */}
         <span className="flex items-center gap-1">
           <span className="typing-line h-2.5 rounded-full bg-terra/60" />
           <span className="caret-blink h-3 w-0.5 shrink-0 bg-ink/60" />
         </span>
-        <span className="h-2.5 w-4/5 rounded-full bg-ink/10" />
-        <span className="mt-auto inline-flex h-6 w-24 items-center justify-center rounded-full bg-sage-wash text-[0.55rem] font-semibold tracking-wide text-sage-deep uppercase">
-          Notes
+        <span className="mt-auto inline-flex items-center gap-1 self-start rounded-full bg-sage-wash px-2 py-1 text-[0.5rem] font-semibold tracking-wide text-sage-deep uppercase">
+          {t.enregistrement}
         </span>
       </div>
     </div>
@@ -390,7 +407,7 @@ function ScreenHeatmap() {
 }
 
 /** 04 — Design : la maquette prend ses couleurs */
-function ScreenDesign() {
+function ScreenDesign({ t }: { t: EcranTextes }) {
   return (
     <div className="absolute inset-0 flex flex-col gap-2.5 bg-sand p-4">
       <div className="flex h-8 items-center justify-between rounded-lg bg-sand-card px-3 shadow-sm">
@@ -405,10 +422,14 @@ function ScreenDesign() {
         </span>
       </div>
       <div className="flex flex-1 items-center justify-between gap-3 rounded-lg bg-sage-wash px-4">
-        <div className="flex flex-col gap-2">
-          <span className="h-3.5 w-32 rounded-full bg-ink/80" />
-          <span className="h-2.5 w-24 rounded-full bg-ink/30" />
-          <span className="pulse-doux mt-1 h-6 w-20 rounded-full bg-terra-strong" />
+        <div className="flex flex-col gap-1.5">
+          <span className="font-display text-[0.72rem] leading-tight font-bold text-ink">
+            {t.maquetteTitre}
+          </span>
+          <span className="text-[0.5rem] text-ink-soft">{t.maquetteLede}</span>
+          <span className="pulse-doux mt-1 rounded-full bg-terra-strong px-2 py-1 text-center text-[0.5rem] font-semibold text-sand-card">
+            {t.maquetteAction}
+          </span>
         </div>
         <span className="size-14 rounded-full border-4 border-sage-strong bg-sand-card shadow-inner" />
       </div>
