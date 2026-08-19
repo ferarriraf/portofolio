@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Feather, Handshake, Ruler } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
+import Ring3D from "@/components/Ring3D";
 import SectionLabel from "@/components/SectionLabel";
 import CtaBand from "@/components/CtaBand";
 import { pageMetadata } from "@/lib/seo";
@@ -38,46 +39,12 @@ export default async function AboutPage({ params }: Props) {
         </Reveal>
 
         <Reveal delay={0.1}>
-          <div className="relative overflow-hidden rounded-3xl border border-line bg-sand-card p-10">
-            <svg
-              viewBox="0 0 320 320"
-              fill="none"
-              className="mx-auto w-full max-w-70"
-              aria-hidden="true"
-            >
-              <circle cx="160" cy="160" r="150" stroke="var(--line)" strokeWidth="1" />
-              <g className="ring-rotor" style={{ "--spin": "70s" } as never}>
-                <circle
-                  cx="160"
-                  cy="160"
-                  r="118"
-                  stroke="var(--terra)"
-                  strokeWidth="1.8"
-                  strokeLinecap="round"
-                  strokeDasharray="2 12"
-                />
-                <circle cx="160" cy="42" r="4.5" fill="var(--terra-strong)" />
-              </g>
-              <circle
-                cx="160"
-                cy="160"
-                r="84"
-                stroke="var(--sage)"
-                strokeOpacity="0.55"
-                strokeWidth="1.4"
-              />
-              {/* Réticule de visée : la radiographie */}
-              <path
-                d="M160 22 V64 M160 256 V298 M22 160 H64 M256 160 H298"
-                stroke="var(--sage-strong)"
-                strokeWidth="1.4"
-                strokeLinecap="round"
-              />
-              <circle cx="160" cy="160" r="6" fill="var(--ink)" />
-            </svg>
+          {/* L'anneau, ici en objet posé : entier, sans rien recouvrir */}
+          <div className="relative aspect-square overflow-hidden rounded-3xl border border-line bg-sand-card">
+            <Ring3D variant="object" />
             <div
               aria-hidden="true"
-              className="scanline pointer-events-none absolute inset-x-10 top-1/2 h-12 bg-gradient-to-b from-transparent via-sage/30 to-transparent"
+              className="scanline pointer-events-none absolute inset-x-10 top-1/2 h-12 bg-gradient-to-b from-transparent via-sage/25 to-transparent"
             />
           </div>
         </Reveal>

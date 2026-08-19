@@ -15,7 +15,15 @@ import { motion, useReducedMotion } from "framer-motion";
  * Sans WebGL : images pré-rendues avec un léger balancement CSS.
  * « Réduire les animations » : une seule image fixe.
  */
-export default function Ring3D({ children }: { children: ReactNode }) {
+export default function Ring3D({
+  children,
+  variant = "portal",
+}: {
+  children?: ReactNode;
+  /** "portal" : traverse l'écran. "object" : entier dans son cadre. */
+  variant?: "portal" | "object";
+}) {
+  const contained = variant === "object";
   const farRef = useRef<HTMLDivElement>(null);
   const nearRef = useRef<HTMLDivElement>(null);
   const reduce = useReducedMotion();
@@ -143,8 +151,11 @@ export default function Ring3D({ children }: { children: ReactNode }) {
           // et sort par la droite. Le haut et le bas dépassent du cadre
           // et sont estompés par un masque : c'est l'effet de portail.
           const fit = (poses: [number, number][]) => {
-            const tanV = Math.tan((camera.fov * Math.PI) / 360);
-            const tanH = tanV * camera.aspect * MARGE_NDC * DEBORD;
+            const tanV0 = Math.tan((camera.fov * Math.PI) / 360);
+            const tanV = tanV0 * MARGE_NDC;
+            const tanH = contained
+              ? tanV0 * camera.aspect * MARGE_NDC
+              : tanV0 * camera.aspect * MARGE_NDC * DEBORD;
             const memoX = group.rotation.x;
             const memoY = group.rotation.y;
             let dist = 2;
@@ -159,6 +170,11 @@ export default function Ring3D({ children }: { children: ReactNode }) {
                 p.applyMatrix4(ring.matrixWorld);
                 const dh = Math.abs(p.x) / tanH + p.z;
                 if (dh > dist) dist = dh;
+                // En objet, l'anneau doit aussi tenir en hauteur
+                if (contained) {
+                  const dv = Math.abs(p.y) / tanV + p.z;
+                  if (dv > dist) dist = dv;
+                }
               }
             }
 
@@ -362,14 +378,14 @@ export default function Ring3D({ children }: { children: ReactNode }) {
   // Les couches couvrent tout le hero, sur toute la largeur de l'écran.
   // Le masque estompe le haut et le bas : les arcs se perdent au lieu
   // d'être coupés net.
-  const layerClass =
-    "pointer-events-none absolute inset-y-0 left-1/2 w-[112vw] -translate-x-1/2";
-  const maskStyle = {
-    maskImage:
-      "linear-gradient(to bottom, transparent 0%, #000 13%, #000 87%, transparent 100%)",
-    WebkitMaskImage:
-      "linear-gradient(to bottom, transparent 0%, #000 13%, #000 87%, transparent 100%)",
-  } as const;
+  const layerClass = contained
+    ? "pointer-events-none absolute inset-0"
+    : "pointer-events-none absolute inset-y-0 left-1/2 w-[112vw] -translate-x-1/2";
+  const fondu =
+    "linear-gradient(to bottom, transparent 0%, #000 13%, #000 87%, transparent 100%)";
+  const maskStyle = contained
+    ? undefined
+    : ({ maskImage: fondu, WebkitMaskImage: fondu } as const);
 
   const entrance = reduce
     ? { initial: { opacity: 1 }, animate: { opacity: 1 } }
@@ -405,9 +421,11 @@ export default function Ring3D({ children }: { children: ReactNode }) {
         )}
       </motion.div>
 
-      <div className="relative z-10 flex w-full flex-col items-center">
-        {children}
-      </div>
+      {children && (
+        <div className="relative z-10 flex w-full flex-col items-center">
+          {children}
+        </div>
+      )}
 
       {/* Moitié proche : devant le contenu */}
       <motion.div

@@ -6,12 +6,12 @@ import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
 import CaseCover from "@/components/CaseCover";
 import HeroTitle from "@/components/HeroTitle";
-import Ring3D from "@/components/Ring3D";
 import Marquee from "@/components/Marquee";
 import ApproachList from "@/components/ApproachList";
 import ManifestoScroll from "@/components/ManifestoScroll";
 import ProcessScroll from "@/components/ProcessScroll";
 import SectionLabel from "@/components/SectionLabel";
+import SelectionFrame from "@/components/SelectionFrame";
 import SplitHeading from "@/components/SplitHeading";
 import TiltCard from "@/components/TiltCard";
 import { pageMetadata } from "@/lib/seo";
@@ -40,7 +40,7 @@ export default async function HomePage({ params }: Props) {
 
   return (
     <>
-      {/* ——— Hero centré : l'anneau 3D devant le titre ——— */}
+      {/* ——— Hero : le titre mis en scène comme un calque sélectionné ——— */}
       <section className="relative overflow-hidden">
         {/* Halos pastel très doux dans le fond */}
         <div
@@ -64,27 +64,14 @@ export default async function HomePage({ params }: Props) {
             <SectionLabel>{t("eyebrow")}</SectionLabel>
           </Reveal>
 
-          {/* Le titre est pris dans la profondeur de l'anneau :
-              bande lointaine derrière lui, bande proche devant */}
-          <div className="mt-8 w-full">
-            <Ring3D>
+          <div className="mt-14 md:mt-16">
+            <SelectionFrame label={t("layerLabel")}>
               <HeroTitle lineA={t("titleA")} lineB={t("titleB")} />
-            </Ring3D>
+            </SelectionFrame>
           </div>
 
-          {/* La légende vit sous la bande métallique, pas dessus */}
-          <Reveal delay={0.9} className="relative z-30 mt-8 md:mt-10">
-            <span className="inline-flex items-center gap-2 text-base font-medium italic text-terra-strong md:text-lg">
-              <span className="relative flex size-2.5" aria-hidden="true">
-                <span className="ring-pulse absolute inset-0 rounded-full border border-terra-strong" />
-                <span className="size-2.5 rounded-full bg-terra-strong" />
-              </span>
-              {t("ringCenter")}
-            </span>
-          </Reveal>
-
           <Reveal delay={0.45} className="relative z-30">
-            <p className="mx-auto mt-8 max-w-xl text-xl leading-relaxed text-ink-soft">
+            <p className="mx-auto mt-14 max-w-xl text-xl leading-relaxed text-ink-soft md:mt-16">
               {t("lede")}
             </p>
           </Reveal>
