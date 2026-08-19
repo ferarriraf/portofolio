@@ -3,7 +3,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Feather, Handshake, Ruler } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
-import Ring3D from "@/components/Ring3D";
+import RetroComputer from "@/components/RetroComputer";
+import ScreenXray from "@/components/ScreenXray";
 import SectionLabel from "@/components/SectionLabel";
 import CtaBand from "@/components/CtaBand";
 import { pageMetadata } from "@/lib/seo";
@@ -39,14 +40,10 @@ export default async function AboutPage({ params }: Props) {
         </Reveal>
 
         <Reveal delay={0.1}>
-          {/* L'anneau, ici en objet posé : entier, sans rien recouvrir */}
-          <div className="relative aspect-square overflow-hidden rounded-3xl border border-line bg-sand-card">
-            <Ring3D variant="object" />
-            <div
-              aria-hidden="true"
-              className="scanline pointer-events-none absolute inset-x-10 top-1/2 h-12 bg-gradient-to-b from-transparent via-sage/25 to-transparent"
-            />
-          </div>
+          {/* La radiographie d'une page, sur le poste du studio */}
+          <RetroComputer>
+            <ScreenXray />
+          </RetroComputer>
         </Reveal>
       </section>
 

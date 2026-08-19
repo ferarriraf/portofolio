@@ -172,20 +172,6 @@ body {
   animation: scroll-hint 1.8s ease-in-out infinite;
 }
 
-/* Le cadre du réticule : discret, il s'ouvre sur ce qui est cliquable */
-.curseur-boite {
-  opacity: 0;
-  transform: scale(0.55);
-  transition:
-    opacity 0.18s ease,
-    transform 0.24s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.curseur-boite[data-actif="1"] {
-  opacity: 1;
-  transform: scale(1.5);
-}
-
 /* ——— Écran de démarrage ——— */
 @keyframes boot-logo {
   from {
@@ -300,6 +286,92 @@ body {
 .gaze-path {
   stroke-dasharray: 320;
   animation: gaze-path 4.5s ease-in-out infinite;
+}
+
+/* ——— Le poste beige : témoin d'activité et balayage du tube ——— */
+@keyframes led-pulse {
+  0%,
+  62%,
+  100% {
+    opacity: 0.45;
+    box-shadow: 0 0 4px rgba(110, 138, 98, 0.5);
+  }
+  72%,
+  88% {
+    opacity: 1;
+    box-shadow: 0 0 10px 2px rgba(110, 138, 98, 0.95);
+  }
+}
+
+.led-pulse {
+  animation: led-pulse 3.6s ease-in-out infinite;
+}
+
+@keyframes tube-sweep {
+  0% {
+    transform: translateY(-120%);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.5;
+  }
+  92% {
+    opacity: 0.5;
+  }
+  100% {
+    transform: translateY(820%);
+    opacity: 0;
+  }
+}
+
+.tube-sweep {
+  animation: tube-sweep 7s linear infinite;
+}
+
+/* ——— Wireframe : les blocs se posent les uns après les autres ——— */
+@keyframes wf-settle {
+  0%,
+  12% {
+    opacity: 0.2;
+    transform: translateY(5px);
+  }
+  26%,
+  74% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  88%,
+  100% {
+    opacity: 0.2;
+    transform: translateY(5px);
+  }
+}
+
+.wf-settle {
+  animation: wf-settle 4.4s ease-in-out infinite;
+}
+
+@keyframes wf-measure {
+  0%,
+  20% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+  34%,
+  76% {
+    transform: scaleX(1);
+    opacity: 1;
+  }
+  90%,
+  100% {
+    transform: scaleX(0);
+    opacity: 0;
+  }
+}
+
+.wf-measure {
+  transform-origin: left;
+  animation: wf-measure 4.4s ease-in-out infinite;
 }
 
 /* ——— Vie de l'écran factice (scrollytelling) ——— */
@@ -535,6 +607,10 @@ body {
   .scanline,
   .heat-blob,
   .gaze-path,
+  .led-pulse,
+  .tube-sweep,
+  .wf-settle,
+  .wf-measure,
   .bar-dance,
   .typing-line,
   .caret-blink,

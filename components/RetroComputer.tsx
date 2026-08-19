@@ -60,6 +60,15 @@ export default function RetroComputer({
                     "linear-gradient(122deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 26%, transparent 46%)",
                 }}
               />
+              {/* Le balayage du tube, qui descend sans fin */}
+              <span
+                aria-hidden="true"
+                className="tube-sweep pointer-events-none absolute inset-x-0 top-0 z-30 h-[9%]"
+                style={{
+                  background:
+                    "linear-gradient(to bottom, transparent, rgba(255,255,255,0.16), transparent)",
+                }}
+              />
 
               {power && <PowerOn power={power} />}
             </div>
@@ -82,9 +91,10 @@ export default function RetroComputer({
               />
             ))}
           </span>
+          {/* Le témoin d'activité : il cligne comme un vrai poste */}
           <span
             aria-hidden="true"
-            className="size-2 rounded-full bg-sage-strong shadow-[0_0_7px_rgba(110,138,98,0.95)]"
+            className="led-pulse size-2 rounded-full bg-sage-strong"
           />
         </div>
 

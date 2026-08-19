@@ -279,12 +279,18 @@ function ScreenListen() {
   );
 }
 
-/** 02 — Structure : le wireframe en fil de fer */
+/**
+ * 02 — Structure : le wireframe se construit en boucle. Les blocs se
+ * posent l'un après l'autre et les cotes de mesure se tracent, comme
+ * une maquette en train d'être montée.
+ */
 function ScreenWireframe() {
   const box = "rounded-lg border-2 border-dashed border-ink/25";
   return (
     <div className="absolute inset-0 flex flex-col gap-2.5 bg-sand-card p-4">
-      <div className={`flex h-8 items-center justify-between px-3 ${box}`}>
+      <div
+        className={`wf-settle flex h-8 items-center justify-between px-3 ${box}`}
+      >
         <span className="h-2 w-10 rounded-full bg-ink/20" />
         <span className="flex gap-2">
           <span className="h-2 w-6 rounded-full bg-ink/15" />
@@ -292,17 +298,41 @@ function ScreenWireframe() {
           <span className="h-2 w-6 rounded-full bg-ink/15" />
         </span>
       </div>
-      <div className={`relative flex flex-1 items-center justify-center ${box}`}>
-        <svg className="absolute inset-0 h-full w-full text-ink/10" aria-hidden="true">
+
+      <div
+        className={`wf-settle relative flex flex-1 items-center justify-center ${box}`}
+        style={{ animationDelay: "0.35s" }}
+      >
+        <svg
+          className="absolute inset-0 h-full w-full text-ink/10"
+          aria-hidden="true"
+        >
           <line className="dash-march" x1="0" y1="0" x2="100%" y2="100%" stroke="currentColor" strokeWidth="2" />
           <line className="dash-march" x1="100%" y1="0" x2="0" y2="100%" stroke="currentColor" strokeWidth="2" />
         </svg>
         <span className="relative h-3 w-28 rounded-full bg-ink/20" />
+        {/* La cote de largeur, qui se trace puis s'efface */}
+        <span
+          aria-hidden="true"
+          className="wf-measure absolute bottom-2 left-3 right-3 flex items-center gap-1"
+          style={{ animationDelay: "0.7s" }}
+        >
+          <span className="size-1.5 shrink-0 rotate-45 border-l border-b border-terra-hot" />
+          <span className="h-px flex-1 bg-terra-hot/70" />
+          <span className="font-mono text-[0.5rem] text-terra-hot">100%</span>
+          <span className="h-px flex-1 bg-terra-hot/70" />
+          <span className="size-1.5 shrink-0 -rotate-135 border-l border-b border-terra-hot" />
+        </span>
       </div>
+
       <div className="grid h-1/4 grid-cols-3 gap-2.5">
-        <div className={box} />
-        <div className={box} />
-        <div className={box} />
+        {[0, 1, 2].map((i) => (
+          <div
+            key={i}
+            className={`wf-settle ${box}`}
+            style={{ animationDelay: `${0.9 + i * 0.22}s` }}
+          />
+        ))}
       </div>
     </div>
   );
@@ -357,8 +387,14 @@ function ScreenHeatmap() {
         />
       ))}
 
-      {/* Le parcours du regard, qui se trace */}
-      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 320 200" fill="none" aria-hidden="true">
+      {/* Le parcours du regard : le tracé se dessine, et l'œil le suit */}
+      <svg
+        className="absolute inset-0 h-full w-full"
+        viewBox="0 0 320 200"
+        preserveAspectRatio="none"
+        fill="none"
+        aria-hidden="true"
+      >
         <path
           className="gaze-path"
           d="M70 52 L186 68 L109 136 L243 144"
@@ -372,6 +408,30 @@ function ScreenHeatmap() {
         {[[70, 52], [186, 68], [109, 136], [243, 144]].map(([cx, cy], i) => (
           <circle key={i} cx={cx} cy={cy} r="3.5" fill="var(--sand)" fillOpacity="0.9" />
         ))}
+        {/* Le point de fixation, qui parcourt le trajet sans fin */}
+        <circle r="6" fill="var(--terra-hot)" fillOpacity="0.95">
+          <animateMotion
+            dur="4.5s"
+            repeatCount="indefinite"
+            keyPoints="0;1"
+            keyTimes="0;1"
+            calcMode="linear"
+            path="M70 52 L186 68 L109 136 L243 144"
+          />
+        </circle>
+        <circle r="13" fill="none" stroke="var(--terra-hot)" strokeOpacity="0.5" strokeWidth="1.2">
+          <animateMotion
+            dur="4.5s"
+            repeatCount="indefinite"
+            path="M70 52 L186 68 L109 136 L243 144"
+          />
+          <animate
+            attributeName="r"
+            values="9;16;9"
+            dur="1.5s"
+            repeatCount="indefinite"
+          />
+        </circle>
       </svg>
 
       <span className="absolute top-3 left-3 rounded-full bg-sand/15 px-2.5 py-1 text-[0.55rem] font-semibold tracking-[0.14em] text-sand uppercase">
