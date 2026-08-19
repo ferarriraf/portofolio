@@ -66,6 +66,17 @@ export default function ProcessScroll({
   // Le poste pivote lentement pendant le défilement : il arrive vu de
   // trois quarts, passe de face à mi-parcours, repart de l'autre côté
   const rotateY = useTransform(scrollYProgress, [0, 1], [9, -9]);
+  // Il se pose en entrant dans la section, recule avant qu'elle se
+  // détache — plus de verrouillage sec du pin
+  const poseScale = useTransform(
+    scrollYProgress,
+    [0, 0.06, 0.94, 1],
+    [0.955, 1, 1, 0.97]
+  );
+  const poseY = useTransform(scrollYProgress, [0, 0.06, 0.94, 1], [28, 0, 0, -14]);
+  // L'ombre au sol ne pivote pas : elle glisse à l'opposé de la face
+  // visible — le micro-détail qui vend la rotation
+  const ombreGlisse = useTransform(rotateY, (v) => v * -1.3);
 
   const screens = [
     <ScreenListen key="s1" t={ecrans} />,
@@ -118,17 +129,26 @@ export default function ProcessScroll({
           </div>
 
           <div className="mt-6 grid items-center gap-8 md:mt-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
-            {/* Étapes + rail de progression */}
+            {/* Étapes + glissière crantée : la gorge se remplit et
+                s'allume cran par cran, en phase avec les écrans */}
             <div className="relative order-2 min-h-64 pl-8 lg:order-1 lg:min-h-80">
               <div
                 aria-hidden="true"
-                className="absolute top-1 bottom-1 left-1.5 w-px bg-ink/15"
+                className="absolute top-1 bottom-1 left-1 w-[3px] rounded-full bg-ink/10 shadow-[inset_0_1px_2px_rgba(36,41,31,0.4)]"
               />
               <motion.div
                 aria-hidden="true"
                 style={{ scaleY: railScale }}
-                className="absolute top-1 bottom-1 left-1.5 w-px origin-top bg-terra-strong"
+                className="absolute top-1 bottom-1 left-1 w-[3px] origin-top rounded-full bg-terra-strong"
               />
+              {steps.map((_, i) => (
+                <Cran
+                  key={i}
+                  index={i}
+                  count={steps.length}
+                  progress={scrollYProgress}
+                />
+              ))}
               {steps.map((step, i) => (
                 <StepPanel
                   key={step.title}
@@ -140,25 +160,33 @@ export default function ProcessScroll({
               ))}
             </div>
 
-            {/* L'ordinateur qui s'allume, pivote et se transforme */}
+            {/* L'ordinateur qui s'allume, se pose, pivote et se
+                transforme — son ombre reste au sol, hors du pivot */}
             <div
               className="order-1 lg:order-2"
               style={{ perspective: "1400px" }}
             >
-              <motion.div style={{ rotateY }}>
-                <RetroComputer power={power}>
-                  {screens.map((screen, i) => (
-                    <ScreenPanel
-                      key={i}
-                      index={i}
-                      count={screens.length}
-                      progress={scrollYProgress}
-                    >
-                      {screen}
-                    </ScreenPanel>
-                  ))}
-                </RetroComputer>
-              </motion.div>
+              <div className="relative mx-auto w-full max-w-[31rem]">
+                <motion.div
+                  aria-hidden="true"
+                  style={{ x: ombreGlisse }}
+                  className="absolute inset-x-8 -bottom-1 h-7 rounded-[50%] bg-ink/30 blur-lg"
+                />
+                <motion.div style={{ rotateY, scale: poseScale, y: poseY }}>
+                  <RetroComputer power={power} ombre={false}>
+                    {screens.map((screen, i) => (
+                      <ScreenPanel
+                        key={i}
+                        index={i}
+                        count={screens.length}
+                        progress={scrollYProgress}
+                      >
+                        {screen}
+                      </ScreenPanel>
+                    ))}
+                  </RetroComputer>
+                </motion.div>
+              </div>
             </div>
           </div>
         </div>
@@ -168,6 +196,34 @@ export default function ProcessScroll({
 }
 
 /* ——— Panneaux pilotés par le scroll ——— */
+
+/** Un cran de la glissière : sa pastille s'allume au passage */
+function Cran({
+  index,
+  count,
+  progress,
+}: {
+  index: number;
+  count: number;
+  progress: MotionValue<number>;
+}) {
+  const c = (index + 0.5) / count;
+  const allume = useTransform(progress, [c - 0.02, c + 0.02], [0, 1]);
+
+  return (
+    <span
+      aria-hidden="true"
+      className="absolute left-[5.5px] -translate-x-1/2 -translate-y-1/2"
+      style={{ top: `${c * 100}%` }}
+    >
+      <span className="block size-[7px] rounded-full border border-ink/25 bg-sand" />
+      <motion.span
+        style={{ opacity: allume }}
+        className="absolute inset-0 rounded-full bg-terra-strong"
+      />
+    </span>
+  );
+}
 
 function segment(index: number, count: number) {
   const a = index / count;
@@ -500,7 +556,7 @@ function ScreenLaunch({ onlineLabel }: { onlineLabel: string }) {
         </div>
         <div className="grid h-1/4 grid-cols-3 gap-2.5">
           <div className="rounded-lg bg-terra-wash" />
-          <div className="rounded-lg bg-sand-card shadow-sm" />
+          <div className="rounded-lg bg-sand-card shadow-elev-1" />
           <div className="rounded-lg bg-sage-wash" />
         </div>
       </div>
@@ -510,7 +566,7 @@ function ScreenLaunch({ onlineLabel }: { onlineLabel: string }) {
         <span aria-hidden="true" className="confetti-float absolute top-[55%] left-[58%] size-1.5 rounded-full bg-sage" style={{ animationDelay: "0.6s" }} />
         <span aria-hidden="true" className="confetti-float absolute top-[48%] left-[64%] size-2 rounded-full bg-sand" style={{ animationDelay: "1.2s" }} />
         <span aria-hidden="true" className="confetti-float absolute top-[58%] left-[43%] size-1.5 rounded-full bg-terra-strong" style={{ animationDelay: "1.8s" }} />
-        <span className="badge-pop inline-flex items-center gap-2.5 rounded-full bg-ink-deep px-5 py-2.5 shadow-xl">
+        <span className="badge-pop inline-flex items-center gap-2.5 rounded-full bg-ink-deep px-5 py-2.5 shadow-elev-3">
           <span className="flex size-6 items-center justify-center rounded-full bg-sage">
             <Check className="size-4 text-ink-deep" />
           </span>

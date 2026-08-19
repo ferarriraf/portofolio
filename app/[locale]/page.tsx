@@ -40,10 +40,11 @@ export default async function HomePage({ params }: Props) {
     <>
       {/* ——— Hero : le titre mis en scène comme un calque sélectionné ——— */}
       <section className="relative overflow-hidden">
-        {/* Halos pastel très doux dans le fond */}
+        {/* Halos pastel : trois plans de lumière qui dérivent à des
+            vitesses différentes — le fond respire sans jamais boucler */}
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -top-40 -left-52 size-[42rem]"
+          className="halo-a pointer-events-none absolute -top-40 -left-52 size-[42rem]"
           style={{
             background:
               "radial-gradient(closest-side, rgba(169,191,160,0.5), transparent 72%)",
@@ -51,10 +52,18 @@ export default async function HomePage({ params }: Props) {
         />
         <div
           aria-hidden="true"
-          className="pointer-events-none absolute -right-60 -bottom-48 size-[46rem]"
+          className="halo-b pointer-events-none absolute -right-60 -bottom-48 size-[46rem]"
           style={{
             background:
               "radial-gradient(closest-side, rgba(223,161,132,0.42), transparent 72%)",
+          }}
+        />
+        <div
+          aria-hidden="true"
+          className="halo-c pointer-events-none absolute -top-24 right-[14%] size-[24rem]"
+          style={{
+            background:
+              "radial-gradient(closest-side, rgba(169,191,160,0.26), transparent 70%)",
           }}
         />
         <div className="container-site relative flex min-h-svh flex-col items-center justify-center pt-24 pb-14 text-center">
@@ -134,13 +143,29 @@ export default async function HomePage({ params }: Props) {
               className="group block"
             >
               <Reveal variant="mask" delay={0.08 * i}>
-                  <div className="overflow-hidden rounded-3xl shadow-[0_2px_10px_-6px_rgba(46,52,40,0.3)] transition-all duration-500 ease-out group-hover:-translate-y-1.5 group-hover:shadow-[0_28px_50px_-28px_rgba(46,52,40,0.55)]">
+                  <div className="overflow-hidden rounded-3xl shadow-elev-1 transition-all duration-500 ease-out group-hover:-translate-y-1.5 group-hover:shadow-elev-3">
                     <div className="relative aspect-4/3 transition-transform duration-700 ease-out group-hover:scale-[1.05]">
                       <CaseMockup
                         variant={coverVariants[i]}
                         etat="apres"
                         textes={mockups}
                       />
+                      {/* Au survol, l'« avant » se dévoile de haut en
+                          bas, comme un balayage de tube — le métier se
+                          comprend sans quitter l'accueil */}
+                      <div
+                        aria-hidden="true"
+                        className="absolute inset-0 [clip-path:inset(0_0_100%_0)] transition-[clip-path] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:[clip-path:inset(0_0_0_0)] group-focus-visible:[clip-path:inset(0_0_0_0)] motion-reduce:transition-none"
+                      >
+                        <CaseMockup
+                          variant={coverVariants[i]}
+                          etat="avant"
+                          textes={mockups}
+                        />
+                        <span className="absolute top-3 right-3 rounded-full bg-ink-deep/80 px-2.5 py-1 font-mono text-[0.6rem] text-sand">
+                          {tw("beforeLabel")}
+                        </span>
+                      </div>
                     </div>
                   </div>
               </Reveal>
@@ -154,7 +179,7 @@ export default async function HomePage({ params }: Props) {
                       {p.name}
                     </h3>
                   </div>
-                  <span className="inline-flex size-12 shrink-0 items-center justify-center rounded-full border border-ink/20 text-ink transition-all duration-300 group-hover:bg-ink group-hover:text-sand">
+                  <span className="press inline-flex size-12 shrink-0 items-center justify-center rounded-full border border-ink/20 text-ink transition-all duration-300 group-hover:bg-ink group-hover:text-sand">
                     <ArrowUpRight className="size-5" />
                   </span>
                 </div>

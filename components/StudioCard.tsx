@@ -37,7 +37,18 @@ export default function StudioCard() {
   ];
 
   return (
-    <div className="overflow-hidden rounded-3xl border border-line bg-sand-card">
+    // Une pile de fiches : deux calques papier dessous, qui glissent
+    // quand la carte se soulève au survol
+    <div className="group relative">
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 translate-x-1.5 translate-y-2 rotate-[1.1deg] rounded-3xl border border-line bg-sand-deep motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:translate-x-2.5 motion-safe:group-hover:translate-y-3"
+      />
+      <div
+        aria-hidden="true"
+        className="absolute inset-0 translate-x-0.5 translate-y-1 rotate-[-0.4deg] rounded-3xl border border-line bg-sand-card/70"
+      />
+      <div className="relative overflow-hidden rounded-3xl border border-line bg-sand-card inset-shadow-cisele shadow-elev-1 motion-safe:transition-transform motion-safe:duration-300 motion-safe:group-hover:-translate-y-1">
       {/* L'en-tête : l'heure locale du studio */}
       <div className="flex items-center justify-between border-b border-line bg-sand px-6 py-4">
         <span className="font-mono text-[0.62rem] font-semibold tracking-[0.16em] text-ink-soft uppercase">
@@ -50,7 +61,10 @@ export default function StudioCard() {
 
       <dl className="divide-y divide-line">
         {lignes.map((l) => (
-          <div key={l.cle} className="flex items-baseline justify-between gap-6 px-6 py-4">
+          <div
+            key={l.cle}
+            className="flex items-baseline justify-between gap-6 px-6 py-4 transition-colors hover:bg-sand/70"
+          >
             <dt className="font-mono text-[0.62rem] tracking-[0.14em] text-ink-soft uppercase">
               {l.cle}
             </dt>
@@ -70,6 +84,7 @@ export default function StudioCard() {
         <span className="text-sm font-semibold text-sage-deep">
           {t("availability")}
         </span>
+      </div>
       </div>
     </div>
   );

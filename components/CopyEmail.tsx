@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
+import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Check, Copy, Mail } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { recomposerAdresse } from "./MailLink";
@@ -12,6 +13,7 @@ export default function CopyEmail() {
   const t = useTranslations("contact");
   const [copied, setCopied] = useState(false);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
+  const reduce = useReducedMotion();
 
   useEffect(() => {
     // différé : composer l'adresse en pleine phase d'effet
@@ -35,8 +37,21 @@ export default function CopyEmail() {
     }
   }
 
+  // Pendant la copie, l'adresse se surligne dans la couleur ::selection
+  // du site — l'interface raconte le Ctrl+C qu'elle vient de faire
+  const surlignage = copied && !reduce && (
+    <motion.span
+      aria-hidden="true"
+      className="absolute -inset-x-[0.12em] inset-y-[0.06em] -z-10 origin-left rounded-[0.15em] bg-terra-soft"
+      initial={{ scaleX: 0 }}
+      animate={{ scaleX: 1 }}
+      exit={{ opacity: 0, transition: { duration: 0.25 } }}
+      transition={{ duration: 0.28, ease: "easeOut" }}
+    />
+  );
+
   return (
-    <div className="relative overflow-hidden rounded-3xl bg-terra-wash px-8 py-14 text-center md:py-20">
+    <div className="relative overflow-hidden rounded-3xl border border-terra-soft bg-terra-wash px-8 py-14 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.55),0_28px_60px_-34px_rgba(143,61,28,0.35)] md:py-20">
       <span className="text-xs font-semibold uppercase tracking-[0.18em] text-terra-deep">
         {t("emailLabel")}
       </span>
@@ -45,7 +60,10 @@ export default function CopyEmail() {
           href={`mailto:${email}`}
           className="mt-5 block font-display text-[clamp(1.9rem,5.5vw,4.5rem)] font-bold tracking-tight text-ink transition-colors hover:text-terra-strong"
         >
-          {email}
+          <span className="relative isolate inline-block">
+            <AnimatePresence>{surlignage}</AnimatePresence>
+            {email}
+          </span>
         </a>
       ) : (
         <span className="mt-5 block font-display text-[clamp(1.9rem,5.5vw,4.5rem)] font-bold tracking-tight text-ink">
@@ -59,11 +77,22 @@ export default function CopyEmail() {
           aria-live="polite"
           className="btn btn-secondary"
         >
-          {copied ? (
-            <Check className="size-4 text-sage-strong" />
-          ) : (
-            <Copy className="size-4" />
-          )}
+          <AnimatePresence mode="wait" initial={false}>
+            <motion.span
+              key={copied ? "ok" : "copy"}
+              className="inline-flex"
+              initial={reduce ? false : { scale: 0.4, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={reduce ? undefined : { scale: 0.4, opacity: 0 }}
+              transition={{ type: "spring", stiffness: 600, damping: 22 }}
+            >
+              {copied ? (
+                <Check className="size-4 text-sage-strong" />
+              ) : (
+                <Copy className="size-4" />
+              )}
+            </motion.span>
+          </AnimatePresence>
           {copied ? t("copied") : t("copy")}
         </button>
         <a href={email ? `mailto:${email}` : undefined} className="btn btn-primary">

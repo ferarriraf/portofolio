@@ -21,6 +21,11 @@
   --terra-hot: #d95f2e;
   --sage-wash: #dde8d3;
   --terra-wash: #f6e2d0;
+  /* Tranches des boutons « touche de clavier » : la couleur du fond,
+     poussée dans l'ombre */
+  --terra-edge: #6b2c12;
+  --ink-edge: #161a11;
+  --line-edge: #cfc4a8;
 }
 
 @theme inline {
@@ -43,6 +48,25 @@
   --color-terra-wash: var(--terra-wash);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
+
+  /* Échelle d'élévation : une seule lumière (en haut, celle du boîtier
+     du Mac), ombres teintées d'encre — jamais de noir pur. Chaque
+     niveau = une ombre de contact serrée + une ambiante large. */
+  --shadow-elev-1:
+    0 1px 2px rgba(46, 52, 40, 0.07), 0 3px 10px -4px rgba(46, 52, 40, 0.14);
+  --shadow-elev-2:
+    0 2px 3px rgba(46, 52, 40, 0.06), 0 12px 28px -14px rgba(46, 52, 40, 0.28);
+  --shadow-elev-3:
+    0 3px 6px rgba(46, 52, 40, 0.06), 0 26px 48px -22px rgba(46, 52, 40, 0.42);
+  --shadow-elev-4:
+    0 6px 12px rgba(36, 41, 31, 0.08), 0 40px 80px -28px rgba(36, 41, 31, 0.6);
+
+  /* Arêtes ciselées, comme le boîtier du Mac : liseré de lumière en
+     haut, appui discret en bas */
+  --inset-shadow-cisele:
+    inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -1px 0 rgba(46, 52, 40, 0.06);
+  --inset-shadow-cisele-sombre:
+    inset 0 1px 0 rgba(246, 241, 230, 0.12), inset 0 -1px 0 rgba(0, 0, 0, 0.38);
 }
 
 html {
@@ -84,18 +108,110 @@ body {
   box-shadow: 0 0 0 4px var(--sand);
 }
 
+/* Au clavier aussi, la poignée montre qu'elle a la main */
+.ba-frame:has(input:focus-visible) .ba-poignee {
+  scale: 1.1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ba-frame:has(input:focus-visible) .ba-poignee {
+    scale: 1;
+  }
+}
+
 @layer components {
   .container-site {
     @apply mx-auto w-full max-w-6xl px-6;
   }
+  /* Les boutons sont des touches de clavier : une tranche dure dessous,
+     soulevés au survol, enfoncés au clic. La presse (transform/ombre)
+     répond plus vite que les couleurs. */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold;
+    transition:
+      transform 0.13s cubic-bezier(0.34, 1.3, 0.5, 1),
+      box-shadow 0.13s ease,
+      background-color 0.3s,
+      color 0.3s,
+      border-color 0.3s;
+  }
+  .btn:active {
+    transform: translateY(2px);
   }
   .btn-primary {
     @apply bg-terra-deep text-sand-card hover:bg-ink;
+    box-shadow:
+      0 3px 0 var(--terra-edge),
+      0 16px 26px -16px rgba(143, 61, 28, 0.55);
+  }
+  .btn-primary:active {
+    box-shadow:
+      0 1px 0 var(--ink-edge),
+      0 8px 14px -12px rgba(46, 52, 40, 0.4);
+  }
+  .btn-primary:focus-visible {
+    box-shadow:
+      0 0 0 4px var(--sand),
+      0 3px 0 var(--terra-edge);
   }
   .btn-secondary {
     @apply border border-line bg-sand-card text-ink hover:border-sage-strong hover:text-sage-deep;
+    box-shadow:
+      0 3px 0 var(--line-edge),
+      0 14px 24px -16px rgba(46, 52, 40, 0.3);
+  }
+  .btn-secondary:active {
+    box-shadow:
+      0 1px 0 var(--line-edge),
+      0 8px 14px -12px rgba(46, 52, 40, 0.25);
+  }
+  .btn-secondary:focus-visible {
+    box-shadow:
+      0 0 0 4px var(--sand),
+      0 3px 0 var(--line-edge);
+  }
+  .btn-light {
+    @apply bg-sand text-ink hover:bg-sand-card;
+    box-shadow:
+      0 3px 0 rgba(36, 41, 31, 0.4),
+      0 16px 26px -16px rgba(0, 0, 0, 0.45);
+  }
+  .btn-light:active {
+    box-shadow:
+      0 1px 0 rgba(36, 41, 31, 0.4),
+      0 8px 14px -12px rgba(0, 0, 0, 0.35);
+  }
+  .btn-light:focus-visible {
+    box-shadow:
+      0 0 0 4px var(--sand),
+      0 3px 0 rgba(36, 41, 31, 0.4);
+  }
+  @media (hover: hover) {
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 5px 0 var(--ink-edge),
+        0 20px 30px -16px rgba(46, 52, 40, 0.5);
+    }
+    .btn-secondary:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 5px 0 var(--sage),
+        0 18px 28px -16px rgba(46, 52, 40, 0.35);
+    }
+    .btn-light:hover {
+      transform: translateY(-2px);
+      box-shadow:
+        0 5px 0 rgba(36, 41, 31, 0.4),
+        0 20px 30px -16px rgba(0, 0, 0, 0.5);
+    }
+  }
+  /* Enfoncement discret des commandes rondes (burger, fermer, flèches) */
+  .press {
+    transition: transform 0.12s ease-out;
+  }
+  .press:active {
+    transform: translateY(1px) scale(0.97);
   }
   .eyebrow {
     @apply inline-flex items-center gap-2.5 text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-sage-deep;
@@ -104,14 +220,66 @@ body {
   .eyebrow-invert {
     @apply text-sage;
   }
-  .card-hover {
-    @apply transition-all duration-300 hover:-translate-y-1 hover:border-sage hover:shadow-[0_16px_40px_-20px_rgba(46,52,40,0.35)];
-  }
   .btn-lg {
     @apply px-8 py-4 text-base;
   }
-  .btn-light {
-    @apply bg-sand text-ink hover:bg-sand-card;
+  /* Bandes pleine largeur : le papier sable porte son ombre le long de
+     la découpe — les cartes se posent SUR la page, les bandes s'ouvrent
+     SOUS elle. Même lumière que l'échelle d'élévation. */
+  .bande-calque {
+    box-shadow:
+      inset 0 1px 0 rgba(246, 241, 230, 0.1),
+      inset 0 16px 28px -24px rgba(0, 0, 0, 0.55),
+      inset 0 -14px 24px -22px rgba(0, 0, 0, 0.35);
+  }
+  .bande-calque-haut {
+    box-shadow:
+      inset 0 1px 0 rgba(246, 241, 230, 0.08),
+      inset 0 18px 30px -26px rgba(0, 0, 0, 0.5);
+  }
+  .bande-calque-claire {
+    box-shadow:
+      inset 0 1px 0 rgba(255, 255, 255, 0.5),
+      inset 0 12px 20px -20px rgba(46, 52, 40, 0.22),
+      inset 0 -10px 18px -18px rgba(46, 52, 40, 0.16);
+  }
+  /* Les cartes d'offres sont des plaques : un chant sauge dur dessous,
+     levée au survol — le chant s'étire, l'ombre s'élargit */
+  .card-offre {
+    border: 1px solid color-mix(in srgb, var(--sage) 45%, transparent);
+    box-shadow:
+      inset 0 1px 0 rgba(251, 248, 240, 0.55),
+      0 3px 0 var(--sage),
+      0 14px 34px -20px rgba(46, 52, 40, 0.22);
+    transition:
+      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
+      box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
+  }
+  @media (hover: hover) {
+    .card-offre:hover {
+      transform: translateY(-6px);
+      box-shadow:
+        inset 0 1px 0 rgba(251, 248, 240, 0.55),
+        0 9px 0 -3px var(--sage),
+        0 26px 48px -22px rgba(46, 52, 40, 0.32);
+    }
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .card-offre,
+  .card-offre:hover {
+    transform: none;
+    transition: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .btn,
+  .btn:hover,
+  .btn:active,
+  .press:active {
+    transform: none;
   }
 }
 
@@ -126,10 +294,79 @@ body {
   animation: marquee var(--marquee-speed, 38s) linear infinite;
 }
 
+/* La fente s'arrête sous la souris : on peut lire les mots */
+.marquee-slot:hover .marquee-track {
+  animation-play-state: paused;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
     animation: none;
   }
+}
+
+/* ——— Halos du hero : trois plans de lumière qui dérivent ———
+   Durées premières entre elles (26/34/22 s) : le motif ne boucle
+   jamais visiblement. Desktop seulement, transform pur (composité). */
+@keyframes halo-a {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(3rem, 2rem, 0) scale(1.07);
+  }
+}
+
+@keyframes halo-b {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1.05);
+  }
+  50% {
+    transform: translate3d(-2.5rem, -3rem, 0) scale(1);
+  }
+}
+
+@keyframes halo-c {
+  0%,
+  100% {
+    transform: translate3d(0, 0, 0) scale(1);
+  }
+  50% {
+    transform: translate3d(-1.5rem, 2rem, 0) scale(1.1);
+  }
+}
+
+@media (min-width: 768px) {
+  .halo-a {
+    animation: halo-a 26s ease-in-out infinite;
+  }
+  .halo-b {
+    animation: halo-b 34s ease-in-out infinite;
+  }
+  .halo-c {
+    animation: halo-c 22s ease-in-out infinite;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .halo-a,
+  .halo-b,
+  .halo-c {
+    animation: none;
+  }
+}
+
+/* ——— Patine CRT statique : les écrans « avant » ont l'âge de leur
+   logiciel — scanlines discrètes + vignettage interne du tube ——— */
+.crt-patine {
+  background-image: repeating-linear-gradient(
+    0deg,
+    rgba(63, 59, 51, 0.05) 0 1px,
+    transparent 1px 3px
+  );
+  box-shadow: inset 0 0 42px rgba(63, 59, 51, 0.16);
 }
 
 /* ——— Anneaux : rotations et pulsations (compositor-friendly) ——— */

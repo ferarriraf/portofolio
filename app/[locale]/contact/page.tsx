@@ -43,7 +43,7 @@ export default async function ContactPage({ params }: Props) {
           <div className="space-y-5">
             {faq.map((item, i) => (
               <Reveal key={item.q} delay={0.06 * i}>
-                <details className="group overflow-hidden rounded-2xl bg-ink-deep shadow-[0_18px_40px_-24px_rgba(46,52,40,0.6)]">
+                <details className="group overflow-hidden rounded-2xl bg-ink-deep inset-shadow-cisele-sombre shadow-elev-2">
                   <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden">
                     {/* Barre de titre de la fenêtre */}
                     <div className="flex items-center gap-3 border-b border-sand/10 bg-ink/70 px-4 py-2.5 md:px-5">

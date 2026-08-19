@@ -18,7 +18,7 @@ export default function CtaBand({
   href = "/contact",
 }: CtaBandProps) {
   return (
-    <section className="relative overflow-hidden bg-terra-deep text-sand-card">
+    <section className="bande-calque relative overflow-hidden bg-terra-deep text-sand-card">
       <div className="container-site relative py-20 md:py-28">
         <Reveal>
           <h2 className="max-w-3xl font-display text-4xl font-bold tracking-tight md:text-6xl">

@@ -2,6 +2,7 @@ import { useTranslations } from "next-intl";
 import { Mail } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import MailLink from "./MailLink";
+import FooterMark from "./FooterMark";
 import type { AppPathname } from "@/i18n/routing";
 
 const navLinks: { href: AppPathname; key: "home" | "services" | "work" | "about" | "contact" }[] = [
@@ -17,14 +18,10 @@ export default function Footer() {
   const year = new Date().getFullYear();
 
   return (
-    <footer className="overflow-hidden bg-ink-deep text-sand">
+    <footer className="bande-calque-haut overflow-hidden bg-ink-deep text-sand">
       <div className="container-site pt-14 md:pt-16">
-        <p
-          aria-hidden="true"
-          className="-mb-[0.09em] font-display text-[clamp(5rem,20vw,15rem)] font-bold leading-none tracking-tight text-sand/12"
-        >
-          R-X
-        </p>
+        {/* La dalle gravée qui se pose en fin de page */}
+        <FooterMark />
         <div className="grid gap-10 border-t border-sand/15 pt-10 pb-12 md:grid-cols-[1.5fr_1fr_1fr]">
           <p className="max-w-xs text-sm leading-relaxed text-sand/70">
             {t("footer.tagline")}
@@ -65,6 +62,11 @@ export default function Footer() {
           <p>
             © {year} R-X. {t("footer.rights")}
           </p>
+          {/* Le dernier mot du site : la session se ferme proprement */}
+          <span aria-hidden="true" className="font-mono text-[0.7rem] text-sand/45">
+            rx@r-x:~$ exit 0
+            <span className="caret-blink ml-1 inline-block h-3 w-1.5 translate-y-px bg-sand/45" />
+          </span>
           <Link
             href="/mentions-legales"
             className="transition-colors hover:text-sand"

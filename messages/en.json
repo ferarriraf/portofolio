@@ -208,6 +208,7 @@
     },
     "beforeLabel": "Before",
     "afterLabel": "After R-X",
+    "diffTitle": "$ diff before/ after/",
     "mockups": {
       "dashboard": {
         "titre": "HRSys v4.2 — Staff module",

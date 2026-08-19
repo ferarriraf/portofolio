@@ -12,18 +12,23 @@ import { motion, useTransform, type MotionValue } from "framer-motion";
 export default function RetroComputer({
   children,
   power,
+  ombre = true,
 }: {
   children: ReactNode;
   /** 0 = éteint, 1 = allumé. Absent : l'écran est allumé d'emblée. */
   power?: MotionValue<number>;
+  /** false : l'ombre au sol est dessinée par le parent (poste qui pivote) */
+  ombre?: boolean;
 }) {
   return (
     <div className="relative mx-auto w-full max-w-[31rem]">
       {/* Ombre portée au sol */}
-      <div
-        aria-hidden="true"
-        className="absolute inset-x-8 -bottom-1 h-7 rounded-[50%] bg-ink/30 blur-lg"
-      />
+      {ombre && (
+        <div
+          aria-hidden="true"
+          className="absolute inset-x-8 -bottom-1 h-7 rounded-[50%] bg-ink/30 blur-lg"
+        />
+      )}
 
       {/* Boîtier */}
       <div className="relative rounded-t-[2.4rem] rounded-b-[1.1rem] bg-[linear-gradient(150deg,#f4ecdc_0%,#e5d9c2_45%,#cdbea3_100%)] p-[6%] pb-[3.5%] shadow-[0_30px_60px_-28px_rgba(46,52,40,0.55),inset_0_2px_0_rgba(255,255,255,0.8),inset_0_-3px_10px_rgba(120,105,80,0.3)]">

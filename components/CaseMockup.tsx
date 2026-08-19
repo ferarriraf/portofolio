@@ -56,9 +56,12 @@ export default function CaseMockup({
 function Ecran({
   children,
   sombre = false,
+  retro = false,
 }: {
   children: ReactNode;
   sombre?: boolean;
+  /** Patine CRT statique : le vieux logiciel a l'air vieux */
+  retro?: boolean;
 }) {
   return (
     <div
@@ -67,6 +70,12 @@ function Ecran({
       }`}
     >
       {children}
+      {retro && (
+        <span
+          aria-hidden="true"
+          className="crt-patine pointer-events-none absolute inset-0"
+        />
+      )}
     </div>
   );
 }
@@ -82,7 +91,7 @@ function Dashboard({
 }) {
   if (etat === "avant") {
     return (
-      <Ecran>
+      <Ecran retro>
         <div className="flex items-center justify-between border-b border-[#cfcabb] bg-[#e7e4db] px-3 py-1.5">
           <span className="font-semibold text-[#6b675d]">{t.titre}</span>
           <span className="flex gap-1.5 text-[0.5rem] text-[#8b8679]">
@@ -137,7 +146,7 @@ function Dashboard({
         {t.apresCartes.map((c, i) => (
           <div
             key={c.libelle}
-            className="wf-settle flex flex-col justify-between rounded-xl bg-sand-card p-2.5 shadow-sm"
+            className="wf-settle flex flex-col justify-between rounded-xl bg-sand-card p-2.5 shadow-elev-1"
             style={{ animationDelay: `${i * 0.25}s` }}
           >
             <span className="font-display text-lg font-bold text-terra-deep">
@@ -161,7 +170,7 @@ function Dashboard({
 function Shop({ etat, t }: { etat: Etat; t: MockupTextes["shop"] }) {
   if (etat === "avant") {
     return (
-      <Ecran>
+      <Ecran retro>
         <div className="border-b border-[#cfcabb] bg-[#e7e4db] px-3 py-1.5 text-[0.55rem] font-semibold text-[#6b675d]">
           {t.etapes.map((e, i) => (
             <span key={e} className={i === 2 ? "text-[#3f3b33]" : "opacity-55"}>
@@ -211,7 +220,7 @@ function Shop({ etat, t }: { etat: Etat; t: MockupTextes["shop"] }) {
 function Health({ etat, t }: { etat: Etat; t: MockupTextes["health"] }) {
   if (etat === "avant") {
     return (
-      <Ecran>
+      <Ecran retro>
         <div className="border-b border-[#cfcabb] bg-[#e7e4db] px-3 py-1.5 text-[0.55rem] font-semibold text-[#6b675d]">
           {t.titre}
         </div>

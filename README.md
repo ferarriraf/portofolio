@@ -39,7 +39,10 @@ Le domaine de référence est `www.r-x.fr` ; `r-x.fr` redirige en 308
 | Le titre magnétique du hero           | `components/MagneticTitle.tsx`                |
 | Le scrollytelling « méthode »         | `components/ProcessScroll.tsx`                |
 | Les maquettes avant/après             | `components/CaseMockup.tsx` + `work.mockups` dans `messages/*.json` |
-| Le comparateur à poignée              | `components/BeforeAfter.tsx`                  |
+| Le comparateur à poignée (moniteur)   | `components/BeforeAfter.tsx`                  |
+| La frise du déroulé (rail au scroll)  | `components/ProjectTimeline.tsx`              |
+| Le R-X gravé du pied de page          | `components/FooterMark.tsx`                   |
+| Ombres, élévations, boutons keycap    | `app/globals.css` (tokens `--shadow-elev-*`, `--inset-shadow-cisele*`, `.btn`, `.bande-calque*`, `.card-offre`) |
 | Le poste rétro beige                  | `components/RetroComputer.tsx`                |
 | La fiche « En bref » (horloge, faits) | `components/StudioCard.tsx` + `about.card`    |
 | Navigation / pied de page             | `components/Topbar.tsx` / `components/Footer.tsx` |
@@ -71,6 +74,11 @@ Code : `components/SecretModes.tsx`.
   d'école, annoncés comme tels — aucun faux client.
 - `prefers-reduced-motion` est respecté partout (animations coupées ou
   remplacées par un état statique).
+- **Système de profondeur unifié** : une seule lumière (venant du haut),
+  échelle d'ombres `shadow-elev-1..4`, arêtes ciselées
+  `inset-shadow-cisele(-sombre)` façon boîtier du Mac, bandes pleine
+  largeur en creux (`.bande-calque*`), boutons « touche de clavier »
+  (tranche dure, soulevés au survol, enfoncés au clic).
 
 ## À compléter
 

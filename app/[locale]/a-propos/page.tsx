@@ -5,6 +5,7 @@ import PageHeader from "@/components/PageHeader";
 import CountUp from "@/components/CountUp";
 import Reveal from "@/components/Reveal";
 import StudioCard from "@/components/StudioCard";
+import ProjectTimeline from "@/components/ProjectTimeline";
 import SectionLabel from "@/components/SectionLabel";
 import CtaBand from "@/components/CtaBand";
 import { pageMetadata } from "@/lib/seo";
@@ -57,7 +58,7 @@ export default async function AboutPage({ params }: Props) {
       </section>
 
       {/* ——— Les chiffres et l'atelier ——— */}
-      <section className="border-y border-line bg-sand-deep">
+      <section className="bande-calque-claire border-y border-line bg-sand-deep">
         <div className="container-site grid gap-12 py-16 md:py-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
           <div>
             <Reveal>
@@ -84,7 +85,7 @@ export default async function AboutPage({ params }: Props) {
             <ul className="mt-8 flex flex-wrap gap-2">
               {tools.map((outil, i) => (
                 <Reveal key={outil} delay={0.04 * i}>
-                  <li className="rounded-full border border-line bg-sand-card px-3.5 py-1.5 text-sm font-medium text-ink">
+                  <li className="rounded-full border border-line bg-sand-card px-3.5 py-1.5 text-sm font-medium text-ink inset-shadow-cisele">
                     {outil}
                   </li>
                 </Reveal>
@@ -99,30 +100,11 @@ export default async function AboutPage({ params }: Props) {
         <Reveal>
           <SectionLabel n={1}>{t("timelineTitle")}</SectionLabel>
         </Reveal>
-        <ol className="mt-10 border-t border-line">
-          {timeline.map((etape, i) => (
-            <Reveal key={etape.quand} delay={0.05 * i}>
-              <li className="grid gap-2 border-b border-line py-6 md:grid-cols-[9rem_1fr_1fr] md:items-baseline md:gap-8">
-                <span className="font-mono text-xs tracking-[0.14em] text-terra-deep uppercase">
-                  {etape.quand}
-                </span>
-                <p className="font-display text-lg font-bold text-ink">
-                  {etape.moi}
-                </p>
-                <p className="leading-relaxed text-ink-soft">
-                  <span className="mr-2 font-mono text-[0.65rem] tracking-wide text-sage-deep uppercase">
-                    {t("timelineYou")}
-                  </span>
-                  {etape.client}
-                </p>
-              </li>
-            </Reveal>
-          ))}
-        </ol>
+        <ProjectTimeline etapes={timeline} youLabel={t("timelineYou")} />
       </section>
 
       {/* ——— Convictions : bloc sauge plein ——— */}
-      <section className="bg-sage-deep text-sand">
+      <section className="bande-calque bg-sage-deep text-sand">
         <div className="container-site py-20">
           <Reveal>
             <SectionLabel n={2} invert>

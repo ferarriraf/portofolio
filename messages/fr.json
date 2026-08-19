@@ -208,6 +208,7 @@
     },
     "beforeLabel": "Avant",
     "afterLabel": "Après R-X",
+    "diffTitle": "$ diff avant/ apres/",
     "mockups": {
       "dashboard": {
         "titre": "GestRH v4.2 — Module Personnel",

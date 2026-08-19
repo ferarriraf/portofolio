@@ -37,16 +37,18 @@ export default async function ServicesPage({ params }: Props) {
                 {/* Une seule teinte pour toute la section : les cartes
                     se distinguent par leur rang, pas par leur couleur */}
                 <article
-                  className="group relative h-full overflow-hidden rounded-3xl bg-sage-wash p-8 md:p-12"
+                  className="card-offre group relative h-full overflow-hidden rounded-3xl bg-sage-wash p-8 md:p-12"
                   style={{ borderTop: `${3 - Math.min(i, 2)}px solid var(--sage-deep)` }}
                 >
+                  {/* Contre-parallaxe : la carte monte, le numéro
+                      descend d'autant — calque lointain, sans tilt */}
                   <span
                     aria-hidden="true"
-                    className="absolute top-6 right-8 font-display text-6xl font-bold text-ink/10 md:text-7xl"
+                    className="absolute top-6 right-8 font-display text-6xl font-bold text-ink/10 transition-transform duration-500 group-hover:translate-y-1.5 motion-reduce:transition-none motion-reduce:group-hover:translate-y-0 md:text-7xl"
                   >
                     0{i + 1}
                   </span>
-                  <span className="relative inline-flex size-16 items-center justify-center rounded-full bg-ink text-sand transition-transform duration-500 group-hover:rotate-12">
+                  <span className="relative inline-flex size-16 items-center justify-center rounded-full bg-ink text-sand transition-all duration-500 group-hover:rotate-12 group-hover:shadow-[0_8px_16px_-8px_rgba(36,41,31,0.5)]">
                     <Icon className="size-6" />
                   </span>
                   <h2 className="mt-7 font-display text-2xl font-bold text-ink md:text-3xl">
@@ -63,7 +65,7 @@ export default async function ServicesPage({ params }: Props) {
       </section>
 
       {/* ——— Livrables : bloc sauge plein ——— */}
-      <section className="bg-sage-deep text-sand">
+      <section className="bande-calque bg-sage-deep text-sand">
         <div className="container-site grid gap-12 py-24 md:py-32 lg:grid-cols-[1fr_1.3fr] lg:items-center">
           <div>
             <Reveal>

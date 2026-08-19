@@ -44,6 +44,7 @@ export default async function WorkPage({ params }: Props) {
                 className={i % 2 === 1 ? "lg:order-2" : ""}
               >
                 <BeforeAfter
+                  titre={t("diffTitle")}
                   labelAvant={t("beforeLabel")}
                   labelApres={t("afterLabel")}
                   avant={
@@ -65,7 +66,7 @@ export default async function WorkPage({ params }: Props) {
                   {p.tags.map((tag) => (
                     <li
                       key={tag}
-                      className="rounded-full border border-line bg-sand-card px-3 py-1 text-xs font-medium text-ink-soft"
+                      className="rounded-full border border-line bg-sand-card px-3 py-1 text-xs font-medium text-ink-soft inset-shadow-cisele"
                     >
                       {tag}
                     </li>
@@ -93,7 +94,7 @@ export default async function WorkPage({ params }: Props) {
             </article>
           </Reveal>
         ))}
-        <p className="flex items-start gap-2.5 rounded-2xl bg-sand-deep px-5 py-4 text-sm text-ink-soft">
+        <p className="flex items-start gap-2.5 rounded-2xl bg-sand-deep px-5 py-4 text-sm text-ink-soft inset-shadow-cisele">
           <span
             aria-hidden="true"
             className="mt-1.5 inline-block size-1.5 shrink-0 rounded-full bg-terra-hot"

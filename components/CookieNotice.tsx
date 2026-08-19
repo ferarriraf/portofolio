@@ -47,7 +47,7 @@ export default function CookieNotice() {
           animate={{ opacity: 1, y: 0 }}
           exit={reduce ? { opacity: 0 } : { opacity: 0, y: 16 }}
           transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-          className="fixed bottom-4 left-4 z-[90] w-[min(23rem,calc(100vw-2rem))] rounded-2xl bg-ink-deep p-5 text-sand shadow-[0_24px_60px_-24px_rgba(36,41,31,0.7)]"
+          className="fixed bottom-4 left-4 z-[90] w-[min(23rem,calc(100vw-2rem))] rounded-2xl bg-ink-deep p-5 text-sand inset-shadow-cisele-sombre shadow-elev-4"
         >
           <p className="flex items-center gap-2 font-display text-base font-bold">
             <span

@@ -98,7 +98,7 @@ export default function Topbar() {
     <header
       className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
         scrolled
-          ? "border-b border-line/70 bg-sand/85 shadow-[0_8px_30px_-18px_rgba(46,52,40,0.25)] backdrop-blur-md"
+          ? "border-b border-line/70 bg-sand/85 shadow-elev-2 backdrop-blur-md"
           : "border-b border-transparent bg-transparent"
       }`}
     >
@@ -146,7 +146,7 @@ export default function Topbar() {
             aria-label={t("menuOpen")}
             aria-expanded={open}
             aria-controls={open ? "menu-mobile" : undefined}
-            className="inline-flex size-10 items-center justify-center rounded-full border border-line bg-sand-card text-ink md:hidden"
+            className="press inline-flex size-10 items-center justify-center rounded-full border border-line bg-sand-card text-ink md:hidden"
           >
             <Menu className="size-5" />
           </button>
@@ -178,7 +178,7 @@ export default function Topbar() {
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label={t("menuClose")}
-                className="inline-flex size-10 items-center justify-center rounded-full border border-line bg-sand-card text-ink"
+                className="press inline-flex size-10 items-center justify-center rounded-full border border-line bg-sand-card text-ink"
               >
                 <X className="size-5" />
               </button>
