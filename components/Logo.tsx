@@ -1,35 +1,32 @@
 /**
- * Le logotype : une pastille pleine, franchement visible en haut à
- * gauche. Au survol elle se retourne et découvre la flèche de retour —
- * le lien vers l'accueil cesse d'être un détail.
+ * Le logotype : R-X en grand, le tiret en terracotta. Au survol il
+ * pivote et découvre la flèche de retour — l'animation signale que
+ * c'est bien le chemin vers l'accueil, sans habiller le nom.
  */
 export default function Logo() {
   return (
-    <span className="group/logo relative inline-flex size-11 items-center justify-center [perspective:400px]">
-      <span className="relative size-full [transform-style:preserve-3d] transition-transform duration-500 group-hover/logo:[transform:rotateY(180deg)]">
-        {/* Face avant : le logotype */}
-        <span className="absolute inset-0 flex items-center justify-center rounded-xl bg-terra-hot [backface-visibility:hidden]">
-          <span className="font-display text-lg font-[800] tracking-[-0.05em] text-sand-card">
-            R-X
+    <span className="group/logo relative inline-flex h-9 w-16 items-center [perspective:500px]">
+      <span className="relative size-full [transform-style:preserve-3d] transition-transform duration-500 group-hover/logo:[transform:rotateX(180deg)]">
+        {/* Face avant : le nom */}
+        <span className="absolute inset-0 flex items-center [backface-visibility:hidden]">
+          <span className="font-display text-3xl font-[800] tracking-[-0.05em] text-ink">
+            R<span className="text-terra-hot">-</span>X
           </span>
         </span>
-        {/* Face arrière : la flèche de retour */}
-        <span className="absolute inset-0 flex items-center justify-center rounded-xl bg-ink-deep [backface-visibility:hidden] [transform:rotateY(180deg)]">
-          <svg
-            width="18"
-            height="18"
-            viewBox="0 0 24 24"
-            fill="none"
-            aria-hidden="true"
-          >
+        {/* Face arrière : le retour à l'accueil */}
+        <span className="absolute inset-0 flex items-center gap-1.5 [backface-visibility:hidden] [transform:rotateX(180deg)]">
+          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" aria-hidden="true">
             <path
               d="M14.5 5.5 8 12l6.5 6.5"
-              stroke="var(--sand)"
-              strokeWidth="2.2"
+              stroke="var(--terra-hot)"
+              strokeWidth="2.4"
               strokeLinecap="round"
               strokeLinejoin="round"
             />
           </svg>
+          <span className="font-display text-lg font-bold tracking-tight text-ink">
+            R-X
+          </span>
         </span>
       </span>
     </span>

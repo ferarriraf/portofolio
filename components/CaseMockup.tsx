@@ -147,7 +147,7 @@ function Dashboard({
         ))}
       </div>
       <div className="px-3 pb-3">
-        <span className="soft-pulse inline-block rounded-full bg-terra-hot px-3 py-1.5 text-[0.58rem] font-semibold text-sand-card">
+        <span className="pulse-doux inline-block rounded-full bg-terra-hot px-3 py-1.5 text-[0.58rem] font-semibold text-sand-card">
           {t.apresAction}
         </span>
       </div>
@@ -193,7 +193,7 @@ function Shop({ etat, t }: { etat: Etat; t: MockupTextes["shop"] }) {
           <span className="font-display text-lg font-bold text-terra-deep">
             {t.prix}
           </span>
-          <span className="soft-pulse mt-1 inline-block rounded-full bg-ink px-3 py-1.5 text-center text-[0.58rem] font-semibold text-sand">
+          <span className="pulse-doux mt-1 inline-block rounded-full bg-ink px-3 py-1.5 text-center text-[0.58rem] font-semibold text-sand">
             {t.action}
           </span>
           <span className="mt-1 text-[0.52rem] text-ink-soft">

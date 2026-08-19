@@ -639,6 +639,22 @@ html.mode-retro body::after {
   animation: soft-pulse 1.7s ease-in-out infinite;
 }
 
+/* Variante retenue : le bouton respire sans changer de taille —
+   un élément d'interface qui gonfle donne l'impression d'un défaut. */
+@keyframes pulse-doux {
+  0%,
+  100% {
+    box-shadow: 0 0 0 0 rgba(46, 52, 40, 0.35);
+  }
+  60% {
+    box-shadow: 0 0 0 5px rgba(46, 52, 40, 0);
+  }
+}
+
+.pulse-doux {
+  animation: pulse-doux 2.4s ease-out infinite;
+}
+
 @keyframes badge-pop {
   0%,
   55%,
@@ -814,6 +830,7 @@ html.mode-retro body::after {
   .caret-blink,
   .dash-march,
   .soft-pulse,
+  .pulse-doux,
   .badge-pop,
   .confetti-float,
   .fake-cursor,

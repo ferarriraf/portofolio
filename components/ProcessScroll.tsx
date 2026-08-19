@@ -408,7 +408,7 @@ function ScreenDesign() {
         <div className="flex flex-col gap-2">
           <span className="h-3.5 w-32 rounded-full bg-ink/80" />
           <span className="h-2.5 w-24 rounded-full bg-ink/30" />
-          <span className="soft-pulse mt-1 h-6 w-20 rounded-full bg-terra-strong" />
+          <span className="pulse-doux mt-1 h-6 w-20 rounded-full bg-terra-strong" />
         </div>
         <span className="size-14 rounded-full border-4 border-sage-strong bg-sand-card shadow-inner" />
       </div>
