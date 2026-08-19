@@ -17,7 +17,7 @@ export default function Marquee({ items, className }: MarqueeProps) {
         >
           <span
             className={`px-6 md:px-9 ${
-              ["text-ink", "text-terra-strong", "text-sage-strong"][i % 3]
+              ["text-sand", "text-terra", "text-sage"][i % 3]
             }`}
           >
             {item}
@@ -25,7 +25,7 @@ export default function Marquee({ items, className }: MarqueeProps) {
           <span
             aria-hidden="true"
             className={`size-2.5 rounded-full md:size-3 ${
-              i % 2 ? "bg-sage-strong" : "bg-terra-strong"
+              i % 2 ? "bg-sage" : "bg-terra"
             }`}
           />
         </li>
@@ -35,9 +35,7 @@ export default function Marquee({ items, className }: MarqueeProps) {
 
   return (
     <div
-      className={`overflow-hidden border-y border-line bg-sand-deep/70 py-5 md:py-6 ${
-        className ?? ""
-      }`}
+      className={`overflow-hidden bg-ink-deep py-5 md:py-6 ${className ?? ""}`}
     >
       <div className="marquee-track flex w-max">
         {row(false)}

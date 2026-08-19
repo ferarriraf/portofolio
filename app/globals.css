@@ -166,6 +166,21 @@ body {
   animation: scroll-hint 1.8s ease-in-out infinite;
 }
 
+/* Balancement doux des images de secours de l'anneau (sans WebGL) */
+@keyframes ring-sway {
+  0%,
+  100% {
+    transform: rotate(-2.2deg) scale(1);
+  }
+  50% {
+    transform: rotate(2.2deg) scale(1.015);
+  }
+}
+
+.ring-sway {
+  animation: ring-sway 9s ease-in-out infinite;
+}
+
 @keyframes scanline {
   0%,
   100% {
@@ -183,6 +198,7 @@ body {
 @media (prefers-reduced-motion: reduce) {
   .ring-rotor,
   .ring-pulse,
+  .ring-sway,
   .scroll-hint-dot,
   .scanline {
     animation: none;

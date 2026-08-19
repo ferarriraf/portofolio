@@ -10,6 +10,7 @@ import HeroTitle from "@/components/HeroTitle";
 import Ring3D from "@/components/Ring3D";
 import Marquee from "@/components/Marquee";
 import ApproachList from "@/components/ApproachList";
+import ProcessScroll from "@/components/ProcessScroll";
 import SplitHeading from "@/components/SplitHeading";
 import { RingGlyph } from "@/components/Logo";
 import { pageMetadata } from "@/lib/seo";
@@ -139,43 +140,13 @@ export default async function HomePage({ params }: Props) {
         </div>
       </section>
 
-      {/* ——— Méthode : bloc sauge, numéros en contour ——— */}
-      <section className="border-b border-line bg-sage-wash">
-        <div className="container-site py-24 md:py-32">
-          <Reveal>
-            <span className="eyebrow">
-              <RingGlyph size={15} />
-              {t("process.eyebrow")}
-            </span>
-          </Reveal>
-          <SplitHeading
-            text={t("process.title")}
-            delay={0.06}
-            className="mt-5 max-w-3xl font-display text-[clamp(2.4rem,5.5vw,4.5rem)] font-bold leading-[1.04] tracking-tight text-ink"
-          />
-          <ol className="mt-16 grid gap-x-8 gap-y-12 md:grid-cols-2 lg:grid-cols-4">
-            {steps.map((step, i) => (
-              <li key={step.title} className="h-full">
-                <Reveal delay={0.07 * i} className="h-full">
-                  <span
-                    className={`font-display text-6xl font-bold md:text-7xl ${
-                      i % 2 ? "text-sage-strong" : "text-terra"
-                    }`}
-                  >
-                    0{i + 1}
-                  </span>
-                  <h3 className="mt-5 font-display text-xl font-bold text-ink">
-                    {step.title}
-                  </h3>
-                  <p className="mt-2.5 leading-relaxed text-ink-soft">
-                    {step.text}
-                  </p>
-                </Reveal>
-              </li>
-            ))}
-          </ol>
-        </div>
-      </section>
+      {/* ——— Méthode : l'écran qui se transforme au scroll ——— */}
+      <ProcessScroll
+        eyebrow={t("process.eyebrow")}
+        title={t("process.title")}
+        steps={steps}
+        onlineLabel={t("process.online")}
+      />
 
       {/* ——— Réalisations en vitrine ——— */}
       <section className="container-site py-24 md:py-32">
