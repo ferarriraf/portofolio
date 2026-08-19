@@ -22,7 +22,7 @@ export default function LangSwitcher({
   return (
     <nav
       aria-label={t("label")}
-      className="flex items-center gap-1 rounded-full border border-line bg-sand-card p-1"
+      className="inline-flex w-fit items-center gap-1 rounded-full border border-line bg-sand-card p-1"
     >
       {options.map((o) => {
         const active = o.code === locale;

@@ -1,25 +1,25 @@
 {
   "meta": {
-    "siteName": "R-X — Studio d'ergonomie web",
+    "siteName": "R-X — Développement web",
     "home": {
-      "title": "R-X — Studio d'ergonomie & design d'interface",
-      "description": "R-X conçoit et refond des interfaces web sobres, lisibles et efficaces. Conception UI/UX, prototypes, design systems — l'utilisateur au centre."
+      "title": "R-X — Développeur web fullstack",
+      "description": "R-X conçoit, développe et maintient des sites et applications web rapides, fiables et faciles à faire évoluer. Node.js, React, Next.js, TypeScript — du premier échange à la mise en ligne."
     },
     "services": {
-      "title": "Services — Conception UI/UX",
-      "description": "Maquettes et prototypes, refonte d'interface, design system, responsive : la conception UI/UX de l'esquisse à l'écran."
+      "title": "Services — Développement web",
+      "description": "Sites complets, applications sur mesure, API et intégrations, maintenance : le développement web du besoin à la mise en ligne."
     },
     "work": {
-      "title": "Réalisations",
-      "description": "Études de cas : refonte de tableau de bord SaaS, parcours d'achat e-commerce, onboarding d'application santé."
+      "title": "Démonstrations",
+      "description": "Cas d'école : tableau de bord SaaS, parcours d'achat e-commerce, formulaire d'application santé — trois interfaces développées pour montrer la méthode."
     },
     "about": {
       "title": "À propos",
-      "description": "R-X, comme rayons X : un studio indépendant qui regarde sous la surface des interfaces."
+      "description": "R-X, développeur web indépendant : la personne qui écoute votre besoin est celle qui écrit le code."
     },
     "contact": {
       "title": "Contact",
-      "description": "Parlons de votre projet d'interface. Réponse sous deux jours ouvrés."
+      "description": "Parlons de votre projet web. Réponse sous deux jours ouvrés."
     },
     "legal": {
       "title": "Mentions légales",
@@ -43,44 +43,24 @@
     "en": "English"
   },
   "home": {
-    "eyebrow": "Studio d'ergonomie & design d'interface",
-    "titleA": "L'utilisateur",
-    "titleB": "au centre.",
-    "lede": "R-X conçoit et refond des interfaces web sobres, lisibles, efficaces — pour que vos utilisateurs trouvent, comprennent et agissent sans effort.",
-    "ctaServices": "Voir nos services",
+    "eyebrow": "Développeur web indépendant",
+    "titleA": "Le web,",
+    "titleB": "bien construit.",
+    "lede": "R-X conçoit, développe et maintient des sites et des applications web rapides, fiables et faciles à faire évoluer — avec un seul interlocuteur : celui qui écrit le code.",
+    "ctaServices": "Voir les services",
     "ctaContact": "Discuter de votre projet",
-    "ringCenter": "vous êtes ici",
-    "layerLabel": "Titre · l'utilisateur d'abord",
-    "scrollHint": "Défiler",
+    "layerLabel": "<h1 class=\"accroche\">",
     "marquee": [
-      "Ergonomie",
-      "Interfaces",
-      "Design system",
-      "Prototypes",
+      "Sites web",
+      "Applications",
+      "API",
+      "Performance",
       "Accessibilité",
-      "Recherche utilisateur"
+      "Maintenance"
     ],
-    "approach": {
-      "eyebrow": "Notre approche",
-      "title": "Trois temps, un cap",
-      "items": [
-        {
-          "title": "Comprendre",
-          "text": "Qui sont vos utilisateurs, ce qu'ils cherchent, ce qui les freine. Chaque projet commence par un regard honnête sur l'existant."
-        },
-        {
-          "title": "Concevoir",
-          "text": "Architecture, wireframes, maquettes haute fidélité, prototypes cliquables : l'interface se construit décision par décision, jamais par habitude."
-        },
-        {
-          "title": "Affiner",
-          "text": "Tests, retours, itérations. Nous polissons jusqu'à ce que chaque écran devienne évident — et que plus rien ne dépasse."
-        }
-      ]
-    },
     "manifesto": {
-      "lead": "Une bonne interface ne se remarque pas.",
-      "emph": "Elle se traverse."
+      "lead": "Un bon site ne se fait pas remarquer.",
+      "emph": "Il fait son travail."
     },
     "process": {
       "eyebrow": "La méthode",
@@ -92,92 +72,100 @@
           "text": "Un premier échange pour cerner votre activité, vos objectifs et vos contraintes. Sans jargon, sans engagement."
         },
         {
-          "title": "Structure",
-          "text": "Architecture de l'information, parcours utilisateurs, hiérarchie des contenus : le squelette avant la peau."
+          "title": "Architecture",
+          "text": "Choix techniques, schéma des données, découpage des pages : les fondations avant les murs."
         },
         {
-          "title": "Observation",
-          "text": "Là où les regards se posent, là où les clics hésitent. Les cartes de chaleur disent ce que les opinions supposent."
+          "title": "Développement",
+          "text": "Le code s'écrit par petites étapes visibles : vous suivez l'avancement sur une adresse privée, pas sur des promesses."
         },
         {
-          "title": "Design",
-          "text": "Maquettes haute fidélité et prototype interactif, dans un langage visuel qui vous ressemble."
+          "title": "Tests",
+          "text": "Navigateurs, mobiles, réseaux lents, erreurs de saisie : ce qui casse ici ne cassera pas chez vous."
         },
         {
-          "title": "Transmission",
-          "text": "Spécifications claires pour vos développeurs, fichiers organisés, et un œil attentif jusqu'à la mise en ligne."
+          "title": "Mise en ligne",
+          "text": "Déploiement, nom de domaine, sauvegardes — et un œil attentif après la livraison."
         }
       ],
       "screens": {
         "client": "Vous",
-        "notesTitre": "Notes de séance",
+        "notesTitre": "Notes d'échange",
         "notes": [
-          "Objectif : moins d'appels au support",
-          "Cible : équipes terrain",
-          "Contrainte : outil interne existant"
+          "Objectif : réserver en ligne",
+          "Existant : aucun site",
+          "Contrainte : gérer les contenus seul"
         ],
-        "enregistrement": "Séance enregistrée",
-        "maquetteTitre": "Vos écrans, en vrai",
-        "maquetteLede": "Prototype cliquable, partageable",
-        "maquetteAction": "Tester",
-        "hesite": "hésite 2,4 s",
-        "session": "Session 04"
+        "enregistrement": "Appel en cours",
+        "archiFront": "Pages",
+        "archiApi": "API",
+        "archiDb": "Base de données",
+        "archiLegende": "architecture — v1",
+        "codeFichier": "app/reservation.tsx",
+        "codeOk": "0 erreur · 0 avertissement",
+        "testsTitre": "npm test",
+        "testsItems": [
+          "réservation",
+          "formulaire",
+          "mobile",
+          "chargement"
+        ],
+        "testsResume": "4 / 4 réussis"
       }
     },
     "work": {
-      "eyebrow": "Réalisations",
+      "eyebrow": "Démonstrations",
       "title": "Trois cas d'école, pour montrer la méthode",
-      "cta": "Toutes nos réalisations"
+      "cta": "Toutes les démonstrations"
     },
     "cta": {
       "title": "Un projet, une question ?",
       "text": "Un brief d'une page ou trois lignes dans un email : tout commence par un message.",
-      "button": "Écrivez-nous"
-    },
-    "titleHint": "Passez la souris sur le titre — cliquez pour l'onde"
+      "button": "Écrivez-moi"
+    }
   },
   "services": {
     "eyebrow": "Services",
-    "title": "Conception UI/UX, de l'esquisse à l'écran",
-    "lede": "Un seul métier, fait sérieusement : concevoir des interfaces que vos utilisateurs comprennent au premier regard.",
+    "title": "Le développement web, du besoin à la mise en ligne",
+    "lede": "Un seul métier : construire des sites et des applications qui chargent vite, tiennent dans le temps et restent simples à faire évoluer.",
     "offers": [
       {
-        "title": "Maquettes & prototypes",
-        "text": "Des wireframes aux maquettes haute fidélité, jusqu'au prototype cliquable que vous pouvez mettre entre de vraies mains — avant d'écrire une ligne de code."
+        "title": "Sites web complets",
+        "text": "Vitrine, e-commerce, portfolio : conception, développement, hébergement et mise en ligne. Un site rapide, lisible sur tous les écrans, que vous pouvez mettre à jour vous-même."
       },
       {
-        "title": "Refonte d'interface",
-        "text": "Moderniser un outil vieillissant sans dérouter celles et ceux qui l'utilisent chaque jour. On garde ce qui marche, on répare ce qui freine."
+        "title": "Applications web sur mesure",
+        "text": "Outils métier, tableaux de bord, espaces clients : quand un logiciel du commerce ne colle pas à votre façon de travailler, je construis l'outil autour d'elle."
       },
       {
-        "title": "Design system",
-        "text": "Une bibliothèque de composants cohérente et documentée, pour que vos équipes construisent vite et juste — aujourd'hui comme dans deux ans."
+        "title": "API & intégrations",
+        "text": "Connecter vos outils entre eux, automatiser les tâches répétitives, exposer vos données proprement — pour que l'information circule sans ressaisie."
       },
       {
-        "title": "Responsive & mobile",
-        "text": "Pensé pour tous les écrans dès le premier trait : mobile, tablette, desktop, et les largeurs improbables entre les trois."
+        "title": "Maintenance & reprise",
+        "text": "Audit de l'existant, corrections, mises à jour de sécurité, modernisation progressive : votre site continue de vivre sans repartir de zéro."
       }
     ],
     "deliverables": {
       "eyebrow": "Livrables",
       "title": "Ce que vous recevez",
       "items": [
-        "Fichiers sources Figma organisés et nommés",
-        "Prototype interactif partageable",
-        "Spécifications d'intégration pour vos développeurs",
-        "Accompagnement pendant l'intégration"
+        "Le code source complet — il vous appartient",
+        "Un site déployé, nom de domaine et hébergement configurés",
+        "Une documentation simple pour les gestes du quotidien",
+        "Un interlocuteur unique, pendant et après le projet"
       ]
     },
     "cta": {
-      "title": "Votre interface mérite mieux ?",
-      "text": "Décrivez-nous votre outil, votre site ou votre idée — on vous dit franchement ce qu'on en pense.",
+      "title": "Votre site mérite mieux ?",
+      "text": "Décrivez votre outil, votre site ou votre idée — je vous dis franchement ce qui est possible, en combien de temps, et pour quel budget.",
       "button": "Parler de votre projet"
     }
   },
   "work": {
-    "eyebrow": "Réalisations",
+    "eyebrow": "Démonstrations",
     "title": "Trois cas d'école, pour montrer la méthode",
-    "lede": "Aucun de ces projets n'est un vrai client : ce sont des interfaces que nous avons reconstruites pour montrer, concrètement, ce que change une refonte. Glissez le curseur pour comparer.",
+    "lede": "Aucun de ces projets n'est un vrai client : ce sont trois interfaces développées de bout en bout pour montrer, concrètement, ce que change un code soigné. Glissez le curseur pour comparer.",
     "challengeLabel": "Le défi",
     "resultLabel": "Le résultat",
     "projects": [
@@ -185,17 +173,17 @@
         "name": "Clairière",
         "sector": "SaaS RH — tableau de bord",
         "tags": [
-          "Refonte",
-          "Design system"
+          "Application web",
+          "Refonte"
         ],
         "challenge": "Un back-office dense, accumulé au fil des ans, où chaque information demandait sept clics et deux souvenirs.",
-        "result": "Repensé écran par écran : moins de colonnes, plus de décisions. Les équipes RH retrouvent l'essentiel en deux clics."
+        "result": "Redéveloppé écran par écran : moins de colonnes, plus de décisions. Les équipes RH retrouvent l'essentiel en deux clics."
       },
       {
         "name": "Comptoir",
         "sector": "E-commerce artisanal",
         "tags": [
-          "Parcours d'achat",
+          "E-commerce",
           "Mobile"
         ],
         "challenge": "Un catalogue soigné mais un tunnel d'achat qui multipliait les étapes — et les abandons.",
@@ -205,18 +193,18 @@
         "name": "Pulso",
         "sector": "Application santé",
         "tags": [
-          "Onboarding",
+          "Formulaires",
           "Accessibilité"
         ],
         "challenge": "Un premier parcours patient anxiogène, pensé pour le service informatique plutôt que pour la salle d'attente.",
         "result": "Étapes courtes, gros caractères, langage humain. Une application utilisable même un mauvais jour."
       }
     ],
-    "note": "Cas d'école reconstruits par R-X à titre de démonstration. Vos écrans prendront leur place ici.",
+    "note": "Cas d'école développés par R-X à titre de démonstration. Votre projet prendra leur place ici.",
     "cta": {
       "title": "Votre projet ici ?",
-      "text": "Racontez-nous où ça coince : c'est souvent le début d'une belle étude de cas.",
-      "button": "Nous contacter"
+      "text": "Racontez-moi où ça coince : c'est souvent le début d'un beau projet.",
+      "button": "Me contacter"
     },
     "beforeLabel": "Avant",
     "afterLabel": "Après R-X",
@@ -326,7 +314,7 @@
           "Personne à prévenir",
           "Mutuelle"
         ],
-        "question": "Depuis quand ressentez-vous cette douleur ?",
+        "question": "Depuis quand ressentez-vous cette douleur ?",
         "reponses": [
           "Moins de deux jours",
           "Environ une semaine",
@@ -338,21 +326,21 @@
   },
   "about": {
     "eyebrow": "À propos",
-    "title": "R-X, comme rayons X",
-    "lede": "Nous regardons sous la surface des interfaces : ce que les utilisateurs font vraiment, pas ce qu'on suppose qu'ils font.",
-    "storyTitle": "Un studio compact, volontairement",
-    "story1": "R-X est un studio indépendant de conception UI/UX. Compact par choix : les personnes qui écoutent vos enjeux sont celles qui dessinent vos écrans. Pas d'intermédiaire, pas de perte en ligne.",
-    "story2": "Nous croyons aux interfaces sobres. Pas austères — sobres : chaque élément gagne sa place en servant l'utilisateur, ou il sort. C'est exigeant pour nous, reposant pour tout le monde.",
-    "valuesEyebrow": "Nos convictions",
+    "title": "Un développeur, pas une agence",
+    "lede": "R-X, c'est un développeur web indépendant : la personne qui écoute votre besoin est celle qui écrit le code. Pas d'intermédiaire, pas de perte en ligne.",
+    "storyTitle": "De bout en bout, volontairement",
+    "story1": "Je m'occupe de tout le cycle : comprendre le besoin, choisir la technique, développer, tester, mettre en ligne, maintenir. Vous n'expliquez votre projet qu'une seule fois — les décisions sont plus rapides, les réponses plus franches.",
+    "story2": "Je crois au code sobre. Peu de dépendances, des choix techniques justifiés, des pages qui chargent vite : chaque ligne gagne sa place en servant le projet, ou elle sort. C'est exigeant à écrire, reposant à utiliser — et bien plus simple à maintenir.",
+    "valuesEyebrow": "Mes convictions",
     "valuesTitle": "Trois règles, aucune exception",
     "values": [
       {
         "title": "Sobriété",
-        "text": "Le superflu se paie en attention. Nous dessinons ce qui sert, nous retirons ce qui décore."
+        "text": "Chaque dépendance ajoutée est une dette. Je code ce qui sert, je retire ce qui alourdit."
       },
       {
         "title": "Rigueur",
-        "text": "Chaque choix s'explique : une grille, un contraste, un mot. Rien n'est là par hasard."
+        "text": "Code versionné, tests automatisés, sauvegardes : rien ne part en ligne sans avoir été vérifié."
       },
       {
         "title": "Transparence",
@@ -360,13 +348,13 @@
       }
     ],
     "cta": {
-      "title": "Envie de voir votre interface aux rayons X ?",
-      "text": "Envoyez-nous une adresse ou une capture d'écran, on vous dit ce qu'on y voit.",
-      "button": "Écrivez-nous"
+      "title": "Envie d'un regard technique sur votre site ?",
+      "text": "Envoyez-moi une adresse, je vous dis ce que j'y vois : vitesse, sécurité, points à reprendre.",
+      "button": "Écrivez-moi"
     },
     "card": {
-      "title": "Fiche studio",
-      "basedLabel": "Basé à",
+      "title": "En bref",
+      "basedLabel": "Basé en",
       "basedValue": "France · à distance",
       "sinceLabel": "Depuis",
       "sinceValue": "2026",
@@ -394,34 +382,34 @@
     ],
     "toolsTitle": "L'atelier",
     "tools": [
-      "Figma",
-      "Prototypes cliquables",
-      "Tests utilisateurs",
-      "Cartes de chaleur",
-      "RGAA / WCAG",
-      "Design systems"
+      "TypeScript",
+      "React & Next.js",
+      "Node.js",
+      "Git",
+      "Tests automatisés",
+      "Accessibilité RGAA / WCAG"
     ],
     "timelineTitle": "Le déroulé d'un projet",
     "timeline": [
       {
         "quand": "Semaine 1",
-        "studio": "On écoute, on cadre, on chiffre.",
+        "moi": "J'écoute, je cadre, je chiffre.",
         "client": "Vous racontez votre activité."
       },
       {
         "quand": "Semaines 2–3",
-        "studio": "Architecture et premiers écrans.",
-        "client": "Vous réagissez, on ajuste."
+        "moi": "Architecture et premières pages.",
+        "client": "Vous suivez sur une adresse privée."
       },
       {
-        "quand": "Semaines 4–5",
-        "studio": "Maquettes finies et prototype.",
-        "client": "Vous testez entre de vraies mains."
+        "quand": "Semaines 4–6",
+        "moi": "Développement, tests, contenus.",
+        "client": "Vous essayez, vous signalez ce qui coince."
       },
       {
-        "quand": "Semaine 6",
-        "studio": "Spécifications et passation.",
-        "client": "Vos développeurs prennent le relais."
+        "quand": "Dernière semaine",
+        "moi": "Mise en ligne et passation.",
+        "client": "Vous recevez les clés — et le code."
       }
     ],
     "timelineYou": "vous"
@@ -430,7 +418,7 @@
     "eyebrow": "Contact",
     "title": "Parlons de votre projet",
     "lede": "Un brief d'une page ou trois lignes dans un email : tout commence par un message.",
-    "emailLabel": "Écrivez-nous",
+    "emailLabel": "Écrivez-moi",
     "copy": "Copier l'adresse",
     "copied": "Adresse copiée !",
     "mailto": "Ouvrir votre messagerie",
@@ -439,15 +427,15 @@
     "faq": [
       {
         "q": "Comment démarre un projet ?",
-        "a": "Par un échange gratuit d'une trentaine de minutes, en visio. Vous racontez, nous questionnons — puis nous vous envoyons une proposition écrite, claire et sans surprise."
+        "a": "Par un échange gratuit d'une trentaine de minutes, en visio. Vous racontez, je questionne — puis je vous envoie une proposition écrite, claire et sans surprise."
       },
       {
         "q": "Travaillez-vous à distance ?",
-        "a": "Oui, entièrement. Des points réguliers en visio, un prototype partagé en continu : vous voyez le projet avancer sans attendre la grande révélation finale."
+        "a": "Oui, entièrement. Des points réguliers en visio et une version de démonstration accessible en continu : vous voyez le site avancer sans attendre la grande révélation finale."
       },
       {
         "q": "Quels sont vos délais ?",
-        "a": "De deux à six semaines selon l'ampleur, annoncés dès la proposition. Si un imprévu bouscule le calendrier, vous le savez avant nous d'avoir fini de l'écrire."
+        "a": "De deux à huit semaines selon l'ampleur, annoncées dès la proposition. Si un imprévu bouscule le calendrier, vous êtes prévenu aussitôt."
       }
     ]
   },
@@ -467,12 +455,12 @@
     },
     "privacy": {
       "title": "Données personnelles",
-      "text": "Ce site ne dépose aucun cookie, n'embarque aucun traceur et ne collecte aucune donnée personnelle. Les emails que vous nous adressez ne servent qu'à vous répondre."
+      "text": "Ce site ne dépose aucun cookie, n'embarque aucun traceur et ne collecte aucune donnée personnelle. Les emails que vous m'adressez ne servent qu'à vous répondre."
     },
     "contactLabel": "Contact :"
   },
   "footer": {
-    "tagline": "Studio d'ergonomie web — des interfaces claires pour des utilisateurs sereins.",
+    "tagline": "Développeur web indépendant — des sites rapides, fiables, faits pour durer.",
     "navTitle": "Navigation",
     "contactTitle": "Contact",
     "legal": "Mentions légales",
@@ -480,7 +468,7 @@
   },
   "notFound": {
     "title": "Page introuvable",
-    "text": "Cette page n'existe pas — ou plus. L'ergonomie commence par de bons chemins ; celui-ci n'en est pas un.",
+    "text": "Cette page n'existe pas — ou plus. Un bon site commence par de bonnes routes ; celle-ci renvoie une 404.",
     "back": "Retour à l'accueil"
   },
   "cookies": {
@@ -500,8 +488,8 @@
     "sortie": "{touche} ou Échap pour quitter",
     "sortieEchap": "Échap pour quitter",
     "couper": "Couper les raccourcis",
-    "consoleTitre": "R-X · studio d'ergonomie web",
-    "consoleTexte": "Vous êtes du métier ? Essayez les touches W et I. Et si vous connaissez le vieux code de manette… Écrivez-nous : l'adresse est sur la page contact.",
+    "consoleTitre": "R-X · développement web",
+    "consoleTexte": "Vous êtes du métier ? Essayez les touches W et I. Et si vous connaissez le vieux code de manette… Écrivez-moi : l'adresse est sur la page contact.",
     "consoleReactiver": "Raccourcis coupés. Pour les réactiver : localStorage.removeItem(\"{cle}\") puis rechargez."
   }
 }

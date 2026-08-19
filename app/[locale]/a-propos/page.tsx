@@ -32,7 +32,7 @@ export default async function AboutPage({ params }: Props) {
   const tools = t.raw("tools") as string[];
   const timeline = t.raw("timeline") as {
     quand: string;
-    studio: string;
+    moi: string;
     client: string;
   }[];
 
@@ -107,7 +107,7 @@ export default async function AboutPage({ params }: Props) {
                   {etape.quand}
                 </span>
                 <p className="font-display text-lg font-bold text-ink">
-                  {etape.studio}
+                  {etape.moi}
                 </p>
                 <p className="leading-relaxed text-ink-soft">
                   <span className="mr-2 font-mono text-[0.65rem] tracking-wide text-sage-deep uppercase">

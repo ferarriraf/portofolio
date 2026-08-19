@@ -89,11 +89,13 @@ export default async function HomePage({ params }: Props) {
             </div>
           </Reveal>
         </div>
-        <Marquee items={marquee} className="relative" />
       </section>
 
       {/* ——— Manifeste : les mots s'illuminent au fil du scroll ——— */}
       <ManifestoScroll lead={t("manifesto.lead")} emph={t("manifesto.emph")} />
+
+      {/* ——— Bandeau défilant : coupure de chapitre avant la méthode ——— */}
+      <Marquee items={marquee} className="relative" />
 
       {/* ——— Méthode : l'écran qui se transforme au scroll ——— */}
       <ProcessScroll

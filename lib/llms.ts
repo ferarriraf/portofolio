@@ -25,14 +25,14 @@ function pages(locale: "fr" | "en") {
 
 export function llmsIndex(): string {
   const l = [
-    `# R-X — Studio d'ergonomie & design d'interface`,
+    `# ${fr.meta.home.title}`,
     ``,
     `> ${fr.meta.home.description}`,
     `> (English) ${en.meta.home.description}`,
     ``,
-    `Faits vérifiables : studio indépendant basé en France (travail à distance), fondé en 2026, langues de travail FR et EN, réponse sous 48 h ouvrées, aucun cookie ni traceur sur le site. Domaine canonique : ${BASE} (le site existe en français et en anglais).`,
+    `Faits vérifiables : développeur web indépendant basé en France (travail à distance), activité fondée en 2026, langues de travail FR et EN, réponse sous 48 h ouvrées, aucun cookie ni traceur sur le site. Domaine canonique : ${BASE} (le site existe en français et en anglais).`,
     ``,
-    `Important : les trois études de cas présentées (Clairière, Comptoir, Pulso) sont des CAS D'ÉCOLE pédagogiques reconstruits pour démontrer la méthode — ce ne sont pas de vrais clients, et le site le dit explicitement.`,
+    `Important : les trois études de cas présentées (Clairière, Comptoir, Pulso) sont des CAS D'ÉCOLE pédagogiques développés pour démontrer la méthode — ce ne sont pas de vrais clients, et le site le dit explicitement.`,
     ``,
     `## Pages (français)`,
     ...pages("fr").map((p) => `- [${p.titre}](${p.url}) : ${p.desc}`),
@@ -86,7 +86,7 @@ function section(locale: "fr" | "en"): string {
   for (const f of m.about.figures) T(`- ${f.valeur}${f.suffixe} — ${f.libelle}`);
   T(`${m.about.toolsTitle} : ${m.about.tools.join(", ")}.`);
   T(`${m.about.timelineTitle} :`);
-  for (const e of m.about.timeline) T(`- ${e.quand} — ${e.studio} (${locale === "fr" ? "côté client" : "client side"} : ${e.client})`);
+  for (const e of m.about.timeline) T(`- ${e.quand} — ${e.moi} (${locale === "fr" ? "côté client" : "client side"} : ${e.client})`);
   T("");
   T(`## ${m.meta.contact.title}`);
   T(`${m.contact.lede} ${m.contact.reply}`);

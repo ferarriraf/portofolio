@@ -8,7 +8,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { Check, MousePointer2 } from "lucide-react";
+import { Check } from "lucide-react";
 import RetroComputer from "./RetroComputer";
 import SectionLabel from "./SectionLabel";
 
@@ -19,11 +19,15 @@ export type EcranTextes = {
   notesTitre: string;
   notes: string[];
   enregistrement: string;
-  maquetteTitre: string;
-  maquetteLede: string;
-  maquetteAction: string;
-  hesite: string;
-  session: string;
+  archiFront: string;
+  archiApi: string;
+  archiDb: string;
+  archiLegende: string;
+  codeFichier: string;
+  codeOk: string;
+  testsTitre: string;
+  testsItems: string[];
+  testsResume: string;
 };
 
 type ProcessScrollProps = {
@@ -35,11 +39,11 @@ type ProcessScrollProps = {
 };
 
 /**
- * Scrollytelling de la méthode : un écran de navigateur épinglé qui
- * se métamorphose au fil du scroll — visio de découverte, wireframe,
- * maquette colorée, site livré. Le texte de l'étape suit le rythme.
- * « Réduire les animations » : les quatre étapes s'affichent en grille
- * statique, sans épinglage ni effet lié au scroll.
+ * Scrollytelling de la méthode : un écran épinglé qui se métamorphose
+ * au fil du scroll — visio de découverte, schéma d'architecture,
+ * éditeur de code, tests au vert, site livré. Le texte de l'étape
+ * suit le rythme. « Réduire les animations » : les étapes s'affichent
+ * en grille statique, sans épinglage ni effet lié au scroll.
  */
 export default function ProcessScroll({
   eyebrow,
@@ -62,9 +66,9 @@ export default function ProcessScroll({
 
   const screens = [
     <ScreenListen key="s1" t={ecrans} />,
-    <ScreenWireframe key="s2" />,
-    <ScreenHeatmap key="s3" t={ecrans} />,
-    <ScreenDesign key="s4" t={ecrans} />,
+    <ScreenArchi key="s2" t={ecrans} />,
+    <ScreenCode key="s3" t={ecrans} />,
+    <ScreenTests key="s4" t={ecrans} />,
     <ScreenLaunch key="s5" onlineLabel={onlineLabel} />,
   ];
 
@@ -99,7 +103,7 @@ export default function ProcessScroll({
     <section
       ref={ref}
       className="relative border-b border-line bg-sage-wash"
-      style={{ height: `${steps.length * 105}vh` }}
+      style={{ height: `${steps.length * 150}vh` }}
     >
       <div className="sticky top-0 flex h-svh flex-col justify-center overflow-hidden">
         <div className="container-site">
@@ -284,58 +288,88 @@ function ScreenListen({ t }: { t: EcranTextes }) {
 }
 
 /**
- * 02 — Structure : le wireframe se construit en boucle. Les blocs se
- * posent l'un après l'autre et les cotes de mesure se tracent, comme
- * une maquette en train d'être montée.
+ * 02 — Architecture : le plan technique se dessine. Trois étages —
+ * pages, API, base de données — se posent l'un après l'autre,
+ * reliés par des flux en pointillés qui circulent.
  */
-function ScreenWireframe() {
-  const box = "rounded-lg border-2 border-dashed border-ink/25";
-  return (
-    <div className="absolute inset-0 flex flex-col gap-2.5 bg-sand-card p-4">
-      <div
-        className={`wf-settle flex h-8 items-center justify-between px-3 ${box}`}
-      >
-        <span className="h-2 w-10 rounded-full bg-ink/20" />
-        <span className="flex gap-2">
-          <span className="h-2 w-6 rounded-full bg-ink/15" />
-          <span className="h-2 w-6 rounded-full bg-ink/15" />
-          <span className="h-2 w-6 rounded-full bg-ink/15" />
+function ScreenArchi({ t }: { t: EcranTextes }) {
+  const etages = [
+    {
+      nom: t.archiFront,
+      delai: "0s",
+      decor: (
+        <span className="flex gap-1" aria-hidden="true">
+          {[0, 1, 2].map((i) => (
+            <span
+              key={i}
+              className="h-4 w-3 rounded-xs border border-ink/25 bg-sand"
+            />
+          ))}
         </span>
-      </div>
-
-      <div
-        className={`wf-settle relative flex flex-1 items-center justify-center ${box}`}
-        style={{ animationDelay: "0.35s" }}
-      >
-        <svg
-          className="absolute inset-0 h-full w-full text-ink/10"
-          aria-hidden="true"
-        >
-          <line className="dash-march" x1="0" y1="0" x2="100%" y2="100%" stroke="currentColor" strokeWidth="2" />
-          <line className="dash-march" x1="100%" y1="0" x2="0" y2="100%" stroke="currentColor" strokeWidth="2" />
-        </svg>
-        <span className="relative h-3 w-28 rounded-full bg-ink/20" />
-        {/* La cote de largeur, qui se trace puis s'efface */}
+      ),
+    },
+    {
+      nom: t.archiApi,
+      delai: "0.45s",
+      decor: (
         <span
           aria-hidden="true"
-          className="wf-measure absolute bottom-2 left-3 right-3 flex items-center gap-1"
-          style={{ animationDelay: "0.7s" }}
+          className="font-mono text-[0.6rem] font-bold text-terra-deep"
         >
-          <span className="size-1.5 shrink-0 rotate-45 border-l border-b border-terra-hot" />
-          <span className="h-px flex-1 bg-terra-hot/70" />
-          <span className="font-mono text-[0.5rem] text-terra-hot">100%</span>
-          <span className="h-px flex-1 bg-terra-hot/70" />
-          <span className="size-1.5 shrink-0 -rotate-135 border-l border-b border-terra-hot" />
+          {"{ · · · }"}
         </span>
-      </div>
+      ),
+    },
+    {
+      nom: t.archiDb,
+      delai: "0.9s",
+      decor: (
+        <span className="flex flex-col gap-0.5" aria-hidden="true">
+          {[0, 1].map((i) => (
+            <span
+              key={i}
+              className="h-1.5 w-7 rounded-full border border-ink/25 bg-sand"
+            />
+          ))}
+        </span>
+      ),
+    },
+  ];
 
-      <div className="grid h-1/4 grid-cols-3 gap-2.5">
-        {[0, 1, 2].map((i) => (
-          <div
-            key={i}
-            className={`wf-settle ${box}`}
-            style={{ animationDelay: `${0.9 + i * 0.22}s` }}
-          />
+  return (
+    <div className="absolute inset-0 flex flex-col bg-sand-card p-4">
+      <span className="self-start rounded-full bg-sage-wash px-2 py-0.5 font-mono text-[0.5rem] font-semibold tracking-wide text-sage-deep">
+        {t.archiLegende}
+      </span>
+      <div className="mt-1.5 flex flex-1 flex-col">
+        {etages.map((e, i) => (
+          <div key={e.nom} className="flex min-h-0 flex-1 flex-col">
+            {i > 0 && (
+              <svg
+                aria-hidden="true"
+                className="mx-auto h-3 w-0.5 shrink-0 text-ink/30"
+              >
+                <line
+                  className="dash-march"
+                  x1="50%"
+                  y1="0"
+                  x2="50%"
+                  y2="100%"
+                  stroke="currentColor"
+                  strokeWidth="2"
+                />
+              </svg>
+            )}
+            <div
+              className="wf-settle flex flex-1 items-center justify-between rounded-lg border-2 border-dashed border-ink/25 px-3"
+              style={{ animationDelay: e.delai }}
+            >
+              <span className="font-mono text-[0.55rem] font-semibold text-ink/75">
+                {e.nom}
+              </span>
+              {e.decor}
+            </div>
+          </div>
         ))}
       </div>
     </div>
@@ -343,102 +377,94 @@ function ScreenWireframe() {
 }
 
 /**
- * 03 — Observation : un enregistrement de session. Le curseur d'un
- * vrai visiteur traverse l'écran, hésite devant un choix, revient,
- * puis clique — et chaque clic laisse une marque qui reste.
+ * 03 — Développement : l'éditeur ouvert. Des lignes de code abstraites
+ * — retrait puis segments colorés, comme une coloration syntaxique vue
+ * de loin — et la dernière ligne qui s'écrit, curseur battant.
  */
-function ScreenHeatmap({ t }: { t: EcranTextes }) {
-  const marques = [
-    { x: "29%", y: "33%", d: "0s" },
-    { x: "68%", y: "30%", d: "3.6s" },
-    { x: "41%", y: "66%", d: "7s" },
+function ScreenCode({ t }: { t: EcranTextes }) {
+  const lignes: { retrait: number; segments: [number, string][] }[] = [
+    { retrait: 0, segments: [[26, "bg-terra/80"], [40, "bg-sand/60"]] },
+    { retrait: 12, segments: [[34, "bg-sage/80"], [22, "bg-sand/40"]] },
+    { retrait: 12, segments: [[18, "bg-sand/60"], [42, "bg-terra/50"]] },
+    { retrait: 24, segments: [[30, "bg-sage/60"]] },
+    { retrait: 12, segments: [[24, "bg-sand/40"], [28, "bg-sage/80"]] },
+    { retrait: 0, segments: [[14, "bg-terra/80"]] },
   ];
 
   return (
-    <div className="absolute inset-0 overflow-hidden bg-sand">
-      {/* La page observée */}
-      <div className="absolute inset-0 flex flex-col gap-2.5 p-4">
-        <div className="flex h-7 items-center justify-between rounded-lg bg-sand-card px-3 shadow-sm">
-          <span className="h-2 w-8 rounded-full bg-ink/45" />
-          <span className="h-4 w-12 rounded-full bg-ink/15" />
-        </div>
-        <div className="flex flex-1 gap-2.5">
-          <div className="flex w-1/2 flex-col justify-center gap-2 rounded-lg bg-sage-wash px-4">
-            <span className="h-2.5 w-24 rounded-full bg-ink/45" />
-            <span className="h-2 w-16 rounded-full bg-ink/25" />
-            <span className="mt-1 h-6 w-20 rounded-full bg-sage-strong/70" />
-          </div>
-          <div className="flex w-1/2 flex-col justify-center gap-2 rounded-lg bg-terra-wash px-4">
-            <span className="h-2.5 w-24 rounded-full bg-ink/45" />
-            <span className="h-2 w-16 rounded-full bg-ink/25" />
-            <span className="mt-1 h-6 w-20 rounded-full bg-terra-strong" />
-          </div>
-        </div>
-        <div className="h-1/5 rounded-lg bg-sand-card shadow-sm" />
+    <div className="absolute inset-0 flex flex-col bg-ink-deep p-3.5 font-mono">
+      {/* L'onglet du fichier ouvert */}
+      <div className="flex items-center gap-1.5 rounded-t-lg bg-ink/70 px-2.5 py-1.5">
+        <span className="size-1.5 rounded-full bg-terra/80" aria-hidden="true" />
+        <span className="text-[0.55rem] text-sand/80">{t.codeFichier}</span>
       </div>
-
-      {/* Les clics laissés en chemin */}
-      {marques.map((m, i) => (
-        <span
-          key={i}
-          aria-hidden="true"
-          className="session-mark pointer-events-none absolute -ml-4 -mt-4 flex size-8 items-center justify-center rounded-full bg-terra-hot/25"
-          style={{ left: m.x, top: m.y, animationDelay: m.d }}
-        >
-          <span className="size-2.5 rounded-full bg-terra-hot" />
-        </span>
-      ))}
-
-      {/* Le curseur enregistré */}
-      <span
+      {/* Le code */}
+      <div
         aria-hidden="true"
-        className="session-cursor pointer-events-none absolute z-10 -ml-1 -mt-1"
+        className="flex flex-1 flex-col justify-center gap-2 rounded-b-lg border-x border-b border-sand/10 px-3"
       >
-        <MousePointer2 className="size-5 fill-ink-deep text-sand drop-shadow" />
-        {/* L'hésitation, notée par l'observateur */}
-        <span className="session-hesite absolute top-5 left-4 rounded bg-ink-deep px-1.5 py-0.5 font-mono text-[0.5rem] whitespace-nowrap text-sand">
-          {t.hesite}
+        {lignes.map((l, i) => (
+          <div key={i} className="flex items-center gap-2">
+            <span className="w-3 shrink-0 text-right text-[0.45rem] text-sand/30">
+              {i + 1}
+            </span>
+            <span className="shrink-0" style={{ width: l.retrait }} />
+            {l.segments.map(([w, c], j) => (
+              <span
+                key={j}
+                className={`h-1.5 rounded-full ${c}`}
+                style={{ width: w }}
+              />
+            ))}
+          </div>
+        ))}
+        {/* La ligne en train de s'écrire */}
+        <div className="flex items-center gap-2">
+          <span className="w-3 shrink-0 text-right text-[0.45rem] text-sand/30">
+            {lignes.length + 1}
+          </span>
+          <span className="typing-line h-1.5 rounded-full bg-sage/70" />
+          <span className="caret-blink h-2.5 w-0.5 shrink-0 bg-sand/80" />
+        </div>
+      </div>
+      {/* La barre d'état : tout est au vert */}
+      <div className="mt-2 flex items-center justify-between rounded-md bg-ink/70 px-2.5 py-1">
+        <span className="flex items-center gap-1.5">
+          <span className="size-1.5 rounded-full bg-sage" aria-hidden="true" />
+          <span className="text-[0.5rem] text-sage">{t.codeOk}</span>
         </span>
-      </span>
-
-      <span className="absolute top-3 left-3 z-10 rounded-full bg-ink-deep/85 px-2.5 py-1 font-mono text-[0.55rem] font-semibold tracking-[0.14em] text-sand uppercase">
-        {t.session}
-      </span>
+        <span className="text-[0.5rem] text-sand/50">main</span>
+      </div>
     </div>
   );
 }
 
-/** 04 — Design : la maquette prend ses couleurs */
-function ScreenDesign({ t }: { t: EcranTextes }) {
+/** 04 — Tests : le terminal déroule la suite, tout passe au vert */
+function ScreenTests({ t }: { t: EcranTextes }) {
   return (
-    <div className="absolute inset-0 flex flex-col gap-2.5 bg-sand p-4">
-      <div className="flex h-8 items-center justify-between rounded-lg bg-sand-card px-3 shadow-sm">
-        <span className="flex items-center gap-1.5">
-          <span className="size-3 rounded-full border-2 border-sage-strong" />
-          <span className="h-2 w-8 rounded-full bg-ink/70" />
-        </span>
-        <span className="flex gap-2">
-          <span className="h-2 w-6 rounded-full bg-ink/20" />
-          <span className="h-2 w-6 rounded-full bg-ink/20" />
-          <span className="h-6 w-14 rounded-full bg-terra-strong" />
-        </span>
+    <div className="absolute inset-0 flex flex-col bg-ink-deep p-4 font-mono">
+      {/* Les trois pastilles de fenêtre du terminal */}
+      <div className="flex items-center gap-1.5" aria-hidden="true">
+        <span className="size-2 rounded-full bg-terra/70" />
+        <span className="size-2 rounded-full bg-sand/40" />
+        <span className="size-2 rounded-full bg-sage/70" />
       </div>
-      <div className="flex flex-1 items-center justify-between gap-3 rounded-lg bg-sage-wash px-4">
-        <div className="flex flex-col gap-1.5">
-          <span className="font-display text-[0.72rem] leading-tight font-bold text-ink">
-            {t.maquetteTitre}
+      <div className="mt-3 flex flex-1 flex-col justify-center gap-2">
+        <span className="text-[0.55rem] text-sand/60">$ {t.testsTitre}</span>
+        {t.testsItems.map((item, i) => (
+          <span
+            key={item}
+            className="wf-settle flex items-center gap-1.5 text-[0.55rem] text-sand/90"
+            style={{ animationDelay: `${0.4 + i * 0.45}s` }}
+          >
+            <Check className="size-2.5 shrink-0 text-sage" aria-hidden="true" />
+            {item}
           </span>
-          <span className="text-[0.5rem] text-ink-soft">{t.maquetteLede}</span>
-          <span className="pulse-doux mt-1 rounded-full bg-terra-strong px-2 py-1 text-center text-[0.5rem] font-semibold text-sand-card">
-            {t.maquetteAction}
-          </span>
-        </div>
-        <span className="size-14 rounded-full border-4 border-sage-strong bg-sand-card shadow-inner" />
-      </div>
-      <div className="grid h-1/4 grid-cols-3 gap-2.5">
-        <div className="rounded-lg bg-terra-wash" />
-        <div className="rounded-lg bg-sand-card shadow-sm" />
-        <div className="rounded-lg bg-sage-wash" />
+        ))}
+        <span className="badge-pop mt-1.5 inline-flex items-center gap-1.5 self-start rounded-full bg-sage px-2.5 py-1 text-[0.55rem] font-bold text-ink-deep">
+          <Check className="size-2.5" aria-hidden="true" />
+          {t.testsResume}
+        </span>
       </div>
     </div>
   );

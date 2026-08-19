@@ -270,131 +270,6 @@ body {
   }
 }
 
-/* ——— Enregistrement de session : le curseur observé ———
-   Il traverse l'écran, hésite devant un choix, revient, puis clique.
-   Ses clics laissent des marques qui s'accumulent. */
-@keyframes session-cursor {
-  0% {
-    left: 18%;
-    top: 78%;
-  }
-  14% {
-    left: 30%;
-    top: 34%;
-  }
-  22% {
-    left: 33%;
-    top: 38%;
-  }
-  30% {
-    left: 29%;
-    top: 33%;
-  }
-  44% {
-    left: 68%;
-    top: 30%;
-  }
-  56% {
-    left: 64%;
-    top: 63%;
-  }
-  70% {
-    left: 41%;
-    top: 66%;
-  }
-  86% {
-    left: 50%;
-    top: 84%;
-  }
-  100% {
-    left: 18%;
-    top: 78%;
-  }
-}
-
-.session-cursor {
-  animation: session-cursor 11s cubic-bezier(0.5, 0, 0.5, 1) infinite;
-}
-
-@keyframes session-mark {
-  0%,
-  40% {
-    opacity: 0;
-    transform: scale(0.3);
-  }
-  46% {
-    opacity: 0.9;
-    transform: scale(1.25);
-  }
-  56% {
-    opacity: 0.55;
-    transform: scale(1);
-  }
-  94% {
-    opacity: 0.55;
-    transform: scale(1);
-  }
-  100% {
-    opacity: 0;
-    transform: scale(1);
-  }
-}
-
-.session-mark {
-  animation: session-mark 11s ease-out infinite;
-}
-
-@keyframes session-hesite {
-  0%,
-  16% {
-    opacity: 0;
-  }
-  22%,
-  30% {
-    opacity: 1;
-  }
-  38%,
-  100% {
-    opacity: 0;
-  }
-}
-
-.session-hesite {
-  animation: session-hesite 11s ease-in-out infinite;
-}
-
-/* ——— Carte de chaleur : les zones qui captent le regard ——— */
-@keyframes heat-breathe {
-  0%,
-  100% {
-    transform: scale(0.86);
-    opacity: 0.55;
-  }
-  50% {
-    transform: scale(1.12);
-    opacity: 0.95;
-  }
-}
-
-.heat-blob {
-  animation: heat-breathe 3.2s ease-in-out infinite;
-}
-
-@keyframes gaze-path {
-  0% {
-    stroke-dashoffset: 320;
-  }
-  55%,
-  100% {
-    stroke-dashoffset: 0;
-  }
-}
-
-.gaze-path {
-  stroke-dasharray: 320;
-  animation: gaze-path 4.5s ease-in-out infinite;
-}
-
 /* ——— Modes cachés ———
    Trois lectures du même site : le fil de fer, l'inspecteur, et 1988.
    Rien ne les annonce ; on les trouve au clavier. */
@@ -558,29 +433,6 @@ html.mode-retro body::after {
 
 .wf-settle {
   animation: wf-settle 4.4s ease-in-out infinite;
-}
-
-@keyframes wf-measure {
-  0%,
-  20% {
-    transform: scaleX(0);
-    opacity: 0;
-  }
-  34%,
-  76% {
-    transform: scaleX(1);
-    opacity: 1;
-  }
-  90%,
-  100% {
-    transform: scaleX(0);
-    opacity: 0;
-  }
-}
-
-.wf-measure {
-  transform-origin: left;
-  animation: wf-measure 4.4s ease-in-out infinite;
 }
 
 /* ——— Vie de l'écran factice (scrollytelling) ——— */
@@ -830,15 +682,9 @@ html.mode-retro body::after {
   .ring-sway,
   .scroll-hint-dot,
   .scanline,
-  .heat-blob,
-  .gaze-path,
-  .session-cursor,
-  .session-mark,
-  .session-hesite,
   .led-pulse,
   .tube-sweep,
   .wf-settle,
-  .wf-measure,
   .bar-dance,
   .typing-line,
   .caret-blink,
@@ -851,6 +697,12 @@ html.mode-retro body::after {
   .fake-cursor-click,
   .fake-cursor-click2 {
     animation: none;
+  }
+
+  /* Sans l'animation, la « ligne en train de s'écrire » n'aurait
+     aucune largeur : on la fige aux deux tiers. */
+  .typing-line {
+    width: 66%;
   }
 }
 

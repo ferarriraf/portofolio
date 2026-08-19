@@ -1,6 +1,7 @@
 # r-x.fr — Site vitrine R-X
 
-Site de présentation du studio d'ergonomie web R-X, accessible sur
+Site de présentation de R-X, développeur web fullstack indépendant
+(Node.js, React, Next.js, TypeScript), accessible sur
 [https://www.r-x.fr](https://www.r-x.fr). Construit avec **Next.js 16**
 (Node.js), bilingue **français / anglais** (`/` et `/en`, chemins
 localisés : `/realisations` ↔ `/en/work`).
@@ -40,7 +41,7 @@ Le domaine de référence est `www.r-x.fr` ; `r-x.fr` redirige en 308
 | Les maquettes avant/après             | `components/CaseMockup.tsx` + `work.mockups` dans `messages/*.json` |
 | Le comparateur à poignée              | `components/BeforeAfter.tsx`                  |
 | Le poste rétro beige                  | `components/RetroComputer.tsx`                |
-| La fiche studio (horloge, faits)      | `components/StudioCard.tsx` + `about.card`    |
+| La fiche « En bref » (horloge, faits) | `components/StudioCard.tsx` + `about.card`    |
 | Navigation / pied de page             | `components/Topbar.tsx` / `components/Footer.tsx` |
 | Bandeau « aucun cookie »              | `components/CookieNotice.tsx`                 |
 | Écran de démarrage                    | `components/BootScreen.tsx`                   |

@@ -52,11 +52,11 @@ export async function GET(
           </div>
           <div style={{ display: "flex", fontSize: 44, color: "#2e3428", marginTop: 8 }}>
             {fr
-              ? "Studio d'ergonomie & design d'interface"
-              : "Ergonomics & interface design studio"}
+              ? "Développeur web fullstack"
+              : "Fullstack web developer"}
           </div>
           <div style={{ display: "flex", fontSize: 30, color: "#5c6353", marginTop: 14 }}>
-            {fr ? "L'utilisateur au centre." : "The user at the centre."}
+            {fr ? "Le web, bien construit." : "The web, built right."}
           </div>
         </div>
 
