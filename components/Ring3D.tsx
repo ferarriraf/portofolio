@@ -78,7 +78,7 @@ export default function Ring3D({ children }: { children: ReactNode }) {
           });
           // Résolution adaptée : la zone de rendu est très large, on
           // évite de multiplier inutilement les pixels
-          const dprMax = window.innerWidth > 1100 ? 1.25 : 1.75;
+          const dprMax = window.innerWidth > 1100 ? 1.75 : 2;
           renderer.setPixelRatio(Math.min(window.devicePixelRatio, dprMax));
           renderer.toneMapping = THREE.ACESFilmicToneMapping;
           renderer.toneMappingExposure = 1.45;
@@ -125,6 +125,9 @@ export default function Ring3D({ children }: { children: ReactNode }) {
           // Une bounding box serait bien trop pessimiste pour un anneau
           // incliné ; on échantillonne donc la géométrie réelle.
           const MARGE_NDC = 0.965;
+          // 1 = l'anneau tient juste dans la largeur ; au-delà, il sort
+          // franchement par les côtés
+          const DEBORD = 1.16;
           const echantillon: number[] = [];
           {
             const pos = geometry.getAttribute("position");
@@ -135,12 +138,13 @@ export default function Ring3D({ children }: { children: ReactNode }) {
           }
           const p = new THREE.Vector3();
 
-          // Cadrage vertical seulement : l'anneau ne doit JAMAIS être
-          // coupé en haut ni en bas, mais il déborde volontairement à
-          // gauche et à droite — c'est ce débordement qui l'étire d'un
-          // bord à l'autre de l'écran.
+          // Cadrage horizontal : l'anneau est calé sur la largeur de
+          // l'écran, avec un débord volontaire — il entre par la gauche
+          // et sort par la droite. Le haut et le bas dépassent du cadre
+          // et sont estompés par un masque : c'est l'effet de portail.
           const fit = (poses: [number, number][]) => {
-            const tanV = Math.tan((camera.fov * Math.PI) / 360) * MARGE_NDC;
+            const tanV = Math.tan((camera.fov * Math.PI) / 360);
+            const tanH = tanV * camera.aspect * MARGE_NDC * DEBORD;
             const memoX = group.rotation.x;
             const memoY = group.rotation.y;
             let dist = 2;
@@ -153,8 +157,8 @@ export default function Ring3D({ children }: { children: ReactNode }) {
               for (let i = 0; i < echantillon.length; i += 3) {
                 p.set(echantillon[i], echantillon[i + 1], echantillon[i + 2]);
                 p.applyMatrix4(ring.matrixWorld);
-                const dv = Math.abs(p.y) / tanV + p.z;
-                if (dv > dist) dist = dv;
+                const dh = Math.abs(p.x) / tanH + p.z;
+                if (dh > dist) dist = dh;
               }
             }
 
@@ -202,9 +206,9 @@ export default function Ring3D({ children }: { children: ReactNode }) {
 
         // Orientation de base : le haut de l'anneau bascule au loin,
         // sa bande basse vient devant — on regarde dans l'ouverture
-        // Très incliné : la silhouette s'étire en une ellipse basse et
-        // large, qui traverse l'écran sans écraser le titre
-        const BASE_X = -1.42;
+        // Ouvert : on regarde à travers l'anneau comme dans un portail,
+        // ses arcs entrent par les côtés et se perdent en haut et en bas
+        const BASE_X = -1.02;
         const BASE_Y = -0.12;
 
         const setPose = (x: number, y: number, spin: number) => {
@@ -355,10 +359,17 @@ export default function Ring3D({ children }: { children: ReactNode }) {
 
   // Panoramique et ENTIER : large sur les côtés, jamais coupé par sa
   // zone de rendu, descendu sous le menu.
-  // Plus large que l'écran : l'anneau sort par les côtés. Sa hauteur
-  // reste bornée pour laisser respirer le haut et le bas du hero.
+  // Les couches couvrent tout le hero, sur toute la largeur de l'écran.
+  // Le masque estompe le haut et le bas : les arcs se perdent au lieu
+  // d'être coupés net.
   const layerClass =
-    "pointer-events-none absolute top-1/2 left-1/2 aspect-[7/2] w-[min(228vw,440vh)] -translate-x-1/2 -translate-y-1/2";
+    "pointer-events-none absolute inset-y-0 left-1/2 w-[112vw] -translate-x-1/2";
+  const maskStyle = {
+    maskImage:
+      "linear-gradient(to bottom, transparent 0%, #000 13%, #000 87%, transparent 100%)",
+    WebkitMaskImage:
+      "linear-gradient(to bottom, transparent 0%, #000 13%, #000 87%, transparent 100%)",
+  } as const;
 
   const entrance = reduce
     ? { initial: { opacity: 1 }, animate: { opacity: 1 } }
@@ -375,9 +386,14 @@ export default function Ring3D({ children }: { children: ReactNode }) {
   const swayClass = reduce ? "" : "ring-sway";
 
   return (
-    <div className="relative flex w-full flex-col items-center">
+    <>
       {/* Moitié lointaine : derrière le contenu */}
-      <motion.div aria-hidden="true" className={`${layerClass} z-0`} {...entrance}>
+      <motion.div
+        aria-hidden="true"
+        className={`${layerClass} z-0`}
+        style={maskStyle}
+        {...entrance}
+      >
         {fallback ? (
           <img
             src="/ring-far.png"
@@ -389,10 +405,17 @@ export default function Ring3D({ children }: { children: ReactNode }) {
         )}
       </motion.div>
 
-      <div className="relative z-10 flex flex-col items-center">{children}</div>
+      <div className="relative z-10 flex w-full flex-col items-center">
+        {children}
+      </div>
 
       {/* Moitié proche : devant le contenu */}
-      <motion.div aria-hidden="true" className={`${layerClass} z-20`} {...entrance}>
+      <motion.div
+        aria-hidden="true"
+        className={`${layerClass} z-20`}
+        style={maskStyle}
+        {...entrance}
+      >
         {fallback ? (
           <img
             src="/ring-near.png"
@@ -403,6 +426,6 @@ export default function Ring3D({ children }: { children: ReactNode }) {
           <div ref={nearRef} className="h-full w-full" />
         )}
       </motion.div>
-    </div>
+    </>
   );
 }

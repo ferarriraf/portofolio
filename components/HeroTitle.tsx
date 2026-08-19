@@ -21,17 +21,25 @@ export default function HeroTitle({ lineA, lineB }: HeroTitleProps) {
   });
 
   return (
+    // Deux graisses opposées sur la même police variable : la première
+    // ligne pose la voix, la seconde frappe.
     <h1
       aria-label={`${lineA} ${lineB}`}
-      className="font-display text-[clamp(3.2rem,9.5vw,8rem)] font-bold leading-[0.98] tracking-tight text-ink"
+      className="font-display text-[clamp(3.2rem,9.5vw,8rem)] leading-[0.98] text-ink"
     >
       <span aria-hidden="true" className="block overflow-hidden pb-[0.05em]">
-        <motion.span className="block" {...rise(0.12)}>
+        <motion.span
+          className="block font-[280] tracking-[-0.01em] text-ink-soft"
+          {...rise(0.12)}
+        >
           {lineA}
         </motion.span>
       </span>
       <span aria-hidden="true" className="block overflow-hidden pb-[0.12em]">
-        <motion.span className="block" {...rise(0.26)}>
+        <motion.span
+          className="block font-[800] tracking-[-0.045em]"
+          {...rise(0.26)}
+        >
           {lineB}
         </motion.span>
       </span>

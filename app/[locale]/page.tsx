@@ -59,7 +59,7 @@ export default async function HomePage({ params }: Props) {
               "radial-gradient(closest-side, rgba(223,161,132,0.42), transparent 72%)",
           }}
         />
-        <div className="container-site relative flex min-h-svh flex-col items-center justify-center pt-32 pb-16 text-center lg:pt-28">
+        <div className="container-site relative flex min-h-svh flex-col items-center justify-center pt-24 pb-14 text-center">
           <Reveal className="relative z-30">
             <SectionLabel>{t("eyebrow")}</SectionLabel>
           </Reveal>
@@ -73,7 +73,7 @@ export default async function HomePage({ params }: Props) {
           </div>
 
           {/* La légende vit sous la bande métallique, pas dessus */}
-          <Reveal delay={0.9} className="relative z-30 mt-36 md:mt-52">
+          <Reveal delay={0.9} className="relative z-30 mt-8 md:mt-10">
             <span className="inline-flex items-center gap-2 text-base font-medium italic text-terra-strong md:text-lg">
               <span className="relative flex size-2.5" aria-hidden="true">
                 <span className="ring-pulse absolute inset-0 rounded-full border border-terra-strong" />

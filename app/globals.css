@@ -9,13 +9,16 @@
   --ink-soft: #5c6353;
   --sage: #a9bfa0;
   --sage-strong: #6e8a62;
-  --sage-deep: #43573b;
+  --sage-deep: #33452c;
   --terra: #dfa184;
   --terra-strong: #c1714b;
   --terra-soft: #f3dccb;
   --line: #ddd3bd;
   --ink-deep: #24291f;
-  --terra-deep: #a05437;
+  /* Les deux accents sont écartés en valeur, pas seulement en teinte :
+     la terracotta signale l'action, la sauge porte la structure. */
+  --terra-deep: #8f3d1c;
+  --terra-hot: #d95f2e;
   --sage-wash: #dde8d3;
   --terra-wash: #f6e2d0;
 }
@@ -35,6 +38,7 @@
   --color-line: var(--line);
   --color-ink-deep: var(--ink-deep);
   --color-terra-deep: var(--terra-deep);
+  --color-terra-hot: var(--terra-hot);
   --color-sage-wash: var(--sage-wash);
   --color-terra-wash: var(--terra-wash);
   --font-display: var(--font-display);

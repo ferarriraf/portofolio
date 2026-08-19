@@ -16,12 +16,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 
 const offerIcons = [Frame, RefreshCw, Boxes, Smartphone];
-const offerTones = [
-  "bg-sage-wash",
-  "bg-terra-wash",
-  "bg-sand-deep",
-  "bg-sage-wash",
-];
 
 export default async function ServicesPage({ params }: Props) {
   const { locale } = await params;
@@ -42,8 +36,11 @@ export default async function ServicesPage({ params }: Props) {
             return (
               <Reveal key={offer.title} delay={0.06 * i} className="h-full">
                 <TiltCard className="h-full">
+                {/* Une seule teinte pour toute la section : les cartes
+                    se distinguent par leur rang, pas par leur couleur */}
                 <article
-                  className={`group relative h-full overflow-hidden rounded-3xl p-8 md:p-12 ${offerTones[i]}`}
+                  className="group relative h-full overflow-hidden rounded-3xl bg-sage-wash p-8 md:p-12"
+                  style={{ borderTop: `${3 - Math.min(i, 2)}px solid var(--sage-deep)` }}
                 >
                   <span
                     aria-hidden="true"
@@ -68,8 +65,8 @@ export default async function ServicesPage({ params }: Props) {
         </div>
       </section>
 
-      {/* ——— Livrables : bloc encre ——— */}
-      <section className="bg-ink-deep text-sand">
+      {/* ——— Livrables : bloc sauge plein ——— */}
+      <section className="bg-sage-deep text-sand">
         <div className="container-site grid gap-12 py-24 md:py-32 lg:grid-cols-[1fr_1.3fr] lg:items-center">
           <div>
             <Reveal>

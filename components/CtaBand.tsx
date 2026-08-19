@@ -19,17 +19,17 @@ export default function CtaBand({
   href = "/contact",
 }: CtaBandProps) {
   return (
-    <section className="relative overflow-hidden border-y border-terra/40 bg-terra-wash">
-      <RingsDecor className="pointer-events-none absolute -right-32 -bottom-48 w-130 opacity-70 max-sm:hidden" />
+    <section className="relative overflow-hidden bg-terra-deep text-sand-card">
+      <RingsDecor className="pointer-events-none absolute -right-32 -bottom-48 w-130 opacity-25 max-sm:hidden" />
       <div className="container-site relative py-20 md:py-28">
         <Reveal>
-          <h2 className="max-w-3xl font-display text-4xl font-bold tracking-tight text-ink md:text-6xl">
+          <h2 className="max-w-3xl font-display text-4xl font-bold tracking-tight md:text-6xl">
             {title}
           </h2>
-          <p className="mt-5 max-w-md text-lg leading-relaxed text-ink-soft">
+          <p className="mt-5 max-w-md text-lg leading-relaxed text-sand/80">
             {text}
           </p>
-          <Link href={href} className="btn btn-primary btn-lg group mt-10">
+          <Link href={href} className="btn btn-light btn-lg group mt-10">
             {buttonLabel}
             <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
           </Link>

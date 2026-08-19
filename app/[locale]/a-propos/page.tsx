@@ -3,8 +3,8 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Feather, Handshake, Ruler } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
+import SectionLabel from "@/components/SectionLabel";
 import CtaBand from "@/components/CtaBand";
-import { RingGlyph } from "@/components/Logo";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -83,40 +83,37 @@ export default async function AboutPage({ params }: Props) {
         </Reveal>
       </section>
 
-      {/* ——— Convictions ——— */}
-      <section className="border-y border-line bg-sand-deep">
+      {/* ——— Convictions : bloc sauge plein ——— */}
+      <section className="bg-sage-deep text-sand">
         <div className="container-site py-20">
           <Reveal>
-            <span className="eyebrow">
-              <RingGlyph size={15} />
+            <SectionLabel n={2} invert>
               {t("valuesEyebrow")}
-            </span>
-            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-ink md:text-4xl">
+            </SectionLabel>
+            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-sand md:text-4xl">
               {t("valuesTitle")}
             </h2>
           </Reveal>
           <div className="mt-12 grid gap-6 md:grid-cols-3">
             {values.map((value, i) => {
               const Icon = valueIcons[i];
-              const tones = ["bg-sage-wash", "bg-terra-wash", "bg-sand-card"];
               return (
                 <Reveal key={value.title} delay={0.07 * i} className="h-full">
-                  <article
-                    className={`group relative h-full overflow-hidden rounded-3xl p-8 transition-transform duration-300 hover:-translate-y-1 md:p-10 ${tones[i]}`}
-                  >
+                  {/* Cartes en creux sur l'aplat : le rang les distingue */}
+                  <article className="group relative h-full overflow-hidden rounded-3xl border border-sand/20 p-8 transition-colors duration-300 hover:bg-sand/5 md:p-10">
                     <span
                       aria-hidden="true"
-                      className="absolute top-5 right-7 font-display text-5xl font-bold text-ink/10"
+                      className="absolute top-5 right-7 font-display text-5xl font-[240] text-sand/25"
                     >
                       0{i + 1}
                     </span>
-                    <span className="inline-flex size-14 items-center justify-center rounded-full bg-ink text-sand transition-transform duration-500 group-hover:rotate-12">
+                    <span className="inline-flex size-14 items-center justify-center rounded-full bg-sand text-sage-deep transition-transform duration-500 group-hover:rotate-12">
                       <Icon className="size-5" />
                     </span>
-                    <h3 className="mt-6 font-display text-2xl font-bold text-ink">
+                    <h3 className="mt-6 font-display text-2xl font-bold text-sand">
                       {value.title}
                     </h3>
-                    <p className="mt-3 leading-relaxed text-ink-soft">
+                    <p className="mt-3 leading-relaxed text-sand/75">
                       {value.text}
                     </p>
                   </article>
