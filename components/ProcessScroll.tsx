@@ -63,6 +63,9 @@ export default function ProcessScroll({
   const power = useTransform(scrollYProgress, [0, 0.07], [0, 1], {
     clamp: true,
   });
+  // Le poste pivote lentement pendant le défilement : il arrive vu de
+  // trois quarts, passe de face à mi-parcours, repart de l'autre côté
+  const rotateY = useTransform(scrollYProgress, [0, 1], [9, -9]);
 
   const screens = [
     <ScreenListen key="s1" t={ecrans} />,
@@ -137,20 +140,25 @@ export default function ProcessScroll({
               ))}
             </div>
 
-            {/* L'ordinateur qui s'allume, et son écran qui se transforme */}
-            <div className="order-1 lg:order-2">
-              <RetroComputer power={power}>
-                {screens.map((screen, i) => (
-                  <ScreenPanel
-                    key={i}
-                    index={i}
-                    count={screens.length}
-                    progress={scrollYProgress}
-                  >
-                    {screen}
-                  </ScreenPanel>
-                ))}
-              </RetroComputer>
+            {/* L'ordinateur qui s'allume, pivote et se transforme */}
+            <div
+              className="order-1 lg:order-2"
+              style={{ perspective: "1400px" }}
+            >
+              <motion.div style={{ rotateY }}>
+                <RetroComputer power={power}>
+                  {screens.map((screen, i) => (
+                    <ScreenPanel
+                      key={i}
+                      index={i}
+                      count={screens.length}
+                      progress={scrollYProgress}
+                    >
+                      {screen}
+                    </ScreenPanel>
+                  ))}
+                </RetroComputer>
+              </motion.div>
             </div>
           </div>
         </div>

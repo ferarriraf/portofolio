@@ -3,8 +3,11 @@ import { defineRouting } from "next-intl/routing";
 export const routing = defineRouting({
   locales: ["fr", "en"],
   // Aucun cookie de langue : la promesse « zéro cookie » du site est
-  // littérale. La langue est entièrement portée par l'URL.
+  // littérale. La langue est entièrement portée par l'URL — sans
+  // détection par Accept-Language, sinon un navigateur anglophone
+  // serait renvoyé vers /en à chaque clic sur « FR ».
   localeCookie: false,
+  localeDetection: false,
   defaultLocale: "fr",
   // Le français est servi sans préfixe (r-x.fr/services),
   // l'anglais sous /en (r-x.fr/en/services)

@@ -38,17 +38,49 @@ export default async function ContactPage({ params }: Props) {
               {t("faqTitle")}
             </h2>
           </Reveal>
-          <div className="space-y-4">
+          {/* Chaque question est une fenêtre de terminal : la commande
+              se tape, la réponse tombe comme une sortie de programme */}
+          <div className="space-y-5">
             {faq.map((item, i) => (
               <Reveal key={item.q} delay={0.06 * i}>
-                <details className="group rounded-2xl bg-sand-card px-6 py-5 transition-colors duration-300 open:bg-sage-wash md:px-8 md:py-6">
-                  <summary className="flex cursor-pointer list-none items-center justify-between gap-4 font-display text-lg font-bold text-ink [&::-webkit-details-marker]:hidden md:text-xl">
-                    {item.q}
-                    <ChevronDown className="size-5 shrink-0 text-sage-deep transition-transform duration-300 group-open:rotate-180" />
+                <details className="group overflow-hidden rounded-2xl bg-ink-deep shadow-[0_18px_40px_-24px_rgba(46,52,40,0.6)]">
+                  <summary className="cursor-pointer list-none [&::-webkit-details-marker]:hidden">
+                    {/* Barre de titre de la fenêtre */}
+                    <div className="flex items-center gap-3 border-b border-sand/10 bg-ink/70 px-4 py-2.5 md:px-5">
+                      <span className="flex items-center gap-1.5" aria-hidden="true">
+                        <span className="size-2.5 rounded-full bg-terra/80" />
+                        <span className="size-2.5 rounded-full bg-sand/40" />
+                        <span className="size-2.5 rounded-full bg-sage/80" />
+                      </span>
+                      <span className="ml-1 font-mono text-xs text-sand/60">
+                        faq/0{i + 1}.sh
+                      </span>
+                      <ChevronDown className="ml-auto size-4 shrink-0 text-sand/60 transition-transform duration-300 group-open:rotate-180" />
+                    </div>
+                    {/* La commande : la question, curseur battant tant
+                        qu'elle n'est pas « exécutée » */}
+                    <div className="flex items-baseline gap-2.5 px-5 py-4 md:px-6 md:py-5">
+                      <span
+                        aria-hidden="true"
+                        className="shrink-0 font-mono text-base font-bold text-sage"
+                      >
+                        $
+                      </span>
+                      <span className="font-display text-lg font-bold text-sand md:text-xl">
+                        {item.q}
+                      </span>
+                      <span
+                        aria-hidden="true"
+                        className="caret-blink h-4 w-2 shrink-0 self-center bg-sand/70 group-open:hidden"
+                      />
+                    </div>
                   </summary>
-                  <p className="mt-4 max-w-2xl leading-relaxed text-ink-soft">
-                    {item.a}
-                  </p>
+                  {/* La sortie du programme */}
+                  <div className="faq-sortie px-5 pb-5 md:px-6 md:pb-6">
+                    <p className="max-w-2xl border-l-2 border-sage/50 pl-4 leading-relaxed text-sand/90">
+                      {item.a}
+                    </p>
+                  </div>
                 </details>
               </Reveal>
             ))}

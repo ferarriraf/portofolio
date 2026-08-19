@@ -706,6 +706,28 @@ html.mode-retro body::after {
   }
 }
 
+/* ——— FAQ terminal : la sortie de commande tombe à l'ouverture ——— */
+@keyframes faq-sortie {
+  from {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+details[open] .faq-sortie {
+  animation: faq-sortie 0.35s ease-out;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  details[open] .faq-sortie {
+    animation: none;
+  }
+}
+
 /* Grain de papier très léger sur tout le site */
 body::before {
   content: "";
