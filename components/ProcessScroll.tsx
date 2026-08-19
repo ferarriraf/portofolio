@@ -9,6 +9,7 @@ import {
   type MotionValue,
 } from "framer-motion";
 import { Check, MousePointer2 } from "lucide-react";
+import RetroComputer from "./RetroComputer";
 import { RingGlyph } from "./Logo";
 
 type Step = { title: string; text: string };
@@ -40,8 +41,8 @@ export default function ProcessScroll({
     offset: ["start start", "end end"],
   });
   const railScale = useTransform(scrollYProgress, [0.02, 0.98], [0, 1]);
-  // Le portable s'ouvre en début de section : couvercle rabattu → écran droit
-  const lidAngle = useTransform(scrollYProgress, [0, 0.1], [-88, 0], {
+  // L'écran s'allume en entrant dans la section
+  const power = useTransform(scrollYProgress, [0, 0.07], [0, 1], {
     clamp: true,
   });
 
@@ -67,7 +68,7 @@ export default function ProcessScroll({
           <div className="mt-14 grid gap-10 md:grid-cols-2">
             {steps.map((step, i) => (
               <div key={step.title}>
-                <Laptop3D>{screens[i]}</Laptop3D>
+                <RetroComputer>{screens[i]}</RetroComputer>
                 <p className="mt-6 font-display text-lg font-bold text-ink">
                   <span className="mr-2 text-terra-deep">0{i + 1}</span>
                   {step.title}
@@ -124,9 +125,9 @@ export default function ProcessScroll({
               ))}
             </div>
 
-            {/* Le portable qui s'ouvre, et son écran qui se transforme */}
+            {/* L'ordinateur qui s'allume, et son écran qui se transforme */}
             <div className="order-1 lg:order-2">
-              <Laptop3D lidAngle={lidAngle}>
+              <RetroComputer power={power}>
                 {screens.map((screen, i) => (
                   <ScreenPanel
                     key={i}
@@ -137,7 +138,8 @@ export default function ProcessScroll({
                     {screen}
                   </ScreenPanel>
                 ))}
-              </Laptop3D>
+                <FakeCursor />
+              </RetroComputer>
             </div>
           </div>
         </div>
@@ -224,83 +226,19 @@ function ScreenPanel({
   );
 }
 
-/* ——— Le cadre navigateur et ses quatre écrans ——— */
+/* ——— Les écrans affichés dans l'ordinateur ——— */
 
-/**
- * Un vrai portable en 3D (CSS) : écran incliné en perspective,
- * charnière, base en trapèze avec clavier et pavé tactile. Le
- * couvercle s'ouvre au fil du scroll (lidAngle en degrés).
- */
-function Laptop3D({
-  children,
-  lidAngle,
-}: {
-  children: ReactNode;
-  lidAngle?: MotionValue<number>;
-}) {
+/** Le curseur qui navigue et clique tout seul dans l'écran. */
+function FakeCursor() {
   return (
-    <div className="[perspective:1600px]">
-      <div className="[transform-style:preserve-3d] [transform:rotateX(9deg)]">
-        {/* Le couvercle : cadre + écran */}
-        <motion.div
-          style={lidAngle ? { rotateX: lidAngle } : undefined}
-          className="origin-bottom rounded-t-xl bg-gradient-to-b from-[#3c3f36] to-[#2a2d26] p-[0.55rem] pb-1.5 shadow-[0_40px_90px_-40px_rgba(46,52,40,0.6)] [transform-style:preserve-3d]"
-        >
-          <div className="overflow-hidden rounded-md bg-ink-deep">
-            {/* Barre de navigateur dans l'écran */}
-            <div className="flex items-center gap-1.5 bg-ink-deep px-3 py-1.5">
-              <span className="size-2 rounded-full bg-terra" />
-              <span className="size-2 rounded-full bg-sage" />
-              <span className="size-2 rounded-full bg-sand/40" />
-              <span
-                aria-hidden="true"
-                className="mx-auto w-1/2 rounded-full bg-sand/15 px-3 py-0.5 text-center text-[0.6rem] font-medium tracking-wide text-sand"
-              >
-                www.r-x.fr
-              </span>
-              <span className="w-8" />
-            </div>
-            <div className="relative aspect-[16/10] bg-sand">
-              {children}
-              {/* Le curseur qui navigue et clique dans l'écran */}
-              <span
-                aria-hidden="true"
-                className="fake-cursor pointer-events-none absolute z-20 -ml-1 -mt-1"
-              >
-                <span className="fake-cursor-click absolute -inset-3 rounded-full border-2 border-terra-strong" />
-                <span className="fake-cursor-click2 absolute -inset-3 rounded-full border-2 border-sage-strong" />
-                <MousePointer2 className="size-5 fill-ink-deep text-sand drop-shadow-md" />
-              </span>
-              {/* Reflet de vitre */}
-              <span
-                aria-hidden="true"
-                className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/18 via-transparent to-transparent"
-              />
-            </div>
-          </div>
-          {/* La caméra, sous le bord haut */}
-          <span
-            aria-hidden="true"
-            className="absolute top-[0.18rem] left-1/2 size-1 -translate-x-1/2 rounded-full bg-sand/30"
-          />
-        </motion.div>
-
-        {/* La base : clavier et pavé tactile, vus en perspective */}
-        <div className="relative h-8 [transform:rotateX(72deg)] [transform-origin:top] md:h-10">
-          <div className="absolute inset-x-[-1.5%] top-0 h-full rounded-b-md bg-gradient-to-b from-[#4a4e43] to-[#2f322b]">
-            <span className="absolute inset-x-[12%] top-[18%] h-[38%] rounded-sm bg-ink-deep/45" />
-            <span className="absolute bottom-[12%] left-1/2 h-[28%] w-[22%] -translate-x-1/2 rounded-sm bg-ink-deep/30" />
-          </div>
-          {/* Encoche d'ouverture */}
-          <span className="absolute top-0 left-1/2 h-1 w-16 -translate-x-1/2 rounded-b-full bg-ink-deep/40" />
-        </div>
-        {/* Ombre portée au sol */}
-        <div
-          aria-hidden="true"
-          className="mx-auto h-6 w-[86%] rounded-[50%] bg-ink/25 blur-xl"
-        />
-      </div>
-    </div>
+    <span
+      aria-hidden="true"
+      className="fake-cursor pointer-events-none absolute z-20 -mt-1 -ml-1"
+    >
+      <span className="fake-cursor-click absolute -inset-3 rounded-full border-2 border-terra-strong" />
+      <span className="fake-cursor-click2 absolute -inset-3 rounded-full border-2 border-sage-strong" />
+      <MousePointer2 className="size-5 fill-ink-deep text-sand drop-shadow-md" />
+    </span>
   );
 }
 

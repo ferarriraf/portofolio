@@ -76,7 +76,10 @@ export default function Ring3D({ children }: { children: ReactNode }) {
             antialias: true,
             powerPreference: "low-power",
           });
-          renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+          // Résolution adaptée : la zone de rendu est très large, on
+          // évite de multiplier inutilement les pixels
+          const dprMax = window.innerWidth > 1100 ? 1.25 : 1.75;
+          renderer.setPixelRatio(Math.min(window.devicePixelRatio, dprMax));
           renderer.toneMapping = THREE.ACESFilmicToneMapping;
           renderer.toneMappingExposure = 1.45;
           renderer.clippingPlanes = [
@@ -105,7 +108,9 @@ export default function Ring3D({ children }: { children: ReactNode }) {
             side: THREE.DoubleSide,
           });
           const ring = new THREE.Mesh(geometry, material);
-          ring.scale.z = 3.1;
+          // Bande plus fine : vue de très biais, la silhouette reste
+          // basse et peut donc s'étirer sur toute la largeur
+          ring.scale.z = 1.85;
 
           const group = new THREE.Group();
           group.add(ring);
@@ -130,11 +135,12 @@ export default function Ring3D({ children }: { children: ReactNode }) {
           }
           const p = new THREE.Vector3();
 
-          // Le cadrage doit tenir pour toutes les poses de l'animation :
-          // on évalue les orientations extrêmes et on garde la plus exigeante
+          // Cadrage vertical seulement : l'anneau ne doit JAMAIS être
+          // coupé en haut ni en bas, mais il déborde volontairement à
+          // gauche et à droite — c'est ce débordement qui l'étire d'un
+          // bord à l'autre de l'écran.
           const fit = (poses: [number, number][]) => {
             const tanV = Math.tan((camera.fov * Math.PI) / 360) * MARGE_NDC;
-            const tanH = tanV * camera.aspect;
             const memoX = group.rotation.x;
             const memoY = group.rotation.y;
             let dist = 2;
@@ -148,9 +154,7 @@ export default function Ring3D({ children }: { children: ReactNode }) {
                 p.set(echantillon[i], echantillon[i + 1], echantillon[i + 2]);
                 p.applyMatrix4(ring.matrixWorld);
                 const dv = Math.abs(p.y) / tanV + p.z;
-                const dh = Math.abs(p.x) / tanH + p.z;
                 if (dv > dist) dist = dv;
-                if (dh > dist) dist = dh;
               }
             }
 
@@ -198,10 +202,10 @@ export default function Ring3D({ children }: { children: ReactNode }) {
 
         // Orientation de base : le haut de l'anneau bascule au loin,
         // sa bande basse vient devant — on regarde dans l'ouverture
-        // Plus l'anneau est incliné, plus sa silhouette est large :
-        // à hauteur d'écran égale, il gagne les côtés
-        const BASE_X = -1.28;
-        const BASE_Y = -0.14;
+        // Très incliné : la silhouette s'étire en une ellipse basse et
+        // large, qui traverse l'écran sans écraser le titre
+        const BASE_X = -1.42;
+        const BASE_Y = -0.12;
 
         const setPose = (x: number, y: number, spin: number) => {
           for (const l of layers) {
@@ -351,10 +355,10 @@ export default function Ring3D({ children }: { children: ReactNode }) {
 
   // Panoramique et ENTIER : large sur les côtés, jamais coupé par sa
   // zone de rendu, descendu sous le menu.
-  // La largeur est aussi bornée par la hauteur d'écran (190vh pour un
-  // ratio 2/1) : sur un écran bas, l'anneau reste dans le hero.
+  // Plus large que l'écran : l'anneau sort par les côtés. Sa hauteur
+  // reste bornée pour laisser respirer le haut et le bas du hero.
   const layerClass =
-    "pointer-events-none absolute top-[calc(50%+1.25rem)] left-1/2 aspect-[2/1] w-[min(185vw,120rem,235vh)] -translate-x-1/2 -translate-y-1/2";
+    "pointer-events-none absolute top-1/2 left-1/2 aspect-[7/2] w-[min(228vw,440vh)] -translate-x-1/2 -translate-y-1/2";
 
   const entrance = reduce
     ? { initial: { opacity: 1 }, animate: { opacity: 1 } }
