@@ -19,7 +19,9 @@ export default function CursorRing() {
 
   useEffect(() => {
     if (!window.matchMedia("(pointer: fine)").matches) return;
-    setEnabled(true);
+    // différé d'une frame : activer l'état en pleine phase d'effet
+    // provoquerait un rendu en cascade
+    const t = requestAnimationFrame(() => setEnabled(true));
 
     const onMove = (e: PointerEvent) => {
       x.set(e.clientX);
@@ -35,6 +37,7 @@ export default function CursorRing() {
     window.addEventListener("pointermove", onMove, { passive: true });
     document.documentElement.addEventListener("pointerleave", onLeave);
     return () => {
+      cancelAnimationFrame(t);
       window.removeEventListener("pointermove", onMove);
       document.documentElement.removeEventListener("pointerleave", onLeave);
     };

@@ -29,10 +29,14 @@ export default function Topbar() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Referme le menu mobile à chaque navigation
-  useEffect(() => {
-    setOpen(false);
-  }, [pathname]);
+  // Referme le menu mobile à chaque navigation. On compare le chemin
+  // rendu au chemin courant : fermer depuis un effet déclencherait un
+  // rendu en cascade.
+  const [menuPath, setMenuPath] = useState(pathname);
+  if (menuPath !== pathname) {
+    setMenuPath(pathname);
+    if (open) setOpen(false);
+  }
 
   // Bloque le défilement de la page quand le menu plein écran est ouvert
   useEffect(() => {
@@ -67,7 +71,7 @@ export default function Topbar() {
                 key={l.href}
                 href={l.href}
                 aria-current={active ? "page" : undefined}
-                className={`relative text-sm font-medium transition-colors duration-200 ${
+                className={`hit-area relative text-sm font-medium transition-colors duration-200 ${
                   active ? "text-ink" : "text-ink-soft hover:text-ink"
                 }`}
               >

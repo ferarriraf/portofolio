@@ -38,7 +38,7 @@ export default function Footer() {
                 <li key={l.href}>
                   <Link
                     href={l.href}
-                    className="text-sm text-sand/70 transition-colors hover:text-sand"
+                    className="hit-area text-sm text-sand/70 transition-colors hover:text-sand"
                   >
                     {t(`nav.${l.key}`)}
                   </Link>

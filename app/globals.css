@@ -168,6 +168,44 @@ body {
   animation: scroll-hint 1.8s ease-in-out infinite;
 }
 
+/* ——— Signature R-X : la zone cliquable se révèle au survol ———
+   Un rectangle en pointillés, comme sur un wireframe : l'objet du
+   métier devient l'interaction du site. */
+.hit-area {
+  position: relative;
+}
+
+.hit-area::after {
+  content: "";
+  position: absolute;
+  inset: -0.45rem -0.6rem;
+  border: 1px dashed currentColor;
+  border-radius: 0.4rem;
+  opacity: 0;
+  transform: scale(0.94);
+  transition:
+    opacity 0.22s ease,
+    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
+  pointer-events: none;
+}
+
+.hit-area:hover::after,
+.hit-area:focus-visible::after {
+  opacity: 0.55;
+  transform: scale(1);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .hit-area::after {
+    transition: opacity 0.15s linear;
+    transform: none;
+  }
+  .hit-area:hover::after,
+  .hit-area:focus-visible::after {
+    transform: none;
+  }
+}
+
 /* ——— Carte de chaleur : les zones qui captent le regard ——— */
 @keyframes heat-breathe {
   0%,

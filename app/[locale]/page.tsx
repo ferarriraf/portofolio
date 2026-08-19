@@ -11,9 +11,9 @@ import Marquee from "@/components/Marquee";
 import ApproachList from "@/components/ApproachList";
 import ManifestoScroll from "@/components/ManifestoScroll";
 import ProcessScroll from "@/components/ProcessScroll";
+import SectionLabel from "@/components/SectionLabel";
 import SplitHeading from "@/components/SplitHeading";
 import TiltCard from "@/components/TiltCard";
-import { RingGlyph } from "@/components/Logo";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -61,10 +61,7 @@ export default async function HomePage({ params }: Props) {
         />
         <div className="container-site relative flex min-h-svh flex-col items-center justify-center pt-32 pb-16 text-center lg:pt-28">
           <Reveal className="relative z-30">
-            <span className="eyebrow">
-              <RingGlyph size={15} />
-              {t("eyebrow")}
-            </span>
+            <SectionLabel>{t("eyebrow")}</SectionLabel>
           </Reveal>
 
           {/* Le titre est pris dans la profondeur de l'anneau :
@@ -109,10 +106,7 @@ export default async function HomePage({ params }: Props) {
       {/* ——— Approche : liste éditoriale, titres en contour ——— */}
       <section className="container-site py-24 md:py-32">
         <Reveal>
-          <span className="eyebrow">
-            <RingGlyph size={15} />
-            {t("approach.eyebrow")}
-          </span>
+          <SectionLabel n={1}>{t("approach.eyebrow")}</SectionLabel>
         </Reveal>
         <SplitHeading
           text={t("approach.title")}
@@ -140,10 +134,7 @@ export default async function HomePage({ params }: Props) {
         <Reveal>
           <div className="flex flex-wrap items-end justify-between gap-6">
             <div>
-              <span className="eyebrow">
-                <RingGlyph size={15} />
-                {t("work.eyebrow")}
-              </span>
+              <SectionLabel n={3}>{t("work.eyebrow")}</SectionLabel>
               <SplitHeading
                 text={t("work.title")}
                 className="mt-5 max-w-2xl font-display text-[clamp(2.4rem,5.5vw,4.5rem)] font-bold leading-[1.04] tracking-tight text-ink"

@@ -10,7 +10,7 @@ import {
 } from "framer-motion";
 import { Check, MousePointer2 } from "lucide-react";
 import RetroComputer from "./RetroComputer";
-import { RingGlyph } from "./Logo";
+import SectionLabel from "./SectionLabel";
 
 type Step = { title: string; text: string };
 
@@ -58,10 +58,7 @@ export default function ProcessScroll({
     return (
       <section className="border-b border-line bg-sage-wash">
         <div className="container-site py-24">
-          <span className="eyebrow">
-            <RingGlyph size={15} />
-            {eyebrow}
-          </span>
+          <SectionLabel n={2}>{eyebrow}</SectionLabel>
           <h2 className="mt-5 max-w-3xl font-display text-4xl font-bold tracking-tight text-ink md:text-5xl">
             {title}
           </h2>
@@ -93,10 +90,7 @@ export default function ProcessScroll({
       <div className="sticky top-0 flex h-svh flex-col justify-center overflow-hidden">
         <div className="container-site">
           <div className="flex flex-wrap items-center justify-between gap-4">
-            <span className="eyebrow">
-              <RingGlyph size={15} />
-              {eyebrow}
-            </span>
+            <SectionLabel n={2}>{eyebrow}</SectionLabel>
             <h2 className="font-display text-2xl font-bold tracking-tight text-ink md:text-4xl">
               {title}
             </h2>
