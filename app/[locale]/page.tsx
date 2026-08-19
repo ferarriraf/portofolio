@@ -5,8 +5,8 @@ import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
 import CaseMockup, { type MockupTextes } from "@/components/CaseMockup";
+import DemoWindow from "@/components/DemoWindow";
 import MagneticTitle from "@/components/MagneticTitle";
-import Marquee from "@/components/Marquee";
 import ManifestoScroll from "@/components/ManifestoScroll";
 import ProcessScroll, { type EcranTextes } from "@/components/ProcessScroll";
 import SectionLabel from "@/components/SectionLabel";
@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata(locale, "home", "/");
 }
 
-const coverVariants = ["dashboard", "shop"] as const;
+const coverVariants = ["vitrine", "metier"] as const;
 
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
@@ -30,7 +30,6 @@ export default async function HomePage({ params }: Props) {
   const tw = await getTranslations("work");
 
   const steps = t.raw("process.steps") as { title: string; text: string }[];
-  const marquee = t.raw("marquee") as string[];
   const mockups = tw.raw("mockups") as MockupTextes;
   const projects = (
     tw.raw("projects") as { name: string; sector: string; tags: string[] }[]
@@ -103,9 +102,6 @@ export default async function HomePage({ params }: Props) {
       {/* ——— Manifeste : les mots s'illuminent au fil du scroll ——— */}
       <ManifestoScroll lead={t("manifesto.lead")} emph={t("manifesto.emph")} />
 
-      {/* ——— Bandeau défilant : coupure de chapitre avant la méthode ——— */}
-      <Marquee items={marquee} className="relative" />
-
       {/* ——— Méthode : l'écran qui se transforme au scroll ——— */}
       <ProcessScroll
         eyebrow={t("process.eyebrow")}
@@ -143,31 +139,11 @@ export default async function HomePage({ params }: Props) {
               className="group block"
             >
               <Reveal variant="mask" delay={0.08 * i}>
-                  <div className="overflow-hidden rounded-3xl shadow-elev-1 transition-all duration-500 ease-out group-hover:-translate-y-1.5 group-hover:shadow-elev-3">
-                    <div className="relative aspect-4/3 transition-transform duration-700 ease-out group-hover:scale-[1.05]">
-                      <CaseMockup
-                        variant={coverVariants[i]}
-                        etat="apres"
-                        textes={mockups}
-                      />
-                      {/* Au survol, l'« avant » se dévoile de haut en
-                          bas, comme un balayage de tube — le métier se
-                          comprend sans quitter l'accueil */}
-                      <div
-                        aria-hidden="true"
-                        className="absolute inset-0 [clip-path:inset(0_0_100%_0)] transition-[clip-path] duration-700 ease-[cubic-bezier(0.22,1,0.36,1)] group-hover:[clip-path:inset(0_0_0_0)] group-focus-visible:[clip-path:inset(0_0_0_0)] motion-reduce:transition-none"
-                      >
-                        <CaseMockup
-                          variant={coverVariants[i]}
-                          etat="avant"
-                          textes={mockups}
-                        />
-                        <span className="absolute top-3 right-3 rounded-full bg-ink-deep/80 px-2.5 py-1 font-mono text-[0.6rem] text-sand">
-                          {tw("beforeLabel")}
-                        </span>
-                      </div>
-                    </div>
-                  </div>
+                <div className="transition-transform duration-500 ease-out group-hover:-translate-y-1.5 motion-reduce:transition-none motion-reduce:group-hover:translate-y-0">
+                  <DemoWindow titre={mockups[coverVariants[i]].fenetre}>
+                    <CaseMockup variant={coverVariants[i]} textes={mockups} />
+                  </DemoWindow>
+                </div>
               </Reveal>
               <Reveal delay={0.08 * i + 0.15}>
                 <div className="mt-6 flex items-center justify-between gap-4">

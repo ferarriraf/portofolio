@@ -38,8 +38,8 @@ Le domaine de référence est `www.r-x.fr` ; `r-x.fr` redirige en 308
 | Les pages et leur mise en page        | `app/[locale]/…/page.tsx`                     |
 | Le titre magnétique du hero           | `components/MagneticTitle.tsx`                |
 | Le scrollytelling « méthode »         | `components/ProcessScroll.tsx`                |
-| Les maquettes avant/après             | `components/CaseMockup.tsx` + `work.mockups` dans `messages/*.json` |
-| Le comparateur à poignée (moniteur)   | `components/BeforeAfter.tsx`                  |
+| Les trois démos types (écrans)        | `components/CaseMockup.tsx` + `work.mockups` dans `messages/*.json` |
+| Le moniteur des démos (bezel, barre)  | `components/DemoWindow.tsx`                   |
 | La frise du déroulé (rail au scroll)  | `components/ProjectTimeline.tsx`              |
 | Le R-X gravé du pied de page          | `components/FooterMark.tsx`                   |
 | Ombres, élévations, boutons keycap    | `app/globals.css` (tokens `--shadow-elev-*`, `--inset-shadow-cisele*`, `.btn`, `.bande-calque*`, `.card-offre`) |
@@ -70,8 +70,9 @@ Code : `components/SecretModes.tsx`.
 - **Email masqué aux robots** : l'adresse est recomposée côté client
   (`components/MailLink.tsx`) ; elle n'apparaît jamais dans le HTML servi.
 - **Clic droit désactivé** hors champs de saisie (`components/NoContextMenu.tsx`).
-- **Démonstrations assumées** : les trois études de cas sont des cas
-  d'école, annoncés comme tels — aucun faux client.
+- **Démonstrations assumées** : les trois démos (site vitrine, appli
+  métier, API) sont des projets types annoncés comme tels — aucun faux
+  client.
 - `prefers-reduced-motion` est respecté partout (animations coupées ou
   remplacées par un état statique).
 - **Système de profondeur unifié** : une seule lumière (venant du haut),

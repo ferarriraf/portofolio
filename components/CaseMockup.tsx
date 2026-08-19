@@ -1,149 +1,107 @@
-import type { ReactNode } from "react";
-
-type Variant = "dashboard" | "shop" | "health";
-type Etat = "avant" | "apres";
+type Variant = "vitrine" | "metier" | "api";
 
 export type MockupTextes = {
-  dashboard: {
+  vitrine: {
+    fenetre: string;
+    marque: string;
+    menu: string[];
     titre: string;
-    menus: string[];
-    colonnes: string[];
-    lignes: string[][];
-    apresTitre: string;
-    apresCartes: { valeur: string; libelle: string }[];
-    apresAction: string;
-    recherche: string;
-  };
-  shop: {
-    etapes: string[];
-    champs: string[];
-    produit: string;
-    prix: string;
+    lede: string;
     action: string;
-    reassurance: string;
+    cartes: string[];
   };
-  health: {
+  metier: {
+    fenetre: string;
     titre: string;
-    champs: string[];
-    question: string;
-    reponses: string[];
-    etape: string;
+    recherche: string;
+    cartes: { valeur: string; libelle: string }[];
+    action: string;
+  };
+  api: {
+    fenetre: string;
+    requete: string;
+    statut: string;
+    lignes: [string, string][];
+    note: string;
   };
 };
 
 /**
- * Les maquettes des études de cas : de vraies interfaces, avec de
- * vrais mots. « Avant » montre la densité d'origine, « après » la
- * version remise à plat. Tout est en HTML : le texte se traduit, se
- * sélectionne, et reste lisible à l'écran comme à la loupe.
+ * Les trois démos types — un site vitrine, une application métier,
+ * une API — avec de vrais mots. Tout est en HTML : le texte se
+ * traduit, se sélectionne, et reste lisible à l'écran comme à la
+ * loupe. Chaque écran vit doucement (blocs qui se posent, curseur).
  */
 export default function CaseMockup({
   variant,
-  etat,
   textes,
 }: {
   variant: Variant;
-  etat: Etat;
   textes: MockupTextes;
 }) {
-  if (variant === "dashboard") return <Dashboard etat={etat} t={textes.dashboard} />;
-  if (variant === "shop") return <Shop etat={etat} t={textes.shop} />;
-  return <Health etat={etat} t={textes.health} />;
+  if (variant === "vitrine") return <Vitrine t={textes.vitrine} />;
+  if (variant === "metier") return <Metier t={textes.metier} />;
+  return <Api t={textes.api} />;
 }
 
-/* ——— Cadre commun ——— */
+/* ——— 01 · Site vitrine : l'atelier de céramique ——— */
 
-function Ecran({
-  children,
-  sombre = false,
-  retro = false,
-}: {
-  children: ReactNode;
-  sombre?: boolean;
-  /** Patine CRT statique : le vieux logiciel a l'air vieux */
-  retro?: boolean;
-}) {
+function Vitrine({ t }: { t: MockupTextes["vitrine"] }) {
   return (
-    <div
-      className={`absolute inset-0 flex flex-col overflow-hidden text-[0.62rem] leading-tight ${
-        sombre ? "bg-ink-deep text-sand" : "bg-sand text-ink"
-      }`}
-    >
-      {children}
-      {retro && (
+    <div className="absolute inset-0 flex flex-col bg-sand text-ink">
+      <div className="flex items-center justify-between border-b border-line bg-sand-card px-4 py-2">
+        <span className="font-display text-[0.68rem] font-bold">{t.marque}</span>
+        <span className="flex gap-2.5 text-[0.5rem] text-ink-soft">
+          {t.menu.map((m) => (
+            <span key={m}>{m}</span>
+          ))}
+        </span>
+      </div>
+      <div className="flex flex-1 items-center justify-between gap-3 px-4">
+        <div className="flex flex-col gap-1.5">
+          <span className="font-display text-[0.95rem] leading-tight font-bold">
+            {t.titre}
+          </span>
+          <span className="text-[0.52rem] text-ink-soft">{t.lede}</span>
+          <span className="pulse-doux mt-1 self-start rounded-full bg-terra-strong px-2.5 py-1 text-[0.52rem] font-semibold text-sand-card">
+            {t.action}
+          </span>
+        </div>
         <span
           aria-hidden="true"
-          className="crt-patine pointer-events-none absolute inset-0"
+          className="size-16 shrink-0 rounded-full border-4 border-sage-strong bg-terra-wash shadow-inner"
         />
-      )}
+      </div>
+      <div className="grid h-1/4 grid-cols-3 gap-2 px-4 pb-3">
+        {t.cartes.map((c, i) => (
+          <div
+            key={c}
+            className={`wf-settle flex items-end rounded-lg px-2 pb-1.5 text-[0.5rem] font-semibold text-ink-soft ${
+              ["bg-sage-wash", "bg-terra-wash", "bg-sand-card shadow-elev-1"][i]
+            }`}
+            style={{ animationDelay: `${i * 0.2}s` }}
+          >
+            {c}
+          </div>
+        ))}
+      </div>
     </div>
   );
 }
 
-/* ——— 01 · Tableau de bord RH ——— */
+/* ——— 02 · Application métier : le tableau de bord RH ——— */
 
-function Dashboard({
-  etat,
-  t,
-}: {
-  etat: Etat;
-  t: MockupTextes["dashboard"];
-}) {
-  if (etat === "avant") {
-    return (
-      <Ecran retro>
-        <div className="flex items-center justify-between border-b border-[#cfcabb] bg-[#e7e4db] px-3 py-1.5">
-          <span className="font-semibold text-[#6b675d]">{t.titre}</span>
-          <span className="flex gap-1.5 text-[0.5rem] text-[#8b8679]">
-            {t.menus.map((m) => (
-              <span key={m}>{m}</span>
-            ))}
-          </span>
-        </div>
-        <div className="flex-1 overflow-hidden bg-[#f3f1ea] p-1.5">
-          <table className="w-full border-collapse text-[0.5rem] text-[#6b675d]">
-            <thead>
-              <tr className="bg-[#ddd9cd]">
-                {t.colonnes.map((c) => (
-                  <th
-                    key={c}
-                    className="border border-[#cfcabb] px-1 py-0.5 text-left font-semibold whitespace-nowrap"
-                  >
-                    {c}
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {t.lignes.concat(t.lignes).map((ligne, i) => (
-                <tr key={i} className={i % 2 ? "bg-[#eceadf]" : "bg-[#f7f5ef]"}>
-                  {ligne.map((cell, j) => (
-                    <td
-                      key={j}
-                      className="border border-[#d8d4c8] px-1 py-[3px] whitespace-nowrap"
-                    >
-                      {cell}
-                    </td>
-                  ))}
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </Ecran>
-    );
-  }
-
+function Metier({ t }: { t: MockupTextes["metier"] }) {
   return (
-    <Ecran>
+    <div className="absolute inset-0 flex flex-col bg-sand text-ink">
       <div className="flex items-center justify-between border-b border-line bg-sand-card px-4 py-2.5">
-        <span className="font-display text-xs font-bold">{t.apresTitre}</span>
+        <span className="font-display text-xs font-bold">{t.titre}</span>
         <span className="rounded-full bg-sand px-2.5 py-1 text-[0.55rem] text-ink-soft">
           {t.recherche}
         </span>
       </div>
       <div className="grid flex-1 grid-cols-3 gap-2 p-3">
-        {t.apresCartes.map((c, i) => (
+        {t.cartes.map((c, i) => (
           <div
             key={c.libelle}
             className="wf-settle flex flex-col justify-between rounded-xl bg-sand-card p-2.5 shadow-elev-1"
@@ -158,105 +116,48 @@ function Dashboard({
       </div>
       <div className="px-3 pb-3">
         <span className="pulse-doux inline-block rounded-full bg-terra-hot px-3 py-1.5 text-[0.58rem] font-semibold text-sand-card">
-          {t.apresAction}
+          {t.action}
         </span>
       </div>
-    </Ecran>
+    </div>
   );
 }
 
-/* ——— 02 · Parcours d'achat ——— */
+/* ——— 03 · API : la réponse qui circule toute seule ——— */
 
-function Shop({ etat, t }: { etat: Etat; t: MockupTextes["shop"] }) {
-  if (etat === "avant") {
-    return (
-      <Ecran retro>
-        <div className="border-b border-[#cfcabb] bg-[#e7e4db] px-3 py-1.5 text-[0.55rem] font-semibold text-[#6b675d]">
-          {t.etapes.map((e, i) => (
-            <span key={e} className={i === 2 ? "text-[#3f3b33]" : "opacity-55"}>
-              {i > 0 && <span className="mx-1 opacity-40">›</span>}
-              {e}
-            </span>
-          ))}
-        </div>
-        <div className="flex-1 space-y-1.5 bg-[#f3f1ea] p-3">
-          {t.champs.map((c) => (
-            <label key={c} className="flex items-center gap-2 text-[0.52rem] text-[#6b675d]">
-              <span className="w-16 shrink-0 text-right">{c}</span>
-              <span className="h-4 flex-1 border border-[#cfcabb] bg-white" />
-            </label>
-          ))}
-          <span className="mt-2 inline-block border border-[#cfcabb] bg-[#ddd9cd] px-2 py-1 text-[0.52rem] text-[#6b675d]">
-            {t.etapes[3] ?? "Continuer"}
-          </span>
-        </div>
-      </Ecran>
-    );
-  }
-
+function Api({ t }: { t: MockupTextes["api"] }) {
   return (
-    <Ecran>
-      <div className="flex flex-1 items-center gap-3 p-4">
-        <div className="h-full w-2/5 rounded-xl bg-terra-wash" />
-        <div className="flex flex-1 flex-col gap-1.5">
-          <span className="font-display text-sm font-bold">{t.produit}</span>
-          <span className="font-display text-lg font-bold text-terra-deep">
-            {t.prix}
-          </span>
-          <span className="pulse-doux mt-1 inline-block rounded-full bg-ink px-3 py-1.5 text-center text-[0.58rem] font-semibold text-sand">
-            {t.action}
-          </span>
-          <span className="mt-1 text-[0.52rem] text-ink-soft">
-            {t.reassurance}
-          </span>
-        </div>
-      </div>
-    </Ecran>
-  );
-}
-
-/* ——— 03 · Parcours patient ——— */
-
-function Health({ etat, t }: { etat: Etat; t: MockupTextes["health"] }) {
-  if (etat === "avant") {
-    return (
-      <Ecran retro>
-        <div className="border-b border-[#cfcabb] bg-[#e7e4db] px-3 py-1.5 text-[0.55rem] font-semibold text-[#6b675d]">
-          {t.titre}
-        </div>
-        <div className="flex-1 space-y-1 bg-[#f3f1ea] p-2.5">
-          {t.champs.map((c) => (
-            <label key={c} className="flex items-center gap-1.5 text-[0.48rem] text-[#6b675d]">
-              <span className="w-20 shrink-0 text-right">{c}</span>
-              <span className="h-3.5 flex-1 border border-[#cfcabb] bg-white" />
-            </label>
-          ))}
-        </div>
-      </Ecran>
-    );
-  }
-
-  return (
-    <Ecran>
-      <div className="flex h-full flex-col justify-center gap-3 p-5">
-        <span className="text-[0.55rem] font-semibold tracking-wide text-sage-deep uppercase">
-          {t.etape}
+    <div className="absolute inset-0 flex flex-col bg-ink-deep p-3.5 font-mono text-sand">
+      <div className="flex items-center justify-between rounded-t-lg bg-ink/70 px-2.5 py-1.5">
+        <span className="text-[0.55rem] font-bold text-sage">{t.requete}</span>
+        <span className="rounded-full bg-sage px-1.5 py-0.5 text-[0.48rem] font-bold text-ink-deep">
+          {t.statut}
         </span>
-        <span className="font-display text-base leading-snug font-bold">
-          {t.question}
-        </span>
-        <div className="flex flex-col gap-2">
-          {t.reponses.map((r, i) => (
-            <span
-              key={r}
-              className="wf-settle rounded-xl border-2 border-sage bg-sand-card px-3 py-2 text-[0.6rem] font-semibold"
-              style={{ animationDelay: `${0.3 + i * 0.3}s` }}
-            >
-              {r}
-            </span>
-          ))}
-        </div>
       </div>
-    </Ecran>
+      <div
+        aria-hidden="true"
+        className="flex flex-1 flex-col justify-center gap-1.5 rounded-b-lg border-x border-b border-sand/10 px-3 text-[0.55rem]"
+      >
+        <span className="text-sand/40">{"{"}</span>
+        {t.lignes.map(([cle, valeur], i) => (
+          <span key={cle} className="pl-3">
+            <span className="text-sage">&quot;{cle}&quot;</span>
+            <span className="text-sand/40">: </span>
+            <span className="text-terra">&quot;{valeur}&quot;</span>
+            {i < t.lignes.length - 1 && <span className="text-sand/40">,</span>}
+          </span>
+        ))}
+        <span className="text-sand/40">{"}"}</span>
+        {/* La requête suivante, déjà en train de partir */}
+        <span className="mt-1 flex items-center gap-1.5">
+          <span className="typing-line h-1.5 rounded-full bg-sage/70" />
+          <span className="caret-blink h-2.5 w-0.5 shrink-0 bg-sand/80" />
+        </span>
+      </div>
+      <div className="mt-2 flex items-center gap-1.5 rounded-md bg-ink/70 px-2.5 py-1">
+        <span className="size-1.5 rounded-full bg-sage" aria-hidden="true" />
+        <span className="text-[0.5rem] text-sage">{t.note}</span>
+      </div>
+    </div>
   );
 }

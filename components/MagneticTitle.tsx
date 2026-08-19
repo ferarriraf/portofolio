@@ -80,7 +80,9 @@ export default function MagneticTitle({
 
       lettres.forEach((l, i) => {
         const c = centres[i];
-        const d = Math.hypot(c.x - sourisX, c.y - sourisY);
+        // Distance anisotrope : l'écart vertical pèse plus lourd, pour
+        // que survoler une ligne ne réveille pas sa voisine
+        const d = Math.hypot(c.x - sourisX, (c.y - sourisY) * 2.4);
         let force = d < RAYON ? 1 - d / RAYON : 0;
         force = force * force * (3 - 2 * force); // adoucit les bords
 

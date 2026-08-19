@@ -11,7 +11,7 @@
     },
     "work": {
       "title": "Démonstrations",
-      "description": "Cas d'école : tableau de bord SaaS, parcours d'achat e-commerce, formulaire d'application santé — trois interfaces développées pour montrer la méthode."
+      "description": "Démonstrations : site vitrine, application métier, API — trois projets types construits de bout en bout pour montrer la méthode."
     },
     "about": {
       "title": "À propos",
@@ -115,7 +115,7 @@
     },
     "work": {
       "eyebrow": "Démonstrations",
-      "title": "Trois cas d'école, pour montrer la méthode",
+      "title": "Trois démos types, pour montrer la méthode",
       "cta": "Toutes les démonstrations"
     },
     "cta": {
@@ -164,103 +164,72 @@
   },
   "work": {
     "eyebrow": "Démonstrations",
-    "title": "Trois cas d'école, pour montrer la méthode",
-    "lede": "Aucun de ces projets n'est un vrai client : ce sont trois interfaces développées de bout en bout pour montrer, concrètement, ce que change un code soigné. Glissez le curseur pour comparer.",
-    "challengeLabel": "Le défi",
-    "resultLabel": "Le résultat",
+    "title": "Trois démos types, pour montrer la méthode",
+    "lede": "Aucun de ces projets n'est un vrai client : ce sont trois démonstrations construites de bout en bout — un site vitrine, une application métier, une API — pour montrer concrètement ce que je livre.",
+    "challengeLabel": "Le besoin",
+    "resultLabel": "Ce que je livre",
     "projects": [
       {
-        "name": "Clairière",
-        "sector": "SaaS RH — tableau de bord",
-        "tags": [
-          "Application web",
-          "Refonte"
-        ],
-        "challenge": "Un back-office dense, accumulé au fil des ans, où chaque information demandait sept clics et deux souvenirs.",
-        "result": "Redéveloppé écran par écran : moins de colonnes, plus de décisions. Les équipes RH retrouvent l'essentiel en deux clics."
-      },
-      {
         "name": "Comptoir",
-        "sector": "E-commerce artisanal",
+        "sector": "Site vitrine — atelier de céramique",
         "tags": [
-          "E-commerce",
+          "Vitrine",
+          "SEO",
           "Mobile"
         ],
-        "challenge": "Un catalogue soigné mais un tunnel d'achat qui multipliait les étapes — et les abandons.",
-        "result": "Un parcours raccourci et rassurant, du produit au paiement. Le panier cesse d'être un point de fuite."
+        "challenge": "Être trouvé sur le web, montrer l'atelier, prendre des réservations — sans dépendre de quelqu'un à chaque mise à jour.",
+        "result": "Un site rapide et lisible, modifiable sans compétence technique, avec réservation intégrée et un référencement soigné."
       },
       {
-        "name": "Pulso",
-        "sector": "Application santé",
+        "name": "Clairière",
+        "sector": "Application métier — équipe RH",
         "tags": [
-          "Formulaires",
-          "Accessibilité"
+          "Application web",
+          "Tableau de bord"
         ],
-        "challenge": "Un premier parcours patient anxiogène, pensé pour le service informatique plutôt que pour la salle d'attente.",
-        "result": "Étapes courtes, gros caractères, langage humain. Une application utilisable même un mauvais jour."
+        "challenge": "Des congés validés par email, des entretiens suivis dans trois tableurs : l'information se perd et se ressaisit.",
+        "result": "Un tableau de bord qui montre ce qui attend une décision, et rien d'autre. Les demandes se valident en un clic."
+      },
+      {
+        "name": "Passerelle",
+        "sector": "API — réservations ↔ facturation",
+        "tags": [
+          "API",
+          "Automatisation"
+        ],
+        "challenge": "Deux outils qui s'ignorent : chaque réservation était ressaisie à la main dans la facturation, avec les erreurs qui vont avec.",
+        "result": "Une API qui fait circuler les données toute seule, journalisée et testée : zéro ressaisie, zéro écart."
       }
     ],
-    "note": "Cas d'école développés par R-X à titre de démonstration. Votre projet prendra leur place ici.",
+    "note": "Démonstrations construites par R-X : aucun vrai client derrière ces écrans. Votre projet prendra leur place ici.",
     "cta": {
       "title": "Votre projet ici ?",
       "text": "Racontez-moi où ça coince : c'est souvent le début d'un beau projet.",
       "button": "Me contacter"
     },
-    "beforeLabel": "Avant",
-    "afterLabel": "Après R-X",
-    "diffTitle": "$ diff avant/ apres/",
     "mockups": {
-      "dashboard": {
-        "titre": "GestRH v4.2 — Module Personnel",
-        "colonnes": [
-          "Matricule",
-          "Nom",
-          "Service",
-          "Contrat",
-          "Statut",
-          "Solde CP",
-          "Actions"
+      "vitrine": {
+        "fenetre": "comptoir-ceramique.fr",
+        "marque": "Comptoir",
+        "menu": [
+          "Créations",
+          "Ateliers",
+          "Contact"
         ],
-        "lignes": [
-          [
-            "A-10428",
-            "Bernard C.",
-            "Logistique",
-            "CDI",
-            "Actif",
-            "12,5 j",
-            "Voir"
-          ],
-          [
-            "A-10429",
-            "Diallo M.",
-            "Comptabilité",
-            "CDD",
-            "Congés",
-            "4,0 j",
-            "Voir"
-          ],
-          [
-            "A-10430",
-            "Nguyen T.",
-            "Atelier",
-            "CDI",
-            "Actif",
-            "21,5 j",
-            "Voir"
-          ],
-          [
-            "A-10431",
-            "Rossi P.",
-            "Commercial",
-            "CDI",
-            "Formation",
-            "8,0 j",
-            "Voir"
-          ]
-        ],
-        "apresTitre": "Cette semaine",
-        "apresCartes": [
+        "titre": "La céramique, cuite au bois",
+        "lede": "Pièces uniques, tournées à la main",
+        "action": "Réserver un atelier",
+        "cartes": [
+          "Bols",
+          "Vases",
+          "Cours"
+        ]
+      },
+      "metier": {
+        "fenetre": "clairiere — espace RH",
+        "titre": "Cette semaine",
+        "recherche": "Rechercher…",
+        "cartes": [
           {
             "valeur": "12",
             "libelle": "congés à valider"
@@ -274,54 +243,31 @@
             "libelle": "contrat à signer"
           }
         ],
-        "apresAction": "Valider les 12 congés",
-        "recherche": "Rechercher…",
-        "menus": [
-          "Fichier",
-          "Édition",
-          "Aide"
-        ]
+        "action": "Valider les 12 congés"
       },
-      "shop": {
-        "etapes": [
-          "Panier",
-          "Compte",
-          "Livraison",
-          "Paiement",
-          "Confirmation"
+      "api": {
+        "fenetre": "$ curl api.passerelle.dev",
+        "requete": "GET /api/reservations",
+        "statut": "200 OK · 38 ms",
+        "lignes": [
+          [
+            "client",
+            "Atelier Comptoir"
+          ],
+          [
+            "date",
+            "2026-09-04"
+          ],
+          [
+            "statut",
+            "confirmée"
+          ],
+          [
+            "facture",
+            "générée"
+          ]
         ],
-        "champs": [
-          "Civilité",
-          "Nom",
-          "Prénom",
-          "Adresse",
-          "Code postal",
-          "Ville",
-          "Téléphone"
-        ],
-        "produit": "Carafe grès émaillé",
-        "prix": "48 €",
-        "action": "Ajouter au panier",
-        "reassurance": "Retrait en atelier ou livraison en 48 h"
-      },
-      "health": {
-        "titre": "Formulaire d'admission — page 1/4",
-        "champs": [
-          "N° de sécurité sociale",
-          "Médecin traitant",
-          "Antécédents",
-          "Traitements en cours",
-          "Allergies connues",
-          "Personne à prévenir",
-          "Mutuelle"
-        ],
-        "question": "Depuis quand ressentez-vous cette douleur ?",
-        "reponses": [
-          "Moins de deux jours",
-          "Environ une semaine",
-          "Plus d'un mois"
-        ],
-        "etape": "Question 1 sur 5"
+        "note": "0 ressaisie — synchronisé toutes les 5 min"
       }
     }
   },

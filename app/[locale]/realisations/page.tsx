@@ -4,7 +4,7 @@ import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
 import CaseMockup, { type MockupTextes } from "@/components/CaseMockup";
-import BeforeAfter from "@/components/BeforeAfter";
+import DemoWindow from "@/components/DemoWindow";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -14,7 +14,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata(locale, "work", "/realisations");
 }
 
-const coverVariants = ["dashboard", "shop", "health"] as const;
+const coverVariants = ["vitrine", "metier", "api"] as const;
 
 export default async function WorkPage({ params }: Props) {
   const { locale } = await params;
@@ -38,22 +38,14 @@ export default async function WorkPage({ params }: Props) {
         {projects.map((p, i) => (
           <Reveal key={p.name}>
             <article className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
-              {/* Le visiteur fait lui-même la démonstration */}
+              {/* La démo, montée dans son moniteur */}
               <Reveal
                 variant="mask"
                 className={i % 2 === 1 ? "lg:order-2" : ""}
               >
-                <BeforeAfter
-                  titre={t("diffTitle")}
-                  labelAvant={t("beforeLabel")}
-                  labelApres={t("afterLabel")}
-                  avant={
-                    <CaseMockup variant={coverVariants[i]} etat="avant" textes={mockups} />
-                  }
-                  apres={
-                    <CaseMockup variant={coverVariants[i]} etat="apres" textes={mockups} />
-                  }
-                />
+                <DemoWindow titre={mockups[coverVariants[i]].fenetre}>
+                  <CaseMockup variant={coverVariants[i]} textes={mockups} />
+                </DemoWindow>
               </Reveal>
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">

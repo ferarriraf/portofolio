@@ -11,7 +11,7 @@
     },
     "work": {
       "title": "Demonstrations",
-      "description": "Teaching cases: SaaS dashboard, e-commerce checkout, health app form — three interfaces built to show the method."
+      "description": "Demonstrations: a brochure site, a business application, an API — three typical projects built end to end to show the method."
     },
     "about": {
       "title": "About",
@@ -115,7 +115,7 @@
     },
     "work": {
       "eyebrow": "Demonstrations",
-      "title": "Three teaching cases, to show the method",
+      "title": "Three demo builds, to show the method",
       "cta": "All demonstrations"
     },
     "cta": {
@@ -164,103 +164,72 @@
   },
   "work": {
     "eyebrow": "Demonstrations",
-    "title": "Three teaching cases, to show the method",
-    "lede": "None of these projects is a real client: they are three interfaces built end to end to show, concretely, what careful code changes. Drag the handle to compare.",
-    "challengeLabel": "The challenge",
-    "resultLabel": "The result",
+    "title": "Three demo builds, to show the method",
+    "lede": "None of these projects is a real client: they are three demonstrations built end to end — a brochure site, a business application, an API — to show concretely what I deliver.",
+    "challengeLabel": "The need",
+    "resultLabel": "What I deliver",
     "projects": [
       {
-        "name": "Clairière",
-        "sector": "HR SaaS — dashboard",
-        "tags": [
-          "Web application",
-          "Rebuild"
-        ],
-        "challenge": "A dense back office, accumulated over the years, where every piece of information took seven clicks and two memories.",
-        "result": "Rebuilt screen by screen: fewer columns, more decisions. HR teams now find what matters in two clicks."
-      },
-      {
         "name": "Comptoir",
-        "sector": "Artisan e-commerce",
+        "sector": "Brochure site — ceramics workshop",
         "tags": [
-          "E-commerce",
+          "Brochure site",
+          "SEO",
           "Mobile"
         ],
-        "challenge": "A carefully curated catalogue, but a checkout that multiplied steps — and abandoned carts.",
-        "result": "A shorter, reassuring journey from product to payment. The cart stops being an exit door."
+        "challenge": "Being found on the web, showing the workshop, taking bookings — without depending on someone for every update.",
+        "result": "A fast, readable site the owner can update without technical skills, with built-in booking and careful SEO."
       },
       {
-        "name": "Pulso",
-        "sector": "Health application",
+        "name": "Clairière",
+        "sector": "Business application — HR team",
         "tags": [
-          "Forms",
-          "Accessibility"
+          "Web application",
+          "Dashboard"
         ],
-        "challenge": "A stressful first patient journey, designed for the IT department rather than the waiting room.",
-        "result": "Short steps, large type, human language. An app you can use even on a bad day."
+        "challenge": "Leave approved by email, reviews tracked across three spreadsheets: information gets lost and retyped.",
+        "result": "A dashboard that shows what needs a decision, and nothing else. Requests are approved in one click."
+      },
+      {
+        "name": "Passerelle",
+        "sector": "API — bookings ↔ invoicing",
+        "tags": [
+          "API",
+          "Automation"
+        ],
+        "challenge": "Two tools ignoring each other: every booking was retyped by hand into the invoicing system, mistakes included.",
+        "result": "An API that moves the data by itself, logged and tested: zero retyping, zero discrepancies."
       }
     ],
-    "note": "Teaching cases built by R-X as a demonstration. Your project will take their place here.",
+    "note": "Demonstrations built by R-X: no real client behind these screens. Your project will take their place here.",
     "cta": {
       "title": "Your project here?",
       "text": "Tell me where it hurts: that's often how a good project begins.",
       "button": "Contact me"
     },
-    "beforeLabel": "Before",
-    "afterLabel": "After R-X",
-    "diffTitle": "$ diff before/ after/",
     "mockups": {
-      "dashboard": {
-        "titre": "HRSys v4.2 — Staff module",
-        "colonnes": [
-          "Staff ID",
-          "Name",
-          "Team",
-          "Contract",
-          "Status",
-          "Leave",
-          "Actions"
+      "vitrine": {
+        "fenetre": "comptoir-ceramics.com",
+        "marque": "Comptoir",
+        "menu": [
+          "Work",
+          "Classes",
+          "Contact"
         ],
-        "lignes": [
-          [
-            "A-10428",
-            "Bernard C.",
-            "Logistics",
-            "Permanent",
-            "Active",
-            "12.5 d",
-            "View"
-          ],
-          [
-            "A-10429",
-            "Diallo M.",
-            "Accounting",
-            "Fixed-term",
-            "On leave",
-            "4.0 d",
-            "View"
-          ],
-          [
-            "A-10430",
-            "Nguyen T.",
-            "Workshop",
-            "Permanent",
-            "Active",
-            "21.5 d",
-            "View"
-          ],
-          [
-            "A-10431",
-            "Rossi P.",
-            "Sales",
-            "Permanent",
-            "Training",
-            "8.0 d",
-            "View"
-          ]
-        ],
-        "apresTitre": "This week",
-        "apresCartes": [
+        "titre": "Wood-fired ceramics",
+        "lede": "One-of-a-kind pieces, thrown by hand",
+        "action": "Book a class",
+        "cartes": [
+          "Bowls",
+          "Vases",
+          "Classes"
+        ]
+      },
+      "metier": {
+        "fenetre": "clairiere — HR workspace",
+        "titre": "This week",
+        "recherche": "Search…",
+        "cartes": [
           {
             "valeur": "12",
             "libelle": "leave requests"
@@ -274,54 +243,31 @@
             "libelle": "contract to sign"
           }
         ],
-        "apresAction": "Approve all 12",
-        "recherche": "Search…",
-        "menus": [
-          "File",
-          "Edit",
-          "Help"
-        ]
+        "action": "Approve all 12"
       },
-      "shop": {
-        "etapes": [
-          "Cart",
-          "Account",
-          "Delivery",
-          "Payment",
-          "Confirmation"
+      "api": {
+        "fenetre": "$ curl api.passerelle.dev",
+        "requete": "GET /api/bookings",
+        "statut": "200 OK · 38 ms",
+        "lignes": [
+          [
+            "client",
+            "Comptoir Workshop"
+          ],
+          [
+            "date",
+            "2026-09-04"
+          ],
+          [
+            "status",
+            "confirmed"
+          ],
+          [
+            "invoice",
+            "generated"
+          ]
         ],
-        "champs": [
-          "Title",
-          "Last name",
-          "First name",
-          "Address",
-          "Postcode",
-          "City",
-          "Phone"
-        ],
-        "produit": "Glazed stoneware carafe",
-        "prix": "€48",
-        "action": "Add to cart",
-        "reassurance": "Studio pickup or delivery within 48 h"
-      },
-      "health": {
-        "titre": "Admission form — page 1/4",
-        "champs": [
-          "Insurance number",
-          "GP name",
-          "Medical history",
-          "Current treatments",
-          "Known allergies",
-          "Emergency contact",
-          "Health cover"
-        ],
-        "question": "How long have you had this pain?",
-        "reponses": [
-          "Less than two days",
-          "About a week",
-          "More than a month"
-        ],
-        "etape": "Question 1 of 5"
+        "note": "0 retyping — synced every 5 min"
       }
     }
   },

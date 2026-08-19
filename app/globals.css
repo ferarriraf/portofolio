@@ -100,25 +100,6 @@ body {
   box-shadow: 0 0 0 4px var(--sand);
 }
 
-/* Le comparateur avant/après : son curseur est un input invisible,
-   le cadre doit donc montrer le focus à sa place */
-.ba-frame:has(input:focus-visible) {
-  outline: 2px solid var(--sage-strong);
-  outline-offset: 3px;
-  box-shadow: 0 0 0 4px var(--sand);
-}
-
-/* Au clavier aussi, la poignée montre qu'elle a la main */
-.ba-frame:has(input:focus-visible) .ba-poignee {
-  scale: 1.1;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .ba-frame:has(input:focus-visible) .ba-poignee {
-    scale: 1;
-  }
-}
-
 @layer components {
   .container-site {
     @apply mx-auto w-full max-w-6xl px-6;
@@ -228,14 +209,11 @@ body {
      SOUS elle. Même lumière que l'échelle d'élévation. */
   .bande-calque {
     box-shadow:
-      inset 0 1px 0 rgba(246, 241, 230, 0.1),
       inset 0 16px 28px -24px rgba(0, 0, 0, 0.55),
       inset 0 -14px 24px -22px rgba(0, 0, 0, 0.35);
   }
   .bande-calque-haut {
-    box-shadow:
-      inset 0 1px 0 rgba(246, 241, 230, 0.08),
-      inset 0 18px 30px -26px rgba(0, 0, 0, 0.5);
+    box-shadow: inset 0 18px 30px -26px rgba(0, 0, 0, 0.5);
   }
   .bande-calque-claire {
     box-shadow:
@@ -358,16 +336,6 @@ body {
   }
 }
 
-/* ——— Patine CRT statique : les écrans « avant » ont l'âge de leur
-   logiciel — scanlines discrètes + vignettage interne du tube ——— */
-.crt-patine {
-  background-image: repeating-linear-gradient(
-    0deg,
-    rgba(63, 59, 51, 0.05) 0 1px,
-    transparent 1px 3px
-  );
-  box-shadow: inset 0 0 42px rgba(63, 59, 51, 0.16);
-}
 
 /* ——— Anneaux : rotations et pulsations (compositor-friendly) ——— */
 @keyframes ring-spin {

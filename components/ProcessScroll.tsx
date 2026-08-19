@@ -63,9 +63,15 @@ export default function ProcessScroll({
   const power = useTransform(scrollYProgress, [0, 0.07], [0, 1], {
     clamp: true,
   });
-  // Le poste pivote lentement pendant le défilement : il arrive vu de
-  // trois quarts, passe de face à mi-parcours, repart de l'autre côté
-  const rotateY = useTransform(scrollYProgress, [0, 1], [9, -9]);
+  // Le poste pivote par paliers : il bascule d'un trois-quarts à
+  // l'autre pendant chaque changement d'écran (frontières à i/5,
+  // mêmes fenêtres que le balayage), puis tient sa pose — le
+  // mouvement est concentré là où l'œil regarde déjà
+  const rotateY = useTransform(
+    scrollYProgress,
+    [0, 0.155, 0.245, 0.355, 0.445, 0.555, 0.645, 0.755, 0.845, 1],
+    [12, 12, -12, -12, 12, 12, -12, -12, 12, 12]
+  );
   // Il se pose en entrant dans la section, recule avant qu'elle se
   // détache — plus de verrouillage sec du pin
   const poseScale = useTransform(
@@ -132,14 +138,16 @@ export default function ProcessScroll({
             {/* Étapes + glissière crantée : la gorge se remplit et
                 s'allume cran par cran, en phase avec les écrans */}
             <div className="relative order-2 min-h-64 pl-8 lg:order-1 lg:min-h-80">
+              {/* La glissière s'arrête pile sur ses crans extrêmes :
+                  elle ne déborde plus du contenu */}
               <div
                 aria-hidden="true"
-                className="absolute top-1 bottom-1 left-1 w-[3px] rounded-full bg-ink/10 shadow-[inset_0_1px_2px_rgba(36,41,31,0.4)]"
+                className="absolute top-[10%] bottom-[10%] left-1 w-[3px] rounded-full bg-ink/10 shadow-[inset_0_1px_2px_rgba(36,41,31,0.4)]"
               />
               <motion.div
                 aria-hidden="true"
                 style={{ scaleY: railScale }}
-                className="absolute top-1 bottom-1 left-1 w-[3px] origin-top rounded-full bg-terra-strong"
+                className="absolute top-[10%] bottom-[10%] left-1 w-[3px] origin-top rounded-full bg-terra-strong"
               />
               {steps.map((_, i) => (
                 <Cran
@@ -164,7 +172,7 @@ export default function ProcessScroll({
                 transforme — son ombre reste au sol, hors du pivot */}
             <div
               className="order-1 lg:order-2"
-              style={{ perspective: "1400px" }}
+              style={{ perspective: "1100px" }}
             >
               <div className="relative mx-auto w-full max-w-[31rem]">
                 <motion.div
