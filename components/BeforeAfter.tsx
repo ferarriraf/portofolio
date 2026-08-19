@@ -36,7 +36,7 @@ export default function BeforeAfter({
   return (
     <div
       ref={cadre}
-      className="relative overflow-hidden rounded-3xl border border-line select-none"
+      className="ba-frame relative overflow-hidden rounded-3xl border border-line select-none"
       onPointerDown={(e) => {
         (e.currentTarget as HTMLElement).setPointerCapture(e.pointerId);
         deplacer(e.clientX);

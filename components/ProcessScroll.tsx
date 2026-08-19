@@ -22,6 +22,8 @@ export type EcranTextes = {
   maquetteTitre: string;
   maquetteLede: string;
   maquetteAction: string;
+  hesite: string;
+  session: string;
 };
 
 type ProcessScrollProps = {
@@ -61,7 +63,7 @@ export default function ProcessScroll({
   const screens = [
     <ScreenListen key="s1" t={ecrans} />,
     <ScreenWireframe key="s2" />,
-    <ScreenHeatmap key="s3" />,
+    <ScreenHeatmap key="s3" t={ecrans} />,
     <ScreenDesign key="s4" t={ecrans} />,
     <ScreenLaunch key="s5" onlineLabel={onlineLabel} />,
   ];
@@ -345,7 +347,7 @@ function ScreenWireframe() {
  * vrai visiteur traverse l'écran, hésite devant un choix, revient,
  * puis clique — et chaque clic laisse une marque qui reste.
  */
-function ScreenHeatmap() {
+function ScreenHeatmap({ t }: { t: EcranTextes }) {
   const marques = [
     { x: "29%", y: "33%", d: "0s" },
     { x: "68%", y: "30%", d: "3.6s" },
@@ -395,12 +397,12 @@ function ScreenHeatmap() {
         <MousePointer2 className="size-5 fill-ink-deep text-sand drop-shadow" />
         {/* L'hésitation, notée par l'observateur */}
         <span className="session-hesite absolute top-5 left-4 rounded bg-ink-deep px-1.5 py-0.5 font-mono text-[0.5rem] whitespace-nowrap text-sand">
-          hésite 2,4 s
+          {t.hesite}
         </span>
       </span>
 
       <span className="absolute top-3 left-3 z-10 rounded-full bg-ink-deep/85 px-2.5 py-1 font-mono text-[0.55rem] font-semibold tracking-[0.14em] text-sand uppercase">
-        Session 04
+        {t.session}
       </span>
     </div>
   );

@@ -37,7 +37,7 @@ export default function CopyEmail() {
 
   return (
     <div className="relative overflow-hidden rounded-3xl bg-terra-wash px-8 py-14 text-center md:py-20">
-      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-terra-strong">
+      <span className="text-xs font-semibold uppercase tracking-[0.18em] text-terra-deep">
         {t("emailLabel")}
       </span>
       {email ? (

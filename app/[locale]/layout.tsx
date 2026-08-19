@@ -37,6 +37,10 @@ const bodyFont = localFont({
   display: "swap",
 });
 
+// Les pages restent pré-générées, mais les caches partagés ne peuvent
+// plus retenir le HTML un an : régénération au plus tard toutes les heures.
+export const revalidate = 3600;
+
 export function generateStaticParams() {
   return routing.locales.map((locale) => ({ locale }));
 }
@@ -57,6 +61,7 @@ export async function generateMetadata({
       type: "website",
       locale: locale === "fr" ? "fr_FR" : "en_GB",
     },
+    twitter: { card: "summary_large_image" },
   };
 }
 
@@ -74,6 +79,35 @@ export default async function LocaleLayout({
   const { locale } = await params;
   if (!hasLocale(routing.locales, locale)) notFound();
   setRequestLocale(locale);
+  const t = await getTranslations("a11y");
+  const tm = await getTranslations("meta");
+
+  // Données structurées : uniquement des faits vérifiables — pas de
+  // notes fabriquées, pas d'email (masqué aux robots par choix)
+  const jsonLd = {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "ProfessionalService",
+        "@id": "https://www.r-x.fr/#org",
+        name: "R-X",
+        description: tm("home.description"),
+        url: "https://www.r-x.fr",
+        logo: "https://www.r-x.fr/opengraph-image",
+        foundingDate: "2026",
+        areaServed: "FR",
+        knowsLanguage: ["fr", "en"],
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://www.r-x.fr/#site",
+        name: tm("siteName"),
+        url: "https://www.r-x.fr",
+        inLanguage: locale,
+        publisher: { "@id": "https://www.r-x.fr/#org" },
+      },
+    ],
+  };
 
   return (
     <html
@@ -81,10 +115,23 @@ export default async function LocaleLayout({
       className={`${display.variable} ${bodyFont.variable} antialiased`}
     >
       <body className="flex min-h-dvh flex-col overflow-x-clip">
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+        />
         <NextIntlClientProvider>
+          {/* Premier arrêt du clavier : sauter la navigation */}
+          <a
+            href="#contenu"
+            className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[130] focus:rounded-full focus:bg-ink-deep focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-sand"
+          >
+            {t("skip")}
+          </a>
           <BootScreen />
           <Topbar />
-          <main className="flex-1">{children}</main>
+          <main id="contenu" tabIndex={-1} className="flex-1 outline-none">
+            {children}
+          </main>
           <Footer />
           <CookieNotice />
           <SecretModes />

@@ -67,7 +67,7 @@ export default async function ServicesPage({ params }: Props) {
         <div className="container-site grid gap-12 py-24 md:py-32 lg:grid-cols-[1fr_1.3fr] lg:items-center">
           <div>
             <Reveal>
-              <span className="eyebrow">{t("deliverables.eyebrow")}</span>
+              <span className="eyebrow eyebrow-invert">{t("deliverables.eyebrow")}</span>
             </Reveal>
             <SplitHeading
               text={t("deliverables.title")}

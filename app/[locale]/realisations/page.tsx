@@ -73,7 +73,7 @@ export default async function WorkPage({ params }: Props) {
                 </ul>
                 <dl className="mt-7 space-y-6">
                   <div>
-                    <dt className="text-xs font-semibold uppercase tracking-[0.16em] text-terra-strong">
+                    <dt className="text-xs font-semibold uppercase tracking-[0.16em] text-terra-deep">
                       {t("challengeLabel")}
                     </dt>
                     <dd className="mt-2 leading-relaxed text-ink-soft">

@@ -39,6 +39,9 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Durée annoncée aux caches partagés pour le HTML pré-généré :
+  // 1 h au lieu d'un an, pour que les mises à jour se voient vite
+  expireTime: 3600,
   // Un seul domaine fait autorité : www.r-x.fr. Servir le même contenu
   // sur deux adresses le ferait compter deux fois par les moteurs de
   // recherche, qui répartiraient la réputation du site entre les deux.

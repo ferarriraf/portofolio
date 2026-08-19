@@ -33,7 +33,9 @@
     "about": "About",
     "contact": "Contact",
     "menuOpen": "Open menu",
-    "menuClose": "Close menu"
+    "menuClose": "Close menu",
+    "ariaMain": "main",
+    "ariaMainMobile": "main menu"
   },
   "lang": {
     "label": "Switch language",
@@ -117,7 +119,9 @@
         "enregistrement": "Session recorded",
         "maquetteTitre": "Your screens, for real",
         "maquetteLede": "Clickable, shareable prototype",
-        "maquetteAction": "Try it"
+        "maquetteAction": "Try it",
+        "hesite": "hesitates 2.4 s",
+        "session": "Session 04"
       }
     },
     "work": {
@@ -459,7 +463,7 @@
       "title": "Personal data",
       "text": "This site sets no cookies, embeds no trackers and collects no personal data. The emails you send us are used only to reply to you."
     },
-    "contactLabel": "Contact"
+    "contactLabel": "Contact:"
   },
   "footer": {
     "tagline": "Web ergonomics studio — clear interfaces for calm users.",
@@ -475,9 +479,23 @@
   },
   "cookies": {
     "title": "No cookies here",
-    "text": "This site stores nothing on your device: no cookies, no trackers, no analytics. You browse without leaving a trace.",
+    "text": "This site sets no cookies, no trackers, no analytics. Only the dismissal of this notice is stored on your device.",
     "button": "Got it",
     "more": "Legal notice"
   },
-  "loading": "Loading"
+  "loading": "Loading",
+  "a11y": {
+    "skip": "Skip to content"
+  },
+  "secret": {
+    "wireframe": "Wireframe mode",
+    "inspection": "Inspect mode",
+    "retro": "1988 mode",
+    "sortie": "{touche} or Esc to exit",
+    "sortieEchap": "Esc to exit",
+    "couper": "Disable shortcuts",
+    "consoleTitre": "R-X · web ergonomics studio",
+    "consoleTexte": "In the trade? Try the W and I keys. And if you know the old controller code… Write to us: the address is on the contact page.",
+    "consoleReactiver": "Shortcuts disabled. To bring them back: localStorage.removeItem(\"{cle}\") then reload."
+  }
 }

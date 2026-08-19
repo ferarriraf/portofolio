@@ -34,7 +34,7 @@ export default async function LegalPage({ params }: Props) {
               </p>
               {key === "editor" && (
                 <p className="mt-2 leading-relaxed text-ink-soft">
-                  {t("contactLabel")} :{" "}
+                  {t("contactLabel")}{" "}
                   <MailLink className="underline underline-offset-2 hover:text-ink" />
                 </p>
               )}

@@ -1,6 +1,7 @@
 "use client";
 
 import { useEffect, useState } from "react";
+import { useTranslations } from "next-intl";
 
 type Mode = "wireframe" | "inspection" | "retro";
 
@@ -17,37 +18,54 @@ const KONAMI = [
   "b",
   "a",
 ];
-
-const ETIQUETTES: Record<Mode, { nom: string; touche: string }> = {
-  wireframe: { nom: "Mode fil de fer", touche: "W" },
-  inspection: { nom: "Mode inspection", touche: "I" },
-  retro: { nom: "Mode 1988", touche: "Échap" },
-};
+const CLE_OFF = "rx-raccourcis-off";
 
 /**
  * Les modes cachés du site : rien ne les annonce, on les trouve.
  * W passe la page en fil de fer, I ouvre l'inspecteur, et la vieille
- * séquence de manette bascule le site en 1988. Un mode actif affiche
- * toujours comment en sortir — un raccourci sans porte de sortie est
- * un piège.
+ * séquence de manette bascule le site en 1988.
+ *
+ * Deux garde-fous : un mode actif affiche toujours comment en sortir,
+ * et un bouton permet de couper définitivement les raccourcis — des
+ * touches uniques peuvent gêner certains outils d'assistance
+ * (WCAG 2.1.4), l'utilisateur doit pouvoir s'en défaire.
  */
 export default function SecretModes() {
+  const t = useTranslations("secret");
   const [mode, setMode] = useState<Mode | null>(null);
+  const [coupes, setCoupes] = useState(false);
   const [survol, setSurvol] = useState<string | null>(null);
+
+  // L'utilisateur a-t-il coupé les raccourcis lors d'une visite passée ?
+  useEffect(() => {
+    let off = false;
+    try {
+      off = localStorage.getItem(CLE_OFF) === "1";
+    } catch {
+      off = false;
+    }
+    if (!off) return;
+    // différé : changer l'état en pleine phase d'effet
+    // déclencherait un rendu en cascade
+    const timer = setTimeout(() => setCoupes(true), 0);
+    return () => clearTimeout(timer);
+  }, []);
 
   // Message pour qui ouvre les outils du navigateur
   useEffect(() => {
     const style =
       "color:#d95f2e;font:600 13px ui-monospace,monospace;padding:2px 0";
-    console.log("%cR-X · studio d'ergonomie web", style);
+    console.log("%c" + t("consoleTitre"), style);
     console.log(
-      "%cVous êtes du métier ? Essayez les touches W et I. Et si vous connaissez le vieux code de manette…",
+      "%c" + t("consoleTexte"),
       "color:#5c6353;font:400 12px ui-monospace,monospace"
     );
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   // Raccourcis clavier
   useEffect(() => {
+    if (coupes) return;
     let sequence: string[] = [];
 
     const onKey = (e: KeyboardEvent) => {
@@ -56,6 +74,7 @@ export default function SecretModes() {
         e.metaKey ||
         e.ctrlKey ||
         e.altKey ||
+        e.shiftKey ||
         cible?.isContentEditable ||
         ["INPUT", "TEXTAREA", "SELECT"].includes(cible?.tagName ?? "")
       ) {
@@ -83,7 +102,7 @@ export default function SecretModes() {
 
     window.addEventListener("keydown", onKey);
     return () => window.removeEventListener("keydown", onKey);
-  }, []);
+  }, [coupes]);
 
   // Application du mode sur la page
   useEffect(() => {
@@ -120,26 +139,57 @@ export default function SecretModes() {
     return () => window.removeEventListener("pointermove", onMove);
   }, [mode]);
 
+  const couper = () => {
+    setMode(null);
+    setCoupes(true);
+    try {
+      localStorage.setItem(CLE_OFF, "1");
+    } catch {
+      // sans stockage, la coupure ne vaut que pour cette page : tant pis
+    }
+    console.log(
+      "%c" + t("consoleReactiver", { cle: CLE_OFF }),
+      "color:#5c6353;font:400 12px ui-monospace,monospace"
+    );
+  };
+
   if (!mode) return null;
-  const etiquette = ETIQUETTES[mode];
+
+  // Pour le mode Konami, la touche de sortie EST Échap : ne pas
+  // afficher « Échap ou Échap pour quitter »
+  const sortie =
+    mode === "retro"
+      ? t("sortieEchap")
+      : t("sortie", { touche: mode === "wireframe" ? "W" : "I" });
 
   return (
-    <div className="pointer-events-none fixed bottom-4 left-1/2 z-[110] -translate-x-1/2">
-      <div className="flex items-center gap-3 rounded-full bg-ink-deep px-4 py-2 shadow-lg">
-        <span className="size-2 shrink-0 rounded-full bg-terra-hot" />
+    <div className="fixed bottom-4 left-1/2 z-[110] -translate-x-1/2">
+      {/* role=status : l'entrée et la sortie de mode sont annoncées
+          aux lecteurs d'écran sans voler le focus */}
+      <div
+        role="status"
+        className="flex items-center gap-3 rounded-full bg-ink-deep px-4 py-2 shadow-lg"
+      >
+        <span
+          aria-hidden="true"
+          className="size-2 shrink-0 rounded-full bg-terra-hot"
+        />
         <span className="font-mono text-[0.68rem] font-semibold tracking-wide text-sand">
-          {etiquette.nom}
+          {t(mode)}
         </span>
-        <span className="font-mono text-[0.62rem] text-sand/55">
-          {etiquette.touche === "Échap"
-            ? "Échap pour quitter"
-            : `${etiquette.touche} ou Échap pour quitter`}
-        </span>
+        <span className="font-mono text-[0.62rem] text-sand/55">{sortie}</span>
         {survol && (
           <span className="border-l border-sand/20 pl-3 font-mono text-[0.62rem] text-sage">
             {survol}
           </span>
         )}
+        <button
+          type="button"
+          onClick={couper}
+          className="rounded-full border border-sand/25 px-2 py-0.5 font-mono text-[0.6rem] text-sand/70 transition-colors hover:bg-sand/10 hover:text-sand"
+        >
+          {t("couper")}
+        </button>
       </div>
     </div>
   );

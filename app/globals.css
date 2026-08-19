@@ -72,6 +72,16 @@ body {
   outline: 2px solid var(--sage-strong);
   outline-offset: 3px;
   border-radius: 2px;
+  /* Halo clair sous le contour : le focus reste lisible sur les aplats sombres */
+  box-shadow: 0 0 0 4px var(--sand);
+}
+
+/* Le comparateur avant/après : son curseur est un input invisible,
+   le cadre doit donc montrer le focus à sa place */
+.ba-frame:has(input:focus-visible) {
+  outline: 2px solid var(--sage-strong);
+  outline-offset: 3px;
+  box-shadow: 0 0 0 4px var(--sand);
 }
 
 @layer components {
@@ -82,13 +92,17 @@ body {
     @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300;
   }
   .btn-primary {
-    @apply bg-terra-strong text-sand-card hover:bg-ink;
+    @apply bg-terra-deep text-sand-card hover:bg-ink;
   }
   .btn-secondary {
     @apply border border-line bg-sand-card text-ink hover:border-sage-strong hover:text-sage-deep;
   }
   .eyebrow {
     @apply inline-flex items-center gap-2.5 text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-sage-deep;
+  }
+  /* Sur les aplats sombres, l'étiquette passe en sauge claire */
+  .eyebrow-invert {
+    @apply text-sage;
   }
   .card-hover {
     @apply transition-all duration-300 hover:-translate-y-1 hover:border-sage hover:shadow-[0_16px_40px_-20px_rgba(46,52,40,0.35)];

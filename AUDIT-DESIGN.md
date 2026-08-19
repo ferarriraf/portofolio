@@ -1,3 +1,5 @@
+> **Document historique** (audit du 19/08/2026) : les chemins et numéros de ligne cités correspondent à une version antérieure du code.
+
 # Audit design R-X — synthèse multi-agents
 
 _8 agents : 3 sur les sites de référence (pxpush, haoqi, michaelgatt), 4 sur les dimensions du site, 1 de synthèse._

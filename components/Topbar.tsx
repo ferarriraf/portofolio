@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
@@ -21,6 +21,9 @@ export default function Topbar() {
   const pathname = usePathname();
   const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
+  const burgerRef = useRef<HTMLButtonElement>(null);
+  const fermerRef = useRef<HTMLButtonElement>(null);
+  const overlayRef = useRef<HTMLDivElement>(null);
 
   useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 12);
@@ -38,13 +41,45 @@ export default function Topbar() {
     if (open) setOpen(false);
   }
 
-  // Bloque le défilement de la page quand le menu plein écran est ouvert
+  // Bloque le défilement de la page quand le menu plein écran est ouvert,
+  // et déplace le focus : vers « Fermer » à l'ouverture, retour au bouton
+  // du menu à la fermeture — sans quoi le clavier reste perdu derrière
+  // l'overlay.
+  const dejaOuvert = useRef(false);
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
+    if (open) {
+      dejaOuvert.current = true;
+      fermerRef.current?.focus();
+    } else if (dejaOuvert.current) {
+      burgerRef.current?.focus();
+    }
     return () => {
       document.documentElement.style.overflow = "";
     };
   }, [open]);
+
+  // Échap ferme ; Tab reste enfermé dans le menu tant qu'il est ouvert
+  const onOverlayKeyDown = (e: React.KeyboardEvent) => {
+    if (e.key === "Escape") {
+      setOpen(false);
+      return;
+    }
+    if (e.key !== "Tab") return;
+    const focusables = overlayRef.current?.querySelectorAll<HTMLElement>(
+      "a[href], button"
+    );
+    if (!focusables || focusables.length === 0) return;
+    const premier = focusables[0];
+    const dernier = focusables[focusables.length - 1];
+    if (e.shiftKey && document.activeElement === premier) {
+      e.preventDefault();
+      dernier.focus();
+    } else if (!e.shiftKey && document.activeElement === dernier) {
+      e.preventDefault();
+      premier.focus();
+    }
+  };
 
   return (
     <header
@@ -63,7 +98,7 @@ export default function Topbar() {
           <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label="principal">
+        <nav className="hidden items-center gap-8 md:flex" aria-label={t("ariaMain")}>
           {links.map((l) => {
             const active = pathname === l.href;
             return (
@@ -92,9 +127,12 @@ export default function Topbar() {
             <LangSwitcher />
           </div>
           <button
+            ref={burgerRef}
             type="button"
             onClick={() => setOpen(true)}
             aria-label={t("menuOpen")}
+            aria-expanded={open}
+            aria-controls="menu-mobile"
             className="inline-flex size-10 items-center justify-center rounded-full border border-line bg-sand-card text-ink md:hidden"
           >
             <Menu className="size-5" />
@@ -105,6 +143,12 @@ export default function Topbar() {
       <AnimatePresence>
         {open && (
           <motion.div
+            ref={overlayRef}
+            id="menu-mobile"
+            role="dialog"
+            aria-modal="true"
+            aria-label={t("ariaMainMobile")}
+            onKeyDown={onOverlayKeyDown}
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
@@ -116,6 +160,7 @@ export default function Topbar() {
                 <Logo />
               </Link>
               <button
+                ref={fermerRef}
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label={t("menuClose")}
@@ -126,7 +171,7 @@ export default function Topbar() {
             </div>
 
             <motion.nav
-              aria-label="principal mobile"
+              aria-label={t("ariaMainMobile")}
               className="container-site mt-6 flex flex-col gap-2"
               initial="hidden"
               animate="show"

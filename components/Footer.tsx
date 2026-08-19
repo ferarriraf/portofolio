@@ -61,7 +61,7 @@ export default function Footer() {
       </div>
 
       <div className="border-t border-sand/15">
-        <div className="container-site flex flex-wrap items-center justify-between gap-3 py-5 text-xs text-sand/50">
+        <div className="container-site flex flex-wrap items-center justify-between gap-3 py-5 text-xs text-sand/60">
           <p>
             © {year} R-X. {t("footer.rights")}
           </p>

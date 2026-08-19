@@ -33,7 +33,9 @@
     "about": "À propos",
     "contact": "Contact",
     "menuOpen": "Ouvrir le menu",
-    "menuClose": "Fermer le menu"
+    "menuClose": "Fermer le menu",
+    "ariaMain": "principal",
+    "ariaMainMobile": "menu principal"
   },
   "lang": {
     "label": "Changer de langue",
@@ -110,14 +112,16 @@
         "client": "Vous",
         "notesTitre": "Notes de séance",
         "notes": [
-          "Objectif : moins d'appels au support",
-          "Cible : équipes terrain",
-          "Contrainte : outil interne existant"
+          "Objectif : moins d'appels au support",
+          "Cible : équipes terrain",
+          "Contrainte : outil interne existant"
         ],
         "enregistrement": "Séance enregistrée",
         "maquetteTitre": "Vos écrans, en vrai",
         "maquetteLede": "Prototype cliquable, partageable",
-        "maquetteAction": "Tester"
+        "maquetteAction": "Tester",
+        "hesite": "hésite 2,4 s",
+        "session": "Session 04"
       }
     },
     "work": {
@@ -173,7 +177,7 @@
   "work": {
     "eyebrow": "Réalisations",
     "title": "Trois cas d'école, pour montrer la méthode",
-    "lede": "Aucun de ces projets n'est un vrai client : ce sont des interfaces que nous avons reconstruites pour montrer, concrètement, ce que change une refonte. Glissez le curseur pour comparer.",
+    "lede": "Aucun de ces projets n'est un vrai client : ce sont des interfaces que nous avons reconstruites pour montrer, concrètement, ce que change une refonte. Glissez le curseur pour comparer.",
     "challengeLabel": "Le défi",
     "resultLabel": "Le résultat",
     "projects": [
@@ -317,7 +321,7 @@
           "Personne à prévenir",
           "Mutuelle"
         ],
-        "question": "Depuis quand ressentez-vous cette douleur ?",
+        "question": "Depuis quand ressentez-vous cette douleur ?",
         "reponses": [
           "Moins de deux jours",
           "Environ une semaine",
@@ -375,7 +379,7 @@
       {
         "valeur": 2,
         "suffixe": "",
-        "libelle": "langues de travail : FR et EN"
+        "libelle": "langues de travail : FR et EN"
       },
       {
         "valeur": 0,
@@ -459,7 +463,7 @@
       "title": "Données personnelles",
       "text": "Ce site ne dépose aucun cookie, n'embarque aucun traceur et ne collecte aucune donnée personnelle. Les emails que vous nous adressez ne servent qu'à vous répondre."
     },
-    "contactLabel": "Contact"
+    "contactLabel": "Contact :"
   },
   "footer": {
     "tagline": "Studio d'ergonomie web — des interfaces claires pour des utilisateurs sereins.",
@@ -475,9 +479,23 @@
   },
   "cookies": {
     "title": "Aucun cookie ici",
-    "text": "Ce site ne dépose rien sur votre appareil : ni cookie, ni traceur, ni mesure d'audience. Vous naviguez sans laisser de traces.",
+    "text": "Ce site ne dépose aucun cookie, aucun traceur, aucune mesure d'audience. Seule la fermeture de ce bandeau est mémorisée sur votre appareil.",
     "button": "Compris",
     "more": "Mentions légales"
   },
-  "loading": "Chargement"
+  "loading": "Chargement",
+  "a11y": {
+    "skip": "Aller au contenu"
+  },
+  "secret": {
+    "wireframe": "Mode fil de fer",
+    "inspection": "Mode inspection",
+    "retro": "Mode 1988",
+    "sortie": "{touche} ou Échap pour quitter",
+    "sortieEchap": "Échap pour quitter",
+    "couper": "Couper les raccourcis",
+    "consoleTitre": "R-X · studio d'ergonomie web",
+    "consoleTexte": "Vous êtes du métier ? Essayez les touches W et I. Et si vous connaissez le vieux code de manette… Écrivez-nous : l'adresse est sur la page contact.",
+    "consoleReactiver": "Raccourcis coupés. Pour les réactiver : localStorage.removeItem(\"{cle}\") puis rechargez."
+  }
 }

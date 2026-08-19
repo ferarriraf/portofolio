@@ -23,7 +23,7 @@ export default function SectionLabel({
     >
       {typeof n === "number" && (
         <>
-          <span className={invert ? "text-sand/60" : "text-ink/45"}>
+          <span className={invert ? "text-sand/60" : "text-ink-soft"}>
             Nº{String(n).padStart(3, "0")}
           </span>
           <span
