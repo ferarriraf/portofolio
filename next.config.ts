@@ -39,6 +39,19 @@ const securityHeaders = [
 
 const nextConfig: NextConfig = {
   poweredByHeader: false,
+  // Un seul domaine fait autorité : www.r-x.fr. Servir le même contenu
+  // sur deux adresses le ferait compter deux fois par les moteurs de
+  // recherche, qui répartiraient la réputation du site entre les deux.
+  async redirects() {
+    return [
+      {
+        source: "/:chemin*",
+        has: [{ type: "host", value: "r-x.fr" }],
+        destination: "https://www.r-x.fr/:chemin*",
+        permanent: true,
+      },
+    ];
+  },
   async headers() {
     return [{ source: "/(.*)", headers: securityHeaders }];
   },
