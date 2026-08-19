@@ -5,8 +5,11 @@ import { motion, useReducedMotion } from "framer-motion";
 
 type SelectionFrameProps = {
   children: ReactNode;
-  /** Étiquette affichée sur le cadre, façon calque sélectionné */
-  label: string;
+  /**
+   * Étiquette de calque : réservée au mode inspection, elle parlerait
+   * surtout aux gens du métier.
+   */
+  label?: string;
   className?: string;
 };
 
@@ -73,14 +76,15 @@ export default function SelectionFrame({
         ))}
       </motion.span>
 
-      {/* L'étiquette de calque */}
-      <motion.span
-        aria-hidden="true"
-        className="pointer-events-none absolute -top-3 -left-5 -translate-y-full rounded-[3px] bg-terra-hot px-2 py-1 font-mono text-[0.62rem] font-semibold tracking-wide text-sand-card md:-left-8"
-        {...cadre}
-      >
-        {label}
-      </motion.span>
+      {/* L'étiquette de calque : visible seulement en mode inspection */}
+      {label && (
+        <span
+          aria-hidden="true"
+          className="etiquette-calque pointer-events-none absolute -top-3 -left-5 -translate-y-full rounded-[3px] bg-terra-hot px-2 py-1 font-mono text-[0.62rem] font-semibold tracking-wide text-sand-card md:-left-8"
+        >
+          {label}
+        </span>
+      )}
     </div>
   );
 }

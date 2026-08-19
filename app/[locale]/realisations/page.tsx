@@ -3,8 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
-import CaseCover from "@/components/CaseCover";
-import CaseCoverBefore from "@/components/CaseCoverBefore";
+import CaseMockup, { type MockupTextes } from "@/components/CaseMockup";
 import BeforeAfter from "@/components/BeforeAfter";
 import { pageMetadata } from "@/lib/seo";
 
@@ -22,6 +21,7 @@ export default async function WorkPage({ params }: Props) {
   setRequestLocale(locale);
   const t = await getTranslations("work");
 
+  const mockups = t.raw("mockups") as MockupTextes;
   const projects = t.raw("projects") as {
     name: string;
     sector: string;
@@ -46,8 +46,12 @@ export default async function WorkPage({ params }: Props) {
                 <BeforeAfter
                   labelAvant={t("beforeLabel")}
                   labelApres={t("afterLabel")}
-                  avant={<CaseCoverBefore variant={coverVariants[i]} />}
-                  apres={<CaseCover variant={coverVariants[i]} />}
+                  avant={
+                    <CaseMockup variant={coverVariants[i]} etat="avant" textes={mockups} />
+                  }
+                  apres={
+                    <CaseMockup variant={coverVariants[i]} etat="apres" textes={mockups} />
+                  }
                 />
               </Reveal>
               <div>

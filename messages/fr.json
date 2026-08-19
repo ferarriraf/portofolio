@@ -202,7 +202,117 @@
       "button": "Nous contacter"
     },
     "beforeLabel": "Avant",
-    "afterLabel": "Après R-X"
+    "afterLabel": "Après R-X",
+    "mockups": {
+      "dashboard": {
+        "titre": "GestRH v4.2 — Module Personnel",
+        "colonnes": [
+          "Matricule",
+          "Nom",
+          "Service",
+          "Contrat",
+          "Statut",
+          "Solde CP",
+          "Actions"
+        ],
+        "lignes": [
+          [
+            "A-10428",
+            "Bernard C.",
+            "Logistique",
+            "CDI",
+            "Actif",
+            "12,5 j",
+            "Voir"
+          ],
+          [
+            "A-10429",
+            "Diallo M.",
+            "Comptabilité",
+            "CDD",
+            "Congés",
+            "4,0 j",
+            "Voir"
+          ],
+          [
+            "A-10430",
+            "Nguyen T.",
+            "Atelier",
+            "CDI",
+            "Actif",
+            "21,5 j",
+            "Voir"
+          ],
+          [
+            "A-10431",
+            "Rossi P.",
+            "Commercial",
+            "CDI",
+            "Formation",
+            "8,0 j",
+            "Voir"
+          ]
+        ],
+        "apresTitre": "Cette semaine",
+        "apresCartes": [
+          {
+            "valeur": "12",
+            "libelle": "congés à valider"
+          },
+          {
+            "valeur": "3",
+            "libelle": "entretiens prévus"
+          },
+          {
+            "valeur": "1",
+            "libelle": "contrat à signer"
+          }
+        ],
+        "apresAction": "Valider les 12 congés",
+        "recherche": "Rechercher…"
+      },
+      "shop": {
+        "etapes": [
+          "Panier",
+          "Compte",
+          "Livraison",
+          "Paiement",
+          "Confirmation"
+        ],
+        "champs": [
+          "Civilité",
+          "Nom",
+          "Prénom",
+          "Adresse",
+          "Code postal",
+          "Ville",
+          "Téléphone"
+        ],
+        "produit": "Carafe grès émaillé",
+        "prix": "48 €",
+        "action": "Ajouter au panier",
+        "reassurance": "Retrait en atelier ou livraison en 48 h"
+      },
+      "health": {
+        "titre": "Formulaire d'admission — page 1/4",
+        "champs": [
+          "N° de sécurité sociale",
+          "Médecin traitant",
+          "Antécédents",
+          "Traitements en cours",
+          "Allergies connues",
+          "Personne à prévenir",
+          "Mutuelle"
+        ],
+        "question": "Depuis quand ressentez-vous cette douleur ?",
+        "reponses": [
+          "Moins de deux jours",
+          "Environ une semaine",
+          "Plus d'un mois"
+        ],
+        "etape": "Question 1 sur 5"
+      }
+    }
   },
   "about": {
     "eyebrow": "À propos",
@@ -241,7 +351,57 @@
       "langLabel": "Langues",
       "langValue": "FR · EN",
       "availability": "Disponible pour de nouveaux projets"
-    }
+    },
+    "figuresTitle": "En quelques chiffres",
+    "figures": [
+      {
+        "valeur": 24,
+        "suffixe": "",
+        "libelle": "projets d'interface livrés"
+      },
+      {
+        "valeur": 9,
+        "suffixe": "",
+        "libelle": "années à concevoir des écrans"
+      },
+      {
+        "valeur": 48,
+        "suffixe": " h",
+        "libelle": "pour vous répondre, au plus"
+      }
+    ],
+    "toolsTitle": "L'atelier",
+    "tools": [
+      "Figma",
+      "Prototypes cliquables",
+      "Tests utilisateurs",
+      "Cartes de chaleur",
+      "RGAA / WCAG",
+      "Design systems"
+    ],
+    "timelineTitle": "Le déroulé d'un projet",
+    "timeline": [
+      {
+        "quand": "Semaine 1",
+        "studio": "On écoute, on cadre, on chiffre.",
+        "client": "Vous racontez votre activité."
+      },
+      {
+        "quand": "Semaines 2–3",
+        "studio": "Architecture et premiers écrans.",
+        "client": "Vous réagissez, on ajuste."
+      },
+      {
+        "quand": "Semaines 4–5",
+        "studio": "Maquettes finies et prototype.",
+        "client": "Vous testez entre de vraies mains."
+      },
+      {
+        "quand": "Semaine 6",
+        "studio": "Spécifications et passation.",
+        "client": "Vos développeurs prennent le relais."
+      }
+    ]
   },
   "contact": {
     "eyebrow": "Contact",

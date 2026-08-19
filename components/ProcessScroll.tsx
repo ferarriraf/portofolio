@@ -132,7 +132,6 @@ export default function ProcessScroll({
                     {screen}
                   </ScreenPanel>
                 ))}
-                <FakeCursor />
               </RetroComputer>
             </div>
           </div>
@@ -221,20 +220,6 @@ function ScreenPanel({
 }
 
 /* ——— Les écrans affichés dans l'ordinateur ——— */
-
-/** Le curseur qui navigue et clique tout seul dans l'écran. */
-function FakeCursor() {
-  return (
-    <span
-      aria-hidden="true"
-      className="fake-cursor pointer-events-none absolute z-20 -mt-1 -ml-1"
-    >
-      <span className="fake-cursor-click absolute -inset-3 rounded-full border-2 border-terra-strong" />
-      <span className="fake-cursor-click2 absolute -inset-3 rounded-full border-2 border-sage-strong" />
-      <MousePointer2 className="size-5 fill-ink-deep text-sand drop-shadow-md" />
-    </span>
-  );
-}
 
 /** 01 — Écoute : la visio de découverte et les notes */
 function ScreenListen() {

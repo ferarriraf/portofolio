@@ -4,10 +4,9 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
-import CaseCover from "@/components/CaseCover";
+import CaseMockup, { type MockupTextes } from "@/components/CaseMockup";
 import MagneticTitle from "@/components/MagneticTitle";
 import Marquee from "@/components/Marquee";
-import ApproachList from "@/components/ApproachList";
 import ManifestoScroll from "@/components/ManifestoScroll";
 import ProcessScroll from "@/components/ProcessScroll";
 import SectionLabel from "@/components/SectionLabel";
@@ -30,9 +29,9 @@ export default async function HomePage({ params }: Props) {
   const t = await getTranslations("home");
   const tw = await getTranslations("work");
 
-  const approach = t.raw("approach.items") as { title: string; text: string }[];
   const steps = t.raw("process.steps") as { title: string; text: string }[];
   const marquee = t.raw("marquee") as string[];
+  const mockups = tw.raw("mockups") as MockupTextes;
   const projects = (
     tw.raw("projects") as { name: string; sector: string; tags: string[] }[]
   ).slice(0, 2);
@@ -93,21 +92,6 @@ export default async function HomePage({ params }: Props) {
         <Marquee items={marquee} className="relative" />
       </section>
 
-      {/* ——— Approche : liste éditoriale, titres en contour ——— */}
-      <section className="container-site py-24 md:py-32">
-        <Reveal>
-          <SectionLabel n={1}>{t("approach.eyebrow")}</SectionLabel>
-        </Reveal>
-        <SplitHeading
-          text={t("approach.title")}
-          delay={0.06}
-          className="mt-5 max-w-3xl font-display text-[clamp(2.4rem,5.5vw,4.5rem)] font-bold leading-[1.04] tracking-tight text-ink"
-        />
-        <div className="mt-14">
-          <ApproachList items={approach} />
-        </div>
-      </section>
-
       {/* ——— Manifeste : les mots s'illuminent au fil du scroll ——— */}
       <ManifestoScroll lead={t("manifesto.lead")} emph={t("manifesto.emph")} />
 
@@ -148,8 +132,12 @@ export default async function HomePage({ params }: Props) {
             >
               <Reveal variant="mask" delay={0.08 * i}>
                   <div className="overflow-hidden rounded-3xl shadow-[0_2px_10px_-6px_rgba(46,52,40,0.3)] transition-all duration-500 ease-out group-hover:-translate-y-1.5 group-hover:shadow-[0_28px_50px_-28px_rgba(46,52,40,0.55)]">
-                    <div className="aspect-4/3 transition-transform duration-700 ease-out group-hover:scale-[1.05]">
-                      <CaseCover variant={coverVariants[i]} />
+                    <div className="relative aspect-4/3 transition-transform duration-700 ease-out group-hover:scale-[1.05]">
+                      <CaseMockup
+                        variant={coverVariants[i]}
+                        etat="apres"
+                        textes={mockups}
+                      />
                     </div>
                   </div>
               </Reveal>

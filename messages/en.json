@@ -202,7 +202,117 @@
       "button": "Contact us"
     },
     "beforeLabel": "Before",
-    "afterLabel": "After R-X"
+    "afterLabel": "After R-X",
+    "mockups": {
+      "dashboard": {
+        "titre": "HRSys v4.2 — Staff module",
+        "colonnes": [
+          "Staff ID",
+          "Name",
+          "Team",
+          "Contract",
+          "Status",
+          "Leave",
+          "Actions"
+        ],
+        "lignes": [
+          [
+            "A-10428",
+            "Bernard C.",
+            "Logistics",
+            "Permanent",
+            "Active",
+            "12.5 d",
+            "View"
+          ],
+          [
+            "A-10429",
+            "Diallo M.",
+            "Accounting",
+            "Fixed-term",
+            "On leave",
+            "4.0 d",
+            "View"
+          ],
+          [
+            "A-10430",
+            "Nguyen T.",
+            "Workshop",
+            "Permanent",
+            "Active",
+            "21.5 d",
+            "View"
+          ],
+          [
+            "A-10431",
+            "Rossi P.",
+            "Sales",
+            "Permanent",
+            "Training",
+            "8.0 d",
+            "View"
+          ]
+        ],
+        "apresTitre": "This week",
+        "apresCartes": [
+          {
+            "valeur": "12",
+            "libelle": "leave requests"
+          },
+          {
+            "valeur": "3",
+            "libelle": "reviews booked"
+          },
+          {
+            "valeur": "1",
+            "libelle": "contract to sign"
+          }
+        ],
+        "apresAction": "Approve all 12",
+        "recherche": "Search…"
+      },
+      "shop": {
+        "etapes": [
+          "Cart",
+          "Account",
+          "Delivery",
+          "Payment",
+          "Confirmation"
+        ],
+        "champs": [
+          "Title",
+          "Last name",
+          "First name",
+          "Address",
+          "Postcode",
+          "City",
+          "Phone"
+        ],
+        "produit": "Glazed stoneware carafe",
+        "prix": "€48",
+        "action": "Add to cart",
+        "reassurance": "Studio pickup or delivery within 48 h"
+      },
+      "health": {
+        "titre": "Admission form — page 1/4",
+        "champs": [
+          "Insurance number",
+          "GP name",
+          "Medical history",
+          "Current treatments",
+          "Known allergies",
+          "Emergency contact",
+          "Health cover"
+        ],
+        "question": "How long have you had this pain?",
+        "reponses": [
+          "Less than two days",
+          "About a week",
+          "More than a month"
+        ],
+        "etape": "Question 1 of 5"
+      }
+    }
   },
   "about": {
     "eyebrow": "About",
@@ -241,7 +351,57 @@
       "langLabel": "Languages",
       "langValue": "FR · EN",
       "availability": "Available for new projects"
-    }
+    },
+    "figuresTitle": "In numbers",
+    "figures": [
+      {
+        "valeur": 24,
+        "suffixe": "",
+        "libelle": "interface projects delivered"
+      },
+      {
+        "valeur": 9,
+        "suffixe": "",
+        "libelle": "years designing screens"
+      },
+      {
+        "valeur": 48,
+        "suffixe": " h",
+        "libelle": "to get back to you, at most"
+      }
+    ],
+    "toolsTitle": "The workshop",
+    "tools": [
+      "Figma",
+      "Clickable prototypes",
+      "User testing",
+      "Heatmaps",
+      "WCAG / RGAA",
+      "Design systems"
+    ],
+    "timelineTitle": "How a project unfolds",
+    "timeline": [
+      {
+        "quand": "Week 1",
+        "studio": "We listen, scope and quote.",
+        "client": "You tell us about your business."
+      },
+      {
+        "quand": "Weeks 2–3",
+        "studio": "Architecture and first screens.",
+        "client": "You react, we adjust."
+      },
+      {
+        "quand": "Weeks 4–5",
+        "studio": "Final mockups and prototype.",
+        "client": "You test it in real hands."
+      },
+      {
+        "quand": "Week 6",
+        "studio": "Specifications and handover.",
+        "client": "Your developers take over."
+      }
+    ]
   },
   "contact": {
     "eyebrow": "Contact",

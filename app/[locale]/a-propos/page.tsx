@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Feather, Handshake, Ruler } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
+import CountUp from "@/components/CountUp";
 import Reveal from "@/components/Reveal";
 import StudioCard from "@/components/StudioCard";
 import SectionLabel from "@/components/SectionLabel";
@@ -23,6 +24,17 @@ export default async function AboutPage({ params }: Props) {
   const t = await getTranslations("about");
 
   const values = t.raw("values") as { title: string; text: string }[];
+  const figures = t.raw("figures") as {
+    valeur: number;
+    suffixe: string;
+    libelle: string;
+  }[];
+  const tools = t.raw("tools") as string[];
+  const timeline = t.raw("timeline") as {
+    quand: string;
+    studio: string;
+    client: string;
+  }[];
 
   return (
     <>
@@ -42,6 +54,71 @@ export default async function AboutPage({ params }: Props) {
           {/* Les faits du studio, et l'heure qui tourne */}
           <StudioCard />
         </Reveal>
+      </section>
+
+      {/* ——— Les chiffres et l'atelier ——— */}
+      <section className="border-y border-line bg-sand-deep">
+        <div className="container-site grid gap-12 py-16 md:py-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
+          <div>
+            <Reveal>
+              <SectionLabel>{t("figuresTitle")}</SectionLabel>
+            </Reveal>
+            <dl className="mt-8 grid gap-8 sm:grid-cols-3">
+              {figures.map((f, i) => (
+                <Reveal key={f.libelle} delay={0.07 * i}>
+                  <dt className="font-display text-5xl font-[800] tracking-tight text-terra-deep md:text-6xl">
+                    <CountUp valeur={f.valeur} suffixe={f.suffixe} />
+                  </dt>
+                  <dd className="mt-2 text-sm leading-snug text-ink-soft">
+                    {f.libelle}
+                  </dd>
+                </Reveal>
+              ))}
+            </dl>
+          </div>
+
+          <div>
+            <Reveal>
+              <SectionLabel>{t("toolsTitle")}</SectionLabel>
+            </Reveal>
+            <ul className="mt-8 flex flex-wrap gap-2">
+              {tools.map((outil, i) => (
+                <Reveal key={outil} delay={0.04 * i}>
+                  <li className="rounded-full border border-line bg-sand-card px-3.5 py-1.5 text-sm font-medium text-ink">
+                    {outil}
+                  </li>
+                </Reveal>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      {/* ——— Le déroulé d'un projet, semaine par semaine ——— */}
+      <section className="container-site py-20 md:py-24">
+        <Reveal>
+          <SectionLabel n={1}>{t("timelineTitle")}</SectionLabel>
+        </Reveal>
+        <ol className="mt-10 border-t border-line">
+          {timeline.map((etape, i) => (
+            <Reveal key={etape.quand} delay={0.05 * i}>
+              <li className="grid gap-2 border-b border-line py-6 md:grid-cols-[9rem_1fr_1fr] md:items-baseline md:gap-8">
+                <span className="font-mono text-xs tracking-[0.14em] text-terra-deep uppercase">
+                  {etape.quand}
+                </span>
+                <p className="font-display text-lg font-bold text-ink">
+                  {etape.studio}
+                </p>
+                <p className="leading-relaxed text-ink-soft">
+                  <span className="mr-2 font-mono text-[0.65rem] tracking-wide text-sage-deep uppercase">
+                    vous
+                  </span>
+                  {etape.client}
+                </p>
+              </li>
+            </Reveal>
+          ))}
+        </ol>
       </section>
 
       {/* ——— Convictions : bloc sauge plein ——— */}

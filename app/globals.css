@@ -438,6 +438,15 @@ html.mode-inspection body::before {
   );
 }
 
+/* L'étiquette de calque n'apparaît qu'à l'inspecteur */
+.etiquette-calque {
+  display: none;
+}
+
+html.mode-inspection .etiquette-calque {
+  display: block;
+}
+
 /* Konami — le site en 1988 */
 html.mode-retro body {
   background: #06120a;
