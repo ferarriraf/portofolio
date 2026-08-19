@@ -29,7 +29,7 @@
   "nav": {
     "home": "Accueil",
     "services": "Services",
-    "work": "Réalisations",
+    "work": "Démonstrations",
     "about": "À propos",
     "contact": "Contact",
     "menuOpen": "Ouvrir le menu",
@@ -122,7 +122,7 @@
     },
     "work": {
       "eyebrow": "Réalisations",
-      "title": "Des interfaces qui font leurs preuves",
+      "title": "Trois cas d'école, pour montrer la méthode",
       "cta": "Toutes nos réalisations"
     },
     "cta": {
@@ -172,8 +172,8 @@
   },
   "work": {
     "eyebrow": "Réalisations",
-    "title": "Des interfaces qui font leurs preuves",
-    "lede": "Trois études de cas pour montrer la méthode. La vôtre pourrait être la prochaine.",
+    "title": "Trois cas d'école, pour montrer la méthode",
+    "lede": "Aucun de ces projets n'est un vrai client : ce sont des interfaces que nous avons reconstruites pour montrer, concrètement, ce que change une refonte. Glissez le curseur pour comparer.",
     "challengeLabel": "Le défi",
     "resultLabel": "Le résultat",
     "projects": [
@@ -208,7 +208,7 @@
         "result": "Étapes courtes, gros caractères, langage humain. Une application utilisable même un mauvais jour."
       }
     ],
-    "note": "Projets illustratifs, présentés à titre d'exemple de méthode.",
+    "note": "Cas d'école reconstruits par R-X à titre de démonstration. Vos écrans prendront leur place ici.",
     "cta": {
       "title": "Votre projet ici ?",
       "text": "Racontez-nous où ça coince : c'est souvent le début d'une belle étude de cas.",
@@ -368,19 +368,19 @@
     "figuresTitle": "En quelques chiffres",
     "figures": [
       {
-        "valeur": 24,
-        "suffixe": "",
-        "libelle": "projets d'interface livrés"
-      },
-      {
-        "valeur": 9,
-        "suffixe": "",
-        "libelle": "années à concevoir des écrans"
-      },
-      {
         "valeur": 48,
         "suffixe": " h",
         "libelle": "pour vous répondre, au plus"
+      },
+      {
+        "valeur": 2,
+        "suffixe": "",
+        "libelle": "langues de travail : FR et EN"
+      },
+      {
+        "valeur": 0,
+        "suffixe": "",
+        "libelle": "cookie, traceur ou mesure d'audience"
       }
     ],
     "toolsTitle": "L'atelier",

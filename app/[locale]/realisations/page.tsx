@@ -93,7 +93,13 @@ export default async function WorkPage({ params }: Props) {
             </article>
           </Reveal>
         ))}
-        <p className="text-xs italic text-ink-soft">{t("note")}</p>
+        <p className="flex items-start gap-2.5 rounded-2xl bg-sand-deep px-5 py-4 text-sm text-ink-soft">
+          <span
+            aria-hidden="true"
+            className="mt-1.5 inline-block size-1.5 shrink-0 rounded-full bg-terra-hot"
+          />
+          {t("note")}
+        </p>
       </section>
 
       <div className="pt-8">

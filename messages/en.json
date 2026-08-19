@@ -29,7 +29,7 @@
   "nav": {
     "home": "Home",
     "services": "Services",
-    "work": "Work",
+    "work": "Demonstrations",
     "about": "About",
     "contact": "Contact",
     "menuOpen": "Open menu",
@@ -122,7 +122,7 @@
     },
     "work": {
       "eyebrow": "Work",
-      "title": "Interfaces that prove themselves",
+      "title": "Three teaching cases, to show the method",
       "cta": "All our work"
     },
     "cta": {
@@ -172,8 +172,8 @@
   },
   "work": {
     "eyebrow": "Work",
-    "title": "Interfaces that prove themselves",
-    "lede": "Three case studies to show the method. Yours could be next.",
+    "title": "Three teaching cases, to show the method",
+    "lede": "None of these projects is a real client: they are interfaces we rebuilt to show, concretely, what a redesign changes. Drag the handle to compare.",
     "challengeLabel": "The challenge",
     "resultLabel": "The result",
     "projects": [
@@ -208,7 +208,7 @@
         "result": "Short steps, large type, human language. An app you can use even on a bad day."
       }
     ],
-    "note": "Illustrative projects, shown as examples of the method.",
+    "note": "Teaching cases rebuilt by R-X as a demonstration. Your screens will take their place here.",
     "cta": {
       "title": "Your project here?",
       "text": "Tell us where it hurts: that's often how a good case study begins.",
@@ -368,19 +368,19 @@
     "figuresTitle": "In numbers",
     "figures": [
       {
-        "valeur": 24,
-        "suffixe": "",
-        "libelle": "interface projects delivered"
-      },
-      {
-        "valeur": 9,
-        "suffixe": "",
-        "libelle": "years designing screens"
-      },
-      {
         "valeur": 48,
         "suffixe": " h",
         "libelle": "to get back to you, at most"
+      },
+      {
+        "valeur": 2,
+        "suffixe": "",
+        "libelle": "working languages: FR and EN"
+      },
+      {
+        "valeur": 0,
+        "suffixe": "",
+        "libelle": "cookies, trackers or analytics"
       }
     ],
     "toolsTitle": "The workshop",
