@@ -81,7 +81,7 @@
     },
     "process": {
       "eyebrow": "La méthode",
-      "title": "Quatre étapes, pas une de plus",
+      "title": "Cinq étapes, pas une de plus",
       "online": "En ligne",
       "steps": [
         {
@@ -91,6 +91,10 @@
         {
           "title": "Structure",
           "text": "Architecture de l'information, parcours utilisateurs, hiérarchie des contenus : le squelette avant la peau."
+        },
+        {
+          "title": "Observation",
+          "text": "Là où les regards se posent, là où les clics hésitent. Les cartes de chaleur disent ce que les opinions supposent."
         },
         {
           "title": "Design",

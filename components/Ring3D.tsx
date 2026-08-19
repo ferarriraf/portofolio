@@ -66,8 +66,10 @@ export default function Ring3D({ children }: { children: ReactNode }) {
         // un plan de coupe légèrement au-delà du centre (chevauchement)
         const makeLayer = (host: HTMLDivElement, side: "far" | "near") => {
           const scene = new THREE.Scene();
-          const camera = new THREE.PerspectiveCamera(32, 2, 0.1, 20);
-          camera.position.set(0, 0, 2.62);
+          // Téléobjectif : la perspective s'aplatit, l'anneau incliné
+          // remplit le cadre au lieu de fuir vers le fond
+          const camera = new THREE.PerspectiveCamera(6.5, 2, 0.1, 200);
+          camera.position.set(0, 0, 24);
 
           const renderer = new THREE.WebGLRenderer({
             alpha: true,
@@ -112,19 +114,73 @@ export default function Ring3D({ children }: { children: ReactNode }) {
           // Lumière d'appoint : relève les faces internes sombres
           scene.add(new THREE.HemisphereLight(0xffffff, 0xbdbdbd, 2.4));
 
+          // Cadrage exact : pour chaque point de la surface, la distance
+          // caméra minimale qui le garde dans l'image vaut
+          // |coord| / (marge · tan(demi-champ)) + z. On prend le maximum.
+          // Une bounding box serait bien trop pessimiste pour un anneau
+          // incliné ; on échantillonne donc la géométrie réelle.
+          const MARGE_NDC = 0.965;
+          const echantillon: number[] = [];
+          {
+            const pos = geometry.getAttribute("position");
+            const pas = Math.max(1, Math.floor(pos.count / 900));
+            for (let i = 0; i < pos.count; i += pas) {
+              echantillon.push(pos.getX(i), pos.getY(i), pos.getZ(i));
+            }
+          }
+          const p = new THREE.Vector3();
+
+          // Le cadrage doit tenir pour toutes les poses de l'animation :
+          // on évalue les orientations extrêmes et on garde la plus exigeante
+          const fit = (poses: [number, number][]) => {
+            const tanV = Math.tan((camera.fov * Math.PI) / 360) * MARGE_NDC;
+            const tanH = tanV * camera.aspect;
+            const memoX = group.rotation.x;
+            const memoY = group.rotation.y;
+            let dist = 2;
+
+            for (const [rx, ry] of poses) {
+              group.rotation.set(rx, ry, 0);
+              // depuis la scène : sinon la rotation du parent n'est pas
+              // prise en compte au premier cadrage
+              scene.updateMatrixWorld(true);
+              for (let i = 0; i < echantillon.length; i += 3) {
+                p.set(echantillon[i], echantillon[i + 1], echantillon[i + 2]);
+                p.applyMatrix4(ring.matrixWorld);
+                const dv = Math.abs(p.y) / tanV + p.z;
+                const dh = Math.abs(p.x) / tanH + p.z;
+                if (dv > dist) dist = dv;
+                if (dh > dist) dist = dh;
+              }
+            }
+
+            group.rotation.set(memoX, memoY, 0);
+            scene.updateMatrixWorld(true);
+            camera.position.z = dist;
+            camera.updateProjectionMatrix();
+          };
+
+          let poses: [number, number][] = [[0, 0]];
           const resize = () => {
             const w = host.clientWidth;
             const h = host.clientHeight;
             if (w === 0 || h === 0) return;
             renderer.setSize(w, h, false);
             camera.aspect = w / h;
-            camera.updateProjectionMatrix();
+            fit(poses);
+          };
+
+          const setPoses = (p: [number, number][]) => {
+            poses = p;
+            resize();
           };
           resize();
 
           return {
             group,
             ring,
+            camera,
+            setPoses,
             resize,
             render: () => renderer.render(scene, camera),
             dispose: () => {
@@ -142,7 +198,9 @@ export default function Ring3D({ children }: { children: ReactNode }) {
 
         // Orientation de base : le haut de l'anneau bascule au loin,
         // sa bande basse vient devant — on regarde dans l'ouverture
-        const BASE_X = -1.16;
+        // Plus l'anneau est incliné, plus sa silhouette est large :
+        // à hauteur d'écran égale, il gagne les côtés
+        const BASE_X = -1.28;
         const BASE_Y = -0.14;
 
         const setPose = (x: number, y: number, spin: number) => {
@@ -151,10 +209,27 @@ export default function Ring3D({ children }: { children: ReactNode }) {
             l.ring.rotation.z = spin;
           }
         };
+        // Amplitudes de l'animation : précession + suivi souris.
+        // Le cadrage doit tenir aux quatre coins de ce domaine.
+        // L'inclinaison (X) change beaucoup la silhouette : on la garde
+        // discrète pour que le cadrage reste serré. Le pivot (Y) peut
+        // être plus ample, il modifie peu l'encombrement.
+        const AMP_X = 0.03 + 0.045;
+        const AMP_Y = 0.1 + 0.14;
+        const fitAll = () => {
+          const poses: [number, number][] = [];
+          for (const sx of [-1, 0, 1]) {
+            for (const sy of [-1, 0, 1]) {
+              poses.push([BASE_X + sx * AMP_X, BASE_Y + sy * AMP_Y]);
+            }
+          }
+          for (const l of layers) l.setPoses(poses);
+        };
         const renderAll = () => {
           for (const l of layers) l.render();
         };
         setPose(BASE_X, BASE_Y, 0);
+        fitAll();
 
         const resizeObserver = new ResizeObserver(() => {
           for (const l of layers) l.resize();
@@ -179,10 +254,13 @@ export default function Ring3D({ children }: { children: ReactNode }) {
         let targetY = 0;
         let tiltX = 0;
         let tiltY = 0;
+        // Amplitudes volontairement contenues : elles entrent dans le
+        // calcul de cadrage (AMP_X / AMP_Y), donc plus elles sont larges,
+        // plus la caméra doit reculer et plus l'anneau paraît petit.
         const onPointer = (e: PointerEvent) => {
           if (e.pointerType !== "mouse") return;
-          targetY = (e.clientX / window.innerWidth - 0.5) * 0.5;
-          targetX = (e.clientY / window.innerHeight - 0.5) * 0.35;
+          targetY = (e.clientX / window.innerWidth - 0.5) * 0.28;
+          targetX = (e.clientY / window.innerHeight - 0.5) * 0.3;
         };
         window.addEventListener("pointermove", onPointer, { passive: true });
 
@@ -196,8 +274,8 @@ export default function Ring3D({ children }: { children: ReactNode }) {
           tiltY += (targetY - tiltY) * 0.045;
           // Rotation continue (visible grâce au brossage) + précession
           setPose(
-            BASE_X + Math.sin(t * 0.28) * 0.05 + tiltX * 0.6,
-            BASE_Y + Math.cos(t * 0.21) * 0.1 + tiltY,
+            BASE_X + Math.sin(t * 0.28) * 0.03 + tiltX * 0.15,
+            BASE_Y + Math.cos(t * 0.21) * 0.1 + tiltY * 0.5,
             t * 0.22
           );
           renderAll();
@@ -235,6 +313,18 @@ export default function Ring3D({ children }: { children: ReactNode }) {
               setPose(BASE_X, BASE_Y, 0);
               renderAll();
             },
+            refit: () => {
+              fitAll();
+              setPose(BASE_X, BASE_Y, 0);
+              renderAll();
+            },
+            infos: () =>
+              layers.map((l) => ({
+                z: l.camera.position.z,
+                fov: l.camera.fov,
+                aspect: l.camera.aspect,
+                rotX: l.group.rotation.x,
+              })),
             canvases: [farHost.firstChild, nearHost.firstChild],
           };
         }
@@ -261,8 +351,10 @@ export default function Ring3D({ children }: { children: ReactNode }) {
 
   // Panoramique et ENTIER : large sur les côtés, jamais coupé par sa
   // zone de rendu, descendu sous le menu.
+  // La largeur est aussi bornée par la hauteur d'écran (190vh pour un
+  // ratio 2/1) : sur un écran bas, l'anneau reste dans le hero.
   const layerClass =
-    "pointer-events-none absolute top-[calc(50%+2.5rem)] left-1/2 aspect-[2/1] w-[min(135vw,74rem)] -translate-x-1/2 -translate-y-1/2";
+    "pointer-events-none absolute top-[calc(50%+1.25rem)] left-1/2 aspect-[2/1] w-[min(185vw,120rem,235vh)] -translate-x-1/2 -translate-y-1/2";
 
   const entrance = reduce
     ? { initial: { opacity: 1 }, animate: { opacity: 1 } }

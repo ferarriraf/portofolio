@@ -17,7 +17,7 @@ export default function ApproachList({ items }: { items: Item[] }) {
               i % 2 ? "hover:bg-terra-wash" : "hover:bg-sage-wash"
             }`}
           >
-            <span className="font-display text-base font-bold text-terra-strong">
+            <span className="font-display text-base font-bold text-sage-deep">
               0{i + 1}
             </span>
             <h3 className="font-display text-4xl font-bold tracking-tight text-ink transition-colors duration-500 md:text-6xl md:text-ink/30 md:group-hover:text-ink lg:text-7xl">

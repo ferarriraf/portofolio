@@ -40,12 +40,17 @@ export default function ProcessScroll({
     offset: ["start start", "end end"],
   });
   const railScale = useTransform(scrollYProgress, [0.02, 0.98], [0, 1]);
+  // Le portable s'ouvre en début de section : couvercle rabattu → écran droit
+  const lidAngle = useTransform(scrollYProgress, [0, 0.1], [-88, 0], {
+    clamp: true,
+  });
 
   const screens = [
     <ScreenListen key="s1" />,
     <ScreenWireframe key="s2" />,
-    <ScreenDesign key="s3" />,
-    <ScreenLaunch key="s4" onlineLabel={onlineLabel} />,
+    <ScreenHeatmap key="s3" />,
+    <ScreenDesign key="s4" />,
+    <ScreenLaunch key="s5" onlineLabel={onlineLabel} />,
   ];
 
   if (reduce) {
@@ -62,9 +67,9 @@ export default function ProcessScroll({
           <div className="mt-14 grid gap-10 md:grid-cols-2">
             {steps.map((step, i) => (
               <div key={step.title}>
-                <BrowserFrame>{screens[i]}</BrowserFrame>
-                <p className="mt-5 font-display text-lg font-bold text-ink">
-                  <span className="mr-2 text-terra-strong">0{i + 1}</span>
+                <Laptop3D>{screens[i]}</Laptop3D>
+                <p className="mt-6 font-display text-lg font-bold text-ink">
+                  <span className="mr-2 text-terra-deep">0{i + 1}</span>
                   {step.title}
                 </p>
                 <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
@@ -82,7 +87,7 @@ export default function ProcessScroll({
     <section
       ref={ref}
       className="relative border-b border-line bg-sage-wash"
-      style={{ height: `${steps.length * 120}vh` }}
+      style={{ height: `${steps.length * 105}vh` }}
     >
       <div className="sticky top-0 flex h-svh flex-col justify-center overflow-hidden">
         <div className="container-site">
@@ -119,9 +124,9 @@ export default function ProcessScroll({
               ))}
             </div>
 
-            {/* L'écran qui se transforme */}
+            {/* Le portable qui s'ouvre, et son écran qui se transforme */}
             <div className="order-1 lg:order-2">
-              <BrowserFrame>
+              <Laptop3D lidAngle={lidAngle}>
                 {screens.map((screen, i) => (
                   <ScreenPanel
                     key={i}
@@ -132,7 +137,7 @@ export default function ProcessScroll({
                     {screen}
                   </ScreenPanel>
                 ))}
-              </BrowserFrame>
+              </Laptop3D>
             </div>
           </div>
         </div>
@@ -167,7 +172,7 @@ function StepPanel({
 
   return (
     <motion.div style={{ opacity, y }} className="absolute inset-y-0 left-8 right-0 flex flex-col justify-center">
-      <p className="font-display text-5xl font-bold text-terra md:text-6xl">
+      <p className="font-display text-5xl font-bold text-terra-deep md:text-6xl">
         0{index + 1}
       </p>
       <h3 className="mt-3 font-display text-2xl font-bold text-ink md:text-3xl">
@@ -221,29 +226,79 @@ function ScreenPanel({
 
 /* ——— Le cadre navigateur et ses quatre écrans ——— */
 
-function BrowserFrame({ children }: { children: ReactNode }) {
+/**
+ * Un vrai portable en 3D (CSS) : écran incliné en perspective,
+ * charnière, base en trapèze avec clavier et pavé tactile. Le
+ * couvercle s'ouvre au fil du scroll (lidAngle en degrés).
+ */
+function Laptop3D({
+  children,
+  lidAngle,
+}: {
+  children: ReactNode;
+  lidAngle?: MotionValue<number>;
+}) {
   return (
-    <div className="overflow-hidden rounded-2xl border border-ink/10 bg-sand-card shadow-[0_40px_90px_-40px_rgba(46,52,40,0.5)]">
-      <div className="flex items-center gap-2 border-b border-ink/10 bg-ink-deep px-4 py-2.5">
-        <span className="size-2.5 rounded-full bg-terra" />
-        <span className="size-2.5 rounded-full bg-sage" />
-        <span className="size-2.5 rounded-full bg-sand/30" />
-        <span className="mx-auto w-1/2 rounded-full bg-sand/10 px-3 py-1 text-center text-[0.65rem] font-medium tracking-wide text-sand/70">
-          www.r-x.fr
-        </span>
-        <span className="w-12" />
-      </div>
-      <div className="relative aspect-[16/10]">
-        {children}
-        {/* Le curseur qui navigue et clique dans l'écran */}
-        <span
-          aria-hidden="true"
-          className="fake-cursor pointer-events-none absolute z-20 -ml-1 -mt-1"
+    <div className="[perspective:1600px]">
+      <div className="[transform-style:preserve-3d] [transform:rotateX(9deg)]">
+        {/* Le couvercle : cadre + écran */}
+        <motion.div
+          style={lidAngle ? { rotateX: lidAngle } : undefined}
+          className="origin-bottom rounded-t-xl bg-gradient-to-b from-[#3c3f36] to-[#2a2d26] p-[0.55rem] pb-1.5 shadow-[0_40px_90px_-40px_rgba(46,52,40,0.6)] [transform-style:preserve-3d]"
         >
-          <span className="fake-cursor-click absolute -inset-3 rounded-full border-2 border-terra-strong" />
-          <span className="fake-cursor-click2 absolute -inset-3 rounded-full border-2 border-sage-strong" />
-          <MousePointer2 className="size-5 fill-ink-deep text-sand drop-shadow-md" />
-        </span>
+          <div className="overflow-hidden rounded-md bg-ink-deep">
+            {/* Barre de navigateur dans l'écran */}
+            <div className="flex items-center gap-1.5 bg-ink-deep px-3 py-1.5">
+              <span className="size-2 rounded-full bg-terra" />
+              <span className="size-2 rounded-full bg-sage" />
+              <span className="size-2 rounded-full bg-sand/40" />
+              <span
+                aria-hidden="true"
+                className="mx-auto w-1/2 rounded-full bg-sand/15 px-3 py-0.5 text-center text-[0.6rem] font-medium tracking-wide text-sand"
+              >
+                www.r-x.fr
+              </span>
+              <span className="w-8" />
+            </div>
+            <div className="relative aspect-[16/10] bg-sand">
+              {children}
+              {/* Le curseur qui navigue et clique dans l'écran */}
+              <span
+                aria-hidden="true"
+                className="fake-cursor pointer-events-none absolute z-20 -ml-1 -mt-1"
+              >
+                <span className="fake-cursor-click absolute -inset-3 rounded-full border-2 border-terra-strong" />
+                <span className="fake-cursor-click2 absolute -inset-3 rounded-full border-2 border-sage-strong" />
+                <MousePointer2 className="size-5 fill-ink-deep text-sand drop-shadow-md" />
+              </span>
+              {/* Reflet de vitre */}
+              <span
+                aria-hidden="true"
+                className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/18 via-transparent to-transparent"
+              />
+            </div>
+          </div>
+          {/* La caméra, sous le bord haut */}
+          <span
+            aria-hidden="true"
+            className="absolute top-[0.18rem] left-1/2 size-1 -translate-x-1/2 rounded-full bg-sand/30"
+          />
+        </motion.div>
+
+        {/* La base : clavier et pavé tactile, vus en perspective */}
+        <div className="relative h-8 [transform:rotateX(72deg)] [transform-origin:top] md:h-10">
+          <div className="absolute inset-x-[-1.5%] top-0 h-full rounded-b-md bg-gradient-to-b from-[#4a4e43] to-[#2f322b]">
+            <span className="absolute inset-x-[12%] top-[18%] h-[38%] rounded-sm bg-ink-deep/45" />
+            <span className="absolute bottom-[12%] left-1/2 h-[28%] w-[22%] -translate-x-1/2 rounded-sm bg-ink-deep/30" />
+          </div>
+          {/* Encoche d'ouverture */}
+          <span className="absolute top-0 left-1/2 h-1 w-16 -translate-x-1/2 rounded-b-full bg-ink-deep/40" />
+        </div>
+        {/* Ombre portée au sol */}
+        <div
+          aria-hidden="true"
+          className="mx-auto h-6 w-[86%] rounded-[50%] bg-ink/25 blur-xl"
+        />
       </div>
     </div>
   );
@@ -321,7 +376,80 @@ function ScreenWireframe() {
   );
 }
 
-/** 03 — Design : la maquette prend ses couleurs */
+/**
+ * 03 — Observation : la carte de chaleur du regard.
+ * L'écran de l'étape précédente, recouvert des zones chaudes et du
+ * parcours du regard — la signature d'un studio d'ergonomie.
+ */
+function ScreenHeatmap() {
+  const blobs = [
+    { x: "22%", y: "26%", s: 86, c: "rgba(193,113,75,0.75)", d: "0s" },
+    { x: "58%", y: "34%", s: 66, c: "rgba(223,161,132,0.7)", d: "0.5s" },
+    { x: "34%", y: "68%", s: 74, c: "rgba(193,113,75,0.6)", d: "1s" },
+    { x: "76%", y: "72%", s: 52, c: "rgba(169,191,160,0.65)", d: "1.5s" },
+  ];
+  return (
+    <div className="absolute inset-0 overflow-hidden bg-ink-deep">
+      {/* La page observée, en sourdine */}
+      <div className="absolute inset-0 flex flex-col gap-2.5 p-4 opacity-25">
+        <div className="flex h-7 items-center justify-between rounded-lg bg-sand/70 px-3">
+          <span className="h-2 w-8 rounded-full bg-ink/60" />
+          <span className="h-4 w-12 rounded-full bg-ink/40" />
+        </div>
+        <div className="flex flex-1 items-center gap-3 rounded-lg bg-sand/50 px-4">
+          <span className="h-3 w-28 rounded-full bg-ink/50" />
+        </div>
+        <div className="grid h-1/4 grid-cols-3 gap-2.5">
+          <div className="rounded-lg bg-sand/40" />
+          <div className="rounded-lg bg-sand/40" />
+          <div className="rounded-lg bg-sand/40" />
+        </div>
+      </div>
+
+      {/* Les zones chaudes */}
+      {blobs.map((b, i) => (
+        <span
+          key={i}
+          aria-hidden="true"
+          className="heat-blob absolute rounded-full blur-md"
+          style={{
+            left: b.x,
+            top: b.y,
+            width: b.s,
+            height: b.s,
+            marginLeft: -b.s / 2,
+            marginTop: -b.s / 2,
+            background: `radial-gradient(closest-side, ${b.c}, transparent 70%)`,
+            animationDelay: b.d,
+          }}
+        />
+      ))}
+
+      {/* Le parcours du regard, qui se trace */}
+      <svg className="absolute inset-0 h-full w-full" viewBox="0 0 320 200" fill="none" aria-hidden="true">
+        <path
+          className="gaze-path"
+          d="M70 52 L186 68 L109 136 L243 144"
+          stroke="var(--sand)"
+          strokeOpacity="0.85"
+          strokeWidth="1.6"
+          strokeLinecap="round"
+          strokeLinejoin="round"
+          strokeDasharray="4 5"
+        />
+        {[[70, 52], [186, 68], [109, 136], [243, 144]].map(([cx, cy], i) => (
+          <circle key={i} cx={cx} cy={cy} r="3.5" fill="var(--sand)" fillOpacity="0.9" />
+        ))}
+      </svg>
+
+      <span className="absolute top-3 left-3 rounded-full bg-sand/15 px-2.5 py-1 text-[0.55rem] font-semibold tracking-[0.14em] text-sand uppercase">
+        Heatmap
+      </span>
+    </div>
+  );
+}
+
+/** 04 — Design : la maquette prend ses couleurs */
 function ScreenDesign() {
   return (
     <div className="absolute inset-0 flex flex-col gap-2.5 bg-sand p-4">
@@ -353,7 +481,7 @@ function ScreenDesign() {
   );
 }
 
-/** 04 — Transmission : le site est livré, en ligne */
+/** 05 — Transmission : le site est livré, en ligne */
 function ScreenLaunch({ onlineLabel }: { onlineLabel: string }) {
   return (
     <div className="absolute inset-0 bg-sand">

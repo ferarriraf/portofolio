@@ -81,7 +81,7 @@
     },
     "process": {
       "eyebrow": "The method",
-      "title": "Four steps, not one more",
+      "title": "Five steps, not one more",
       "online": "Live",
       "steps": [
         {
@@ -91,6 +91,10 @@
         {
           "title": "Structure",
           "text": "Information architecture, user journeys, content hierarchy: the skeleton before the skin."
+        },
+        {
+          "title": "Observation",
+          "text": "Where eyes land, where clicks hesitate. Heatmaps tell you what opinions only assume."
         },
         {
           "title": "Design",

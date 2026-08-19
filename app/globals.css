@@ -15,6 +15,7 @@
   --terra-soft: #f3dccb;
   --line: #ddd3bd;
   --ink-deep: #24291f;
+  --terra-deep: #a05437;
   --sage-wash: #dde8d3;
   --terra-wash: #f6e2d0;
 }
@@ -33,6 +34,7 @@
   --color-terra-soft: var(--terra-soft);
   --color-line: var(--line);
   --color-ink-deep: var(--ink-deep);
+  --color-terra-deep: var(--terra-deep);
   --color-sage-wash: var(--sage-wash);
   --color-terra-wash: var(--terra-wash);
   --font-display: var(--font-display);
@@ -82,7 +84,7 @@ body {
     @apply border border-line bg-sand-card text-ink hover:border-sage-strong hover:text-sage-deep;
   }
   .eyebrow {
-    @apply inline-flex items-center gap-2.5 rounded-full bg-sage-wash px-4 py-1.5 text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-sage-deep;
+    @apply inline-flex items-center gap-2.5 text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-sage-deep;
   }
   .card-hover {
     @apply transition-all duration-300 hover:-translate-y-1 hover:border-sage hover:shadow-[0_16px_40px_-20px_rgba(46,52,40,0.35)];
@@ -164,6 +166,38 @@ body {
 
 .scroll-hint-dot {
   animation: scroll-hint 1.8s ease-in-out infinite;
+}
+
+/* ——— Carte de chaleur : les zones qui captent le regard ——— */
+@keyframes heat-breathe {
+  0%,
+  100% {
+    transform: scale(0.86);
+    opacity: 0.55;
+  }
+  50% {
+    transform: scale(1.12);
+    opacity: 0.95;
+  }
+}
+
+.heat-blob {
+  animation: heat-breathe 3.2s ease-in-out infinite;
+}
+
+@keyframes gaze-path {
+  0% {
+    stroke-dashoffset: 320;
+  }
+  55%,
+  100% {
+    stroke-dashoffset: 0;
+  }
+}
+
+.gaze-path {
+  stroke-dasharray: 320;
+  animation: gaze-path 4.5s ease-in-out infinite;
 }
 
 /* ——— Vie de l'écran factice (scrollytelling) ——— */
@@ -397,6 +431,8 @@ body {
   .ring-sway,
   .scroll-hint-dot,
   .scanline,
+  .heat-blob,
+  .gaze-path,
   .bar-dance,
   .typing-line,
   .caret-blink,
