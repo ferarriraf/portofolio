@@ -8,6 +8,7 @@ import Topbar from "@/components/Topbar";
 import Footer from "@/components/Footer";
 import BootScreen from "@/components/BootScreen";
 import CookieNotice from "@/components/CookieNotice";
+import SecretModes from "@/components/SecretModes";
 import "../globals.css";
 
 const display = localFont({
@@ -85,6 +86,7 @@ export default async function LocaleLayout({
           <main className="flex-1">{children}</main>
           <Footer />
           <CookieNotice />
+          <SecretModes />
         </NextIntlClientProvider>
       </body>
     </html>

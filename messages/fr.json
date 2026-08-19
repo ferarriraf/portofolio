@@ -200,7 +200,9 @@
       "title": "Votre projet ici ?",
       "text": "Racontez-nous où ça coince : c'est souvent le début d'une belle étude de cas.",
       "button": "Nous contacter"
-    }
+    },
+    "beforeLabel": "Avant",
+    "afterLabel": "Après R-X"
   },
   "about": {
     "eyebrow": "À propos",
@@ -229,6 +231,16 @@
       "title": "Envie de voir votre interface aux rayons X ?",
       "text": "Envoyez-nous une adresse ou une capture d'écran, on vous dit ce qu'on y voit.",
       "button": "Écrivez-nous"
+    },
+    "card": {
+      "title": "Fiche studio",
+      "basedLabel": "Basé à",
+      "basedValue": "France · à distance",
+      "sinceLabel": "Depuis",
+      "sinceValue": "2026",
+      "langLabel": "Langues",
+      "langValue": "FR · EN",
+      "availability": "Disponible pour de nouveaux projets"
     }
   },
   "contact": {

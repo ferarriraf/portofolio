@@ -200,7 +200,9 @@
       "title": "Your project here?",
       "text": "Tell us where it hurts: that's often how a good case study begins.",
       "button": "Contact us"
-    }
+    },
+    "beforeLabel": "Before",
+    "afterLabel": "After R-X"
   },
   "about": {
     "eyebrow": "About",
@@ -229,6 +231,16 @@
       "title": "Want your interface X-rayed?",
       "text": "Send us a URL or a screenshot, and we'll tell you what we see.",
       "button": "Write to us"
+    },
+    "card": {
+      "title": "Studio card",
+      "basedLabel": "Based in",
+      "basedValue": "France · remote",
+      "sinceLabel": "Since",
+      "sinceValue": "2026",
+      "langLabel": "Languages",
+      "langValue": "FR · EN",
+      "availability": "Available for new projects"
     }
   },
   "contact": {

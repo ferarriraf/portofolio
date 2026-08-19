@@ -72,11 +72,6 @@ export default async function HomePage({ params }: Props) {
               />
             </SelectionFrame>
           </div>
-          <Reveal delay={1.4} className="relative z-30 mt-5">
-            <span className="text-xs font-medium tracking-wide text-ink-soft/70">
-              {t("titleHint")}
-            </span>
-          </Reveal>
 
           <Reveal delay={0.45} className="relative z-30">
             <p className="mx-auto mt-14 max-w-xl text-xl leading-relaxed text-ink-soft md:mt-16">

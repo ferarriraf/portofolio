@@ -339,103 +339,66 @@ function ScreenWireframe() {
 }
 
 /**
- * 03 — Observation : la carte de chaleur du regard.
- * L'écran de l'étape précédente, recouvert des zones chaudes et du
- * parcours du regard — la signature d'un studio d'ergonomie.
+ * 03 — Observation : un enregistrement de session. Le curseur d'un
+ * vrai visiteur traverse l'écran, hésite devant un choix, revient,
+ * puis clique — et chaque clic laisse une marque qui reste.
  */
 function ScreenHeatmap() {
-  const blobs = [
-    { x: "22%", y: "26%", s: 86, c: "rgba(193,113,75,0.75)", d: "0s" },
-    { x: "58%", y: "34%", s: 66, c: "rgba(223,161,132,0.7)", d: "0.5s" },
-    { x: "34%", y: "68%", s: 74, c: "rgba(193,113,75,0.6)", d: "1s" },
-    { x: "76%", y: "72%", s: 52, c: "rgba(169,191,160,0.65)", d: "1.5s" },
+  const marques = [
+    { x: "29%", y: "33%", d: "0s" },
+    { x: "68%", y: "30%", d: "3.6s" },
+    { x: "41%", y: "66%", d: "7s" },
   ];
+
   return (
-    <div className="absolute inset-0 overflow-hidden bg-ink-deep">
-      {/* La page observée, en sourdine */}
-      <div className="absolute inset-0 flex flex-col gap-2.5 p-4 opacity-25">
-        <div className="flex h-7 items-center justify-between rounded-lg bg-sand/70 px-3">
-          <span className="h-2 w-8 rounded-full bg-ink/60" />
-          <span className="h-4 w-12 rounded-full bg-ink/40" />
+    <div className="absolute inset-0 overflow-hidden bg-sand">
+      {/* La page observée */}
+      <div className="absolute inset-0 flex flex-col gap-2.5 p-4">
+        <div className="flex h-7 items-center justify-between rounded-lg bg-sand-card px-3 shadow-sm">
+          <span className="h-2 w-8 rounded-full bg-ink/45" />
+          <span className="h-4 w-12 rounded-full bg-ink/15" />
         </div>
-        <div className="flex flex-1 items-center gap-3 rounded-lg bg-sand/50 px-4">
-          <span className="h-3 w-28 rounded-full bg-ink/50" />
+        <div className="flex flex-1 gap-2.5">
+          <div className="flex w-1/2 flex-col justify-center gap-2 rounded-lg bg-sage-wash px-4">
+            <span className="h-2.5 w-24 rounded-full bg-ink/45" />
+            <span className="h-2 w-16 rounded-full bg-ink/25" />
+            <span className="mt-1 h-6 w-20 rounded-full bg-sage-strong/70" />
+          </div>
+          <div className="flex w-1/2 flex-col justify-center gap-2 rounded-lg bg-terra-wash px-4">
+            <span className="h-2.5 w-24 rounded-full bg-ink/45" />
+            <span className="h-2 w-16 rounded-full bg-ink/25" />
+            <span className="mt-1 h-6 w-20 rounded-full bg-terra-strong" />
+          </div>
         </div>
-        <div className="grid h-1/4 grid-cols-3 gap-2.5">
-          <div className="rounded-lg bg-sand/40" />
-          <div className="rounded-lg bg-sand/40" />
-          <div className="rounded-lg bg-sand/40" />
-        </div>
+        <div className="h-1/5 rounded-lg bg-sand-card shadow-sm" />
       </div>
 
-      {/* Les zones chaudes */}
-      {blobs.map((b, i) => (
+      {/* Les clics laissés en chemin */}
+      {marques.map((m, i) => (
         <span
           key={i}
           aria-hidden="true"
-          className="heat-blob absolute rounded-full blur-md"
-          style={{
-            left: b.x,
-            top: b.y,
-            width: b.s,
-            height: b.s,
-            marginLeft: -b.s / 2,
-            marginTop: -b.s / 2,
-            background: `radial-gradient(closest-side, ${b.c}, transparent 70%)`,
-            animationDelay: b.d,
-          }}
-        />
+          className="session-mark pointer-events-none absolute -ml-4 -mt-4 flex size-8 items-center justify-center rounded-full bg-terra-hot/25"
+          style={{ left: m.x, top: m.y, animationDelay: m.d }}
+        >
+          <span className="size-2.5 rounded-full bg-terra-hot" />
+        </span>
       ))}
 
-      {/* Le parcours du regard : le tracé se dessine, et l'œil le suit */}
-      <svg
-        className="absolute inset-0 h-full w-full"
-        viewBox="0 0 320 200"
-        preserveAspectRatio="none"
-        fill="none"
+      {/* Le curseur enregistré */}
+      <span
         aria-hidden="true"
+        className="session-cursor pointer-events-none absolute z-10 -ml-1 -mt-1"
       >
-        <path
-          className="gaze-path"
-          d="M70 52 L186 68 L109 136 L243 144"
-          stroke="var(--sand)"
-          strokeOpacity="0.85"
-          strokeWidth="1.6"
-          strokeLinecap="round"
-          strokeLinejoin="round"
-          strokeDasharray="4 5"
-        />
-        {[[70, 52], [186, 68], [109, 136], [243, 144]].map(([cx, cy], i) => (
-          <circle key={i} cx={cx} cy={cy} r="3.5" fill="var(--sand)" fillOpacity="0.9" />
-        ))}
-        {/* Le point de fixation, qui parcourt le trajet sans fin */}
-        <circle r="6" fill="var(--terra-hot)" fillOpacity="0.95">
-          <animateMotion
-            dur="4.5s"
-            repeatCount="indefinite"
-            keyPoints="0;1"
-            keyTimes="0;1"
-            calcMode="linear"
-            path="M70 52 L186 68 L109 136 L243 144"
-          />
-        </circle>
-        <circle r="13" fill="none" stroke="var(--terra-hot)" strokeOpacity="0.5" strokeWidth="1.2">
-          <animateMotion
-            dur="4.5s"
-            repeatCount="indefinite"
-            path="M70 52 L186 68 L109 136 L243 144"
-          />
-          <animate
-            attributeName="r"
-            values="9;16;9"
-            dur="1.5s"
-            repeatCount="indefinite"
-          />
-        </circle>
-      </svg>
+        <MousePointer2 className="size-5 fill-ink-deep text-sand drop-shadow" />
+        {/* L'hésitation, notée par l'observateur */}
+        <span className="session-hesite absolute top-5 left-4 rounded bg-ink-deep px-1.5 py-0.5 font-mono text-[0.5rem] whitespace-nowrap text-sand">
+          hésite 2,4 s
+        </span>
+      </span>
 
-      <span className="absolute top-3 left-3 rounded-full bg-sand/15 px-2.5 py-1 text-[0.55rem] font-semibold tracking-[0.14em] text-sand uppercase">
-        Heatmap
+      <span className="absolute top-3 left-3 z-10 rounded-full bg-ink-deep/85 px-2.5 py-1 font-mono text-[0.55rem] font-semibold tracking-[0.14em] text-sand uppercase">
+        Session 04
       </span>
     </div>
   );

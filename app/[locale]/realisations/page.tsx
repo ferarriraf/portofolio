@@ -4,7 +4,8 @@ import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
 import CaseCover from "@/components/CaseCover";
-import RetroComputer from "@/components/RetroComputer";
+import CaseCoverBefore from "@/components/CaseCoverBefore";
+import BeforeAfter from "@/components/BeforeAfter";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -37,14 +38,17 @@ export default async function WorkPage({ params }: Props) {
         {projects.map((p, i) => (
           <Reveal key={p.name}>
             <article className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
-              {/* Chaque projet est présenté sur l'écran du vieux poste */}
+              {/* Le visiteur fait lui-même la démonstration */}
               <Reveal
                 variant="mask"
                 className={i % 2 === 1 ? "lg:order-2" : ""}
               >
-                <RetroComputer>
-                  <CaseCover variant={coverVariants[i]} />
-                </RetroComputer>
+                <BeforeAfter
+                  labelAvant={t("beforeLabel")}
+                  labelApres={t("afterLabel")}
+                  avant={<CaseCoverBefore variant={coverVariants[i]} />}
+                  apres={<CaseCover variant={coverVariants[i]} />}
+                />
               </Reveal>
               <div>
                 <p className="text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">

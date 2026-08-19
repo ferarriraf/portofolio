@@ -256,6 +256,99 @@ body {
   }
 }
 
+/* ——— Enregistrement de session : le curseur observé ———
+   Il traverse l'écran, hésite devant un choix, revient, puis clique.
+   Ses clics laissent des marques qui s'accumulent. */
+@keyframes session-cursor {
+  0% {
+    left: 18%;
+    top: 78%;
+  }
+  14% {
+    left: 30%;
+    top: 34%;
+  }
+  22% {
+    left: 33%;
+    top: 38%;
+  }
+  30% {
+    left: 29%;
+    top: 33%;
+  }
+  44% {
+    left: 68%;
+    top: 30%;
+  }
+  56% {
+    left: 64%;
+    top: 63%;
+  }
+  70% {
+    left: 41%;
+    top: 66%;
+  }
+  86% {
+    left: 50%;
+    top: 84%;
+  }
+  100% {
+    left: 18%;
+    top: 78%;
+  }
+}
+
+.session-cursor {
+  animation: session-cursor 11s cubic-bezier(0.5, 0, 0.5, 1) infinite;
+}
+
+@keyframes session-mark {
+  0%,
+  40% {
+    opacity: 0;
+    transform: scale(0.3);
+  }
+  46% {
+    opacity: 0.9;
+    transform: scale(1.25);
+  }
+  56% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  94% {
+    opacity: 0.55;
+    transform: scale(1);
+  }
+  100% {
+    opacity: 0;
+    transform: scale(1);
+  }
+}
+
+.session-mark {
+  animation: session-mark 11s ease-out infinite;
+}
+
+@keyframes session-hesite {
+  0%,
+  16% {
+    opacity: 0;
+  }
+  22%,
+  30% {
+    opacity: 1;
+  }
+  38%,
+  100% {
+    opacity: 0;
+  }
+}
+
+.session-hesite {
+  animation: session-hesite 11s ease-in-out infinite;
+}
+
 /* ——— Carte de chaleur : les zones qui captent le regard ——— */
 @keyframes heat-breathe {
   0%,
@@ -286,6 +379,99 @@ body {
 .gaze-path {
   stroke-dasharray: 320;
   animation: gaze-path 4.5s ease-in-out infinite;
+}
+
+/* ——— Modes cachés ———
+   Trois lectures du même site : le fil de fer, l'inspecteur, et 1988.
+   Rien ne les annonce ; on les trouve au clavier. */
+
+/* W — tout redevient structure */
+html.mode-wireframe body {
+  background: #f2f1ee;
+}
+
+html.mode-wireframe
+  *:not(svg):not(svg *):not([data-hors-wireframe]):not(
+    [data-hors-wireframe] *
+  ) {
+  background-color: transparent !important;
+  background-image: none !important;
+  box-shadow: none !important;
+  color: #5b5f5a !important;
+  border-color: #a9aca6 !important;
+  text-shadow: none !important;
+}
+
+html.mode-wireframe section,
+html.mode-wireframe article,
+html.mode-wireframe header,
+html.mode-wireframe footer,
+html.mode-wireframe details,
+html.mode-wireframe .btn {
+  outline: 1px dashed #b6b9b2;
+  outline-offset: -1px;
+}
+
+html.mode-wireframe img,
+html.mode-wireframe canvas,
+html.mode-wireframe svg {
+  opacity: 0.18;
+  filter: grayscale(1);
+}
+
+/* I — la grille et les cotes apparaissent */
+html.mode-inspection *:hover {
+  outline: 1px solid rgba(217, 95, 46, 0.85) !important;
+  outline-offset: 1px;
+}
+
+html.mode-inspection body::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 60;
+  pointer-events: none;
+  background-image: repeating-linear-gradient(
+    to right,
+    rgba(217, 95, 46, 0.14) 0 1px,
+    transparent 1px 8.3333%
+  );
+}
+
+/* Konami — le site en 1988 */
+html.mode-retro body {
+  background: #06120a;
+}
+
+html.mode-retro *:not([data-hors-wireframe]) {
+  background-color: transparent !important;
+  background-image: none !important;
+  color: #4ee88a !important;
+  border-color: #2f7d4d !important;
+  box-shadow: none !important;
+  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace !important;
+  letter-spacing: 0 !important;
+  border-radius: 0 !important;
+}
+
+html.mode-retro img,
+html.mode-retro canvas,
+html.mode-retro svg {
+  filter: grayscale(1) sepia(1) hue-rotate(75deg) saturate(4);
+  opacity: 0.75;
+}
+
+html.mode-retro body::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  pointer-events: none;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(0, 0, 0, 0.32) 0 1px,
+    transparent 1px 3px
+  );
 }
 
 /* ——— Le poste beige : témoin d'activité et balayage du tube ——— */
@@ -607,6 +793,9 @@ body {
   .scanline,
   .heat-blob,
   .gaze-path,
+  .session-cursor,
+  .session-mark,
+  .session-hesite,
   .led-pulse,
   .tube-sweep,
   .wf-settle,

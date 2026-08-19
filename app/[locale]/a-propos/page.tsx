@@ -3,8 +3,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Feather, Handshake, Ruler } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
-import RetroComputer from "@/components/RetroComputer";
-import ScreenXray from "@/components/ScreenXray";
+import StudioCard from "@/components/StudioCard";
 import SectionLabel from "@/components/SectionLabel";
 import CtaBand from "@/components/CtaBand";
 import { pageMetadata } from "@/lib/seo";
@@ -40,10 +39,8 @@ export default async function AboutPage({ params }: Props) {
         </Reveal>
 
         <Reveal delay={0.1}>
-          {/* La radiographie d'une page, sur le poste du studio */}
-          <RetroComputer>
-            <ScreenXray />
-          </RetroComputer>
+          {/* Les faits du studio, et l'heure qui tourne */}
+          <StudioCard />
         </Reveal>
       </section>
 
