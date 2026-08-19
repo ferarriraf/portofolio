@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
+import MailLink from "@/components/MailLink";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -31,6 +32,12 @@ export default async function LegalPage({ params }: Props) {
               <p className="mt-3 leading-relaxed whitespace-pre-line text-ink-soft">
                 {t(`${key}.text`)}
               </p>
+              {key === "editor" && (
+                <p className="mt-2 leading-relaxed text-ink-soft">
+                  {t("contactLabel")} :{" "}
+                  <MailLink className="underline underline-offset-2 hover:text-ink" />
+                </p>
+              )}
             </Reveal>
           ))}
         </div>

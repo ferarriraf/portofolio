@@ -41,7 +41,7 @@ export default function SecretModes() {
       "color:#d95f2e;font:600 13px ui-monospace,monospace;padding:2px 0";
     console.log("%cR-X · studio d'ergonomie web", style);
     console.log(
-      "%cVous êtes du métier ? Essayez les touches W et I. Et si vous connaissez le vieux code de manette…\ncontact@r-x.fr",
+      "%cVous êtes du métier ? Essayez les touches W et I. Et si vous connaissez le vieux code de manette…",
       "color:#5c6353;font:400 12px ui-monospace,monospace"
     );
   }, []);

@@ -26,7 +26,7 @@ export default async function ContactPage({ params }: Props) {
 
       <section className="container-site pb-20">
         <Reveal>
-          <CopyEmail email="contact@r-x.fr" />
+          <CopyEmail />
         </Reveal>
       </section>
 

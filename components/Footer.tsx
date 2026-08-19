@@ -1,6 +1,7 @@
 import { useTranslations } from "next-intl";
 import { Mail } from "lucide-react";
 import { Link } from "@/i18n/navigation";
+import MailLink from "./MailLink";
 import type { AppPathname } from "@/i18n/routing";
 
 const navLinks: { href: AppPathname; key: "home" | "services" | "work" | "about" | "contact" }[] = [
@@ -51,13 +52,10 @@ export default function Footer() {
             <h2 className="text-xs font-semibold uppercase tracking-[0.16em] text-sage">
               {t("footer.contactTitle")}
             </h2>
-            <a
-              href="mailto:contact@r-x.fr"
-              className="mt-4 inline-flex items-center gap-2 text-sm font-medium text-sand/90 transition-colors hover:text-terra"
-            >
-              <Mail className="size-4 text-terra" />
-              contact@r-x.fr
-            </a>
+            <span className="mt-4 inline-flex items-center gap-2 text-sm font-medium">
+              <Mail className="size-4 shrink-0 text-terra" />
+              <MailLink className="text-sand/90 transition-colors hover:text-terra" />
+            </span>
           </div>
         </div>
       </div>

@@ -445,7 +445,7 @@
     "title": "Legal notice",
     "editor": {
       "title": "Site publisher",
-      "text": "R-X — [Company name to complete]\n[Legal form, share capital]\n[Registered office address]\n[SIRET number]\nPublication director: [To complete]\nContact: contact@r-x.fr"
+      "text": "R-X — [Company name to complete]\n[Legal form, share capital]\n[Registered office address]\n[SIRET number]\nPublication director: [To complete]"
     },
     "host": {
       "title": "Hosting",
@@ -458,7 +458,8 @@
     "privacy": {
       "title": "Personal data",
       "text": "This site sets no cookies, embeds no trackers and collects no personal data. The emails you send us are used only to reply to you."
-    }
+    },
+    "contactLabel": "Contact"
   },
   "footer": {
     "tagline": "Web ergonomics studio — clear interfaces for calm users.",

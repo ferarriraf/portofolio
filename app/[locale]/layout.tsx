@@ -9,6 +9,7 @@ import Footer from "@/components/Footer";
 import BootScreen from "@/components/BootScreen";
 import CookieNotice from "@/components/CookieNotice";
 import SecretModes from "@/components/SecretModes";
+import NoContextMenu from "@/components/NoContextMenu";
 import "../globals.css";
 
 const display = localFont({
@@ -87,6 +88,7 @@ export default async function LocaleLayout({
           <Footer />
           <CookieNotice />
           <SecretModes />
+          <NoContextMenu />
         </NextIntlClientProvider>
       </body>
     </html>

@@ -445,7 +445,7 @@
     "title": "Mentions légales",
     "editor": {
       "title": "Éditeur du site",
-      "text": "R-X — [Raison sociale à compléter]\n[Forme juridique, capital social]\n[Adresse du siège social]\n[Numéro SIRET]\nDirecteur de la publication : [À compléter]\nContact : contact@r-x.fr"
+      "text": "R-X — [Raison sociale à compléter]\n[Forme juridique, capital social]\n[Adresse du siège social]\n[Numéro SIRET]\nDirecteur de la publication : [À compléter]"
     },
     "host": {
       "title": "Hébergement",
@@ -458,7 +458,8 @@
     "privacy": {
       "title": "Données personnelles",
       "text": "Ce site ne dépose aucun cookie, n'embarque aucun traceur et ne collecte aucune donnée personnelle. Les emails que vous nous adressez ne servent qu'à vous répondre."
-    }
+    },
+    "contactLabel": "Contact"
   },
   "footer": {
     "tagline": "Studio d'ergonomie web — des interfaces claires pour des utilisateurs sereins.",
