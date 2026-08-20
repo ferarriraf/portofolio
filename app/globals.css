@@ -843,7 +843,12 @@ html.mode-retro body::after {
   }
 }
 
-/* ——— FAQ terminal : la sortie de commande tombe à l'ouverture ——— */
+/* ——— FAQ : la carte verdit à l'ouverture ——— */
+details.faq-carte[open] {
+  background-color: var(--sage-wash);
+}
+
+/* ——— FAQ : la réponse tombe à l'ouverture ——— */
 @keyframes faq-sortie {
   from {
     opacity: 0;

@@ -9,7 +9,6 @@ import {
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
-  useTime,
   useTransform,
   type MotionValue,
 } from "framer-motion";
@@ -106,20 +105,9 @@ export default function ProcessScroll({
     const anim = animate(power, 1, { duration: 0.9, ease: "easeOut" });
     return () => anim.stop();
   }, [enVue, power]);
-  // Une vraie rotation : le poste reste de face, puis fait un tour
-  // complet sur lui-même toutes les neuf secondes — l'objet de
-  // vitrine qu'on fait tournoyer, pas une respiration
-  const temps = useTime();
-  const CYCLE = 9000;
-  const TOUR = 1600;
-  const rotateY = useTransform(temps, (t) => {
-    const p = t % CYCLE;
-    if (p < CYCLE - TOUR) return 0;
-    const x = (p - (CYCLE - TOUR)) / TOUR;
-    // easeInOutCubic : départ et arrivée doux, plein élan au milieu
-    const e = x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
-    return e * 360;
-  });
+  // Le poste est posé de trois quarts, immobile : la perspective fait
+  // le volume, l'écran reste parfaitement lisible
+  const rotateY = 9;
   // Il se pose en entrant dans la section, recule avant qu'elle se
   // détache — plus de verrouillage sec du pin
   const poseScale = useTransform(
@@ -128,12 +116,6 @@ export default function ProcessScroll({
     [0.955, 1, 1, 0.97]
   );
   const poseY = useTransform(scrollYProgress, [0, 0.06, 0.94, 1], [28, 0, 0, -14]);
-  // L'ombre au sol ne pivote pas : elle glisse à l'opposé de la face
-  // visible (en sinus, pour revenir à sa place sur un tour complet)
-  const ombreGlisse = useTransform(
-    rotateY,
-    (v) => -14 * Math.sin((v * Math.PI) / 180)
-  );
 
   const screens = [
     <ScreenListen key="s1" t={ecrans} />,
@@ -256,10 +238,10 @@ export default function ProcessScroll({
               style={{ perspective: "1100px" }}
             >
               <div ref={macRef} className="relative mx-auto w-full max-w-[31rem]">
-                <motion.div
+                {/* L'ombre au sol, décalée à l'opposé de la face visible */}
+                <div
                   aria-hidden="true"
-                  style={{ x: ombreGlisse }}
-                  className="absolute inset-x-8 -bottom-1 h-7 rounded-[50%] bg-ink/30 blur-lg"
+                  className="absolute inset-x-8 -bottom-1 h-7 -translate-x-3 rounded-[50%] bg-ink/30 blur-lg"
                 />
                 <motion.div style={{ rotateY, scale: poseScale, y: poseY }}>
                   <RetroComputer power={power} ombre={false}>
