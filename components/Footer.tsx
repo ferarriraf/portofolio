@@ -3,6 +3,7 @@ import { Mail } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import MailLink from "./MailLink";
 import FooterMark from "./FooterMark";
+import Marquee from "./Marquee";
 import type { AppPathname } from "@/i18n/routing";
 
 const navLinks: { href: AppPathname; key: "home" | "services" | "work" | "about" | "contact" }[] = [
@@ -16,13 +17,17 @@ const navLinks: { href: AppPathname; key: "home" | "services" | "work" | "about"
 export default function Footer() {
   const t = useTranslations();
   const year = new Date().getFullYear();
+  const marquee = t.raw("home.marquee") as string[];
 
   return (
     <footer className="bande-calque-haut overflow-hidden bg-ink-deep text-sand">
-      <div className="container-site pt-14 md:pt-16">
+      {/* Les mots du métier ouvrent le pied de page : même fond encre,
+          le bandeau fait partie du footer au lieu de couper la page */}
+      <Marquee items={marquee} />
+      <div className="container-site pt-6 md:pt-8">
         {/* La dalle gravée qui se pose en fin de page */}
         <FooterMark />
-        <div className="grid gap-10 border-t border-sand/15 pt-10 pb-12 md:grid-cols-[1.5fr_1fr_1fr]">
+        <div className="grid gap-10 pt-10 pb-12 md:grid-cols-[1.5fr_1fr_1fr]">
           <p className="max-w-xs text-sm leading-relaxed text-sand/70">
             {t("footer.tagline")}
           </p>

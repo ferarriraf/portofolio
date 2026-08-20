@@ -50,6 +50,14 @@
     "ctaServices": "See the services",
     "ctaContact": "Discuss your project",
     "layerLabel": "<h1 class=\"headline\">",
+    "marquee": [
+      "Websites",
+      "Web apps",
+      "APIs",
+      "Performance",
+      "Accessibility",
+      "Maintenance"
+    ],
     "manifesto": {
       "lead": "A good website goes unnoticed.",
       "emph": "It just does its job."
@@ -164,7 +172,7 @@
     "resultLabel": "What I deliver",
     "projects": [
       {
-        "name": "Argile",
+        "name": "Atelier Grès",
         "sector": "Brochure site — ceramics workshop",
         "tags": [
           "Brochure site",
@@ -175,7 +183,7 @@
         "result": "A fast, readable site the owner can update without technical skills, with built-in booking and careful SEO."
       },
       {
-        "name": "Boussole",
+        "name": "Effectif",
         "sector": "Business application — HR team",
         "tags": [
           "Web application",
@@ -185,7 +193,7 @@
         "result": "A dashboard that shows what needs a decision, and nothing else. Requests are approved in one click."
       },
       {
-        "name": "Relais",
+        "name": "Syncro",
         "sector": "API — bookings ↔ invoicing",
         "tags": [
           "API",
@@ -203,8 +211,8 @@
     },
     "mockups": {
       "vitrine": {
-        "fenetre": "argile-ceramics.com",
-        "marque": "Argile",
+        "fenetre": "atelier-gres.fr",
+        "marque": "Atelier Grès",
         "menu": [
           "Work",
           "Classes",
@@ -220,7 +228,7 @@
         ]
       },
       "metier": {
-        "fenetre": "boussole — HR workspace",
+        "fenetre": "effectif — HR workspace",
         "titre": "Leave requests",
         "badge": "3 pending",
         "lignes": [
@@ -241,13 +249,13 @@
         "action": "Approve all"
       },
       "api": {
-        "fenetre": "$ curl api.relais.dev",
+        "fenetre": "$ curl api.syncro.dev",
         "requete": "GET /api/bookings",
         "statut": "200 OK · 38 ms",
         "lignes": [
           [
             "client",
-            "Argile Workshop"
+            "Atelier Grès workshop"
           ],
           [
             "date",

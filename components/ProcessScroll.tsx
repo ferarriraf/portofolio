@@ -2,10 +2,12 @@
 
 import { useRef, useState, type ReactNode } from "react";
 import {
+  animate,
   motion,
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
+  useTime,
   useTransform,
   type MotionValue,
 } from "framer-motion";
@@ -83,9 +85,12 @@ export default function ProcessScroll({
     const cible = Math.max(0, Math.min(steps.length - 1, courant + dir));
     const haut = el.getBoundingClientRect().top + window.scrollY;
     const course = el.offsetHeight - window.innerHeight;
-    window.scrollTo({
-      top: haut + ((cible + 0.5) / steps.length) * course,
-      behavior: "smooth",
+    // Défilement piloté : une seconde, décélération douce — le smooth
+    // natif est trop brusque sur une telle distance
+    animate(window.scrollY, haut + ((cible + 0.5) / steps.length) * course, {
+      duration: 1.05,
+      ease: [0.3, 0, 0.25, 1],
+      onUpdate: (v) => window.scrollTo({ top: v, behavior: "instant" }),
     });
   };
   const railScale = useTransform(scrollYProgress, [0.02, 0.98], [0, 1]);
@@ -93,15 +98,11 @@ export default function ProcessScroll({
   const power = useTransform(scrollYProgress, [0, 0.07], [0, 1], {
     clamp: true,
   });
-  // Le poste pivote par paliers : il bascule d'un trois-quarts à
-  // l'autre pendant chaque changement d'écran (frontières à i/5,
-  // mêmes fenêtres que le balayage), puis tient sa pose — le
-  // mouvement est concentré là où l'œil regarde déjà
-  const rotateY = useTransform(
-    scrollYProgress,
-    [0, 0.155, 0.245, 0.355, 0.445, 0.555, 0.645, 0.755, 0.845, 1],
-    [12, 12, -12, -12, 12, 12, -12, -12, 12, 12]
-  );
+  // Le poste tourne légèrement sur lui-même, en continu — comme un
+  // objet en vitrine. Indépendant du scroll : jamais deux fois le
+  // même moment, jamais brusque.
+  const temps = useTime();
+  const rotateY = useTransform(temps, (t) => 7 * Math.sin(t / 2300));
   // Il se pose en entrant dans la section, recule avant qu'elle se
   // détache — plus de verrouillage sec du pin
   const poseScale = useTransform(

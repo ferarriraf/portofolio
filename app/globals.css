@@ -107,11 +107,16 @@ body {
   .btn:active {
     transform: translateY(1px);
   }
+  /* Le contour de focus des boutons reste dans la famille : encre
+     neutre, pas le vert soutenu du focus global qui jure sur pastel */
+  .btn:focus-visible {
+    outline-color: var(--ink);
+  }
   .btn-primary {
     @apply bg-terra-deep text-sand-card hover:bg-ink;
   }
   .btn-secondary {
-    @apply border border-line bg-sand-card text-ink hover:border-sage-strong hover:text-sage-deep;
+    @apply border border-line bg-sand-card text-ink hover:border-sage hover:text-sage-deep;
   }
   .btn-light {
     @apply bg-sand text-ink hover:bg-sand-card;
@@ -185,6 +190,28 @@ body {
   .btn:active,
   .press:active {
     transform: none;
+  }
+}
+
+/* ——— Bandeau défilant ——— */
+@keyframes marquee {
+  to {
+    transform: translateX(-50%);
+  }
+}
+
+.marquee-track {
+  animation: marquee var(--marquee-speed, 38s) linear infinite;
+}
+
+/* La fente s'arrête sous la souris : on peut lire les mots */
+.marquee-slot:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track {
+    animation: none;
   }
 }
 

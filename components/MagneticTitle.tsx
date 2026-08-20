@@ -38,6 +38,10 @@ export default function MagneticTitle({
     // Poids de repos propre à chaque ligne (fine puis grasse)
     const repos = lettres.map((l) => Number(l.dataset.repos));
     const centres = lettres.map(() => ({ x: 0, y: 0 }));
+    // La force appliquée est amortie : chaque lettre glisse vers sa
+    // cible au lieu de la suivre au pixel — sans quoi les petits
+    // mouvements de souris en bord de rayon font trembler les lettres
+    const forces = lettres.map(() => 0);
     const RAYON = 190;
 
     const mesurer = () => {
@@ -85,8 +89,8 @@ export default function MagneticTitle({
         // Distance anisotrope : l'écart vertical pèse plus lourd, pour
         // que survoler une ligne ne réveille pas sa voisine
         const d = Math.hypot(c.x - sourisX, (c.y - sourisY) * 2.4);
-        let force = d < RAYON ? 1 - d / RAYON : 0;
-        force = force * force * (3 - 2 * force); // adoucit les bords
+        let cible = d < RAYON ? 1 - d / RAYON : 0;
+        cible = cible * cible * (3 - 2 * cible); // adoucit les bords
 
         // L'onde du clic : un anneau qui s'éloigne du point cliqué
         if (onde) {
@@ -95,11 +99,16 @@ export default function MagneticTitle({
           const ecart = Math.abs(dOnde - rayonOnde);
           if (ecart < 130) {
             const puls = (1 - ecart / 130) * (1 - ondeAge / 900);
-            force = Math.min(1, force + puls);
+            cible = Math.min(1, cible + puls);
           }
         }
 
-        if (force > 0.001) bouge = true;
+        // Amortissement : on tend vers la cible, on ne saute pas dessus
+        forces[i] += (cible - forces[i]) * 0.16;
+        if (Math.abs(cible - forces[i]) < 0.004) forces[i] = cible;
+        const force = forces[i];
+
+        if (force > 0.001 || cible > 0) bouge = true;
         const base = repos[i];
         // Amplitude contenue : +300 de graisse au plus — l'épaississement
         // se sent sans déformer la lettre

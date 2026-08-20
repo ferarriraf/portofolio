@@ -50,6 +50,14 @@
     "ctaServices": "Voir les services",
     "ctaContact": "Discuter de votre projet",
     "layerLabel": "<h1 class=\"accroche\">",
+    "marquee": [
+      "Sites web",
+      "Applications",
+      "API",
+      "Performance",
+      "Accessibilité",
+      "Maintenance"
+    ],
     "manifesto": {
       "lead": "Un bon site ne se fait pas remarquer.",
       "emph": "Il fait son travail."
@@ -164,7 +172,7 @@
     "resultLabel": "Ce que je livre",
     "projects": [
       {
-        "name": "Argile",
+        "name": "Atelier Grès",
         "sector": "Site vitrine — atelier de céramique",
         "tags": [
           "Vitrine",
@@ -175,7 +183,7 @@
         "result": "Un site rapide et lisible, modifiable sans compétence technique, avec réservation intégrée et un référencement soigné."
       },
       {
-        "name": "Boussole",
+        "name": "Effectif",
         "sector": "Application métier — équipe RH",
         "tags": [
           "Application web",
@@ -185,7 +193,7 @@
         "result": "Un tableau de bord qui montre ce qui attend une décision, et rien d'autre. Les demandes se valident en un clic."
       },
       {
-        "name": "Relais",
+        "name": "Syncro",
         "sector": "API — réservations ↔ facturation",
         "tags": [
           "API",
@@ -203,8 +211,8 @@
     },
     "mockups": {
       "vitrine": {
-        "fenetre": "atelier-argile.fr",
-        "marque": "Argile",
+        "fenetre": "atelier-gres.fr",
+        "marque": "Atelier Grès",
         "menu": [
           "Créations",
           "Ateliers",
@@ -220,7 +228,7 @@
         ]
       },
       "metier": {
-        "fenetre": "boussole — espace RH",
+        "fenetre": "effectif — espace RH",
         "titre": "Demandes de congés",
         "badge": "3 en attente",
         "lignes": [
@@ -241,13 +249,13 @@
         "action": "Tout valider"
       },
       "api": {
-        "fenetre": "$ curl api.relais.dev",
+        "fenetre": "$ curl api.syncro.dev",
         "requete": "GET /api/reservations",
         "statut": "200 OK · 38 ms",
         "lignes": [
           [
             "client",
-            "Atelier Argile"
+            "Atelier Grès"
           ],
           [
             "date",

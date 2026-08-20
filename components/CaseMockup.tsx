@@ -54,7 +54,7 @@ function Vitrine({ t }: { t: MockupTextes["vitrine"] }) {
     <div className="absolute inset-0 flex flex-col bg-sand text-ink">
       <div className="flex items-center justify-between border-b border-line bg-sand-card px-4 py-2">
         <span className="font-display text-[0.68rem] font-bold">{t.marque}</span>
-        <span className="flex gap-2.5 text-[0.5rem] text-ink-soft">
+        <span className="flex items-center gap-2.5 text-[0.5rem] text-ink-soft">
           {t.menu.map((m) => (
             <span key={m}>{m}</span>
           ))}
@@ -70,25 +70,54 @@ function Vitrine({ t }: { t: MockupTextes["vitrine"] }) {
             {t.action}
           </span>
         </div>
+        {/* Une pièce vue du dessus : les cercles concentriques du tournage */}
         <span
           aria-hidden="true"
-          className="size-16 shrink-0 rounded-full border-4 border-sage-strong bg-terra-wash shadow-inner"
-        />
+          className="relative flex size-16 shrink-0 items-center justify-center rounded-full bg-terra-wash shadow-inner"
+        >
+          <span className="absolute inset-1.5 rounded-full border border-terra-strong/40" />
+          <span className="absolute inset-3 rounded-full border border-terra-strong/30" />
+          <span className="absolute inset-[18px] rounded-full border border-terra-strong/25" />
+          <span className="size-2 rounded-full bg-terra-strong/60" />
+        </span>
       </div>
-      <div className="grid h-1/4 grid-cols-3 gap-2 px-4 pb-3">
+      {/* Les collections, avec la silhouette de leurs pièces */}
+      <div className="grid h-[30%] grid-cols-3 gap-2 px-4 pb-3">
         {t.cartes.map((c, i) => (
           <div
             key={c}
-            className={`wf-settle flex items-end rounded-lg px-2 pb-1.5 text-[0.5rem] font-semibold text-ink-soft ${
+            className={`wf-settle flex flex-col items-center justify-end gap-1 rounded-lg pb-1.5 ${
               ["bg-sage-wash", "bg-terra-wash", "bg-sand-card shadow-elev-1"][i]
             }`}
             style={{ animationDelay: `${i * 0.2}s` }}
           >
-            {c}
+            <Silhouette forme={i} />
+            <span className="text-[0.5rem] font-semibold text-ink-soft">{c}</span>
           </div>
         ))}
       </div>
     </div>
+  );
+}
+
+/** Bol, vase, tasse : la silhouette de chaque collection */
+function Silhouette({ forme }: { forme: number }) {
+  if (forme === 0) {
+    return <span aria-hidden="true" className="h-3.5 w-7 rounded-b-full bg-ink/25" />;
+  }
+  if (forme === 1) {
+    return (
+      <span
+        aria-hidden="true"
+        className="h-6 w-4 bg-ink/25 [border-radius:45%_45%_35%_35%/15%_15%_45%_45%]"
+      />
+    );
+  }
+  return (
+    <span aria-hidden="true" className="relative h-4 w-5">
+      <span className="absolute inset-y-0 left-0 w-4 rounded-b-lg bg-ink/25" />
+      <span className="absolute top-0.5 right-0 h-2 w-1.5 rounded-r-full border-[1.5px] border-ink/25" />
+    </span>
   );
 }
 

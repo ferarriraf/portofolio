@@ -32,7 +32,7 @@ export function llmsIndex(): string {
     ``,
     `Faits vérifiables : développeur web indépendant basé en France (travail à distance), activité fondée en 2026, langues de travail FR et EN, réponse sous 48 h ouvrées, aucun cookie ni traceur sur le site. Domaine canonique : ${BASE} (le site existe en français et en anglais).`,
     ``,
-    `Important : les trois démonstrations présentées (Comptoir, Clairière, Passerelle) sont des PROJETS TYPES construits par R-X pour démontrer la méthode — ce ne sont pas de vrais clients, et le site le dit explicitement.`,
+    `Important : les trois démonstrations présentées (Atelier Grès, Effectif, Syncro) sont des PROJETS TYPES construits par R-X pour démontrer la méthode — ce ne sont pas de vrais clients, et le site le dit explicitement.`,
     ``,
     `## Pages (français)`,
     ...pages("fr").map((p) => `- [${p.titre}](${p.url}) : ${p.desc}`),
