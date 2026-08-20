@@ -106,11 +106,20 @@ export default function ProcessScroll({
     const anim = animate(power, 1, { duration: 0.9, ease: "easeOut" });
     return () => anim.stop();
   }, [enVue, power]);
-  // Le poste tourne légèrement sur lui-même, en continu — comme un
-  // objet en vitrine. Indépendant du scroll : jamais deux fois le
-  // même moment, jamais brusque.
+  // Une vraie rotation : le poste reste de face, puis fait un tour
+  // complet sur lui-même toutes les neuf secondes — l'objet de
+  // vitrine qu'on fait tournoyer, pas une respiration
   const temps = useTime();
-  const rotateY = useTransform(temps, (t) => 11 * Math.sin(t / 1300));
+  const CYCLE = 9000;
+  const TOUR = 1600;
+  const rotateY = useTransform(temps, (t) => {
+    const p = t % CYCLE;
+    if (p < CYCLE - TOUR) return 0;
+    const x = (p - (CYCLE - TOUR)) / TOUR;
+    // easeInOutCubic : départ et arrivée doux, plein élan au milieu
+    const e = x < 0.5 ? 4 * x * x * x : 1 - Math.pow(-2 * x + 2, 3) / 2;
+    return e * 360;
+  });
   // Il se pose en entrant dans la section, recule avant qu'elle se
   // détache — plus de verrouillage sec du pin
   const poseScale = useTransform(
@@ -120,8 +129,11 @@ export default function ProcessScroll({
   );
   const poseY = useTransform(scrollYProgress, [0, 0.06, 0.94, 1], [28, 0, 0, -14]);
   // L'ombre au sol ne pivote pas : elle glisse à l'opposé de la face
-  // visible — le micro-détail qui vend la rotation
-  const ombreGlisse = useTransform(rotateY, (v) => v * -1.3);
+  // visible (en sinus, pour revenir à sa place sur un tour complet)
+  const ombreGlisse = useTransform(
+    rotateY,
+    (v) => -14 * Math.sin((v * Math.PI) / 180)
+  );
 
   const screens = [
     <ScreenListen key="s1" t={ecrans} />,

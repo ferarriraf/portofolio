@@ -1,6 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { ChevronDown } from "lucide-react";
+import { Check, ChevronDown } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import CopyEmail from "@/components/CopyEmail";
@@ -75,19 +75,37 @@ export default async function ContactPage({ params }: Props) {
                       />
                     </div>
                   </summary>
-                  {/* La sortie du programme : la réponse tombe comme
-                      un stdout, en mono */}
-                  <div className="faq-sortie px-5 pb-5 md:px-6 md:pb-6">
-                    <p className="max-w-2xl font-mono text-[0.82rem] leading-relaxed text-sand/85">
-                      {item.a}
-                    </p>
-                    <span
+                  {/* La sortie du programme, mise en page comme un
+                      vrai stdout : bloc de réponse indenté sous la
+                      commande, ligne d'état, invite suivante */}
+                  <div className="faq-sortie px-5 pb-5 font-mono md:px-6 md:pb-6">
+                    <div className="flex max-w-2xl gap-3">
+                      <span
+                        aria-hidden="true"
+                        className="w-px shrink-0 self-stretch bg-sand/15"
+                      />
+                      <p className="text-[0.82rem] leading-relaxed text-sand/90">
+                        {item.a}
+                      </p>
+                    </div>
+                    <p
                       aria-hidden="true"
-                      className="mt-3 flex items-baseline gap-2 font-mono text-sm font-bold text-sage"
+                      className="mt-3.5 flex items-center gap-2 text-[0.7rem]"
+                    >
+                      <span className="inline-flex items-center gap-1 font-semibold text-sage">
+                        <Check className="size-3" />
+                        exit 0
+                      </span>
+                      <span className="text-sand/40">·</span>
+                      <span className="text-sand/40">0.0{i + 2} s</span>
+                    </p>
+                    <p
+                      aria-hidden="true"
+                      className="mt-2.5 flex items-baseline gap-2 text-sm font-bold text-sage"
                     >
                       $
                       <span className="caret-blink h-3.5 w-2 self-center bg-sand/70" />
-                    </span>
+                    </p>
                   </div>
                 </details>
               </Reveal>
