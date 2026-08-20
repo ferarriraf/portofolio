@@ -75,11 +75,19 @@ export default async function ContactPage({ params }: Props) {
                       />
                     </div>
                   </summary>
-                  {/* La sortie du programme */}
+                  {/* La sortie du programme : la réponse tombe comme
+                      un stdout, en mono */}
                   <div className="faq-sortie px-5 pb-5 md:px-6 md:pb-6">
-                    <p className="max-w-2xl border-l-2 border-sage/50 pl-4 leading-relaxed text-sand/90">
+                    <p className="max-w-2xl font-mono text-[0.82rem] leading-relaxed text-sand/85">
                       {item.a}
                     </p>
+                    <span
+                      aria-hidden="true"
+                      className="mt-3 flex items-baseline gap-2 font-mono text-sm font-bold text-sage"
+                    >
+                      $
+                      <span className="caret-blink h-3.5 w-2 self-center bg-sand/70" />
+                    </span>
                   </div>
                 </details>
               </Reveal>

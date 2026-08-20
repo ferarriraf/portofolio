@@ -1,9 +1,11 @@
 "use client";
 
-import { useRef, useState, type ReactNode } from "react";
+import { useEffect, useRef, useState, type ReactNode } from "react";
 import {
   animate,
   motion,
+  useInView,
+  useMotionValue,
   useMotionValueEvent,
   useReducedMotion,
   useScroll,
@@ -94,15 +96,21 @@ export default function ProcessScroll({
     });
   };
   const railScale = useTransform(scrollYProgress, [0.02, 0.98], [0, 1]);
-  // L'écran s'allume en entrant dans la section
-  const power = useTransform(scrollYProgress, [0, 0.07], [0, 1], {
-    clamp: true,
-  });
+  // L'écran s'allume tout seul dès que le poste entre dans le champ —
+  // le flash de mise sous tension ne demande aucun scroll
+  const macRef = useRef<HTMLDivElement>(null);
+  const enVue = useInView(macRef, { once: true, margin: "-10% 0px" });
+  const power = useMotionValue(0);
+  useEffect(() => {
+    if (!enVue) return;
+    const anim = animate(power, 1, { duration: 0.9, ease: "easeOut" });
+    return () => anim.stop();
+  }, [enVue, power]);
   // Le poste tourne légèrement sur lui-même, en continu — comme un
   // objet en vitrine. Indépendant du scroll : jamais deux fois le
   // même moment, jamais brusque.
   const temps = useTime();
-  const rotateY = useTransform(temps, (t) => 7 * Math.sin(t / 2300));
+  const rotateY = useTransform(temps, (t) => 11 * Math.sin(t / 1300));
   // Il se pose en entrant dans la section, recule avant qu'elle se
   // détache — plus de verrouillage sec du pin
   const poseScale = useTransform(
@@ -235,7 +243,7 @@ export default function ProcessScroll({
               className="order-1 lg:order-2"
               style={{ perspective: "1100px" }}
             >
-              <div className="relative mx-auto w-full max-w-[31rem]">
+              <div ref={macRef} className="relative mx-auto w-full max-w-[31rem]">
                 <motion.div
                   aria-hidden="true"
                   style={{ x: ombreGlisse }}

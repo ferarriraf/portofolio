@@ -172,32 +172,32 @@
     "resultLabel": "Ce que je livre",
     "projects": [
       {
-        "name": "Atelier Grès",
-        "sector": "Site vitrine — atelier de céramique",
+        "name": "Site vitrine",
+        "sector": "Atelier de céramique",
         "tags": [
-          "Vitrine",
           "SEO",
-          "Mobile"
+          "Mobile",
+          "Réservations"
         ],
         "challenge": "Être trouvé sur le web, montrer l'atelier, prendre des réservations — sans dépendre de quelqu'un à chaque mise à jour.",
         "result": "Un site rapide et lisible, modifiable sans compétence technique, avec réservation intégrée et un référencement soigné."
       },
       {
-        "name": "Effectif",
-        "sector": "Application métier — équipe RH",
+        "name": "Application métier",
+        "sector": "Équipe RH",
         "tags": [
-          "Application web",
-          "Tableau de bord"
+          "Tableau de bord",
+          "Congés"
         ],
         "challenge": "Des congés validés par email, des entretiens suivis dans trois tableurs : l'information se perd et se ressaisit.",
         "result": "Un tableau de bord qui montre ce qui attend une décision, et rien d'autre. Les demandes se valident en un clic."
       },
       {
-        "name": "Syncro",
-        "sector": "API — réservations ↔ facturation",
+        "name": "API",
+        "sector": "Réservations ↔ facturation",
         "tags": [
-          "API",
-          "Automatisation"
+          "Automatisation",
+          "Synchronisation"
         ],
         "challenge": "Deux outils qui s'ignorent : chaque réservation était ressaisie à la main dans la facturation, avec les erreurs qui vont avec.",
         "result": "Une API qui fait circuler les données toute seule, journalisée et testée : zéro ressaisie, zéro écart."
@@ -385,7 +385,7 @@
       },
       {
         "q": "Quels sont vos délais ?",
-        "a": "De deux à huit semaines selon l'ampleur, annoncées dès la proposition. Si un imprévu bouscule le calendrier, vous êtes prévenu aussitôt."
+        "a": "De deux à huit semaines selon l'ampleur. Le délai est annoncé dès la proposition, et si un imprévu bouscule le calendrier, vous êtes prévenu aussitôt."
       }
     ]
   },

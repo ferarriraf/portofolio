@@ -45,7 +45,17 @@ export default function MagneticTitle({
     const RAYON = 190;
 
     const mesurer = () => {
+      // Largeur figée par lettre : une lettre qui s'épaissit s'élargit,
+      // et sans cela toute la ligne se réagence — les lettres du bout
+      // tremblent quand on survole les premières
+      lettres.forEach((l) => {
+        l.style.width = "";
+        l.style.fontVariationSettings = `"wght" ${l.dataset.repos}`;
+      });
+      const largeurs = lettres.map((l) => l.getBoundingClientRect().width);
       lettres.forEach((l, i) => {
+        l.style.width = `${largeurs[i]}px`;
+        l.style.textAlign = "center";
         const r = l.getBoundingClientRect();
         centres[i] = { x: r.x + r.width / 2, y: r.y + r.height / 2 };
       });

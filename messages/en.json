@@ -172,32 +172,32 @@
     "resultLabel": "What I deliver",
     "projects": [
       {
-        "name": "Atelier Grès",
-        "sector": "Brochure site — ceramics workshop",
+        "name": "Brochure site",
+        "sector": "Ceramics workshop",
         "tags": [
-          "Brochure site",
           "SEO",
-          "Mobile"
+          "Mobile",
+          "Bookings"
         ],
         "challenge": "Being found on the web, showing the workshop, taking bookings — without depending on someone for every update.",
         "result": "A fast, readable site the owner can update without technical skills, with built-in booking and careful SEO."
       },
       {
-        "name": "Effectif",
-        "sector": "Business application — HR team",
+        "name": "Business application",
+        "sector": "HR team",
         "tags": [
-          "Web application",
-          "Dashboard"
+          "Dashboard",
+          "Leave"
         ],
         "challenge": "Leave approved by email, reviews tracked across three spreadsheets: information gets lost and retyped.",
         "result": "A dashboard that shows what needs a decision, and nothing else. Requests are approved in one click."
       },
       {
-        "name": "Syncro",
-        "sector": "API — bookings ↔ invoicing",
+        "name": "API",
+        "sector": "Bookings ↔ invoicing",
         "tags": [
-          "API",
-          "Automation"
+          "Automation",
+          "Sync"
         ],
         "challenge": "Two tools ignoring each other: every booking was retyped by hand into the invoicing system, mistakes included.",
         "result": "An API that moves the data by itself, logged and tested: zero retyping, zero discrepancies."
@@ -385,7 +385,7 @@
       },
       {
         "q": "What are your lead times?",
-        "a": "Two to eight weeks depending on scope, stated in the proposal. If something unexpected shifts the schedule, you hear about it right away."
+        "a": "Two to eight weeks depending on scope. The timeline is stated in the proposal, and if something unexpected shifts it, you hear about it right away."
       }
     ]
   },
