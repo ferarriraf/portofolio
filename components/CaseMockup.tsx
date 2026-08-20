@@ -1,3 +1,5 @@
+import { Check } from "lucide-react";
+
 type Variant = "vitrine" | "metier" | "api";
 
 export type MockupTextes = {
@@ -13,8 +15,9 @@ export type MockupTextes = {
   metier: {
     fenetre: string;
     titre: string;
-    recherche: string;
-    cartes: { valeur: string; libelle: string }[];
+    badge: string;
+    lignes: [string, string][];
+    valide: string;
     action: string;
   };
   api: {
@@ -89,28 +92,47 @@ function Vitrine({ t }: { t: MockupTextes["vitrine"] }) {
   );
 }
 
-/* ——— 02 · Application métier : le tableau de bord RH ——— */
+/* ——— 02 · Application métier : les demandes qui attendent une
+   décision, et rien d'autre — la première vient d'être validée ——— */
 
 function Metier({ t }: { t: MockupTextes["metier"] }) {
   return (
     <div className="absolute inset-0 flex flex-col bg-sand text-ink">
       <div className="flex items-center justify-between border-b border-line bg-sand-card px-4 py-2.5">
         <span className="font-display text-xs font-bold">{t.titre}</span>
-        <span className="rounded-full bg-sand px-2.5 py-1 text-[0.55rem] text-ink-soft">
-          {t.recherche}
+        <span className="rounded-full bg-terra-wash px-2.5 py-1 text-[0.55rem] font-semibold text-terra-deep">
+          {t.badge}
         </span>
       </div>
-      <div className="grid flex-1 grid-cols-3 gap-2 p-3">
-        {t.cartes.map((c, i) => (
+      <div className="flex flex-1 flex-col justify-center gap-2 p-3">
+        {/* La demande déjà traitée : le geste que montre la démo */}
+        <div className="wf-settle flex items-center justify-between rounded-xl bg-sage-wash px-3 py-2">
+          <span className="flex flex-col">
+            <span className="text-[0.62rem] font-semibold">{t.lignes[0][0]}</span>
+            <span className="text-[0.52rem] text-ink-soft">{t.lignes[0][1]}</span>
+          </span>
+          <span className="inline-flex items-center gap-1 rounded-full bg-sage-strong px-2 py-0.5 text-[0.5rem] font-semibold text-sand-card">
+            <Check className="size-2.5" aria-hidden="true" />
+            {t.valide}
+          </span>
+        </div>
+        {/* Celles qui attendent un clic */}
+        {t.lignes.slice(1).map(([nom, dates], i) => (
           <div
-            key={c.libelle}
-            className="wf-settle flex flex-col justify-between rounded-xl bg-sand-card p-2.5 shadow-elev-1"
-            style={{ animationDelay: `${i * 0.25}s` }}
+            key={nom}
+            className="wf-settle flex items-center justify-between rounded-xl bg-sand-card px-3 py-2 shadow-elev-1"
+            style={{ animationDelay: `${0.3 + i * 0.25}s` }}
           >
-            <span className="font-display text-lg font-bold text-terra-deep">
-              {c.valeur}
+            <span className="flex flex-col">
+              <span className="text-[0.62rem] font-semibold">{nom}</span>
+              <span className="text-[0.52rem] text-ink-soft">{dates}</span>
             </span>
-            <span className="text-[0.55rem] text-ink-soft">{c.libelle}</span>
+            <span
+              aria-hidden="true"
+              className="inline-flex size-5 items-center justify-center rounded-full border border-sage-strong text-sage-strong"
+            >
+              <Check className="size-3" />
+            </span>
           </div>
         ))}
       </div>

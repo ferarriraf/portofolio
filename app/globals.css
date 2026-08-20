@@ -21,11 +21,6 @@
   --terra-hot: #d95f2e;
   --sage-wash: #dde8d3;
   --terra-wash: #f6e2d0;
-  /* Tranches des boutons « touche de clavier » : la couleur du fond,
-     poussée dans l'ombre */
-  --terra-edge: #6b2c12;
-  --ink-edge: #161a11;
-  --line-edge: #cfc4a8;
 }
 
 @theme inline {
@@ -104,88 +99,22 @@ body {
   .container-site {
     @apply mx-auto w-full max-w-6xl px-6;
   }
-  /* Les boutons sont des touches de clavier : une tranche dure dessous,
-     soulevés au survol, enfoncés au clic. La presse (transform/ombre)
-     répond plus vite que les couleurs. */
+  /* Boutons sobres : la couleur fait le travail, le clic s'enfonce
+     d'un pixel — pas d'étages d'ombre */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold;
-    transition:
-      transform 0.13s cubic-bezier(0.34, 1.3, 0.5, 1),
-      box-shadow 0.13s ease,
-      background-color 0.3s,
-      color 0.3s,
-      border-color 0.3s;
+    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300;
   }
   .btn:active {
-    transform: translateY(2px);
+    transform: translateY(1px);
   }
   .btn-primary {
     @apply bg-terra-deep text-sand-card hover:bg-ink;
-    box-shadow:
-      0 3px 0 var(--terra-edge),
-      0 16px 26px -16px rgba(143, 61, 28, 0.55);
-  }
-  .btn-primary:active {
-    box-shadow:
-      0 1px 0 var(--ink-edge),
-      0 8px 14px -12px rgba(46, 52, 40, 0.4);
-  }
-  .btn-primary:focus-visible {
-    box-shadow:
-      0 0 0 4px var(--sand),
-      0 3px 0 var(--terra-edge);
   }
   .btn-secondary {
     @apply border border-line bg-sand-card text-ink hover:border-sage-strong hover:text-sage-deep;
-    box-shadow:
-      0 3px 0 var(--line-edge),
-      0 14px 24px -16px rgba(46, 52, 40, 0.3);
-  }
-  .btn-secondary:active {
-    box-shadow:
-      0 1px 0 var(--line-edge),
-      0 8px 14px -12px rgba(46, 52, 40, 0.25);
-  }
-  .btn-secondary:focus-visible {
-    box-shadow:
-      0 0 0 4px var(--sand),
-      0 3px 0 var(--line-edge);
   }
   .btn-light {
     @apply bg-sand text-ink hover:bg-sand-card;
-    box-shadow:
-      0 3px 0 rgba(36, 41, 31, 0.4),
-      0 16px 26px -16px rgba(0, 0, 0, 0.45);
-  }
-  .btn-light:active {
-    box-shadow:
-      0 1px 0 rgba(36, 41, 31, 0.4),
-      0 8px 14px -12px rgba(0, 0, 0, 0.35);
-  }
-  .btn-light:focus-visible {
-    box-shadow:
-      0 0 0 4px var(--sand),
-      0 3px 0 rgba(36, 41, 31, 0.4);
-  }
-  @media (hover: hover) {
-    .btn-primary:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 5px 0 var(--ink-edge),
-        0 20px 30px -16px rgba(46, 52, 40, 0.5);
-    }
-    .btn-secondary:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 5px 0 var(--sage),
-        0 18px 28px -16px rgba(46, 52, 40, 0.35);
-    }
-    .btn-light:hover {
-      transform: translateY(-2px);
-      box-shadow:
-        0 5px 0 rgba(36, 41, 31, 0.4),
-        0 20px 30px -16px rgba(0, 0, 0, 0.5);
-    }
   }
   /* Enfoncement discret des commandes rondes (burger, fermer, flèches) */
   .press {
@@ -253,33 +182,9 @@ body {
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .btn,
-  .btn:hover,
   .btn:active,
   .press:active {
     transform: none;
-  }
-}
-
-/* ——— Bandeau défilant ——— */
-@keyframes marquee {
-  to {
-    transform: translateX(-50%);
-  }
-}
-
-.marquee-track {
-  animation: marquee var(--marquee-speed, 38s) linear infinite;
-}
-
-/* La fente s'arrête sous la souris : on peut lire les mots */
-.marquee-slot:hover .marquee-track {
-  animation-play-state: paused;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .marquee-track {
-    animation: none;
   }
 }
 

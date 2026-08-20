@@ -1,14 +1,15 @@
 "use client";
 
-import { useRef, type ReactNode } from "react";
+import { useRef, useState, type ReactNode } from "react";
 import {
   motion,
+  useMotionValueEvent,
   useReducedMotion,
   useScroll,
   useTransform,
   type MotionValue,
 } from "framer-motion";
-import { Check } from "lucide-react";
+import { Check, ChevronDown, ChevronUp } from "lucide-react";
 import RetroComputer from "./RetroComputer";
 import SectionLabel from "./SectionLabel";
 
@@ -35,6 +36,8 @@ type ProcessScrollProps = {
   title: string;
   steps: Step[];
   onlineLabel: string;
+  prevLabel: string;
+  nextLabel: string;
   ecrans: EcranTextes;
 };
 
@@ -50,6 +53,8 @@ export default function ProcessScroll({
   title,
   steps,
   onlineLabel,
+  prevLabel,
+  nextLabel,
   ecrans,
 }: ProcessScrollProps) {
   const ref = useRef<HTMLDivElement>(null);
@@ -58,6 +63,31 @@ export default function ProcessScroll({
     target: ref,
     offset: ["start start", "end end"],
   });
+
+  // L'étape courante, pour les boutons « flemme de scroller » :
+  // un clic saute au centre de l'étape voisine
+  const [etape, setEtape] = useState(0);
+  useMotionValueEvent(scrollYProgress, "change", (v) => {
+    const e = Math.max(0, Math.min(steps.length - 1, Math.floor(v * steps.length)));
+    if (e !== etape) setEtape(e);
+  });
+
+  const sauter = (dir: 1 | -1) => {
+    const el = ref.current;
+    if (!el) return;
+    // Position réelle au moment du clic, pas l'état affiché
+    const courant = Math.max(
+      0,
+      Math.min(steps.length - 1, Math.floor(scrollYProgress.get() * steps.length))
+    );
+    const cible = Math.max(0, Math.min(steps.length - 1, courant + dir));
+    const haut = el.getBoundingClientRect().top + window.scrollY;
+    const course = el.offsetHeight - window.innerHeight;
+    window.scrollTo({
+      top: haut + ((cible + 0.5) / steps.length) * course,
+      behavior: "smooth",
+    });
+  };
   const railScale = useTransform(scrollYProgress, [0.02, 0.98], [0, 1]);
   // L'écran s'allume en entrant dans la section
   const power = useTransform(scrollYProgress, [0, 0.07], [0, 1], {
@@ -137,35 +167,65 @@ export default function ProcessScroll({
           <div className="mt-6 grid items-center gap-8 md:mt-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-14">
             {/* Étapes + glissière crantée : la gorge se remplit et
                 s'allume cran par cran, en phase avec les écrans */}
-            <div className="relative order-2 min-h-64 pl-8 lg:order-1 lg:min-h-80">
-              {/* La glissière s'arrête pile sur ses crans extrêmes :
-                  elle ne déborde plus du contenu */}
-              <div
-                aria-hidden="true"
-                className="absolute top-[10%] bottom-[10%] left-1 w-[3px] rounded-full bg-ink/10 shadow-[inset_0_1px_2px_rgba(36,41,31,0.4)]"
-              />
-              <motion.div
-                aria-hidden="true"
-                style={{ scaleY: railScale }}
-                className="absolute top-[10%] bottom-[10%] left-1 w-[3px] origin-top rounded-full bg-terra-strong"
-              />
-              {steps.map((_, i) => (
-                <Cran
-                  key={i}
-                  index={i}
-                  count={steps.length}
-                  progress={scrollYProgress}
+            <div className="order-2 lg:order-1">
+              <div className="relative min-h-64 pl-8 lg:min-h-80">
+                {/* La glissière s'arrête pile sur ses crans extrêmes :
+                    elle ne déborde plus du contenu */}
+                <div
+                  aria-hidden="true"
+                  className="absolute top-[10%] bottom-[10%] left-1 w-[3px] rounded-full bg-ink/10 shadow-[inset_0_1px_2px_rgba(36,41,31,0.4)]"
                 />
-              ))}
-              {steps.map((step, i) => (
-                <StepPanel
-                  key={step.title}
-                  step={step}
-                  index={i}
-                  count={steps.length}
-                  progress={scrollYProgress}
+                <motion.div
+                  aria-hidden="true"
+                  style={{ scaleY: railScale }}
+                  className="absolute top-[10%] bottom-[10%] left-1 w-[3px] origin-top rounded-full bg-terra-strong"
                 />
-              ))}
+                {steps.map((_, i) => (
+                  <Cran
+                    key={i}
+                    index={i}
+                    count={steps.length}
+                    progress={scrollYProgress}
+                  />
+                ))}
+                {steps.map((step, i) => (
+                  <StepPanel
+                    key={step.title}
+                    step={step}
+                    index={i}
+                    count={steps.length}
+                    progress={scrollYProgress}
+                  />
+                ))}
+              </div>
+
+              {/* Pour qui a la flemme de scroller : sauter d'une étape */}
+              <div className="mt-6 flex items-center gap-3 pl-8">
+                <button
+                  type="button"
+                  onClick={() => sauter(-1)}
+                  disabled={etape === 0}
+                  aria-label={prevLabel}
+                  className="press inline-flex size-10 items-center justify-center rounded-full border border-ink/20 bg-sand-card text-ink transition-colors duration-200 hover:bg-ink hover:text-sand disabled:pointer-events-none disabled:opacity-35"
+                >
+                  <ChevronUp className="size-4" />
+                </button>
+                <button
+                  type="button"
+                  onClick={() => sauter(1)}
+                  disabled={etape === steps.length - 1}
+                  aria-label={nextLabel}
+                  className="press inline-flex size-10 items-center justify-center rounded-full border border-ink/20 bg-sand-card text-ink transition-colors duration-200 hover:bg-ink hover:text-sand disabled:pointer-events-none disabled:opacity-35"
+                >
+                  <ChevronDown className="size-4" />
+                </button>
+                <span
+                  aria-hidden="true"
+                  className="ml-1 font-mono text-xs tracking-[0.14em] text-terra-deep"
+                >
+                  0{etape + 1} / 0{steps.length}
+                </span>
+              </div>
             </div>
 
             {/* L'ordinateur qui s'allume, se pose, pivote et se

@@ -50,14 +50,6 @@
     "ctaServices": "See the services",
     "ctaContact": "Discuss your project",
     "layerLabel": "<h1 class=\"headline\">",
-    "marquee": [
-      "Websites",
-      "Web apps",
-      "APIs",
-      "Performance",
-      "Accessibility",
-      "Maintenance"
-    ],
     "manifesto": {
       "lead": "A good website goes unnoticed.",
       "emph": "It just does its job."
@@ -66,6 +58,8 @@
       "eyebrow": "The method",
       "title": "Five steps, not one more",
       "online": "Live",
+      "prev": "Previous step",
+      "next": "Next step",
       "steps": [
         {
           "title": "Listening",
@@ -170,7 +164,7 @@
     "resultLabel": "What I deliver",
     "projects": [
       {
-        "name": "Comptoir",
+        "name": "Argile",
         "sector": "Brochure site — ceramics workshop",
         "tags": [
           "Brochure site",
@@ -181,7 +175,7 @@
         "result": "A fast, readable site the owner can update without technical skills, with built-in booking and careful SEO."
       },
       {
-        "name": "Clairière",
+        "name": "Boussole",
         "sector": "Business application — HR team",
         "tags": [
           "Web application",
@@ -191,7 +185,7 @@
         "result": "A dashboard that shows what needs a decision, and nothing else. Requests are approved in one click."
       },
       {
-        "name": "Passerelle",
+        "name": "Relais",
         "sector": "API — bookings ↔ invoicing",
         "tags": [
           "API",
@@ -209,8 +203,8 @@
     },
     "mockups": {
       "vitrine": {
-        "fenetre": "comptoir-ceramics.com",
-        "marque": "Comptoir",
+        "fenetre": "argile-ceramics.com",
+        "marque": "Argile",
         "menu": [
           "Work",
           "Classes",
@@ -226,33 +220,34 @@
         ]
       },
       "metier": {
-        "fenetre": "clairiere — HR workspace",
-        "titre": "This week",
-        "recherche": "Search…",
-        "cartes": [
-          {
-            "valeur": "12",
-            "libelle": "leave requests"
-          },
-          {
-            "valeur": "3",
-            "libelle": "reviews booked"
-          },
-          {
-            "valeur": "1",
-            "libelle": "contract to sign"
-          }
+        "fenetre": "boussole — HR workspace",
+        "titre": "Leave requests",
+        "badge": "3 pending",
+        "lignes": [
+          [
+            "Camille R.",
+            "24–28 Aug"
+          ],
+          [
+            "Yanis B.",
+            "2–6 Sept"
+          ],
+          [
+            "Léa M.",
+            "15 Sept"
+          ]
         ],
-        "action": "Approve all 12"
+        "valide": "Approved",
+        "action": "Approve all"
       },
       "api": {
-        "fenetre": "$ curl api.passerelle.dev",
+        "fenetre": "$ curl api.relais.dev",
         "requete": "GET /api/bookings",
         "statut": "200 OK · 38 ms",
         "lignes": [
           [
             "client",
-            "Comptoir Workshop"
+            "Argile Workshop"
           ],
           [
             "date",

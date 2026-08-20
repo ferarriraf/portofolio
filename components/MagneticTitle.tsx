@@ -68,6 +68,8 @@ export default function MagneticTitle({
       sourisY = -9999;
     };
     const onClick = (e: PointerEvent) => {
+      // L'onde ne part que d'un clic sur le titre lui-même — pas des
+      // zones vides à gauche ou à droite de sa boîte
       onde = { x: e.clientX, y: e.clientY, t: performance.now() };
       lancer();
     };
@@ -99,7 +101,9 @@ export default function MagneticTitle({
 
         if (force > 0.001) bouge = true;
         const base = repos[i];
-        const poids = Math.round(base + (800 - base) * force);
+        // Amplitude contenue : +300 de graisse au plus — l'épaississement
+        // se sent sans déformer la lettre
+        const poids = Math.round(base + Math.min(800 - base, 300) * force);
         l.style.fontVariationSettings = `"wght" ${poids}`;
         l.style.transform =
           force > 0.001 ? `translateY(${(-force * 9).toFixed(2)}px)` : "";
@@ -119,7 +123,7 @@ export default function MagneticTitle({
     };
 
     window.addEventListener("pointermove", onMove, { passive: true });
-    window.addEventListener("pointerdown", onClick, { passive: true });
+    el.addEventListener("pointerdown", onClick, { passive: true });
     document.documentElement.addEventListener("pointerleave", onLeave);
     window.addEventListener("resize", mesurer);
     window.addEventListener("scroll", mesurer, { passive: true });
@@ -128,7 +132,7 @@ export default function MagneticTitle({
       cancelAnimationFrame(rafId);
       clearTimeout(remesure);
       window.removeEventListener("pointermove", onMove);
-      window.removeEventListener("pointerdown", onClick);
+      el.removeEventListener("pointerdown", onClick);
       document.documentElement.removeEventListener("pointerleave", onLeave);
       window.removeEventListener("resize", mesurer);
       window.removeEventListener("scroll", mesurer);

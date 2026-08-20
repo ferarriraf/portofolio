@@ -108,6 +108,8 @@ export default async function HomePage({ params }: Props) {
         title={t("process.title")}
         steps={steps}
         onlineLabel={t("process.online")}
+        prevLabel={t("process.prev")}
+        nextLabel={t("process.next")}
         ecrans={t.raw("process.screens") as EcranTextes}
       />
 

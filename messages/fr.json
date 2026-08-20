@@ -50,14 +50,6 @@
     "ctaServices": "Voir les services",
     "ctaContact": "Discuter de votre projet",
     "layerLabel": "<h1 class=\"accroche\">",
-    "marquee": [
-      "Sites web",
-      "Applications",
-      "API",
-      "Performance",
-      "Accessibilité",
-      "Maintenance"
-    ],
     "manifesto": {
       "lead": "Un bon site ne se fait pas remarquer.",
       "emph": "Il fait son travail."
@@ -66,6 +58,8 @@
       "eyebrow": "La méthode",
       "title": "Cinq étapes, pas une de plus",
       "online": "En ligne",
+      "prev": "Étape précédente",
+      "next": "Étape suivante",
       "steps": [
         {
           "title": "Écoute",
@@ -170,7 +164,7 @@
     "resultLabel": "Ce que je livre",
     "projects": [
       {
-        "name": "Comptoir",
+        "name": "Argile",
         "sector": "Site vitrine — atelier de céramique",
         "tags": [
           "Vitrine",
@@ -181,7 +175,7 @@
         "result": "Un site rapide et lisible, modifiable sans compétence technique, avec réservation intégrée et un référencement soigné."
       },
       {
-        "name": "Clairière",
+        "name": "Boussole",
         "sector": "Application métier — équipe RH",
         "tags": [
           "Application web",
@@ -191,7 +185,7 @@
         "result": "Un tableau de bord qui montre ce qui attend une décision, et rien d'autre. Les demandes se valident en un clic."
       },
       {
-        "name": "Passerelle",
+        "name": "Relais",
         "sector": "API — réservations ↔ facturation",
         "tags": [
           "API",
@@ -209,8 +203,8 @@
     },
     "mockups": {
       "vitrine": {
-        "fenetre": "comptoir-ceramique.fr",
-        "marque": "Comptoir",
+        "fenetre": "atelier-argile.fr",
+        "marque": "Argile",
         "menu": [
           "Créations",
           "Ateliers",
@@ -226,33 +220,34 @@
         ]
       },
       "metier": {
-        "fenetre": "clairiere — espace RH",
-        "titre": "Cette semaine",
-        "recherche": "Rechercher…",
-        "cartes": [
-          {
-            "valeur": "12",
-            "libelle": "congés à valider"
-          },
-          {
-            "valeur": "3",
-            "libelle": "entretiens prévus"
-          },
-          {
-            "valeur": "1",
-            "libelle": "contrat à signer"
-          }
+        "fenetre": "boussole — espace RH",
+        "titre": "Demandes de congés",
+        "badge": "3 en attente",
+        "lignes": [
+          [
+            "Camille R.",
+            "24–28 août"
+          ],
+          [
+            "Yanis B.",
+            "2–6 sept."
+          ],
+          [
+            "Léa M.",
+            "15 sept."
+          ]
         ],
-        "action": "Valider les 12 congés"
+        "valide": "Validée",
+        "action": "Tout valider"
       },
       "api": {
-        "fenetre": "$ curl api.passerelle.dev",
+        "fenetre": "$ curl api.relais.dev",
         "requete": "GET /api/reservations",
         "statut": "200 OK · 38 ms",
         "lignes": [
           [
             "client",
-            "Atelier Comptoir"
+            "Atelier Argile"
           ],
           [
             "date",
