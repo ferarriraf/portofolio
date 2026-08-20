@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata(locale, "home", "/");
 }
 
-const coverVariants = ["vitrine", "metier"] as const;
+const coverVariants = ["vitrine", "metier", "api"] as const;
 
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
@@ -31,9 +31,11 @@ export default async function HomePage({ params }: Props) {
 
   const steps = t.raw("process.steps") as { title: string; text: string }[];
   const mockups = tw.raw("mockups") as MockupTextes;
-  const projects = (
-    tw.raw("projects") as { name: string; sector: string; tags: string[] }[]
-  ).slice(0, 2);
+  const projects = tw.raw("projects") as {
+    name: string;
+    sector: string;
+    tags: string[];
+  }[];
 
   return (
     <>
@@ -133,7 +135,7 @@ export default async function HomePage({ params }: Props) {
             </Link>
           </div>
         </Reveal>
-        <div className="mt-14 grid gap-x-8 gap-y-14 md:grid-cols-2">
+        <div className="mt-14 grid gap-x-8 gap-y-14 md:grid-cols-2 lg:grid-cols-3">
           {projects.map((p, i) => (
             <Link
               key={p.name}
@@ -153,7 +155,7 @@ export default async function HomePage({ params }: Props) {
                     <p className="text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">
                       {p.sector}
                     </p>
-                    <h3 className="mt-1.5 font-display text-2xl font-bold text-ink md:text-3xl">
+                    <h3 className="mt-1.5 font-display text-2xl font-bold text-ink">
                       {p.name}
                     </h3>
                   </div>
