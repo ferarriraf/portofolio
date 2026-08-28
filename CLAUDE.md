@@ -114,6 +114,17 @@ clients, années d'expérience ou promesses invérifiables
 - Un `<label>` qui **enveloppe** un `<select>` avale le texte des
   `<option>` dans le nom accessible (« MotifCongés payésRTT… »).
   Toujours relier par `htmlFor`/`id` autour d'une liste déroulante.
+- **React joue chaque effet DEUX fois en développement.** Un effet qui
+  écrit dans `sessionStorage` au montage puis lit cette valeur pour
+  décider quoi afficher se sabote lui-même au second passage (vécu sur
+  `BootScreen` : l'ouverture ne se jouait jamais en local, mais aurait
+  marché en production — le pire des cas). Écrire le marqueur à la FIN
+  de la séquence, jamais au montage.
+- L'écran d'ouverture (`.ecran-boot` dans `globals.css`) est en CSS pur,
+  **disparition comprise** : sans ça un visiteur sans JavaScript reste
+  sur un aplat de sable. Les durées `--boot-*` du CSS et `SEQUENCE_MS`
+  du composant sont un miroir l'une de l'autre — changer l'une sans
+  l'autre laisse le nœud en place ou le retire en pleine ouverture.
 - Toute donnée datée affichée côté client doit attendre le montage
   (drapeau `monte` + `setTimeout(0)`), sinon le rendu serveur et celui
   du navigateur divergent. Et caler les dates de démo sur des jours

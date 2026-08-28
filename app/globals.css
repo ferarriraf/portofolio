@@ -323,7 +323,122 @@ body {
   animation: scroll-hint 1.8s ease-in-out infinite;
 }
 
-/* ——— Écran de démarrage ——— */
+/* ——— Écran d'ouverture ———
+   Le logotype grandit et se dissout, et le site s'ouvre par un cercle
+   qui part exactement d'où il était : la marque est la porte d'entrée.
+
+   Tout est en CSS, y compris la DISPARITION. Deux raisons : un onglet
+   ouvert en arrière-plan ne fait pas tourner les animations pilotées
+   par frame, et surtout un visiteur sans JavaScript verrait sinon un
+   aplat de sable à la place du site — le HTML complet est pourtant
+   déjà là, dessous. */
+
+:root {
+  --boot-attente: 0.95s; /* remplissage du trait */
+  --boot-marque: 0.45s; /* le logotype grandit et se dissout */
+  --boot-iris: 0.9s; /* le cercle s'ouvre */
+  --boot-centre: 46%; /* hauteur du logotype : c'est de là que part le cercle */
+}
+
+.ecran-boot {
+  position: fixed;
+  inset: 0;
+  z-index: 120;
+  /* Rien n'est cliquable ici : aucun clic ne doit se perdre contre le
+     voile, surtout s'il devait rester en place. */
+  pointer-events: none;
+  animation: boot-fin 0s linear
+    calc(var(--boot-attente) + var(--boot-marque) + var(--boot-iris)) forwards;
+}
+
+@keyframes boot-fin {
+  to {
+    visibility: hidden;
+  }
+}
+
+/* Le fond plein, qui passe la main à l'iris à la seconde exacte */
+.ecran-boot__fond {
+  position: absolute;
+  inset: 0;
+  background: var(--sand);
+  animation: boot-fond 0s linear var(--boot-attente) forwards;
+}
+
+@keyframes boot-fond {
+  to {
+    opacity: 0;
+  }
+}
+
+/* L'iris : un disque de rayon nul dont l'ombre portée couvre l'écran.
+   Le disque grandit, l'ombre est repoussée dehors, le site apparaît par
+   le trou. Aucune propriété exotique — ça marche dans tous les
+   navigateurs, et la couverture de départ est garantie : 120vmax
+   dépasse largement la diagonale d'un écran (≈ 71vmax). */
+.ecran-boot__iris {
+  position: absolute;
+  top: var(--boot-centre);
+  left: 50%;
+  width: 0;
+  height: 0;
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  box-shadow: 0 0 0 120vmax var(--sand);
+  animation: boot-iris var(--boot-iris) cubic-bezier(0.5, 0, 0.2, 1)
+    var(--boot-attente) forwards;
+}
+
+@keyframes boot-iris {
+  from {
+    width: 0;
+    height: 0;
+  }
+  to {
+    width: 260vmax;
+    height: 260vmax;
+  }
+}
+
+/* Le logotype grandit et se dissout au moment précis où le cercle part
+   de lui — l'un devient l'autre. */
+.ecran-boot__marque {
+  position: absolute;
+  top: var(--boot-centre);
+  left: 50%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transform: translate(-50%, -50%);
+  animation: boot-marque var(--boot-marque) cubic-bezier(0.22, 1, 0.36, 1)
+    var(--boot-attente) forwards;
+}
+
+/* Le logotype s'efface aux deux tiers de sa course : sans quoi il
+   traînerait par-dessus le titre que le cercle vient de découvrir. Il
+   continue de grandir une fois invisible, pour que le mouvement se
+   prolonge dans le cercle au lieu de s'arrêter net. */
+@keyframes boot-marque {
+  0% {
+    opacity: 1;
+    transform: translate(-50%, -50%) scale(1);
+  }
+  65% {
+    opacity: 0;
+  }
+  100% {
+    opacity: 0;
+    transform: translate(-50%, -50%) scale(2.6);
+  }
+}
+
+/* Mouvement réduit : pas d'ouverture du tout, le site est là d'emblée */
+@media (prefers-reduced-motion: reduce) {
+  .ecran-boot {
+    display: none;
+  }
+}
+
 @keyframes boot-logo {
   from {
     opacity: 0;
@@ -349,7 +464,7 @@ body {
 }
 
 .boot-barre {
-  animation: boot-barre 1.15s cubic-bezier(0.4, 0, 0.2, 1) both;
+  animation: boot-barre var(--boot-attente) cubic-bezier(0.4, 0, 0.2, 1) both;
 }
 
 @media (prefers-reduced-motion: reduce) {

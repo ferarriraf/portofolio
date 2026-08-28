@@ -34,6 +34,7 @@ export default function Reveal({
     return (
       <div ref={ref} className={className}>
         <motion.div
+          data-entree
           initial={
             reduce
               ? { clipPath: "inset(0% 0% 0% 0%)" }

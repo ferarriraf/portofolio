@@ -1,80 +1,101 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useReducedMotion } from "framer-motion";
 import { useTranslations } from "next-intl";
 
 const CLE = "rx-boot";
 
 /**
- * L'arrivée sur le site : un court écran de démarrage, le logotype et
- * un trait de progression. Il ne se montre qu'une fois par session.
+ * L'arrivée sur le site : le logotype se pose, un trait se remplit,
+ * puis la marque grandit et se dissout pendant que le site s'ouvre par
+ * un cercle parti d'elle. Une fois par session.
  *
- * Le fondu de sortie et la barre sont en CSS, pas en JavaScript :
- * l'écran doit disparaître même si l'onglet démarre en arrière-plan,
- * où les animations pilotées par frame ne tournent pas.
+ * Toute la séquence — y compris la disparition de l'écran — vit dans
+ * `app/globals.css` (`.ecran-boot`), en CSS pur. Le JavaScript ne sert
+ * qu'à deux choses : retirer le nœud du document une fois l'ouverture
+ * finie, et sauter l'écran quand la session l'a déjà vu. Sans
+ * JavaScript, l'ouverture se joue quand même et le site apparaît.
+ *
+ * Ces durées sont le miroir des variables --boot-* de globals.css :
+ * les changer d'un côté sans l'autre laisserait le nœud en place ou le
+ * retirerait en pleine ouverture.
  */
+const SEQUENCE_MS = 950 + 450 + 900;
+
 export default function BootScreen() {
   const t = useTranslations();
-  const reduce = useReducedMotion();
-  // On part affiché : au premier rendu on ne sait pas encore si la
-  // session a déjà vu l'écran (sessionStorage n'existe pas au serveur).
-  const [etat, setEtat] = useState<"montre" | "sort" | "retire">("montre");
+  const [retire, setRetire] = useState(false);
 
   useEffect(() => {
     let vu = false;
     try {
       vu = sessionStorage.getItem(CLE) === "1";
     } catch {
-      vu = false;
+      // navigation privée stricte : l'écran reviendra, sans gravité
     }
 
-    const marquer = () => {
+    // Lu ici et non pendant le rendu : la valeur n'existe pas côté
+    // serveur, et s'en servir pour choisir le balisage casserait
+    // l'hydratation.
+    const mouvementReduit = window.matchMedia(
+      "(prefers-reduced-motion: reduce)",
+    ).matches;
+
+    const rendreLaPage = () => {
+      setRetire(true);
+      document.documentElement.style.overflow = "";
+    };
+
+    if (vu || mouvementReduit) {
+      const immediat = setTimeout(rendreLaPage, 0);
+      return () => clearTimeout(immediat);
+    }
+
+    // Le défilement est bloqué le temps de l'ouverture, sinon la molette
+    // fait glisser une page qu'on ne voit pas encore.
+    document.documentElement.style.overflow = "hidden";
+
+    const fin = setTimeout(() => {
+      // La session n'est marquée qu'à la FIN, jamais au montage : en
+      // développement React joue chaque effet deux fois, et marquer trop
+      // tôt ferait croire au second passage que l'ouverture a déjà eu
+      // lieu — l'écran se retirerait aussitôt.
       try {
         sessionStorage.setItem(CLE, "1");
       } catch {
         // sans stockage de session, l'écran reviendra : sans gravité
       }
-    };
-
-    // différé : changer l'état en pleine phase d'effet
-    // déclencherait un rendu en cascade
-    const attente = vu || reduce ? 0 : 1250;
-    const t1 = setTimeout(() => {
-      setEtat("sort");
-      document.documentElement.style.overflow = "";
-      marquer();
-    }, attente);
-    const t2 = setTimeout(() => setEtat("retire"), attente + 600);
-
-    if (attente > 0) document.documentElement.style.overflow = "hidden";
+      rendreLaPage();
+    }, SEQUENCE_MS);
 
     return () => {
-      clearTimeout(t1);
-      clearTimeout(t2);
+      clearTimeout(fin);
       document.documentElement.style.overflow = "";
     };
-  }, [reduce]);
+  }, []);
 
-  if (etat === "retire") return null;
+  if (retire) return null;
 
   return (
-    <div
-      className={`fixed inset-0 z-[120] flex flex-col items-center justify-center bg-sand transition-opacity duration-500 ${
-        etat === "sort" ? "pointer-events-none opacity-0" : "opacity-100"
-      }`}
-    >
-      <p className="boot-logo font-display text-5xl font-[800] tracking-[-0.05em] text-ink">
-        R<span className="text-terra-hot">-</span>X
-      </p>
+    // Masqué aux lecteurs d'écran : ils lisent déjà le vrai contenu,
+    // qui est présent dans le document sous l'ouverture.
+    <div className="ecran-boot" aria-hidden="true">
+      <span className="ecran-boot__fond" />
+      <span className="ecran-boot__iris" />
 
-      {/* Le trait de progression */}
-      <span className="mt-6 block h-px w-40 overflow-hidden bg-ink/10">
-        <span className="boot-barre block h-full origin-left bg-terra-hot" />
-      </span>
+      <span className="ecran-boot__marque">
+        <span className="boot-logo font-display text-5xl font-[800] tracking-[-0.05em] text-ink">
+          R<span className="text-terra-hot">-</span>X
+        </span>
 
-      <span className="mt-4 font-mono text-[0.62rem] tracking-[0.2em] text-ink-soft/60 uppercase">
-        {t("loading")}
+        {/* Le trait de progression */}
+        <span className="mt-6 block h-px w-40 overflow-hidden bg-ink/10">
+          <span className="boot-barre block h-full origin-left bg-terra-hot" />
+        </span>
+
+        <span className="mt-4 font-mono text-[0.62rem] tracking-[0.2em] text-ink-soft uppercase">
+          {t("loading")}
+        </span>
       </span>
     </div>
   );

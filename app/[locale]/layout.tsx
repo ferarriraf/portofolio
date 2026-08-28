@@ -119,6 +119,16 @@ export default async function LocaleLayout({
           type="application/ld+json"
           dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
         />
+
+        {/* Filet de sécurité : le HTML servi est complet, mais trois
+            couches le masquent en attendant que React prenne la main —
+            l'écran d'ouverture, l'entrée de page et les blocs dévoilés
+            au défilement. Sans JavaScript, personne ne les lève. Ces
+            deux règles rendent le site lisible tel quel. La CSP autorise
+            les styles en ligne, c'est donc sans effet de bord. */}
+        <noscript>
+          <style>{`.ecran-boot{display:none!important}[data-entree]{opacity:1!important;transform:none!important;clip-path:none!important}`}</style>
+        </noscript>
         <NextIntlClientProvider>
           {/* Premier arrêt du clavier : sauter la navigation */}
           <a

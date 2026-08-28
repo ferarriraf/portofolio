@@ -25,7 +25,12 @@ export default function Template({ children }: { children: ReactNode }) {
           opacity: { delay: 0.5, duration: 0.25 },
         }}
       />
+      {/* data-entree : sans JavaScript, l'état de départ (opacité nulle)
+          est servi tel quel dans le HTML et rien ne vient jamais le
+          lever. Le bloc <noscript> du layout s'appuie sur cet attribut
+          pour rendre le contenu visible. */}
       <motion.div
+        data-entree
         initial={{ opacity: 0, y: 12 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.4, ease: [0.22, 1, 0.36, 1] }}
