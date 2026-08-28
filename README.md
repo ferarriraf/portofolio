@@ -13,6 +13,23 @@ localisés : `/realisations` ↔ `/en/work`).
 - `npm run build` — compile le site optimisé (toutes les pages sont pré-générées).
 - `npm run start` — sert le site compilé (ce que lance Infomaniak).
 
+## Travailler depuis un autre poste
+
+Tout le nécessaire est dans le dépôt (code, polices, textes,
+`CLAUDE.md` avec le contexte de travail pour Claude Code) :
+
+```bash
+git clone git@github.com:ferarriraf/portofolio.git
+cd portofolio
+npm install
+npm run dev
+```
+
+Claude Code lit automatiquement `CLAUDE.md` à l'ouverture du dossier :
+la méthode de travail, les règles du site et les pièges connus suivent
+le dépôt. Penser à `git pull` en arrivant et `git push` en partant,
+pour que les deux postes restent synchrones.
+
 ## Déploiement
 
 Le site se déploie **par git**, depuis ce dépôt GitHub :
