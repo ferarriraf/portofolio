@@ -87,6 +87,7 @@ qui reste affichée juste en dessous.
 | Ses règles (validation, anti-robots)  | `lib/contact.ts`                              |
 | L'envoi du mail (protocole SMTP)      | `lib/smtp.ts` + `app/[locale]/contact/actions.ts` |
 | Ses textes et messages d'erreur       | clé `contact.form` dans `messages/*.json`     |
+| Les reçus (ligne mono + lueur)        | `components/Recu.tsx` + `.recu*` dans `app/globals.css` |
 | Écran d'ouverture (logo puis cercle)   | `components/BootScreen.tsx` + `.ecran-boot` dans `app/globals.css` |
 | Redirections, en-têtes de sécurité    | `next.config.ts`                              |
 
@@ -126,6 +127,13 @@ Code : `components/SecretModes.tsx`.
   conservé, et un bandeau le dit avant qu'on y touche.
 - `prefers-reduced-motion` est respecté partout (animations coupées ou
   remplacées par un état statique).
+- **Le reçu** : quand une machine a réellement agi, elle imprime une
+  ligne courte en chasse fixe qui s'allume en phosphore terracotta puis
+  se calme — la durée mesurée d'un envoi, l'adresse recomposée dans le
+  navigateur, `exit 1` sur la 404. La règle est écrite en tête de
+  `components/Recu.tsx` : un reçu ne s'affiche que si une machine a agi,
+  et il ne porte jamais une information qui ne soit pas déjà écrite en
+  clair juste à côté. On les supprime tous, le site reste entier.
 - **Rien ne bouge de soi-même** : le site est passé de 23 animations en
   boucle à 4, chacune justifiable en une phrase — le bandeau du pied de
   page, le curseur de `exit 0`, et les deux témoins du poste rétro. Les

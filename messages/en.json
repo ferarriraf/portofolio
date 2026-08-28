@@ -463,6 +463,7 @@
       "piege": "Leave this field empty",
       "merciTitre": "Message sent",
       "merciTexte": "Thank you. I'll reply within two working days, to the address you just gave me.",
+      "recu": "handed to the mail server in {ms} ms",
       "erreurs": {
         "nomVide": "Please tell me your name.",
         "nomLong": "That name is longer than 80 characters.",
@@ -479,6 +480,7 @@
     "emailLabel": "Write to me",
     "copy": "Copy address",
     "copied": "Address copied!",
+    "recuCopie": "address rebuilt in your browser · absent from the page source",
     "mailto": "Open your email app",
     "reply": "Reply within two working days.",
     "faqTitle": "Frequently asked questions",
@@ -527,7 +529,8 @@
   "notFound": {
     "title": "Page not found",
     "text": "This page doesn't exist — or not anymore. Good websites start with good routes; this one returns a 404.",
-    "back": "Back to home"
+    "back": "Back to home",
+    "recu": "exit 1 · it is the page that is missing, not you."
   },
   "cookies": {
     "title": "No cookies here",

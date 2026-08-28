@@ -78,6 +78,11 @@ export async function envoyerMessage(
     "Envoyé depuis le formulaire de www.r-x.fr",
   ].join("\n");
 
+  // La durée est mesurée, jamais estimée : c'est elle que le visiteur
+  // lira sur son reçu. Un serveur lent affichera un chiffre peu
+  // flatteur — ne pas le maquiller, ne pas le plafonner.
+  const depart = Date.now();
+
   try {
     await envoyerCourriel(
       {
@@ -95,5 +100,5 @@ export async function envoyerMessage(
     return { statut: "erreur", erreurs: { global: "envoi" }, valeurs };
   }
 
-  return { statut: "succes" };
+  return { statut: "succes", ms: Math.round((Date.now() - depart) / 10) * 10 };
 }

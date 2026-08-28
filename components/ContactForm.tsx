@@ -5,6 +5,7 @@ import { useTranslations } from "next-intl";
 import { motion, useReducedMotion } from "framer-motion";
 import { Check, Send } from "lucide-react";
 import { envoyerMessage } from "@/app/[locale]/contact/actions";
+import Recu from "./Recu";
 import {
   CHAMP_DEPART,
   CHAMP_PIEGE,
@@ -82,6 +83,14 @@ export default function ContactForm() {
         <p className="mx-auto mt-3 max-w-md leading-relaxed text-ink-soft">
           {t("merciTexte")}
         </p>
+
+        {/* Le reçu : une durée réellement mesurée. Un robot, à qui l'on
+            répond « merci » sans rien expédier, n'en a pas. */}
+        {etat.ms !== undefined && (
+          <Recu signature={etat.ms} className="mt-5 text-center">
+            {t("recu", { ms: etat.ms })}
+          </Recu>
+        )}
       </motion.div>
     );
   }

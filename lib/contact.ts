@@ -30,6 +30,13 @@ export type EtatFormulaire = {
   erreurs?: Partial<Record<Champ | "global", CleErreur>>;
   /** Ce que le visiteur avait saisi : on ne lui fait pas tout retaper */
   valeurs?: Valeurs;
+  /**
+   * Durée réelle de la remise au serveur de messagerie, en
+   * millisecondes. Absente quand rien n'a été envoyé — c'est ce qui
+   * fait qu'un robot, à qui l'on répond « merci » sans rien expédier,
+   * ne reçoit mécaniquement pas de reçu.
+   */
+  ms?: number;
 };
 
 export const ETAT_INITIAL: EtatFormulaire = { statut: "repos" };

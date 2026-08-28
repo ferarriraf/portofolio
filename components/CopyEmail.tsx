@@ -5,6 +5,7 @@ import { AnimatePresence, motion, useReducedMotion } from "framer-motion";
 import { Check, Copy, Mail } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { recomposerAdresse } from "./MailLink";
+import Recu from "./Recu";
 
 export default function CopyEmail() {
   // Recomposée à l'affichage : le code source de la page n'en porte
@@ -12,6 +13,9 @@ export default function CopyEmail() {
   const [email, setEmail] = useState<string | null>(null);
   const t = useTranslations("contact");
   const [copied, setCopied] = useState(false);
+  // Compte les copies reussies : c'est ce qui rejoue l'eclat du recu
+  // meme quand le visiteur copie deux fois de suite.
+  const [copies, setCopies] = useState(0);
   const timer = useRef<ReturnType<typeof setTimeout> | null>(null);
   const reduce = useReducedMotion();
 
@@ -30,6 +34,7 @@ export default function CopyEmail() {
     try {
       await navigator.clipboard.writeText(email);
       setCopied(true);
+      setCopies((n) => n + 1);
       if (timer.current) clearTimeout(timer.current);
       timer.current = setTimeout(() => setCopied(false), 2200);
     } catch {
@@ -74,7 +79,6 @@ export default function CopyEmail() {
         <button
           type="button"
           onClick={copy}
-          aria-live="polite"
           className="btn btn-secondary"
         >
           <AnimatePresence mode="wait" initial={false}>
@@ -100,6 +104,15 @@ export default function CopyEmail() {
           {t("mailto")}
         </a>
       </div>
+      {/* Le detail dont R-X est le plus fier — l'adresse jamais ecrite
+          dans le HTML servi — cesse d'etre invisible exactement a la
+          seconde ou le visiteur s'en sert. */}
+      {copies > 0 && (
+        <Recu signature={copies} className="mt-6 text-center">
+          {t("recuCopie")}
+        </Recu>
+      )}
+
       <p className="mt-7 text-sm italic text-ink-soft">{t("reply")}</p>
     </div>
   );

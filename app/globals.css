@@ -193,6 +193,65 @@ body {
   }
 }
 
+/* ——— Reçus ———
+   La ligne qu'imprime une machine quand elle vient d'agir : elle
+   s'allume en phosphore terracotta, puis se calme et reste lisible
+   aussi longtemps qu'on la regarde.
+
+   La lueur est en terracotta vif, le TEXTE jamais : --terra-hot sur
+   sable ne fait que 3,3:1, sous le seuil. Une ombre ne porte aucune
+   information, elle a le droit d'être vive ; le texte part de
+   --terra-deep (6,5:1) et finit sur --ink-soft (5,5:1). */
+
+.recu {
+  --recu-eclat: var(--terra-deep);
+  --recu-calme: var(--ink-soft);
+  /* La place est réservée d'avance : sans ça, l'apparition du reçu
+     ferait remonter tout l'écran au moment exact du clic. */
+  min-height: 2.4em;
+  margin: 0;
+}
+
+.recu-sombre {
+  --recu-eclat: var(--terra);
+  --recu-calme: rgb(246 241 230 / 0.7);
+}
+
+.recu-vif {
+  display: inline-flex;
+  align-items: baseline;
+  gap: 0.55em;
+  color: var(--recu-calme);
+  animation: remanence 1.2s ease-out both;
+}
+
+.recu-carre {
+  width: 0.42em;
+  height: 0.42em;
+  flex: none;
+  background: var(--terra-hot);
+  translate: 0 -0.05em;
+}
+
+/* Une seule itération, jamais infinite : le reçu n'est pas un témoin
+   qui clignote, c'est une trace qui s'estompe. */
+@keyframes remanence {
+  from {
+    color: var(--recu-eclat);
+    text-shadow: 0 0 14px rgb(217 95 46 / 0.55);
+  }
+  to {
+    color: var(--recu-calme);
+    text-shadow: 0 0 0 transparent;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .recu-vif {
+    animation: none;
+  }
+}
+
 /* ——— Bandeau défilant ——— */
 @keyframes marquee {
   to {

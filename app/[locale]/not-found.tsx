@@ -1,5 +1,6 @@
 import { useTranslations } from "next-intl";
 import { Link } from "@/i18n/navigation";
+import Recu from "@/components/Recu";
 
 export default function NotFound() {
   const t = useTranslations("notFound");
@@ -13,6 +14,11 @@ export default function NotFound() {
       <Link href="/" className="btn btn-primary mt-9">
         {t("back")}
       </Link>
+
+      {/* La seule autre blague explicite du site, avec le « exit 0 » du
+          pied de page. Une par site : c'est le rationnement qui empeche
+          le procede de redevenir un costume. */}
+      <Recu className="mt-8">{t("recu")}</Recu>
     </div>
   );
 }

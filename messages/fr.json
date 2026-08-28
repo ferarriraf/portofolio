@@ -463,6 +463,7 @@
       "piege": "Laissez ce champ vide",
       "merciTitre": "Message envoyé",
       "merciTexte": "Merci. Je vous réponds sous deux jours ouvrés, à l'adresse que vous venez de me laisser.",
+      "recu": "remis au serveur de messagerie en {ms} ms",
       "erreurs": {
         "nomVide": "Indiquez votre nom.",
         "nomLong": "Ce nom dépasse 80 caractères.",
@@ -479,6 +480,7 @@
     "emailLabel": "Écrivez-moi",
     "copy": "Copier l'adresse",
     "copied": "Adresse copiée !",
+    "recuCopie": "adresse recomposée dans votre navigateur · absente du code de la page",
     "mailto": "Ouvrir votre messagerie",
     "reply": "Réponse sous deux jours ouvrés.",
     "faqTitle": "Questions fréquentes",
@@ -527,7 +529,8 @@
   "notFound": {
     "title": "Page introuvable",
     "text": "Cette page n'existe pas — ou plus. Un bon site commence par de bonnes routes ; celle-ci renvoie une 404.",
-    "back": "Retour à l'accueil"
+    "back": "Retour à l'accueil",
+    "recu": "exit 1 · c'est la page qui manque, pas vous."
   },
   "cookies": {
     "title": "Aucun cookie ici",

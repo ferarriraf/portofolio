@@ -61,6 +61,18 @@ clients, années d'expérience ou promesses invérifiables
 - Système de matière : une seule lumière, tokens `shadow-elev-1..4`,
   arêtes `inset-shadow-cisele(-sombre)`, bandes en creux
   `.bande-calque*` (sans liseré clair) — voir `app/globals.css`.
+- **Le reçu** (`components/Recu.tsx`) : trois règles écrites en tête du
+  fichier, à ne pas contourner. Un reçu ne s'affiche QUE si une machine
+  a réellement agi (pas au défilement, pas à l'apparition d'un bloc) ;
+  il ne porte JAMAIS une information qui ne soit pas déjà écrite en
+  clair juste à côté ; il énonce un fait vérifiable, si possible
+  chiffré. La lueur est en `--terra-hot`, le TEXTE jamais (3,3:1, sous
+  le seuil) — une ombre ne porte aucune information. Trois reçus
+  aujourd'hui : envoi du formulaire, copie de l'adresse, 404. Une ligne
+  mono posée sous un titre « parce que ça fait joli » et le terminal
+  redevient un costume.
+- **Une seule blague explicite par site** : `exit 0` au pied de page,
+  `exit 1` sur la 404. Rien d'autre, nulle part.
 - **RIEN NE BOUGE DE SOI-MÊME.** Règle structurante depuis le grand
   silence (23 boucles `infinite` ramenées à 4). Une animation en boucle
   doit se justifier en une phrase, sinon elle n'existe pas. Les quatre
