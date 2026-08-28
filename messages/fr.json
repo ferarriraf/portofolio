@@ -402,18 +402,15 @@
     "figuresTitle": "En quelques chiffres",
     "figures": [
       {
-        "valeur": 48,
-        "suffixe": " h",
+        "chiffre": "48 h",
         "libelle": "pour vous répondre, au plus"
       },
       {
-        "valeur": 2,
-        "suffixe": "",
+        "chiffre": "2",
         "libelle": "langues de travail : FR et EN"
       },
       {
-        "valeur": 0,
-        "suffixe": "",
+        "chiffre": "0",
         "libelle": "cookie, traceur ou mesure d'audience"
       }
     ],
@@ -538,7 +535,6 @@
     "button": "Compris",
     "more": "Mentions légales"
   },
-  "loading": "Chargement",
   "a11y": {
     "skip": "Aller au contenu"
   },

@@ -396,8 +396,8 @@ function ScreenListen({ t }: { t: EcranTextes }) {
           {[8, 14, 10, 18, 12, 7, 15].map((h, i) => (
             <span
               key={i}
-              className="bar-dance w-1 rounded-full bg-sand/50"
-              style={{ height: h, animationDelay: `${i * 0.13}s` }}
+              className="w-1 rounded-full bg-sand/50"
+              style={{ height: h }}
             />
           ))}
         </div>
@@ -412,7 +412,7 @@ function ScreenListen({ t }: { t: EcranTextes }) {
         {/* La ligne en train de s'écrire, avec son curseur qui clignote */}
         <span className="flex items-center gap-1">
           <span className="typing-line h-2.5 rounded-full bg-terra/60" />
-          <span className="caret-blink h-3 w-0.5 shrink-0 bg-ink/60" />
+          <span className="h-3 w-0.5 shrink-0 bg-ink/60" />
         </span>
         <span className="mt-auto inline-flex items-center gap-1 self-start rounded-full bg-sage-wash px-2 py-1 text-[0.5rem] font-semibold tracking-wide text-sage-deep uppercase">
           {t.enregistrement}
@@ -496,7 +496,7 @@ function ScreenArchi({ t }: { t: EcranTextes }) {
               </svg>
             )}
             <div
-              className="wf-settle flex flex-1 items-center justify-between rounded-lg border-2 border-dashed border-ink/25 px-3"
+              className="flex flex-1 items-center justify-between rounded-lg border-2 border-dashed border-ink/25 px-3"
               style={{ animationDelay: e.delai }}
             >
               <span className="font-mono text-[0.55rem] font-semibold text-ink/75">
@@ -559,7 +559,7 @@ function ScreenCode({ t }: { t: EcranTextes }) {
             {lignes.length + 1}
           </span>
           <span className="typing-line h-1.5 rounded-full bg-sage/70" />
-          <span className="caret-blink h-2.5 w-0.5 shrink-0 bg-sand/80" />
+          <span className="h-2.5 w-0.5 shrink-0 bg-sand/80" />
         </div>
       </div>
       {/* La barre d'état : tout est au vert */}
@@ -586,17 +586,17 @@ function ScreenTests({ t }: { t: EcranTextes }) {
       </div>
       <div className="mt-3 flex flex-1 flex-col justify-center gap-2">
         <span className="text-[0.55rem] text-sand/60">$ {t.testsTitre}</span>
-        {t.testsItems.map((item, i) => (
+        {t.testsItems.map((item) => (
           <span
             key={item}
-            className="wf-settle flex items-center gap-1.5 text-[0.55rem] text-sand/90"
-            style={{ animationDelay: `${0.4 + i * 0.45}s` }}
+            className="flex items-center gap-1.5 text-[0.55rem] text-sand/90"
+            style={{ }}
           >
             <Check className="size-2.5 shrink-0 text-sage" aria-hidden="true" />
             {item}
           </span>
         ))}
-        <span className="badge-pop mt-1.5 inline-flex items-center gap-1.5 self-start rounded-full bg-sage px-2.5 py-1 text-[0.55rem] font-bold text-ink-deep">
+        <span className="mt-1.5 inline-flex items-center gap-1.5 self-start rounded-full bg-sage px-2.5 py-1 text-[0.55rem] font-bold text-ink-deep">
           <Check className="size-2.5" aria-hidden="true" />
           {t.testsResume}
         </span>
@@ -633,11 +633,7 @@ function ScreenLaunch({ onlineLabel }: { onlineLabel: string }) {
       </div>
       {/* Le sceau de mise en ligne, avec ses confettis */}
       <div className="absolute inset-0 flex items-center justify-center bg-ink-deep/20 backdrop-blur-[2px]">
-        <span aria-hidden="true" className="confetti-float absolute top-1/2 left-[38%] size-2 rounded-full bg-terra" />
-        <span aria-hidden="true" className="confetti-float absolute top-[55%] left-[58%] size-1.5 rounded-full bg-sage" style={{ animationDelay: "0.6s" }} />
-        <span aria-hidden="true" className="confetti-float absolute top-[48%] left-[64%] size-2 rounded-full bg-sand" style={{ animationDelay: "1.2s" }} />
-        <span aria-hidden="true" className="confetti-float absolute top-[58%] left-[43%] size-1.5 rounded-full bg-terra-strong" style={{ animationDelay: "1.8s" }} />
-        <span className="badge-pop inline-flex items-center gap-2.5 rounded-full bg-ink-deep px-5 py-2.5 shadow-elev-3">
+        <span className="inline-flex items-center gap-2.5 rounded-full bg-ink-deep px-5 py-2.5 shadow-elev-3">
           <span className="flex size-6 items-center justify-center rounded-full bg-sage">
             <Check className="size-4 text-ink-deep" />
           </span>

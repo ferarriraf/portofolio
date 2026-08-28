@@ -90,7 +90,7 @@ function section(locale: "fr" | "en"): string {
   T(`${m.about.valuesTitle} :`);
   for (const v of m.about.values) T(`- **${v.title}** : ${v.text}`);
   T(`${m.about.figuresTitle} :`);
-  for (const f of m.about.figures) T(`- ${f.valeur}${f.suffixe} — ${f.libelle}`);
+  for (const f of m.about.figures) T(`- ${f.chiffre} — ${f.libelle}`);
   T(`${m.about.toolsTitle} : ${m.about.tools.join(", ")}.`);
   T(`${m.about.timelineTitle} :`);
   for (const e of m.about.timeline) T(`- ${e.quand} — ${e.moi} (${locale === "fr" ? "côté client" : "client side"} : ${e.client})`);

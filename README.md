@@ -87,7 +87,7 @@ qui reste affichée juste en dessous.
 | Ses règles (validation, anti-robots)  | `lib/contact.ts`                              |
 | L'envoi du mail (protocole SMTP)      | `lib/smtp.ts` + `app/[locale]/contact/actions.ts` |
 | Ses textes et messages d'erreur       | clé `contact.form` dans `messages/*.json`     |
-| Écran de démarrage                    | `components/BootScreen.tsx`                   |
+| Écran d'ouverture (logo puis cercle)   | `components/BootScreen.tsx` + `.ecran-boot` dans `app/globals.css` |
 | Redirections, en-têtes de sécurité    | `next.config.ts`                              |
 
 Tous les textes visibles passent par `messages/*.json` : chaque clé
@@ -126,6 +126,12 @@ Code : `components/SecretModes.tsx`.
   conservé, et un bandeau le dit avant qu'on y touche.
 - `prefers-reduced-motion` est respecté partout (animations coupées ou
   remplacées par un état statique).
+- **Rien ne bouge de soi-même** : le site est passé de 23 animations en
+  boucle à 4, chacune justifiable en une phrase — le bandeau du pied de
+  page, le curseur de `exit 0`, et les deux témoins du poste rétro. Les
+  halos du hero ne dérivent plus, les maquettes ne font plus semblant de
+  travailler, et les chiffres de la page « à propos » sont écrits plutôt
+  que comptés. Ce qui bouge sur ce site répond à un geste du visiteur.
 - **Système de profondeur unifié** : une seule lumière (venant du haut),
   échelle d'ombres `shadow-elev-1..4`, arêtes ciselées
   `inset-shadow-cisele(-sombre)` façon boîtier du Mac, bandes pleine

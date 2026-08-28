@@ -78,7 +78,7 @@ export default function StudioCard() {
       {/* La disponibilité, avec son témoin */}
       <div className="flex items-center gap-3 border-t border-line bg-sage-wash px-6 py-4">
         <span className="relative flex size-2.5 shrink-0" aria-hidden="true">
-          <span className="ring-pulse absolute inset-0 rounded-full border border-sage-deep" />
+          <span className="absolute inset-0 rounded-full border border-sage-deep" />
           <span className="size-2.5 rounded-full bg-sage-deep" />
         </span>
         <span className="text-sm font-semibold text-sage-deep">

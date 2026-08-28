@@ -66,7 +66,7 @@ function Vitrine({ t }: { t: MockupTextes["vitrine"] }) {
             {t.titre}
           </span>
           <span className="text-[0.52rem] text-ink-soft">{t.lede}</span>
-          <span className="pulse-doux mt-1 self-start rounded-full bg-terra-strong px-2.5 py-1 text-[0.52rem] font-semibold text-sand-card">
+          <span className="mt-1 self-start rounded-full bg-terra-strong px-2.5 py-1 text-[0.52rem] font-semibold text-sand-card">
             {t.action}
           </span>
         </div>
@@ -86,10 +86,10 @@ function Vitrine({ t }: { t: MockupTextes["vitrine"] }) {
         {t.cartes.map((c, i) => (
           <div
             key={c}
-            className={`wf-settle flex flex-col items-center justify-end gap-1 rounded-lg pb-1.5 ${
+            className={`flex flex-col items-center justify-end gap-1 rounded-lg pb-1.5 ${
               ["bg-sage-wash", "bg-terra-wash", "bg-sand-card shadow-elev-1"][i]
             }`}
-            style={{ animationDelay: `${i * 0.2}s` }}
+            style={{ }}
           >
             <Silhouette forme={i} />
             <span className="text-[0.5rem] font-semibold text-ink-soft">{c}</span>
@@ -135,7 +135,7 @@ function Metier({ t }: { t: MockupTextes["metier"] }) {
       </div>
       <div className="flex flex-1 flex-col justify-center gap-2 p-3">
         {/* La demande déjà traitée : le geste que montre la démo */}
-        <div className="wf-settle flex items-center justify-between rounded-xl bg-sage-wash px-3 py-2">
+        <div className="flex items-center justify-between rounded-xl bg-sage-wash px-3 py-2">
           <span className="flex flex-col">
             <span className="text-[0.62rem] font-semibold">{t.lignes[0][0]}</span>
             <span className="text-[0.52rem] text-ink-soft">{t.lignes[0][1]}</span>
@@ -146,11 +146,11 @@ function Metier({ t }: { t: MockupTextes["metier"] }) {
           </span>
         </div>
         {/* Celles qui attendent un clic */}
-        {t.lignes.slice(1).map(([nom, dates], i) => (
+        {t.lignes.slice(1).map(([nom, dates]) => (
           <div
             key={nom}
-            className="wf-settle flex items-center justify-between rounded-xl bg-sand-card px-3 py-2 shadow-elev-1"
-            style={{ animationDelay: `${0.3 + i * 0.25}s` }}
+            className="flex items-center justify-between rounded-xl bg-sand-card px-3 py-2 shadow-elev-1"
+            style={{ }}
           >
             <span className="flex flex-col">
               <span className="text-[0.62rem] font-semibold">{nom}</span>
@@ -166,7 +166,7 @@ function Metier({ t }: { t: MockupTextes["metier"] }) {
         ))}
       </div>
       <div className="px-3 pb-3">
-        <span className="pulse-doux inline-block rounded-full bg-terra-hot px-3 py-1.5 text-[0.58rem] font-semibold text-sand-card">
+        <span className="inline-block rounded-full bg-terra-hot px-3 py-1.5 text-[0.58rem] font-semibold text-sand-card">
           {t.action}
         </span>
       </div>
@@ -202,7 +202,7 @@ function Api({ t }: { t: MockupTextes["api"] }) {
         {/* La requête suivante, déjà en train de partir */}
         <span className="mt-1 flex items-center gap-1.5">
           <span className="typing-line h-1.5 rounded-full bg-sage/70" />
-          <span className="caret-blink h-2.5 w-0.5 shrink-0 bg-sand/80" />
+          <span className="h-2.5 w-0.5 shrink-0 bg-sand/80" />
         </span>
       </div>
       <div className="mt-2 flex items-center gap-1.5 rounded-md bg-ink/70 px-2.5 py-1">

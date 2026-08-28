@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useState } from "react";
-import { useTranslations } from "next-intl";
 
 const CLE = "rx-boot";
 
@@ -20,10 +19,9 @@ const CLE = "rx-boot";
  * les changer d'un côté sans l'autre laisserait le nœud en place ou le
  * retirerait en pleine ouverture.
  */
-const SEQUENCE_MS = 950 + 450 + 900;
+const SEQUENCE_MS = 350 + 450 + 900;
 
 export default function BootScreen() {
-  const t = useTranslations();
   const [retire, setRetire] = useState(false);
 
   useEffect(() => {
@@ -41,20 +39,16 @@ export default function BootScreen() {
       "(prefers-reduced-motion: reduce)",
     ).matches;
 
-    const rendreLaPage = () => {
-      setRetire(true);
-      document.documentElement.style.overflow = "";
-    };
+    const rendreLaPage = () => setRetire(true);
 
     if (vu || mouvementReduit) {
       const immediat = setTimeout(rendreLaPage, 0);
       return () => clearTimeout(immediat);
     }
 
-    // Le défilement est bloqué le temps de l'ouverture, sinon la molette
-    // fait glisser une page qu'on ne voit pas encore.
-    document.documentElement.style.overflow = "hidden";
-
+    // Pas de verrou de défilement : la séquence dure 1,7 s et le site
+    // apparaît en place. Bloquer le défilement laisserait, en cas
+    // d'interruption, une page qu'on ne peut plus faire défiler.
     const fin = setTimeout(() => {
       // La session n'est marquée qu'à la FIN, jamais au montage : en
       // développement React joue chaque effet deux fois, et marquer trop
@@ -68,10 +62,7 @@ export default function BootScreen() {
       rendreLaPage();
     }, SEQUENCE_MS);
 
-    return () => {
-      clearTimeout(fin);
-      document.documentElement.style.overflow = "";
-    };
+    return () => clearTimeout(fin);
   }, []);
 
   if (retire) return null;
@@ -88,14 +79,6 @@ export default function BootScreen() {
           R<span className="text-terra-hot">-</span>X
         </span>
 
-        {/* Le trait de progression */}
-        <span className="mt-6 block h-px w-40 overflow-hidden bg-ink/10">
-          <span className="boot-barre block h-full origin-left bg-terra-hot" />
-        </span>
-
-        <span className="mt-4 font-mono text-[0.62rem] tracking-[0.2em] text-ink-soft uppercase">
-          {t("loading")}
-        </span>
       </span>
     </div>
   );

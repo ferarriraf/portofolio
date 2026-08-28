@@ -2,7 +2,6 @@ import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import { Feather, Handshake, Ruler } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
-import CountUp from "@/components/CountUp";
 import Reveal from "@/components/Reveal";
 import StudioCard from "@/components/StudioCard";
 import ProjectTimeline from "@/components/ProjectTimeline";
@@ -26,8 +25,7 @@ export default async function AboutPage({ params }: Props) {
 
   const values = t.raw("values") as { title: string; text: string }[];
   const figures = t.raw("figures") as {
-    valeur: number;
-    suffixe: string;
+    chiffre: string;
     libelle: string;
   }[];
   const tools = t.raw("tools") as string[];
@@ -67,8 +65,10 @@ export default async function AboutPage({ params }: Props) {
             <dl className="mt-8 grid gap-8 sm:grid-cols-3">
               {figures.map((f, i) => (
                 <Reveal key={f.libelle} delay={0.07 * i}>
-                  <dt className="font-display text-5xl font-[800] tracking-tight text-terra-deep md:text-6xl">
-                    <CountUp valeur={f.valeur} suffixe={f.suffixe} />
+                  {/* Le chiffre est écrit, pas compté : il n'a jamais
+                      changé de valeur, l'animer était une fausse mesure. */}
+                  <dt className="font-display text-5xl font-[800] tracking-tight text-terra-deep tabular-nums md:text-6xl">
+                    {f.chiffre}
                   </dt>
                   <dd className="mt-2 text-sm leading-snug text-ink-soft">
                     {f.libelle}

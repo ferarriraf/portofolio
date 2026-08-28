@@ -61,6 +61,16 @@ clients, années d'expérience ou promesses invérifiables
 - Système de matière : une seule lumière, tokens `shadow-elev-1..4`,
   arêtes `inset-shadow-cisele(-sombre)`, bandes en creux
   `.bande-calque*` (sans liseré clair) — voir `app/globals.css`.
+- **RIEN NE BOUGE DE SOI-MÊME.** Règle structurante depuis le grand
+  silence (23 boucles `infinite` ramenées à 4). Une animation en boucle
+  doit se justifier en une phrase, sinon elle n'existe pas. Les quatre
+  survivantes : le bandeau du pied de page (voulu), le curseur de
+  `exit 0` (une machine qui attend qu'on tape), et les deux témoins du
+  poste rétro (à brancher sur le défilement réel). Avant d'ajouter une
+  `@keyframes ... infinite`, se demander ce qu'elle **dit** ; si la
+  réponse est « ça fait vivant », elle est refusée. Corollaire :
+  `CountUp` a été supprimé — un chiffre qui monte alors qu'il n'a
+  jamais changé de valeur est une fausse mesure.
 
 ## Contraintes techniques du site
 

@@ -402,18 +402,15 @@
     "figuresTitle": "In numbers",
     "figures": [
       {
-        "valeur": 48,
-        "suffixe": " h",
+        "chiffre": "48 h",
         "libelle": "to get back to you, at most"
       },
       {
-        "valeur": 2,
-        "suffixe": "",
+        "chiffre": "2",
         "libelle": "working languages: FR and EN"
       },
       {
-        "valeur": 0,
-        "suffixe": "",
+        "chiffre": "0",
         "libelle": "cookies, trackers or analytics"
       }
     ],
@@ -538,7 +535,6 @@
     "button": "Got it",
     "more": "Legal notice"
   },
-  "loading": "Loading",
   "a11y": {
     "skip": "Skip to content"
   },

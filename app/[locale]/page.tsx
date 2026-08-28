@@ -41,11 +41,12 @@ export default async function HomePage({ params }: Props) {
     <>
       {/* ——— Hero : le titre mis en scène comme un calque sélectionné ——— */}
       <section className="relative overflow-hidden">
-        {/* Halos pastel : trois plans de lumière qui dérivent à des
-            vitesses différentes — le fond respire sans jamais boucler */}
+        {/* Halos pastel : trois plans de lumière fixes. Ils ne dérivent
+            plus — rien ne bouge sur cette page tant que le visiteur
+            n'a pas fait un geste. */}
         <div
           aria-hidden="true"
-          className="halo-a pointer-events-none absolute -top-40 -left-52 size-[42rem]"
+          className="pointer-events-none absolute -top-40 -left-52 size-[42rem]"
           style={{
             background:
               "radial-gradient(closest-side, rgba(169,191,160,0.5), transparent 72%)",
@@ -53,7 +54,7 @@ export default async function HomePage({ params }: Props) {
         />
         <div
           aria-hidden="true"
-          className="halo-b pointer-events-none absolute -right-60 -bottom-48 size-[46rem]"
+          className="pointer-events-none absolute -right-60 -bottom-48 size-[46rem]"
           style={{
             background:
               "radial-gradient(closest-side, rgba(223,161,132,0.42), transparent 72%)",
@@ -61,7 +62,7 @@ export default async function HomePage({ params }: Props) {
         />
         <div
           aria-hidden="true"
-          className="halo-c pointer-events-none absolute -top-24 right-[14%] size-[24rem]"
+          className="pointer-events-none absolute -top-24 right-[14%] size-[24rem]"
           style={{
             background:
               "radial-gradient(closest-side, rgba(169,191,160,0.26), transparent 70%)",
