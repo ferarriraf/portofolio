@@ -58,6 +58,12 @@ clients, années d'expérience ou promesses invérifiables
   levée au survol. Le bandeau défilant du footer est **voulu** ; le Mac
   rétro est posé de trois quarts **immobile** ; la FAQ est éditoriale
   sobre (l'habillage terminal a été essayé puis rejeté).
+- Le bandeau **ne s'arrête plus au survol** : le geste n'était pas
+  intentionnel et donnait l'impression d'une page plantée. Il s'arrête
+  par son bouton, qui existe aussi pour couvrir le critère WCAG 2.2.2 —
+  une animation infinie doit avoir une commande d'arrêt, et le survol
+  n'en est pas une au doigt ni au clavier. Ne pas retirer le bouton sans
+  retirer aussi l'animation.
 - Système de matière : une seule lumière, tokens `shadow-elev-1..4`,
   arêtes `inset-shadow-cisele(-sombre)`, bandes en creux
   `.bande-calque*` (sans liseré clair) — voir `app/globals.css`.

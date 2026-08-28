@@ -76,23 +76,72 @@ export default function ProcessScroll({
     if (e !== etape) setEtape(e);
   });
 
+  /**
+   * Sauter d'une étape — en passant le temps mort.
+   *
+   * Entre deux étapes, l'écran ne change que sur une fenêtre étroite
+   * autour de la frontière : le reste du trajet, plus de la moitié, est
+   * un plateau où rien ne bouge. Faire défiler tout ça d'un bloc donnait
+   * l'impression d'un bouton qui ne répond pas.
+   *
+   * Le saut se fait donc en deux temps : on se pose instantanément juste
+   * avant la transition — le plateau ne mérite pas qu'on le regarde
+   * défiler — puis on joue la transition elle-même, à la vitesse où
+   * elle se lit. On n'escamote que ce qui n'a rien à montrer.
+   */
+  // Le défilement en cours, pour pouvoir l'interrompre : deux clics
+  // rapprochés lançaient deux animations qui se disputaient la page,
+  // et l'on n'arrivait jamais où l'on voulait.
+  const defilement = useRef<{ stop: () => void } | null>(null);
+
   const sauter = (dir: 1 | -1) => {
+    defilement.current?.stop();
+
     const el = ref.current;
     if (!el) return;
-    // Position réelle au moment du clic, pas l'état affiché
+
     const courant = Math.max(
       0,
       Math.min(steps.length - 1, Math.floor(scrollYProgress.get() * steps.length))
     );
     const cible = Math.max(0, Math.min(steps.length - 1, courant + dir));
+    if (cible === courant) return;
+
     const haut = el.getBoundingClientRect().top + window.scrollY;
     const course = el.offsetHeight - window.innerHeight;
-    // Défilement piloté : une seconde, décélération douce — le smooth
-    // natif est trop brusque sur une telle distance
-    animate(window.scrollY, haut + ((cible + 0.5) / steps.length) * course, {
-      duration: 1.05,
-      ease: [0.3, 0, 0.25, 1],
+    const position = (p: number) => haut + p * course;
+
+    // La frontière franchie : celle de l'étape d'arrivée en descendant,
+    // celle de l'étape de départ en remontant.
+    const frontiere = (dir === 1 ? cible : courant) / steps.length;
+    /* La demi-fenêtre où quelque chose bouge réellement, mesurée sur le
+       code plutôt qu'estimée. Autour d'une frontière à 0,2 :
+         · l'écran balaie sur ±0,045   (ScreenPanel, w = 0.045)
+         · l'étape sortante s'efface de 0,130 à 0,228  (segment(0, 5))
+         · l'étape entrante apparaît de 0,172 à 0,270  (segment(1, 5))
+       Soit une zone vivante de 0,130 à 0,270 : ±0,07 exactement. Le
+       reste du segment — 0,100 à 0,130 puis 0,270 à 0,300, soit 30 % du
+       trajet — est un plateau où rien ne change. C'est lui qu'on saute.
+       Élargir cette marge à 0,1 reviendrait à la moitié d'un segment :
+       le saut ne sauterait plus rien. */
+    const MARGE = 0.07;
+
+    const depart = position(frontiere - dir * MARGE);
+    const arrivee = position(frontiere + dir * MARGE);
+
+    // On ne saute que si l'on est loin : déjà dans la transition, un
+    // saut en arrière serait un à-coup gratuit.
+    if (Math.abs(window.scrollY - depart) > 4) {
+      window.scrollTo({ top: depart, behavior: "instant" });
+    }
+
+    defilement.current = animate(window.scrollY, arrivee, {
+      duration: 0.62,
+      ease: [0.32, 0, 0.2, 1],
       onUpdate: (v) => window.scrollTo({ top: v, behavior: "instant" }),
+      onComplete: () => {
+        defilement.current = null;
+      },
     });
   };
   const railScale = useTransform(scrollYProgress, (p) =>

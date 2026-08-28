@@ -524,7 +524,9 @@
     "navTitle": "Navigation",
     "contactTitle": "Contact",
     "legal": "Legal notice",
-    "rights": "All rights reserved."
+    "rights": "All rights reserved.",
+    "marqueePause": "Pause the ticker",
+    "marqueeLecture": "Resume the ticker"
   },
   "notFound": {
     "title": "Page not found",

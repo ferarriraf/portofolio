@@ -524,7 +524,9 @@
     "navTitle": "Navigation",
     "contactTitle": "Contact",
     "legal": "Mentions légales",
-    "rights": "Tous droits réservés."
+    "rights": "Tous droits réservés.",
+    "marqueePause": "Mettre le bandeau en pause",
+    "marqueeLecture": "Relancer le bandeau"
   },
   "notFound": {
     "title": "Page introuvable",

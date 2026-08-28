@@ -263,8 +263,11 @@ body {
   animation: marquee var(--marquee-speed, 38s) linear infinite;
 }
 
-/* La fente s'arrête sous la souris : on peut lire les mots */
-.marquee-slot:hover .marquee-track {
+/* Le bandeau ne s'arrête PLUS au survol : on traversait la bande sans
+   intention, elle se figeait, et on croyait la page plantée. Il s'arrête
+   quand on le demande, par le bouton du composant — qui fonctionne aussi
+   au doigt et au clavier, là où le survol n'existe pas. */
+.marquee-slot[data-pause="true"] .marquee-track {
   animation-play-state: paused;
 }
 
