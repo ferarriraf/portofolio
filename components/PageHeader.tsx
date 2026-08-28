@@ -19,11 +19,11 @@ export default function PageHeader({ eyebrow, title, lede }: PageHeaderProps) {
           as="h1"
           text={title}
           delay={0.08}
-          className="mt-6 max-w-4xl font-display text-[clamp(2.75rem,7.5vw,6.5rem)] font-bold leading-[1.02] tracking-tight text-ink"
+          className="mt-6 max-w-4xl font-display text-[clamp(2.1rem,7.5vw,6.5rem)] font-bold leading-[1.02] tracking-tight text-balance text-ink"
         />
         {lede && (
           <Reveal delay={0.25}>
-            <p className="mt-7 max-w-2xl text-xl leading-relaxed text-ink-soft">
+            <p className="mt-7 max-w-2xl text-xl leading-relaxed text-pretty text-ink-soft">
               {lede}
             </p>
           </Reveal>

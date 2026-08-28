@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useRef } from "react";
+import { Fragment, useEffect, useRef } from "react";
 import { useReducedMotion } from "framer-motion";
 
 type MagneticTitleProps = {
@@ -168,21 +168,34 @@ export default function MagneticTitle({
             : `title-rise 0.85s cubic-bezier(0.22,1,0.36,1) ${retard}s both`,
         }}
       >
-        {Array.from(texte).map((ch, i) =>
-          ch === " " ? (
-            <span key={i}> </span>
-          ) : (
-            <span
-              key={i}
-              data-lettre
-              data-repos={poidsRepos}
-              className="inline-block will-change-transform"
-              style={{ fontVariationSettings: `"wght" ${poidsRepos}` }}
-            >
-              {ch}
+        {/* Les lettres sont groupées par MOT dans un conteneur insécable.
+            Sans ce groupe, chaque lettre étant un inline-block, le
+            navigateur a le droit de couper n'importe où : à 360 px de
+            large — l'une des largeurs Android les plus répandues — le
+            titre s'affichait « bien construi / t. ».
+            Les [data-lettre] restent au même niveau de profondeur :
+            querySelectorAll les retrouve à l'identique, la largeur figée
+            par lettre et l'onde du clic sont intactes. */}
+        {texte.split(" ").map((mot, m, mots) => (
+          <Fragment key={m}>
+            <span className="inline-block whitespace-nowrap">
+              {Array.from(mot).map((ch, i) => (
+                <span
+                  key={i}
+                  data-lettre
+                  data-repos={poidsRepos}
+                  className="inline-block will-change-transform"
+                  style={{ fontVariationSettings: `"wght" ${poidsRepos}` }}
+                >
+                  {ch}
+                </span>
+              ))}
             </span>
-          )
-        )}
+            {/* L'espace reste DEHORS du groupe insécable : c'est le seul
+                endroit où la ligne a désormais le droit de se couper. */}
+            {m < mots.length - 1 ? " " : null}
+          </Fragment>
+        ))}
       </span>
     </span>
   );

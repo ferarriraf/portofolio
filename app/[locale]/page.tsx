@@ -78,7 +78,7 @@ export default async function HomePage({ params }: Props) {
               <MagneticTitle
                 lineA={t("titleA")}
                 lineB={t("titleB")}
-                className="font-display text-[clamp(3.2rem,9.5vw,8rem)] leading-[0.98] tracking-[-0.035em] text-ink"
+                className="font-display text-[clamp(2.2rem,9.5vw,8rem)] leading-[0.98] tracking-[-0.035em] text-ink"
               />
             </SelectionFrame>
           </div>
@@ -124,7 +124,7 @@ export default async function HomePage({ params }: Props) {
               <SectionLabel n={3}>{t("work.eyebrow")}</SectionLabel>
               <SplitHeading
                 text={t("work.title")}
-                className="mt-5 max-w-2xl font-display text-[clamp(2.4rem,5.5vw,4.5rem)] font-bold leading-[1.04] tracking-tight text-ink"
+                className="mt-5 max-w-2xl font-display text-[clamp(1.9rem,5.5vw,4.5rem)] font-bold leading-[1.04] tracking-tight text-balance text-ink"
               />
             </div>
             <Link

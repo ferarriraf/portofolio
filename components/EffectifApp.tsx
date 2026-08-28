@@ -26,6 +26,9 @@ type Onglet = "tableau" | "conges" | "entretiens";
 
 const MOTIFS: MotifConge[] = ["payes", "rtt", "sansSolde", "familial"];
 
+/** Cible de repli du focus quand la file se vide */
+const TITRE_FILE = "effectif-file-attente";
+
 /* ——— Habillage commun, pour que l'application reste dans la matière
    du site : surfaces claires posées, creux plus sombres, une seule
    lumière venant du haut. ——— */
@@ -90,10 +93,18 @@ export default function EffectifApp() {
       : `${formaterJour(d.debut)} → ${formaterJour(d.fin)}`;
 
   const aujourdHui = enIso(ancre);
-  const attente = enAttente(etat);
-  const aCaler = aPlanifier(etat);
   const absents = absentsAujourdHui(etat, aujourdHui);
   const estManager = etat.role === "manager";
+
+  // « Ce qui attend une décision » n'a de sens que pour qui décide.
+  // Un salarié ne tranche rien — sa propre demande attend son manager,
+  // pas lui. Sans ce filtre il lisait « 3 demandes de congés — Traiter »
+  // et arrivait sur un écran où aucune action n'existe.
+  // Effet de bord voulu : côté salarié le tableau est vide et le dit,
+  // puis la bascule en manager l'allume d'un coup. C'est la
+  // démonstration la plus courte de ce que fait un rôle.
+  const attente = estManager ? enAttente(etat) : [];
+  const aCaler = estManager ? aPlanifier(etat) : [];
 
   if (!monte) {
     return (
@@ -120,6 +131,34 @@ export default function EffectifApp() {
     </span>
   );
 
+  /**
+   * Décider, puis rattraper le curseur.
+   *
+   * Le bouton qu'on vient d'actionner est démonté dans l'instant : au
+   * clavier, le focus retombe sur <body> et l'on se retrouve éjecté en
+   * haut du document au moment exact où l'on décide. On l'envoie donc
+   * sur la décision suivante, ou sur le titre de la file quand il n'y
+   * en a plus. Différé d'un tour de boucle : le temps que React ait
+   * remplacé la liste.
+   */
+  const decider = (
+    type: "valider" | "refuser",
+    id: string,
+    evenement: React.MouseEvent<HTMLButtonElement>,
+  ) => {
+    const liste = evenement.currentTarget.closest("ul");
+    envoyer({ type, id });
+    setTimeout(() => {
+      const suivant = liste?.querySelector<HTMLButtonElement>("li button");
+      // isConnected est indispensable : quand la dernière ligne part,
+      // React démonte la liste entière et le nœud capturé plus haut se
+      // retrouve détaché — il contient encore ses anciens boutons, et
+      // focus() sur un élément détaché ne fait rien du tout.
+      if (suivant?.isConnected) suivant.focus();
+      else document.getElementById(TITRE_FILE)?.focus();
+    }, 0);
+  };
+
   const LigneDemande = ({
     demande,
     actions,
@@ -142,7 +181,7 @@ export default function EffectifApp() {
           <button
             type="button"
             className={BOUTON_PLEIN}
-            onClick={() => envoyer({ type: "valider", id: demande.id })}
+            onClick={(e) => decider("valider", demande.id, e)}
           >
             <Check className="size-3.5" aria-hidden="true" />
             {t("conges.valider")}
@@ -150,7 +189,7 @@ export default function EffectifApp() {
           <button
             type="button"
             className={BOUTON_CONTOUR}
-            onClick={() => envoyer({ type: "refuser", id: demande.id })}
+            onClick={(e) => decider("refuser", demande.id, e)}
           >
             <X className="size-3.5" aria-hidden="true" />
             {t("conges.refuser")}
@@ -362,9 +401,16 @@ function CarteDecision({
   onClick: () => void;
 }) {
   return (
-    <div className={`${CARTE} flex items-center justify-between gap-3`}>
+    <div className={`${CARTE} flex items-center justify-between gap-3 shadow-elev-1`}>
       <span className="text-sm font-semibold text-ink">{texte}</span>
-      <button type="button" className={BOUTON_PLEIN} onClick={onClick}>
+      {/* Deux cartes portent ce bouton : sans aria-label, un lecteur
+          d'écran annonce deux fois « Traiter » sans dire quoi. */}
+      <button
+        type="button"
+        aria-label={`${bouton} : ${texte}`}
+        className={BOUTON_PLEIN}
+        onClick={onClick}
+      >
         {bouton}
       </button>
     </div>
@@ -415,7 +461,11 @@ function VueConges({
     return (
       <div className="space-y-6">
         <section>
-          <h3 className="font-display text-lg font-bold tracking-tight text-ink">
+          <h3
+            id={TITRE_FILE}
+            tabIndex={-1}
+            className="font-display text-lg font-bold tracking-tight text-ink outline-none"
+          >
             {t("conges.fileTitre")}
           </h3>
           {attente.length === 0 ? (
