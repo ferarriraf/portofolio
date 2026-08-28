@@ -8,6 +8,7 @@ const pages: AppPathname[] = [
   "/",
   "/services",
   "/realisations",
+  "/demo",
   "/a-propos",
   "/contact",
   "/mentions-legales",

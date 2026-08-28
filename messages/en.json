@@ -13,6 +13,10 @@
       "title": "Demonstrations",
       "description": "Demonstrations: a brochure site, a business application, an API — three typical projects built end to end to show the method."
     },
+    "demo": {
+      "title": "Playable demo",
+      "description": "effectif, the HR space: a complete business application you can try right in your browser — time off, approvals, reviews. Fictional data, nothing is kept."
+    },
     "about": {
       "title": "About",
       "description": "R-X, an independent web developer: the person who listens to your needs is the one who writes the code."
@@ -272,6 +276,89 @@
         ],
         "note": "0 retyping — synced every 5 min"
       }
+    },
+    "essayer": "Try the demo"
+  },
+  "demo": {
+    "eyebrow": "Playable demo",
+    "title": "effectif — the HR space",
+    "lede": "The business application from the Work page, for real. Approve a request, book time off, schedule a review: everything responds.",
+    "fenetre": "effectif — HR space",
+    "bacASable": "Sandbox: the people are fictional, everything happens in your browser, nothing is sent or kept. Reload the page and it all starts over.",
+    "chargement": "Opening the space…",
+    "sansJs": "This demo needs JavaScript to run. The rest of the site does perfectly well without it.",
+    "roleLabel": "You are",
+    "roles": {
+      "salarie": "Employee",
+      "manager": "Manager"
+    },
+    "reinitialiser": "Reset",
+    "onglets": {
+      "tableau": "Dashboard",
+      "conges": "Time off",
+      "entretiens": "Reviews"
+    },
+    "services": {
+      "atelier": "Workshop",
+      "commercial": "Sales",
+      "comptabilite": "Accounting"
+    },
+    "motifs": {
+      "payes": "Paid leave",
+      "rtt": "Time in lieu",
+      "sansSolde": "Unpaid leave",
+      "familial": "Family event"
+    },
+    "typesEntretien": {
+      "annuel": "Annual review",
+      "professionnel": "Career review",
+      "arrivee": "Onboarding check-in"
+    },
+    "statuts": {
+      "attente": "Pending",
+      "validee": "Approved",
+      "refusee": "Declined",
+      "aPlanifier": "To schedule",
+      "planifie": "Scheduled",
+      "fait": "Done"
+    },
+    "tableau": {
+      "titre": "What needs a decision",
+      "rien": "Nothing needs a decision. That is exactly the point.",
+      "demandes": "{n, plural, =0 {No time-off requests} one {# time-off request} other {# time-off requests}}",
+      "entretiens": "{n, plural, =0 {No reviews to schedule} one {# review to schedule} other {# reviews to schedule}}",
+      "traiter": "Handle",
+      "absentsTitre": "Away today",
+      "absentsVide": "Nobody is away today.",
+      "equipeTitre": "The team"
+    },
+    "conges": {
+      "soldeTitre": "Your balance",
+      "soldeSur": "out of {total} days a year",
+      "jours": "{n, plural, one {# working day} other {# working days}}",
+      "demanderTitre": "Book time off",
+      "debut": "From",
+      "fin": "To",
+      "motif": "Reason",
+      "envoyer": "Send request",
+      "fileTitre": "Requests to handle",
+      "fileVide": "No pending requests. The queue is empty.",
+      "mesTitre": "My requests",
+      "mesVide": "You have not asked for anything yet.",
+      "historiqueTitre": "Team history",
+      "valider": "Approve",
+      "refuser": "Decline",
+      "erreurVide": "Pick a start date and an end date.",
+      "erreurOrdre": "The end date must come after the start date.",
+      "erreurOuvres": "That range has no working day in it: it is a weekend.",
+      "erreurSolde": "You do not have enough days left."
+    },
+    "entretiens": {
+      "titre": "Reviews",
+      "planifier": "Schedule",
+      "cloturer": "Mark as done",
+      "choisirDate": "Review date",
+      "vide": "No reviews."
     }
   },
   "about": {

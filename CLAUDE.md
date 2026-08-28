@@ -33,7 +33,14 @@ déploiement et la table « où modifier quoi ».
 Aucun vrai client à ce jour : les trois démos (Site vitrine /
 Application métier / API) sont des **projets types** construits pour
 montrer la méthode, et le site le dit explicitement (`work.note`,
-llms.txt). Seuls des faits vérifiables sont affichés (réponse sous
+llms.txt). L'application métier est **jouable** sur `/demo`
+(« effectif », `components/EffectifApp.tsx` + `lib/effectif.ts`) : elle
+doit tenir mot pour mot la promesse écrite dans `work.projects[1]`
+— « un tableau de bord qui montre ce qui attend une décision, et rien
+d'autre », « les demandes se valident en un clic ». Personnes fictives,
+état reconstruit à chaque chargement depuis la date du jour, tout dans
+le navigateur : **jamais** de base, d'appel réseau ni de persistance,
+et le bandeau bac à sable reste affiché. Seuls des faits vérifiables sont affichés (réponse sous
 48 h, FR/EN, 0 cookie, fondé en 2026). Ne jamais inventer de chiffres,
 clients, années d'expérience ou promesses invérifiables
 (« sécurisé » a été retiré pour ça).
@@ -104,6 +111,14 @@ clients, années d'expérience ou promesses invérifiables
   paramètre » (`constructor(private socket: X)`) le font échouer, alors
   que Turbopack les accepte. Déclarer le champ explicitement, sinon les
   fichiers de `lib/` ne sont plus testables hors du site.
+- Un `<label>` qui **enveloppe** un `<select>` avale le texte des
+  `<option>` dans le nom accessible (« MotifCongés payésRTT… »).
+  Toujours relier par `htmlFor`/`id` autour d'une liste déroulante.
+- Toute donnée datée affichée côté client doit attendre le montage
+  (drapeau `monte` + `setTimeout(0)`), sinon le rendu serveur et celui
+  du navigateur divergent. Et caler les dates de démo sur des jours
+  ouvrés : un créneau tombé un samedi affiche « 0 jour » et fait croire
+  à un bug.
 - `pkill -f "next-server"` se tue lui-même (la commande contient le
   motif) : écrire `pkill -f "next[-]server"`.
 - Les lettres du titre magnétique ont une largeur figée par lettre

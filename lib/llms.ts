@@ -17,6 +17,7 @@ function pages(locale: "fr" | "en") {
     { url: `${BASE}${p || "/"}`, titre: m.meta.home.title, desc: m.meta.home.description },
     { url: `${BASE}${p}/services`, titre: m.meta.services.title, desc: m.meta.services.description },
     { url: `${BASE}${locale === "fr" ? "/realisations" : "/en/work"}`, titre: m.meta.work.title, desc: m.meta.work.description },
+    { url: `${BASE}${p}/demo`, titre: m.meta.demo.title, desc: m.meta.demo.description },
     { url: `${BASE}${locale === "fr" ? "/a-propos" : "/en/about"}`, titre: m.meta.about.title, desc: m.meta.about.description },
     { url: `${BASE}${p}/contact`, titre: m.meta.contact.title, desc: m.meta.contact.description },
     { url: `${BASE}${locale === "fr" ? "/mentions-legales" : "/en/legal"}`, titre: m.meta.legal.title, desc: m.meta.legal.description },
@@ -33,6 +34,8 @@ export function llmsIndex(): string {
     `Faits vérifiables : développeur web indépendant basé en France (travail à distance), activité fondée en 2026, langues de travail FR et EN, réponse sous 48 h ouvrées, aucun cookie ni traceur sur le site. Domaine canonique : ${BASE} (le site existe en français et en anglais).`,
     ``,
     `Important : les trois démonstrations présentées (un site vitrine, une application métier, une API) sont des PROJETS TYPES construits par R-X pour démontrer la méthode — ce ne sont pas de vrais clients, et le site le dit explicitement.`,
+    ``,
+    `L'application métier est jouable en ligne sur ${BASE}/demo : « effectif », un espace RH complet (validation de congés, solde, entretiens, bascule salarié/manager). Les personnes y sont fictives, tout s'exécute dans le navigateur du visiteur et rien n'est conservé.`,
     ``,
     `## Pages (français)`,
     ...pages("fr").map((p) => `- [${p.titre}](${p.url}) : ${p.desc}`),
@@ -75,6 +78,10 @@ function section(locale: "fr" | "en"): string {
     T(`- ${m.work.challengeLabel} : ${p.challenge}`);
     T(`- ${m.work.resultLabel} : ${p.result}`);
   }
+  T("");
+  T(`## ${m.meta.demo.title} — ${m.demo.title}`);
+  T(m.demo.lede);
+  T(m.demo.bacASable);
   T("");
   T(`## ${m.meta.about.title} — ${m.about.title}`);
   T(m.about.lede);

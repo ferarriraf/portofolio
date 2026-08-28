@@ -3,7 +3,14 @@ import { getTranslations } from "next-intl/server";
 import { getPathname } from "@/i18n/navigation";
 import type { AppPathname } from "@/i18n/routing";
 
-type MetaNs = "home" | "services" | "work" | "about" | "contact" | "legal";
+type MetaNs =
+  | "home"
+  | "services"
+  | "work"
+  | "demo"
+  | "about"
+  | "contact"
+  | "legal";
 
 /**
  * Métadonnées d'une page : titre et description traduits,

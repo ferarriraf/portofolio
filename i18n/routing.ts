@@ -16,6 +16,9 @@ export const routing = defineRouting({
     "/": "/",
     "/services": "/services",
     "/realisations": { fr: "/realisations", en: "/work" },
+    // La demo jouable : meme mot dans les deux langues, et l URL
+    // annonce elle-meme qu il s agit d une demonstration.
+    "/demo": "/demo",
     "/a-propos": { fr: "/a-propos", en: "/about" },
     "/contact": "/contact",
     "/mentions-legales": { fr: "/mentions-legales", en: "/legal" },

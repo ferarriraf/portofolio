@@ -1,5 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
+import { PlayCircle } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
@@ -82,6 +84,14 @@ export default async function WorkPage({ params }: Props) {
                     </dd>
                   </div>
                 </dl>
+                {/* L'application métier n'est plus une capture : elle
+                    s'ouvre et elle répond. */}
+                {coverVariants[i] === "metier" && (
+                  <Link href="/demo" className="btn btn-primary mt-7">
+                    <PlayCircle className="size-4" aria-hidden="true" />
+                    {t("essayer")}
+                  </Link>
+                )}
               </div>
             </article>
           </Reveal>

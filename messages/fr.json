@@ -13,6 +13,10 @@
       "title": "Démonstrations",
       "description": "Démonstrations : site vitrine, application métier, API — trois projets types construits de bout en bout pour montrer la méthode."
     },
+    "demo": {
+      "title": "Démonstration jouable",
+      "description": "effectif, l'espace RH : une application métier complète à essayer directement dans le navigateur — congés, validations, entretiens. Données fictives, rien n'est conservé."
+    },
     "about": {
       "title": "À propos",
       "description": "R-X, développeur web indépendant : la personne qui écoute votre besoin est celle qui écrit le code."
@@ -272,6 +276,89 @@
         ],
         "note": "0 ressaisie — synchronisé toutes les 5 min"
       }
+    },
+    "essayer": "Essayer la démonstration"
+  },
+  "demo": {
+    "eyebrow": "Démonstration jouable",
+    "title": "effectif — l'espace RH",
+    "lede": "L'application métier de la page Démonstrations, pour de vrai. Validez une demande, posez des congés, planifiez un entretien : tout répond.",
+    "fenetre": "effectif — espace RH",
+    "bacASable": "Bac à sable : les personnes sont fictives, tout se passe dans votre navigateur, rien n'est envoyé ni conservé. Rechargez la page et tout repart à zéro.",
+    "chargement": "Ouverture de l'espace…",
+    "sansJs": "Cette démonstration a besoin de JavaScript pour fonctionner. Le reste du site, lui, s'en passe très bien.",
+    "roleLabel": "Vous êtes",
+    "roles": {
+      "salarie": "Salarié",
+      "manager": "Manager"
+    },
+    "reinitialiser": "Remettre à zéro",
+    "onglets": {
+      "tableau": "Tableau de bord",
+      "conges": "Congés",
+      "entretiens": "Entretiens"
+    },
+    "services": {
+      "atelier": "Atelier",
+      "commercial": "Commercial",
+      "comptabilite": "Comptabilité"
+    },
+    "motifs": {
+      "payes": "Congés payés",
+      "rtt": "RTT",
+      "sansSolde": "Sans solde",
+      "familial": "Événement familial"
+    },
+    "typesEntretien": {
+      "annuel": "Entretien annuel",
+      "professionnel": "Entretien professionnel",
+      "arrivee": "Point d'arrivée"
+    },
+    "statuts": {
+      "attente": "En attente",
+      "validee": "Validée",
+      "refusee": "Refusée",
+      "aPlanifier": "À planifier",
+      "planifie": "Planifié",
+      "fait": "Fait"
+    },
+    "tableau": {
+      "titre": "Ce qui attend une décision",
+      "rien": "Rien n'attend de décision. C'est exactement le but.",
+      "demandes": "{n, plural, =0 {Aucune demande de congés} one {# demande de congés} other {# demandes de congés}}",
+      "entretiens": "{n, plural, =0 {Aucun entretien à planifier} one {# entretien à planifier} other {# entretiens à planifier}}",
+      "traiter": "Traiter",
+      "absentsTitre": "Absents aujourd'hui",
+      "absentsVide": "Personne n'est absent aujourd'hui.",
+      "equipeTitre": "L'équipe"
+    },
+    "conges": {
+      "soldeTitre": "Votre solde",
+      "soldeSur": "sur {total} jours par an",
+      "jours": "{n, plural, one {# jour ouvré} other {# jours ouvrés}}",
+      "demanderTitre": "Poser des congés",
+      "debut": "Du",
+      "fin": "Au",
+      "motif": "Motif",
+      "envoyer": "Envoyer la demande",
+      "fileTitre": "Demandes à traiter",
+      "fileVide": "Aucune demande en attente. La file est vide.",
+      "mesTitre": "Mes demandes",
+      "mesVide": "Vous n'avez encore rien demandé.",
+      "historiqueTitre": "Historique de l'équipe",
+      "valider": "Valider",
+      "refuser": "Refuser",
+      "erreurVide": "Choisissez une date de début et une date de fin.",
+      "erreurOrdre": "La date de fin doit suivre la date de début.",
+      "erreurOuvres": "Ce créneau ne contient aucun jour ouvré : c'est un week-end.",
+      "erreurSolde": "Il ne vous reste pas assez de jours."
+    },
+    "entretiens": {
+      "titre": "Entretiens",
+      "planifier": "Planifier",
+      "cloturer": "Marquer comme fait",
+      "choisirDate": "Date de l'entretien",
+      "vide": "Aucun entretien."
     }
   },
   "about": {

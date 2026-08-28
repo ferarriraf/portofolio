@@ -80,6 +80,9 @@ qui reste affichée juste en dessous.
 | La fiche « En bref » (horloge, faits) | `components/StudioCard.tsx` + `about.card`    |
 | Navigation / pied de page             | `components/Topbar.tsx` / `components/Footer.tsx` |
 | Bandeau « aucun cookie »              | `components/CookieNotice.tsx`                 |
+| La démo jouable « effectif » (écran)  | `components/EffectifApp.tsx`                  |
+| Ses règles (congés, entretiens)       | `lib/effectif.ts`                             |
+| Ses textes                            | clé `demo` dans `messages/*.json`             |
 | Le formulaire de contact (apparence)  | `components/ContactForm.tsx`                  |
 | Ses règles (validation, anti-robots)  | `lib/contact.ts`                              |
 | L'envoi du mail (protocole SMTP)      | `lib/smtp.ts` + `app/[locale]/contact/actions.ts` |
@@ -116,6 +119,11 @@ Code : `components/SecretModes.tsx`.
 - **Démonstrations assumées** : les trois démos (site vitrine, appli
   métier, API) sont des projets types annoncés comme tels — aucun faux
   client.
+- **Une démo qui se manipule** (`/demo`) : « effectif », l'application
+  métier en état de marche — validation de congés, solde qui bouge,
+  entretiens à planifier, bascule salarié/manager. Tout tourne dans le
+  navigateur du visiteur : aucun appel réseau, aucune base, rien de
+  conservé, et un bandeau le dit avant qu'on y touche.
 - `prefers-reduced-motion` est respecté partout (animations coupées ou
   remplacées par un état statique).
 - **Système de profondeur unifié** : une seule lumière (venant du haut),
