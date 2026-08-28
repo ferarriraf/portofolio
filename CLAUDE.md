@@ -121,6 +121,23 @@ clients, années d'expérience ou promesses invérifiables
 - eslint `react-hooks/set-state-in-effect` : différer avec
   `setTimeout(0)` (pattern BootScreen/CopyEmail).
 - framer-motion scroll-linked → WAAPI : plages d'entrée dans [0,1].
+- **LE PIÈGE LE PLUS COÛTEUX DU DÉPÔT.** Dans un composant lié au
+  défilement, ne JAMAIS écrire `useTransform(p, [entrées], [sorties])` :
+  framer-motion le traduit en animation NATIVE calée sur une
+  ViewTimeline. Sur une section épinglée haute (750 vh), cette timeline
+  sort de sa plage — mesurée à −37 % — et hors plage chaque animation
+  retombe sur sa PREMIÈRE image-clé : l'étape 01 réapparaissait à pleine
+  opacité par-dessus l'étape 04, les numéros se superposaient et tout
+  semblait bloqué. Écrire la forme fonction :
+  `useTransform(p, (v) => interpoler(v, [entrées], [sorties]))`, avec
+  l'outil de `lib/interpoler.ts`.
+- **Le panneau de prévisualisation gèle `requestAnimationFrame` quand
+  il est masqué.** Toute animation pilotée par JavaScript y reste
+  bloquée sur sa valeur de départ, alors que les animations natives
+  continuent de tourner. Conséquence : on ne peut pas valider un effet
+  lié au défilement depuis ce panneau, et une mesure « figée » n'y
+  prouve rien. Vérifier la logique en Node et la structure dans le DOM,
+  puis faire confirmer le rendu par l'utilisateur.
 - next-intl ICU : `{` s'échappe avec des quotes autour de `{param}`.
   **`<` aussi** : un message contenant `<h1 class="…">` est lu comme
   une balise et lève `INVALID_TAG` à chaque rendu (le texte s'affiche

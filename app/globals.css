@@ -569,45 +569,10 @@ html.mode-retro body::after {
   );
 }
 
-/* ——— Le poste beige : témoin d'activité et balayage du tube ——— */
-@keyframes led-pulse {
-  0%,
-  62%,
-  100% {
-    opacity: 0.45;
-    box-shadow: 0 0 4px rgba(110, 138, 98, 0.5);
-  }
-  72%,
-  88% {
-    opacity: 1;
-    box-shadow: 0 0 10px 2px rgba(110, 138, 98, 0.95);
-  }
-}
-
-.led-pulse {
-  animation: led-pulse 3.6s ease-in-out infinite;
-}
-
-@keyframes tube-sweep {
-  0% {
-    transform: translateY(-120%);
-    opacity: 0;
-  }
-  8% {
-    opacity: 0.5;
-  }
-  92% {
-    opacity: 0.5;
-  }
-  100% {
-    transform: translateY(820%);
-    opacity: 0;
-  }
-}
-
-.tube-sweep {
-  animation: tube-sweep 7s linear infinite;
-}
+/* Le balayage du tube et le témoin d'activité du poste beige ne
+   sont plus des boucles CSS : ils sont pilotés par le défilement
+   réel depuis components/RetroComputer.tsx. La machine ne s'agite
+   que lorsqu'elle a quelque chose à écrire. */
 
 @keyframes caret-blink {
   0%,
@@ -641,8 +606,6 @@ html.mode-retro body::after {
    témoins du poste rétro — qui seront branchés sur le défilement réel
    au lot suivant. */
 @media (prefers-reduced-motion: reduce) {
-  .led-pulse,
-  .tube-sweep,
   .caret-blink {
     animation: none;
   }

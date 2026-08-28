@@ -15,6 +15,7 @@ import {
 import { Check, ChevronDown, ChevronUp } from "lucide-react";
 import RetroComputer from "./RetroComputer";
 import SectionLabel from "./SectionLabel";
+import { interpoler } from "@/lib/interpoler";
 
 type Step = { title: string; text: string };
 
@@ -94,7 +95,9 @@ export default function ProcessScroll({
       onUpdate: (v) => window.scrollTo({ top: v, behavior: "instant" }),
     });
   };
-  const railScale = useTransform(scrollYProgress, [0.02, 0.98], [0, 1]);
+  const railScale = useTransform(scrollYProgress, (p) =>
+    interpoler(p, [0.02, 0.98], [0, 1]),
+  );
   // L'écran s'allume tout seul dès que le poste entre dans le champ —
   // le flash de mise sous tension ne demande aucun scroll
   const macRef = useRef<HTMLDivElement>(null);
@@ -110,12 +113,32 @@ export default function ProcessScroll({
   const rotateY = 9;
   // Il se pose en entrant dans la section, recule avant qu'elle se
   // détache — plus de verrouillage sec du pin
-  const poseScale = useTransform(
-    scrollYProgress,
-    [0, 0.06, 0.94, 1],
-    [0.955, 1, 1, 0.97]
+  const poseScale = useTransform(scrollYProgress, (p) =>
+    interpoler(p, [0, 0.06, 0.94, 1], [0.955, 1, 1, 0.97]),
   );
-  const poseY = useTransform(scrollYProgress, [0, 0.06, 0.94, 1], [28, 0, 0, -14]);
+  const poseY = useTransform(scrollYProgress, (p) =>
+    interpoler(p, [0, 0.06, 0.94, 1], [28, 0, 0, -14]),
+  );
+
+  /* ——— Le faisceau du tube, dérivé du défilement réel ———
+     `ScreenPanel` fait basculer l'écran n autour de n/5, sur une fenêtre
+     de ±0,045 en progression. Ramenée à l'échelle des écrans (×5), cette
+     demi-fenêtre vaut 0,225. On repère la frontière la plus proche, et
+     on n'allume la machine que si l'on est dedans — l'écran 0 n'a pas de
+     transition, il n'y a donc rien à écrire avant la première.
+     Résultat : le tube est éteint sur près des deux tiers du parcours. */
+  const DEMI = 0.225;
+  const activite = useTransform(scrollYProgress, (p) => {
+    const x = p * steps.length;
+    const i = Math.round(x);
+    if (i < 1 || i > steps.length - 1) return 0;
+    return Math.max(0, Math.min(1, 1 - Math.abs(x - i) / DEMI));
+  });
+  const faisceau = useTransform(scrollYProgress, (p) => {
+    const x = p * steps.length;
+    const i = Math.round(x);
+    return Math.max(0, Math.min(1, (x - i + DEMI) / (DEMI * 2))) * 100;
+  });
 
   const screens = [
     <ScreenListen key="s1" t={ecrans} />,
@@ -125,34 +148,43 @@ export default function ProcessScroll({
     <ScreenLaunch key="s5" onlineLabel={onlineLabel} />,
   ];
 
-  if (reduce) {
-    return (
-      <section className="border-b border-line bg-sage-wash">
-        <div className="container-site py-24">
-          <SectionLabel n={2}>{eyebrow}</SectionLabel>
-          <h2 className="mt-5 max-w-3xl font-display text-4xl font-bold tracking-tight text-ink md:text-5xl">
-            {title}
-          </h2>
-          <div className="mt-14 grid gap-10 md:grid-cols-2">
-            {steps.map((step, i) => (
-              <div key={step.title}>
-                <RetroComputer>{screens[i]}</RetroComputer>
-                <p className="mt-6 font-display text-lg font-bold text-ink">
-                  <span className="mr-2 text-terra-deep">0{i + 1}</span>
-                  {step.title}
-                </p>
-                <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
-                  {step.text}
-                </p>
-              </div>
-            ))}
-          </div>
+  /* La version déroulée : les cinq étapes à la suite, rien d'épinglé.
+     Elle servait déjà aux visiteurs en mouvement réduit. Elle sert
+     désormais AUSSI à tous les écrans sous 1024 px : le cadre épinglé
+     mesure la hauteur de l'écran pour un contenu de 748 px, si bien que
+     sur un téléphone le titre de la section passait entièrement au-
+     dessus du cadre et les boutons entièrement en dessous — invisibles,
+     alors que les boutons restaient atteignables au clavier et
+     faisaient sauter la page. */
+  const grilleDeroulee = (
+    <section className="border-b border-line bg-sage-wash">
+      <div className="container-site py-24">
+        <SectionLabel n={2}>{eyebrow}</SectionLabel>
+        <h2 className="mt-5 max-w-3xl font-display text-4xl font-bold tracking-tight text-balance text-ink md:text-5xl">
+          {title}
+        </h2>
+        <div className="mt-14 grid gap-10 md:grid-cols-2">
+          {steps.map((step, i) => (
+            <div key={step.title}>
+              <RetroComputer>{screens[i]}</RetroComputer>
+              <p className="mt-6 font-display text-lg font-bold text-ink">
+                <span className="mr-2 text-terra-deep">0{i + 1}</span>
+                {step.title}
+              </p>
+              <p className="mt-1.5 text-sm leading-relaxed text-ink-soft">
+                {step.text}
+              </p>
+            </div>
+          ))}
         </div>
-      </section>
-    );
-  }
+      </div>
+    </section>
+  );
 
-  return (
+  if (reduce) return grilleDeroulee;
+
+  /* La version épinglée, réservée aux grands écrans. */
+  const scrollytelling = (
     <section
       ref={ref}
       className="relative border-b border-line bg-sage-wash"
@@ -244,7 +276,12 @@ export default function ProcessScroll({
                   className="absolute inset-x-8 -bottom-1 h-7 -translate-x-3 rounded-[50%] bg-ink/30 blur-lg"
                 />
                 <motion.div style={{ rotateY, scale: poseScale, y: poseY }}>
-                  <RetroComputer power={power} ombre={false}>
+                  <RetroComputer
+                    power={power}
+                    faisceau={faisceau}
+                    activite={activite}
+                    ombre={false}
+                  >
                     {screens.map((screen, i) => (
                       <ScreenPanel
                         key={i}
@@ -264,6 +301,18 @@ export default function ProcessScroll({
       </div>
     </section>
   );
+
+  /* Le choix se fait en CSS, pas en JavaScript : une bascule après
+     montage provoquerait soit un saut de mise en page sur ordinateur,
+     soit un éclair de la version cassée sur téléphone. `hidden` retire
+     réellement l'élément du flux, donc les 750 vh ne comptent pas dans
+     la hauteur du document sur les petits écrans. */
+  return (
+    <>
+      <div className="lg:hidden">{grilleDeroulee}</div>
+      <div className="hidden lg:block">{scrollytelling}</div>
+    </>
+  );
 }
 
 /* ——— Panneaux pilotés par le scroll ——— */
@@ -279,7 +328,9 @@ function Cran({
   progress: MotionValue<number>;
 }) {
   const c = (index + 0.5) / count;
-  const allume = useTransform(progress, [c - 0.02, c + 0.02], [0, 1]);
+  const allume = useTransform(progress, (p) =>
+    interpoler(p, [c - 0.02, c + 0.02], [0, 1]),
+  );
 
   return (
     <span
@@ -315,8 +366,13 @@ function StepPanel({
   progress: MotionValue<number>;
 }) {
   const s = segment(index, count);
-  const opacity = useTransform(progress, [s.in0, s.in1, s.out0, s.out1], [index === 0 ? 1 : 0, 1, 1, index === count - 1 ? 1 : 0]);
-  const y = useTransform(progress, [s.in0, s.in1, s.out0, s.out1], [index === 0 ? 0 : 28, 0, 0, index === count - 1 ? 0 : -28]);
+  const bornes = [s.in0, s.in1, s.out0, s.out1];
+  const opacity = useTransform(progress, (p) =>
+    interpoler(p, bornes, [index === 0 ? 1 : 0, 1, 1, index === count - 1 ? 1 : 0]),
+  );
+  const y = useTransform(progress, (p) =>
+    interpoler(p, bornes, [index === 0 ? 0 : 28, 0, 0, index === count - 1 ? 0 : -28]),
+  );
 
   return (
     <motion.div style={{ opacity, y }} className="absolute inset-y-0 left-8 right-0 flex flex-col justify-center">
@@ -347,15 +403,14 @@ function ScreenPanel({
   // Les plages restent dans [0,1] : WAAPI refuse les offsets négatifs.
   const a = index / count;
   const w = 0.045;
+  const bornes = [Math.max(0, a - w), Math.min(1, a + w)];
   const clipPath = useTransform(
     progress,
-    [Math.max(0, a - w), Math.min(1, a + w)],
-    ["inset(0% 0% 100% 0%)", "inset(0% 0% 0% 0%)"]
+    (p) => `inset(0% 0% ${interpoler(p, bornes, [100, 0]).toFixed(2)}% 0%)`,
   );
   const y = useTransform(
     progress,
-    [Math.max(0, a - w), Math.min(1, a + w)],
-    ["-6%", "0%"]
+    (p) => `${interpoler(p, bornes, [-6, 0]).toFixed(2)}%`,
   );
 
   // Le premier écran est le fond : toujours visible, jamais animé

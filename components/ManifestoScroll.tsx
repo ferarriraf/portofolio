@@ -8,6 +8,7 @@ import {
   useTransform,
   type MotionValue,
 } from "framer-motion";
+import { interpoler } from "@/lib/interpoler";
 
 type ManifestoScrollProps = {
   lead: string;
@@ -123,8 +124,12 @@ function Word({
   const span = 0.72;
   const start = 0.12 + span * (index / count);
   const end = start + span / count;
-  const opacity = useTransform(progress, [start, end], [0.16, 1]);
-  const y = useTransform(progress, [start, end], [14, 0]);
+  // Forme fonction obligatoire : voir lib/interpoler.ts — la forme
+  // tableau devient une animation native qui se fige hors plage.
+  const opacity = useTransform(progress, (p) =>
+    interpoler(p, [start, end], [0.16, 1]),
+  );
+  const y = useTransform(progress, (p) => interpoler(p, [start, end], [14, 0]));
 
   return (
     <motion.span

@@ -7,6 +7,7 @@ import {
   useScroll,
   useTransform,
 } from "framer-motion";
+import { interpoler } from "@/lib/interpoler";
 
 /**
  * Le R-X géant du pied de page, gravé dans la matière (letterpress :
@@ -21,8 +22,11 @@ export default function FooterMark() {
     target: ref,
     offset: ["start end", "end end"],
   });
-  const y = useTransform(scrollYProgress, [0, 1], [48, 0]);
-  const opacity = useTransform(scrollYProgress, [0, 1], [0.55, 1]);
+  // Forme fonction obligatoire : voir lib/interpoler.ts
+  const y = useTransform(scrollYProgress, (p) => interpoler(p, [0, 1], [48, 0]));
+  const opacity = useTransform(scrollYProgress, (p) =>
+    interpoler(p, [0, 1], [0.55, 1]),
+  );
 
   return (
     <div ref={ref}>

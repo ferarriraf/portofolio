@@ -12,11 +12,24 @@ import { motion, useTransform, type MotionValue } from "framer-motion";
 export default function RetroComputer({
   children,
   power,
+  faisceau,
+  activite,
   ombre = true,
 }: {
   children: ReactNode;
   /** 0 = éteint, 1 = allumé. Absent : l'écran est allumé d'emblée. */
   power?: MotionValue<number>;
+  /**
+   * Position du faisceau sur la dalle, de 0 (en haut) à 100 (en bas).
+   * Absent : aucun balayage — le tube ne fait pas semblant de travailler.
+   */
+  faisceau?: MotionValue<number>;
+  /**
+   * 1 pendant que l'écran change, 0 quand rien ne se passe. Pilote à la
+   * fois l'intensité du faisceau et le témoin d'activité : la machine ne
+   * s'agite que lorsqu'elle a quelque chose à écrire.
+   */
+  activite?: MotionValue<number>;
   /** false : l'ombre au sol est dessinée par le parent (poste qui pivote) */
   ombre?: boolean;
 }) {
@@ -65,15 +78,12 @@ export default function RetroComputer({
                     "linear-gradient(122deg, rgba(255,255,255,0.2) 0%, rgba(255,255,255,0.05) 26%, transparent 46%)",
                 }}
               />
-              {/* Le balayage du tube, qui descend sans fin */}
-              <span
-                aria-hidden="true"
-                className="tube-sweep pointer-events-none absolute inset-x-0 top-0 z-30 h-[9%]"
-                style={{
-                  background:
-                    "linear-gradient(to bottom, transparent, rgba(255,255,255,0.16), transparent)",
-                }}
-              />
+              {/* Le balayage du tube. Il ne tourne pas en boucle : il
+                  descend exactement pendant que l'écran change, et
+                  s'éteint dès que la nouvelle image est écrite. */}
+              {faisceau && activite && (
+                <Faisceau faisceau={faisceau} activite={activite} />
+              )}
 
               {power && <PowerOn power={power} />}
             </div>
@@ -96,11 +106,19 @@ export default function RetroComputer({
               />
             ))}
           </span>
-          {/* Le témoin d'activité : il cligne comme un vrai poste */}
-          <span
-            aria-hidden="true"
-            className="led-pulse size-2 rounded-full bg-sage-strong"
-          />
+          {/* Le témoin d'activité. Un point plein qui ne bouge pas, et
+              un halo qui ne s'allume que pendant l'écriture — on
+              superpose deux couches plutôt que d'interpoler une ombre
+              portée, qui repeindrait à chaque image. */}
+          <span aria-hidden="true" className="relative size-2 shrink-0">
+            <span className="absolute inset-0 rounded-full bg-sage-strong opacity-70" />
+            {activite && (
+              <motion.span
+                className="absolute -inset-[3px] rounded-full bg-sage-strong blur-[3px]"
+                style={{ opacity: activite }}
+              />
+            )}
+          </span>
         </div>
 
         {/* Fente du lecteur de disquette */}
@@ -118,6 +136,37 @@ export default function RetroComputer({
         className="mx-auto h-2 w-[76%] rounded-b-xl bg-[linear-gradient(180deg,#c6b79b,#a3947b)]"
       />
     </div>
+  );
+}
+
+/**
+ * La bande lumineuse qui écrit l'image.
+ *
+ * Elle fait 9 % de la hauteur de la dalle : pour la traverser
+ * entièrement il faut aller de -100 % (juste au-dessus) à 1011 %,
+ * soit (100 - 9) / 9 — sans quoi elle s'arrêterait en chemin.
+ */
+function Faisceau({
+  faisceau,
+  activite,
+}: {
+  faisceau: MotionValue<number>;
+  activite: MotionValue<number>;
+}) {
+  const y = useTransform(faisceau, [0, 100], ["-100%", "1011%"]);
+  const opacite = useTransform(activite, [0, 1], [0, 0.5]);
+
+  return (
+    <motion.span
+      aria-hidden="true"
+      className="pointer-events-none absolute inset-x-0 top-0 z-30 h-[9%]"
+      style={{
+        y,
+        opacity: opacite,
+        background:
+          "linear-gradient(to bottom, transparent, rgba(255,255,255,0.16), transparent)",
+      }}
+    />
   );
 }
 
