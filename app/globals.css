@@ -246,8 +246,19 @@ body {
   }
 }
 
+/* Le fil de la démonstration : même rémanence que les reçus, mais sur
+   de la prose. Donc la couleur et l'éclat, jamais la mise en forme en
+   ligne — la chasse fixe reste réservée aux lignes qui sont un fait
+   plus un chiffre. C'est cette frontière qui empêche le vocabulaire
+   terminal de redevenir un costume. */
+.fil-vif {
+  color: var(--recu-calme);
+  animation: remanence 1.2s ease-out both;
+}
+
 @media (prefers-reduced-motion: reduce) {
-  .recu-vif {
+  .recu-vif,
+  .fil-vif {
     animation: none;
   }
 }

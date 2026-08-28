@@ -35,7 +35,7 @@ export function llmsIndex(): string {
     ``,
     `Important : les trois démonstrations présentées (un site vitrine, une application métier, une API) sont des PROJETS TYPES construits par R-X pour démontrer la méthode — ce ne sont pas de vrais clients, et le site le dit explicitement.`,
     ``,
-    `L'application métier est jouable en ligne sur ${BASE}/demo : « effectif », un espace RH complet (validation de congés, solde, entretiens, bascule salarié/manager). Les personnes y sont fictives, tout s'exécute dans le navigateur du visiteur et rien n'est conservé.`,
+    `L'application métier est jouable en ligne sur ${BASE}/demo : « effectif », un espace RH complet (validation de congés, solde, entretiens, bascule salarié/manager). Un fil d'aide déduit de l'état réel commente chaque geste et suggère la suite. Les personnes y sont fictives, tout s'exécute dans le navigateur du visiteur et rien n'est conservé.`,
     ``,
     `## Pages (français)`,
     ...pages("fr").map((p) => `- [${p.titre}](${p.url}) : ${p.desc}`),

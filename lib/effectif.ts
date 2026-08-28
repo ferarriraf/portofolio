@@ -231,3 +231,144 @@ export function absentsAujourdHui(etat: Etat, aujourdHui: string): Demande[] {
 /** Ce qui attend une décision, tous objets confondus */
 export const attendUneDecision = (etat: Etat) =>
   enAttente(etat).length + aPlanifier(etat).length;
+
+/* ——— Le fil ———
+   La ligne d'état qui commente la démonstration, en bas du moniteur.
+
+   Elle est DÉDUITE de l'état réel, jamais d'un compteur d'étapes. C'est
+   ce qui la distingue d'une visite guidée : quelqu'un qui fait tout dans
+   le désordre est rattrapé sans jamais reculer d'un cran, « Remettre à
+   zéro » rejoue le fil gratuitement, et le fil ne peut pas prétendre
+   qu'il reste trois demandes quand il n'en reste qu'une.
+
+   Aucun texte visible ici : ces fonctions ne rendent que des CLÉS, que
+   le composant traduit. Rien de React, rien de next-intl — le fichier
+   doit rester exécutable par node nu pour ses tests. */
+
+export type EvenementFil =
+  | { type: "action"; action: Action }
+  | { type: "onglet"; onglet: string }
+  | { type: "veille" }
+  | { type: "reprise" };
+
+export type EtatFil = {
+  ouvert: boolean;
+  /** Le geste qui vient d'avoir lieu, effacé dès qu'on change d'onglet */
+  derniere: Action["type"] | null;
+  /** La date posée par le dernier « planifier », pour pouvoir la citer */
+  dateDerniere?: string;
+  /** Nature du dernier événement : seules les actions sont annoncées
+   *  aux lecteurs d'écran, sinon changer d'onglet les rendrait bavards */
+  dernierEvenement: EvenementFil["type"] | null;
+  /** Nombre de gestes accomplis : sert à distinguer « rien à faire dès
+   *  le départ » de « vous avez tout traité » */
+  compteur: number;
+  /** Ce que le visiteur a déjà fait ou vu : on ne le lui resuggère pas */
+  faits: string[];
+};
+
+export const FIL_DEPART: EtatFil = {
+  ouvert: true,
+  derniere: null,
+  dernierEvenement: null,
+  compteur: 0,
+  faits: [],
+};
+
+export function suivreFil(fil: EtatFil, ev: EvenementFil): EtatFil {
+  switch (ev.type) {
+    case "veille":
+      return { ...fil, ouvert: false, dernierEvenement: "veille" };
+
+    case "reprise":
+      // On garde `faits` : le fil reprend là où l'application en est,
+      // il ne redonne pas des conseils périmés.
+      return { ...fil, ouvert: true, dernierEvenement: "reprise" };
+
+    case "onglet": {
+      const marque = `onglet:${ev.onglet}`;
+      return {
+        ...fil,
+        dernierEvenement: "onglet",
+        // On efface le geste précédent : la ligne doit parler de
+        // l'onglet qu'on vient d'ouvrir, pas du clic d'avant.
+        derniere: null,
+        faits: fil.faits.includes(marque) ? fil.faits : [...fil.faits, marque],
+      };
+    }
+
+    case "action":
+      return {
+        ...fil,
+        dernierEvenement: "action",
+        derniere: ev.action.type,
+        dateDerniere:
+          ev.action.type === "planifier" ? ev.action.date : fil.dateDerniere,
+        compteur: fil.compteur + 1,
+        faits: fil.faits.includes(ev.action.type)
+          ? fil.faits
+          : [...fil.faits, ev.action.type],
+      };
+  }
+}
+
+/** Ce que la ligne doit dire : une clé de traduction, et au plus un
+ *  paramètre. `null` = le fil est en veille. */
+export function ligneDuFil(
+  etat: Etat,
+  fil: EtatFil,
+  onglet: string,
+): { cle: string; n?: number; date?: string } | null {
+  if (!fil.ouvert) return null;
+
+  const attente = enAttente(etat).length;
+  const aCaler = aPlanifier(etat).length;
+  const estManager = etat.role === "manager";
+
+  // 1. Tout est traité. C'est le message le plus fort de la démo, il
+  //    passe avant tout le reste.
+  if (fil.compteur > 0 && attente + aCaler === 0) return { cle: "fin" };
+
+  // 2. La réaction au geste qui vient d'avoir lieu. Les comptes sont
+  //    relus dans l'état COURANT, jamais mémorisés : c'est ce qui rend
+  //    la ligne incapable de mentir.
+  switch (fil.derniere) {
+    case "valider":
+      // Plus rien à valider mais des entretiens en attente : on montre
+      // la porte suivante plutôt que de féliciter dans le vide.
+      if (attente === 0 && aCaler > 0) return { cle: "essayezEntretiens" };
+      return { cle: "valider", n: attente };
+    case "refuser":
+      return { cle: "refuser" };
+    case "demander":
+      return { cle: "demander" };
+    case "planifier":
+      return { cle: "planifier", date: fil.dateDerniere };
+    case "cloturer":
+      return { cle: "cloturer" };
+    case "role":
+      return { cle: estManager ? "roleManager" : "roleSalarie" };
+    case "reinitialiser":
+      return { cle: "reinitialise" };
+  }
+
+  // 3. Sinon, une suggestion — choisie d'après l'onglet ouvert et ce
+  //    qui n'a pas encore été fait.
+  if (onglet === "conges") {
+    if (!estManager) return { cle: "congesSalarie" };
+    const aDecide =
+      fil.faits.includes("valider") || fil.faits.includes("refuser");
+    return aDecide && !fil.faits.includes("role")
+      ? { cle: "essayezSalarie" }
+      : { cle: "congesManager" };
+  }
+
+  if (onglet === "entretiens") return { cle: "entretiens", n: aCaler };
+
+  // Tableau de bord : la ligne d'ouverture, ou l'orientation vers ce
+  // qui n'a pas encore été exploré.
+  if (fil.faits.includes("onglet:conges") && !fil.faits.includes("onglet:entretiens")) {
+    return { cle: "essayezEntretiens" };
+  }
+  return { cle: "ouverture", n: attente + aCaler };
+}

@@ -359,6 +359,29 @@
       "cloturer": "Marquer comme fait",
       "choisirDate": "Date de l'entretien",
       "vide": "Aucun entretien."
+    },
+    "fil": {
+      "ouverture": "Vous êtes le manager d'une équipe de quatre. {n, plural, one {# chose attend} other {# choses attendent}} votre décision : ouvrez l'onglet {conges}.",
+      "congesManager": "Chaque demande tient sur une ligne. Tout se règle ici : {valider}, ou {refuser}. Rien à remplir.",
+      "valider": "Validée. {n, plural, =0 {La file est vide} one {Il reste # demande en attente} other {Il reste # demandes en attente}}, et le compteur de l'onglet vient de le noter.",
+      "refuser": "Refusée. La ligne quitte la file et va se ranger dans l'historique de l'équipe, juste en dessous. Rien ne se perd.",
+      "essayezSalarie": "Vous venez de décider pour quelqu'un d'autre. Passez {salarie} pour voir la même application du côté de celui qui demande.",
+      "roleSalarie": "Même application, autres droits : dans l'onglet {conges}, vous ne voyez plus que votre solde et vos propres demandes.",
+      "congesSalarie": "Votre solde est à gauche, à jour. Deux dates, un motif, puis {envoyer}.",
+      "demander": "Demande partie. Votre solde ne bougera qu'une fois la demande validée : repassez {manager} pour la voir arriver dans la file.",
+      "roleManager": "De retour côté manager : la file affiche les demandes de toute l'équipe, et vous pouvez trancher.",
+      "essayezEntretiens": "Les congés ne sont pas tout. L'onglet {entretiens} liste ce qui n'a pas encore de date.",
+      "entretiens": "{n, plural, one {# entretien attend une date} other {# entretiens attendent une date}}, et personne d'autre ne peut la poser. Une date au choix, puis {planifier}.",
+      "planifier": "Entretien calé au {date} — il passe en « Planifié » et disparaît de ce qui attend une décision.",
+      "cloturer": "Marqué comme fait. L'entretien reste dans la liste avec sa date : rien n'est effacé, tout se relit.",
+      "reinitialise": "Démonstration remise à zéro. Les dates sont recalculées à partir d'aujourd'hui, comme au premier chargement.",
+      "fin": "Plus rien n'attend de décision. C'est exactement le but : un outil qui ne montre que ce qui en attend une.",
+      "finLien": "Parlons du vôtre.",
+      "neutre": "effectif — tout se passe dans votre navigateur, rien n'en sort.",
+      "masquer": "Masquer",
+      "masquerLong": "Masquer le guide",
+      "afficher": "Guide",
+      "afficherLong": "Afficher le guide"
     }
   },
   "about": {

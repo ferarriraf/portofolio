@@ -83,6 +83,7 @@ qui reste affichée juste en dessous.
 | La démo jouable « effectif » (écran)  | `components/EffectifApp.tsx`                  |
 | Ses règles (congés, entretiens)       | `lib/effectif.ts`                             |
 | Ses textes                            | clé `demo` dans `messages/*.json`             |
+| Le fil qui guide la démo              | `suivreFil` / `ligneDuFil` dans `lib/effectif.ts`, textes en `demo.fil` |
 | Le formulaire de contact (apparence)  | `components/ContactForm.tsx`                  |
 | Ses règles (validation, anti-robots)  | `lib/contact.ts`                              |
 | L'envoi du mail (protocole SMTP)      | `lib/smtp.ts` + `app/[locale]/contact/actions.ts` |
@@ -125,6 +126,13 @@ Code : `components/SecretModes.tsx`.
   entretiens à planifier, bascule salarié/manager. Tout tourne dans le
   navigateur du visiteur : aucun appel réseau, aucune base, rien de
   conservé, et un bandeau le dit avant qu'on y touche.
+- **Un fil qui guide, pas une visite guidée** : une ligne d'état dans le
+  bâti du moniteur commente ce qui vient de se passer et suggère la
+  suite. Elle est *déduite de l'état réel*, jamais d'un compteur
+  d'étapes — donc elle ne peut pas annoncer un compte périmé, celui qui
+  fait les choses dans le désordre est rattrapé sans reculer d'un cran,
+  et « Remettre à zéro » la rejoue gratuitement. Pas de bulle numérotée,
+  pas de fond assombri, rien à fermer pour continuer.
 - `prefers-reduced-motion` est respecté partout (animations coupées ou
   remplacées par un état statique).
 - **Le reçu** : quand une machine a réellement agi, elle imprime une

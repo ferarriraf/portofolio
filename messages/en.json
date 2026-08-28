@@ -359,6 +359,29 @@
       "cloturer": "Mark as done",
       "choisirDate": "Review date",
       "vide": "No reviews."
+    },
+    "fil": {
+      "ouverture": "You manage a team of four. {n, plural, one {# thing is} other {# things are}} waiting on you: open the {conges} tab.",
+      "congesManager": "Each request is a single line. It is all settled here: {valider}, or {refuser}. Nothing to fill in.",
+      "valider": "Approved. {n, plural, =0 {The queue is empty} one {# request is still pending} other {# requests are still pending}}, and the tab counter has already noticed.",
+      "refuser": "Declined. The line leaves the queue and goes into the team history just below. Nothing is lost.",
+      "essayezSalarie": "You have just decided for somebody else. Switch to {salarie} to see the same application from the requester's side.",
+      "roleSalarie": "Same application, different rights: in the {conges} tab you now only see your own balance and your own requests.",
+      "congesSalarie": "Your balance is on the left, up to date. Two dates, a reason, then {envoyer}.",
+      "demander": "Request sent. Your balance will not move until it is approved: switch back to {manager} to watch it land in the queue.",
+      "roleManager": "Back on the manager side: the queue shows the whole team's requests, and you get to decide.",
+      "essayezEntretiens": "Time off is not everything. The {entretiens} tab lists what still has no date.",
+      "entretiens": "{n, plural, one {# review needs a date} other {# reviews need a date}}, and nobody else can set one. Any date will do, then {planifier}.",
+      "planifier": "Review set for {date} — it flips to “Scheduled” and drops off the list of what needs a decision.",
+      "cloturer": "Marked as done. The review stays in the list with its date: nothing is erased, everything can be read back.",
+      "reinitialise": "Demo reset. The dates are recomputed from today, exactly as on first load.",
+      "fin": "Nothing needs a decision any more. That is exactly the point: a tool that shows only what does.",
+      "finLien": "Let's talk about yours.",
+      "neutre": "effectif — everything happens in your browser, nothing leaves it.",
+      "masquer": "Hide",
+      "masquerLong": "Hide the guide",
+      "afficher": "Guide",
+      "afficherLong": "Show the guide"
     }
   },
   "about": {

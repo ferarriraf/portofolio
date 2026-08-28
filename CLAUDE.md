@@ -77,6 +77,15 @@ clients, années d'expérience ou promesses invérifiables
   aujourd'hui : envoi du formulaire, copie de l'adresse, 404. Une ligne
   mono posée sous un titre « parce que ça fait joli » et le terminal
   redevient un costume.
+- **Le fil de la démo** (`suivreFil` / `ligneDuFil` dans
+  `lib/effectif.ts`, textes en `demo.fil`) : la ligne est DÉDUITE de
+  l'état à chaque rendu, jamais d'un compteur d'étapes — c'est ce qui
+  l'empêche de mentir sur un compte et ce qui rattrape un visiteur qui
+  agit dans le désordre. Aucun `useEffect`. Toute nouvelle action du
+  réducteur doit recevoir sa branche dans `ligneDuFil`, sinon le fil
+  devient muet après ce geste. Ne JAMAIS y ajouter : bulle numérotée,
+  fond assombri, flèche qui pointe, « étape 2/5 », minuteur qui relance,
+  ni horloge fictive — c'est le template qu'on contourne.
 - **Une seule blague explicite par site** : `exit 0` au pied de page,
   `exit 1` sur la 404. Rien d'autre, nulle part.
 - **RIEN NE BOUGE DE SOI-MÊME.** Règle structurante depuis le grand

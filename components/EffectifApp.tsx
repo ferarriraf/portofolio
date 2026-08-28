@@ -3,8 +3,10 @@
 import { useEffect, useMemo, useReducer, useState } from "react";
 import { useLocale, useTranslations } from "next-intl";
 import { Check, CalendarPlus, RotateCcw, X } from "lucide-react";
+import { Link } from "@/i18n/navigation";
 import {
   DROIT_ANNUEL,
+  FIL_DEPART,
   MOI,
   aPlanifier,
   absentsAujourdHui,
@@ -12,13 +14,16 @@ import {
   enIso,
   etatInitial,
   joursOuvres,
+  ligneDuFil,
   personne,
   reduire,
   solde,
+  suivreFil,
   type Demande,
   type Entretien,
   type MotifConge,
   type Role,
+  type Action,
   PERSONNES,
 } from "@/lib/effectif";
 
@@ -69,6 +74,21 @@ export default function EffectifApp() {
   const [ancre] = useState(() => new Date());
   const [etat, envoyer] = useReducer(reduire, ancre, etatInitial);
   const [onglet, setOnglet] = useState<Onglet>("tableau");
+
+  /* Le fil : la ligne d'état qui commente ce qui vient de se passer.
+     Aucun useEffect — la ligne est DÉRIVÉE au rendu à partir de l'état
+     réel, ce qui la rend incapable d'annoncer un compte périmé, et
+     évite le double appel des effets en développement. */
+  const [fil, majFil] = useReducer(suivreFil, FIL_DEPART);
+
+  const agir = (action: Action) => {
+    envoyer(action);
+    majFil({ type: "action", action });
+  };
+  const ouvrirOnglet = (o: Onglet) => {
+    setOnglet(o);
+    majFil({ type: "onglet", onglet: o });
+  };
 
   // L'application n'apparaît qu'après le montage : ses dates dépendent
   // de l'horloge du visiteur, et un rendu serveur les afficherait
@@ -121,6 +141,70 @@ export default function EffectifApp() {
     );
   }
 
+  /* ——— Le fil ———
+     La ligne est déduite de l'état à CHAQUE rendu : elle ne peut donc
+     pas annoncer un compte périmé. Les libellés de boutons qu'elle cite
+     sont injectés depuis leurs propres clés — un guide qui nomme un
+     bouton disparu est pire que pas de guide. */
+  const ligne = ligneDuFil(etat, fil, onglet);
+
+  const texteFil = ligne
+    ? t(`fil.${ligne.cle}`, {
+        n: ligne.n ?? 0,
+        date: ligne.date ? formaterJour(ligne.date) : "",
+        conges: t("onglets.conges"),
+        entretiens: t("onglets.entretiens"),
+        valider: t("conges.valider"),
+        refuser: t("conges.refuser"),
+        envoyer: t("conges.envoyer"),
+        planifier: t("entretiens.planifier"),
+        salarie: t("roles.salarie"),
+        manager: t("roles.manager"),
+      })
+    : t("fil.neutre");
+
+  const pied = (
+    <div className="recu recu-sombre flex items-start gap-2.5 px-2 pt-2.5 pb-1">
+      <span aria-hidden="true" className="recu-carre mt-[0.5em]" />
+
+      {/* La ligne visible est masquée aux lecteurs d'écran : son jumeau
+          plus bas ne parle QUE sur une action réelle, sinon changer
+          d'onglet au clavier rendrait la démonstration bavarde. */}
+      <p
+        aria-hidden="true"
+        className="min-w-0 flex-1 text-[0.72rem] leading-snug text-sand/85"
+      >
+        <span key={`${ligne?.cle ?? "veille"}-${fil.compteur}`} className="fil-vif">
+          {texteFil}
+        </span>
+        {ligne?.cle === "fin" && (
+          <>
+            {" "}
+            <Link
+              href="/contact"
+              className="font-semibold text-sand underline underline-offset-2 hover:text-terra"
+            >
+              {t("fil.finLien")}
+            </Link>
+          </>
+        )}
+      </p>
+
+      <p className="sr-only" role="status" aria-atomic="true">
+        {fil.dernierEvenement === "action" ? texteFil : ""}
+      </p>
+
+      <button
+        type="button"
+        onClick={() => majFil({ type: fil.ouvert ? "veille" : "reprise" })}
+        aria-label={fil.ouvert ? t("fil.masquerLong") : t("fil.afficherLong")}
+        className="press shrink-0 rounded-md border border-sand/20 px-2 py-1 text-[0.62rem] font-semibold text-sand/60 transition-colors duration-200 hover:border-sand/40 hover:text-sand motion-reduce:transition-none"
+      >
+        {fil.ouvert ? t("fil.masquer") : t("fil.afficher")}
+      </button>
+    </div>
+  );
+
   /* ——— Briques réutilisées par les trois vues ——— */
 
   const Etiquette = ({ statut }: { statut: string }) => (
@@ -147,7 +231,7 @@ export default function EffectifApp() {
     evenement: React.MouseEvent<HTMLButtonElement>,
   ) => {
     const liste = evenement.currentTarget.closest("ul");
-    envoyer({ type, id });
+    agir({ type, id });
     setTimeout(() => {
       const suivant = liste?.querySelector<HTMLButtonElement>("li button");
       // isConnected est indispensable : quand la dernière ligne part,
@@ -202,7 +286,7 @@ export default function EffectifApp() {
   );
 
   return (
-    <Fenetre titre={t("fenetre")}>
+    <Fenetre titre={t("fenetre")} pied={pied}>
       {/* ——— Barre de l'application : identité, rôle, remise à zéro ——— */}
       <div className="flex flex-wrap items-center justify-between gap-3 border-b border-line bg-sand-card px-4 py-3">
         <span className="font-display text-base font-bold tracking-tight text-ink">
@@ -221,7 +305,7 @@ export default function EffectifApp() {
                   key={r}
                   type="button"
                   aria-pressed={etat.role === r}
-                  onClick={() => envoyer({ type: "role", role: r })}
+                  onClick={() => agir({ type: "role", role: r })}
                   className={`rounded-[0.4rem] px-2.5 py-1 text-xs font-semibold transition-colors duration-200 motion-reduce:transition-none ${
                     etat.role === r
                       ? "bg-ink text-sand-card"
@@ -237,7 +321,7 @@ export default function EffectifApp() {
           <button
             type="button"
             className={BOUTON_CONTOUR}
-            onClick={() => envoyer({ type: "reinitialiser", aujourdHui: ancre })}
+            onClick={() => agir({ type: "reinitialiser", aujourdHui: ancre })}
           >
             <RotateCcw className="size-3.5" aria-hidden="true" />
             {t("reinitialiser")}
@@ -256,7 +340,7 @@ export default function EffectifApp() {
               key={o}
               type="button"
               aria-current={actif ? "page" : undefined}
-              onClick={() => setOnglet(o)}
+              onClick={() => ouvrirOnglet(o)}
               className={`flex items-center gap-2 rounded-t-lg px-3 py-2 text-sm font-semibold transition-colors duration-200 motion-reduce:transition-none ${
                 actif
                   ? "bg-sand-card text-ink"
@@ -291,14 +375,14 @@ export default function EffectifApp() {
                     <CarteDecision
                       texte={t("tableau.demandes", { n: attente.length })}
                       bouton={t("tableau.traiter")}
-                      onClick={() => setOnglet("conges")}
+                      onClick={() => ouvrirOnglet("conges")}
                     />
                   )}
                   {aCaler.length > 0 && (
                     <CarteDecision
                       texte={t("tableau.entretiens", { n: aCaler.length })}
                       bouton={t("tableau.traiter")}
-                      onClick={() => setOnglet("entretiens")}
+                      onClick={() => ouvrirOnglet("entretiens")}
                     />
                   )}
                 </div>
@@ -344,7 +428,7 @@ export default function EffectifApp() {
         {onglet === "conges" && (
           <VueConges
             etat={etat}
-            envoyer={envoyer}
+            envoyer={agir}
             ancre={ancre}
             estManager={estManager}
             LigneDemande={LigneDemande}
@@ -362,7 +446,7 @@ export default function EffectifApp() {
                 entretien={e}
                 estManager={estManager}
                 ancre={ancre}
-                envoyer={envoyer}
+                envoyer={agir}
                 formaterJour={formaterJour}
               />
             ))}
@@ -375,7 +459,16 @@ export default function EffectifApp() {
 
 /* ——— Le moniteur, repris des démos de la page Démonstrations ——— */
 
-function Fenetre({ titre, children }: { titre: string; children: React.ReactNode }) {
+function Fenetre({
+  titre,
+  pied,
+  children,
+}: {
+  titre: string;
+  /** La ligne d'état, posée dans le bâti sous l'écran */
+  pied?: React.ReactNode;
+  children: React.ReactNode;
+}) {
   return (
     <div className="rounded-[1.4rem] bg-ink-deep p-2 pt-0 inset-shadow-cisele-sombre shadow-elev-3">
       <div className="flex items-center justify-between px-3 py-2">
@@ -387,6 +480,7 @@ function Fenetre({ titre, children }: { titre: string; children: React.ReactNode
         <span className="font-mono text-[0.6rem] tracking-wide text-sand/60">{titre}</span>
       </div>
       <div className="overflow-hidden rounded-[0.9rem]">{children}</div>
+      {pied}
     </div>
   );
 }
