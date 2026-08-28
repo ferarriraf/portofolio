@@ -44,7 +44,7 @@ export function llmsIndex(): string {
     `- [llms-full.txt](${BASE}/llms-full.txt) : l'intégralité des contenus du site, en français puis en anglais.`,
     ``,
     `## Contact`,
-    `- Via la page contact : ${BASE}/contact (l'adresse email y est affichée ; réponse sous deux jours ouvrés).`,
+    `- Via la page contact : ${BASE}/contact — un formulaire (nom, email, message) y envoie directement le message, et l'adresse email est affichée juste en dessous pour qui préfère sa propre messagerie. Réponse sous deux jours ouvrés.`,
   ];
   return l.join("\n") + "\n";
 }

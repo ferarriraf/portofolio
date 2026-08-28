@@ -4,6 +4,7 @@ import { ChevronDown } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
 import Reveal from "@/components/Reveal";
 import CopyEmail from "@/components/CopyEmail";
+import ContactForm from "@/components/ContactForm";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -24,8 +25,19 @@ export default async function ContactPage({ params }: Props) {
     <>
       <PageHeader eyebrow={t("eyebrow")} title={t("title")} lede={t("lede")} />
 
+      {/* ——— Le formulaire d'abord : écrire sans quitter le site ——— */}
+      <section className="container-site pb-14">
+        <Reveal>
+          <ContactForm />
+        </Reveal>
+      </section>
+
+      {/* ——— Pour qui préfère sa propre boîte mail : l'adresse ——— */}
       <section className="container-site pb-20">
         <Reveal>
+          <p className="mb-6 text-center text-xs font-semibold uppercase tracking-[0.18em] text-sage-deep">
+            {t("autre")}
+          </p>
           <CopyEmail />
         </Reveal>
       </section>

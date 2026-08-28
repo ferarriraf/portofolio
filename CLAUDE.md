@@ -71,6 +71,15 @@ clients, années d'expérience ou promesses invérifiables
   exprès) ; CSP stricte (aucune ressource externe).
 - Français : espace insécable U+00A0 avant `: ; ? !` dans
   `messages/fr.json`.
+- **Formulaire de contact** : envoi par SMTP écrit à la main
+  (`lib/smtp.ts`, zéro dépendance — le choix nodemailer reste ouvert,
+  il suffirait de réécrire `envoyerCourriel`). Réglages **uniquement**
+  en variables d'environnement (`.env.example`) : ne jamais écrire
+  l'adresse d'arrivée ni le mot de passe dans le code. Anti-robots =
+  champ-piège invisible + délai minimal + 3 envois / 10 min par IP,
+  jamais de captcha. Sans réglages, le formulaire annonce
+  honnêtement qu'il est indisponible — il ne dit jamais « merci » à
+  vide.
 
 ## Pièges connus (ne pas retomber dedans)
 
@@ -84,6 +93,17 @@ clients, années d'expérience ou promesses invérifiables
   `setTimeout(0)` (pattern BootScreen/CopyEmail).
 - framer-motion scroll-linked → WAAPI : plages d'entrée dans [0,1].
 - next-intl ICU : `{` s'échappe avec des quotes autour de `{param}`.
+  **`<` aussi** : un message contenant `<h1 class="…">` est lu comme
+  une balise et lève `INVALID_TAG` à chaque rendu (le texte s'affiche
+  quand même, mais le serveur logue une erreur). Entourer d'apostrophes
+  simples : `'<h1 class=\"accroche\">'` — cas vécu sur `home.layerLabel`.
+- eslint `react-hooks/refs` : regrouper des `useRef` dans un objet puis
+  lire `objet.champ` dans le JSX est refusé (« Cannot access refs
+  during render »). Une variable par ref.
+- Node lit les `.ts` sans les compiler : les « propriétés de
+  paramètre » (`constructor(private socket: X)`) le font échouer, alors
+  que Turbopack les accepte. Déclarer le champ explicitement, sinon les
+  fichiers de `lib/` ne sont plus testables hors du site.
 - `pkill -f "next-server"` se tue lui-même (la commande contient le
   motif) : écrire `pkill -f "next[-]server"`.
 - Les lettres du titre magnétique ont une largeur figée par lettre

@@ -46,6 +46,22 @@ repérer des fichiers parasites, puis au besoin
 Le domaine de référence est `www.r-x.fr` ; `r-x.fr` redirige en 308
 (voir `next.config.ts`).
 
+## Réglages du formulaire de contact
+
+Le formulaire envoie les messages par la boîte mail du domaine. Ses
+réglages ne sont **jamais** dans le dépôt : ils vivent dans des
+variables d'environnement. Le modèle commenté est dans `.env.example`.
+
+- **En local** : copier `.env.example` en `.env.local` (ignoré par git)
+  et compléter `SMTP_MOTDEPASSE`.
+- **Sur le serveur** : saisir les mêmes variables dans le manager
+  Infomaniak, section « variables d'environnement » du site Node, puis
+  redémarrer.
+
+Sans ces variables, le formulaire ne fait pas semblant : il affiche
+qu'il est momentanément indisponible et renvoie vers l'adresse email,
+qui reste affichée juste en dessous.
+
 ## Où modifier quoi
 
 | Vous voulez changer…                  | Fichier(s)                                    |
@@ -64,6 +80,10 @@ Le domaine de référence est `www.r-x.fr` ; `r-x.fr` redirige en 308
 | La fiche « En bref » (horloge, faits) | `components/StudioCard.tsx` + `about.card`    |
 | Navigation / pied de page             | `components/Topbar.tsx` / `components/Footer.tsx` |
 | Bandeau « aucun cookie »              | `components/CookieNotice.tsx`                 |
+| Le formulaire de contact (apparence)  | `components/ContactForm.tsx`                  |
+| Ses règles (validation, anti-robots)  | `lib/contact.ts`                              |
+| L'envoi du mail (protocole SMTP)      | `lib/smtp.ts` + `app/[locale]/contact/actions.ts` |
+| Ses textes et messages d'erreur       | clé `contact.form` dans `messages/*.json`     |
 | Écran de démarrage                    | `components/BootScreen.tsx`                   |
 | Redirections, en-têtes de sécurité    | `next.config.ts`                              |
 
@@ -87,6 +107,12 @@ Code : `components/SecretModes.tsx`.
 - **Email masqué aux robots** : l'adresse est recomposée côté client
   (`components/MailLink.tsx`) ; elle n'apparaît jamais dans le HTML servi.
 - **Clic droit désactivé** hors champs de saisie (`components/NoContextMenu.tsx`).
+- **Formulaire sans captcha ni service tiers** : le message part par la
+  boîte mail du domaine, via un client SMTP écrit à la main
+  (`lib/smtp.ts`, aucune dépendance ajoutée). Les robots sont écartés
+  par un champ-piège invisible et un délai minimal, pas en faisant
+  déchiffrer des images au visiteur. Trois envois maximum par
+  dix minutes et par adresse IP, comptés en mémoire — rien n'est stocké.
 - **Démonstrations assumées** : les trois démos (site vitrine, appli
   métier, API) sont des projets types annoncés comme tels — aucun faux
   client.
@@ -103,3 +129,7 @@ Code : `components/SecretModes.tsx`.
 - **Mentions légales** : les champs `[À compléter]` dans
   `messages/fr.json` et `messages/en.json`, clé `legal` (raison sociale,
   SIRET, directeur de publication).
+- **Variables d'envoi du formulaire** : `SMTP_MOTDEPASSE` (et les
+  autres réglages de `.env.example`) à saisir dans le manager
+  Infomaniak. Tant que ce n'est pas fait, le formulaire s'affiche mais
+  se déclare indisponible à l'envoi.
