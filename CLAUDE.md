@@ -104,6 +104,12 @@ clients, années d'expérience ou promesses invérifiables
   `CountUp` a été supprimé — un chiffre qui monte alors qu'il n'a
   jamais changé de valeur est une fausse mesure.
 
+- **UN SEUL POSTE À L'ÉCRAN.** La méthode a connu trois versions, et
+  les deux premières ont été rejetées par l'utilisateur :
+  un scrollytelling épinglé (magnifique, mais 7,5 écrans de molette) ;
+  puis cinq postes à la suite (court, mais « je veux toujours qu'un seul
+  écran »). La bonne réponse est un poste unique piloté au CLIC, pas au
+  défilement. Ne jamais reproduire un poste par étape.
 - **LA PAGE D'ACCUEIL DOIT RESTER COURTE.** Elle faisait 13,1 écrans de
   haut ; l'utilisateur a dit que la parcourir « prend trop de temps et
   d'énergie ». Les deux sections épinglées mangeaient 74 % du trajet

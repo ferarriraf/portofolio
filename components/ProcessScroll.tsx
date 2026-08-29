@@ -1,7 +1,13 @@
 "use client";
 
-import { useEffect, useRef, type ReactNode } from "react";
-import { animate, useInView, useMotionValue, useReducedMotion } from "framer-motion";
+import { useEffect, useRef, useState } from "react";
+import {
+  animate,
+  motion,
+  useInView,
+  useMotionValue,
+  useReducedMotion,
+} from "framer-motion";
 import { Check } from "lucide-react";
 import RetroComputer from "./RetroComputer";
 import SectionLabel from "./SectionLabel";
@@ -33,18 +39,20 @@ type ProcessScrollProps = {
 };
 
 /**
- * La méthode : cinq étapes, chacune montrée sur son poste beige.
+ * La méthode : UN SEUL poste, cinq étapes sur lesquelles on clique.
  *
- * Elle a longtemps été un scrollytelling épinglé — un seul écran qui se
- * métamorphosait sur sept écrans et demi de molette. C'était joli et
- * c'était trop cher : les deux sections épinglées de l'accueil
- * mangeaient les trois quarts du trajet pour deux écrans de contenu
- * réel. Les étapes se suivent désormais, et la page a maigri de cinq
- * écrans d'un coup.
+ * Deux versions précédentes ont été écartées, et les deux raisons
+ * comptent :
+ *  · un scrollytelling épinglé — magnifique, mais sept écrans et demi
+ *    de molette pour cinq phrases ;
+ *  · cinq postes à la suite — court, mais cinq machines côte à côte
+ *    n'ont aucun sens : ce n'est pas un magasin d'ordinateurs.
  *
- * Il reste un mouvement, et un seul : chaque poste s'allume quand il
- * entre dans le champ, et son tube écrit l'image une fois. Il répond à
- * un geste du visiteur au lieu de tourner en boucle.
+ * Reste ce qui marchait dans les deux : un poste unique qui se
+ * métamorphose. Sauf qu'on le pilote au clic et non au défilement, donc
+ * la section tient sur un écran. À chaque changement, le tube repart de
+ * zéro et le faisceau réécrit l'image — la machine ne s'agite que
+ * lorsqu'elle a quelque chose à écrire, et le clic a une récompense.
  */
 
 export default function ProcessScroll({
@@ -54,6 +62,9 @@ export default function ProcessScroll({
   onlineLabel,
   ecrans,
 }: ProcessScrollProps) {
+  const reduce = useReducedMotion();
+  const [actif, setActif] = useState(0);
+
   const screens = [
     <ScreenListen key="s1" t={ecrans} />,
     <ScreenArchi key="s2" t={ecrans} />,
@@ -61,6 +72,53 @@ export default function ProcessScroll({
     <ScreenTests key="s4" t={ecrans} />,
     <ScreenLaunch key="s5" onlineLabel={onlineLabel} />,
   ];
+
+  /* La mise sous tension du tube. Elle repart de zéro à CHAQUE
+     changement d'étape : le faisceau redescend et réécrit l'image.
+     C'est la règle du site — la machine ne s'agite que lorsqu'elle a
+     quelque chose à écrire — et c'est ce qui rend le clic satisfaisant. */
+  const power = useMotionValue(reduce ? 1 : 0);
+  const ref = useRef<HTMLDivElement>(null);
+  const enVue = useInView(ref, { once: true, margin: "-15% 0px" });
+
+  const allumer = () => {
+    if (reduce) return;
+    power.set(0);
+    animate(power, 1, { duration: 0.75, ease: "easeOut" });
+  };
+
+  // Premier allumage : quand le poste entre dans le champ.
+  useEffect(() => {
+    if (!enVue || reduce) return;
+    const anim = animate(power, 1, { duration: 0.9, ease: "easeOut" });
+    return () => anim.stop();
+  }, [enVue, power, reduce]);
+
+  const choisir = (i: number) => {
+    if (i === actif) return;
+    setActif(i);
+    allumer();
+  };
+
+  /* Navigation au clavier : le motif standard des onglets. Les flèches
+     se déplacent d'une étape, Origine et Fin vont aux extrémités. Un
+     seul onglet est dans l'ordre de tabulation à la fois. */
+  const auClavier = (e: React.KeyboardEvent<HTMLDivElement>) => {
+    const touches: Record<string, number> = {
+      ArrowDown: actif + 1,
+      ArrowRight: actif + 1,
+      ArrowUp: actif - 1,
+      ArrowLeft: actif - 1,
+      Home: 0,
+      End: steps.length - 1,
+    };
+    const vise = touches[e.key];
+    if (vise === undefined) return;
+    e.preventDefault();
+    const i = Math.max(0, Math.min(steps.length - 1, vise));
+    choisir(i);
+    document.getElementById(`etape-${i}`)?.focus();
+  };
 
   return (
     <section className="border-b border-line bg-sage-wash">
@@ -70,56 +128,86 @@ export default function ProcessScroll({
           {title}
         </h2>
 
-        <div className="mt-14 grid gap-10 md:grid-cols-2 md:gap-x-12 md:gap-y-14">
-          {steps.map((step, i) => (
-            <Etape key={step.title} step={step} index={i}>
-              {screens[i]}
-            </Etape>
-          ))}
+        <div
+          ref={ref}
+          className="mt-12 grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16"
+        >
+          {/* ——— Les cinq étapes, cliquables ——— */}
+          <div
+            role="tablist"
+            aria-label={title}
+            aria-orientation="vertical"
+            onKeyDown={auClavier}
+            className="order-2 lg:order-1"
+          >
+            {steps.map((step, i) => {
+              const ouvert = i === actif;
+              return (
+                <button
+                  key={step.title}
+                  id={`etape-${i}`}
+                  role="tab"
+                  type="button"
+                  aria-selected={ouvert}
+                  aria-controls="ecran-methode"
+                  tabIndex={ouvert ? 0 : -1}
+                  onClick={() => choisir(i)}
+                  className={`block w-full border-l-2 py-3 pl-5 text-left transition-colors duration-300 motion-reduce:transition-none ${
+                    ouvert
+                      ? "border-terra-strong"
+                      : "border-ink/12 hover:border-sage"
+                  }`}
+                >
+                  <span className="flex items-baseline gap-3">
+                    <span
+                      className={`font-mono text-xs font-bold tabular-nums transition-colors duration-300 motion-reduce:transition-none ${
+                        ouvert ? "text-terra-deep" : "text-ink/35"
+                      }`}
+                    >
+                      0{i + 1}
+                    </span>
+                    <span
+                      className={`font-display text-lg font-bold tracking-tight transition-colors duration-300 motion-reduce:transition-none md:text-xl ${
+                        ouvert ? "text-ink" : "text-ink/45"
+                      }`}
+                    >
+                      {step.title}
+                    </span>
+                  </span>
+                  {/* Le texte n'apparaît que sur l'étape ouverte : la
+                      liste reste courte, et le clic a une récompense. */}
+                  {ouvert && (
+                    <span className="mt-2 block max-w-md text-sm leading-relaxed text-pretty text-ink-soft">
+                      {step.text}
+                    </span>
+                  )}
+                </button>
+              );
+            })}
+          </div>
+
+          {/* ——— Le poste, un seul ——— */}
+          <div
+            id="ecran-methode"
+            role="tabpanel"
+            aria-labelledby={`etape-${actif}`}
+            className="order-1 lg:order-2"
+          >
+            <RetroComputer power={reduce ? undefined : power}>
+              <motion.div
+                key={actif}
+                initial={reduce ? false : { clipPath: "inset(0% 0% 100% 0%)" }}
+                animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
+                transition={{ duration: 0.55, ease: [0.32, 0, 0.2, 1] }}
+                className="absolute inset-0"
+              >
+                {screens[actif]}
+              </motion.div>
+            </RetroComputer>
+          </div>
         </div>
       </div>
     </section>
-  );
-}
-
-/**
- * Une étape : son poste, son numéro, son texte.
- *
- * Le poste s'allume quand il entre dans le champ — flash de mise sous
- * tension, puis le faisceau écrit l'image une fois. C'est le seul
- * mouvement de la section, et il répond à un geste du visiteur.
- */
-function Etape({
-  step,
-  index,
-  children,
-}: {
-  step: Step;
-  index: number;
-  children: ReactNode;
-}) {
-  const reduce = useReducedMotion();
-  const ref = useRef<HTMLDivElement>(null);
-  const enVue = useInView(ref, { once: true, margin: "-12% 0px" });
-  const power = useMotionValue(reduce ? 1 : 0);
-
-  useEffect(() => {
-    if (reduce || !enVue) return;
-    const anim = animate(power, 1, { duration: 0.9, ease: "easeOut" });
-    return () => anim.stop();
-  }, [enVue, power, reduce]);
-
-  return (
-    <div ref={ref}>
-      <RetroComputer power={reduce ? undefined : power}>{children}</RetroComputer>
-      <p className="mt-6 font-display text-lg font-bold text-ink">
-        <span className="mr-2 text-terra-deep">0{index + 1}</span>
-        {step.title}
-      </p>
-      <p className="mt-1.5 max-w-md text-sm leading-relaxed text-pretty text-ink-soft">
-        {step.text}
-      </p>
-    </div>
   );
 }
 

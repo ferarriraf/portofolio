@@ -70,8 +70,17 @@ export default function Marquee({ items, className }: MarqueeProps) {
         aria-hidden="true"
         className="pointer-events-none absolute inset-y-0 right-0 z-10 w-16 bg-gradient-to-l from-ink-deep to-transparent md:w-28"
       />
+      {/* QUATRE répétitions, pas deux.
+          La piste se décale de la moitié de sa largeur, puis repart :
+          l'illusion ne tient que si ce qui reste à droite couvre encore
+          tout l'écran. Avec deux répétitions, il faut qu'UNE seule soit
+          plus large que la fenêtre — vrai sur un portable, faux sur un
+          grand écran, où l'on voyait la bande finir puis recommencer.
+          Avec quatre, la marge couvre les écrans jusqu'à 4 000 px. */}
       <div className="marquee-track flex w-max">
         {row(false)}
+        {row(true)}
+        {row(true)}
         {row(true)}
       </div>
 
