@@ -30,10 +30,15 @@ déploiement et la table « où modifier quoi ».
 
 ## Honnêteté (non négociable)
 
-Aucun vrai client à ce jour : les trois démos (Site vitrine /
-Application métier / API) sont des **projets types** construits pour
-montrer la méthode, et le site le dit explicitement (`work.note`,
-llms.txt). L'application métier est **jouable** sur `/demo`
+Aucun vrai client à ce jour : les deux démos (Site vitrine /
+Application métier) sont des **projets types** construits pour montrer
+la méthode, et le site le dit explicitement (`work.note`, llms.txt).
+Une troisième démo montrait une réponse d'API : retirée, jugée trop
+technique. **Le public visé, ce sont des commerçants et des artisans
+qui cherchent un site — pas des développeurs.** C'est la règle de
+lecture de tout le contenu : un mot que ce public n'emploie pas est un
+mot de trop. L'offre « API & intégrations » reste sur /services ; c'est
+sa *démonstration* qui parlait un langage de console. L'application métier est **jouable** sur `/demo`
 (« effectif », `components/EffectifApp.tsx` + `lib/effectif.ts`) : elle
 doit tenir mot pour mot la promesse écrite dans `work.projects[1]`
 — « un tableau de bord qui montre ce qui attend une décision, et rien

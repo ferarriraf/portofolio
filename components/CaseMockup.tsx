@@ -1,6 +1,6 @@
 import { Check } from "lucide-react";
 
-type Variant = "vitrine" | "metier" | "api";
+type Variant = "vitrine" | "metier";
 
 export type MockupTextes = {
   vitrine: {
@@ -20,20 +20,16 @@ export type MockupTextes = {
     valide: string;
     action: string;
   };
-  api: {
-    fenetre: string;
-    requete: string;
-    statut: string;
-    lignes: [string, string][];
-    note: string;
-  };
 };
 
 /**
- * Les trois démos types — un site vitrine, une application métier,
- * une API — avec de vrais mots. Tout est en HTML : le texte se
- * traduit, se sélectionne, et reste lisible à l'écran comme à la
- * loupe. Chaque écran vit doucement (blocs qui se posent, curseur).
+ * Les deux démos types — un site vitrine et une application métier —
+ * avec de vrais mots. Tout est en HTML : le texte se traduit, se
+ * sélectionne, et reste lisible à l'écran comme à la loupe.
+ *
+ * Une troisième démo montrait une réponse d'API : elle a été retirée,
+ * jugée trop technique pour le public visé. Une console, pour un
+ * artisan qui cherche un site, est un mur.
  */
 export default function CaseMockup({
   variant,
@@ -43,8 +39,7 @@ export default function CaseMockup({
   textes: MockupTextes;
 }) {
   if (variant === "vitrine") return <Vitrine t={textes.vitrine} />;
-  if (variant === "metier") return <Metier t={textes.metier} />;
-  return <Api t={textes.api} />;
+  return <Metier t={textes.metier} />;
 }
 
 /* ——— 01 · Site vitrine : l'atelier de céramique ——— */
@@ -169,45 +164,6 @@ function Metier({ t }: { t: MockupTextes["metier"] }) {
         <span className="inline-block rounded-full bg-terra-hot px-3 py-1.5 text-[0.58rem] font-semibold text-sand-card">
           {t.action}
         </span>
-      </div>
-    </div>
-  );
-}
-
-/* ——— 03 · API : la réponse qui circule toute seule ——— */
-
-function Api({ t }: { t: MockupTextes["api"] }) {
-  return (
-    <div className="absolute inset-0 flex flex-col bg-ink-deep p-3.5 font-mono text-sand">
-      <div className="flex items-center justify-between rounded-t-lg bg-ink/70 px-2.5 py-1.5">
-        <span className="text-[0.55rem] font-bold text-sage">{t.requete}</span>
-        <span className="rounded-full bg-sage px-1.5 py-0.5 text-[0.48rem] font-bold text-ink-deep">
-          {t.statut}
-        </span>
-      </div>
-      <div
-        aria-hidden="true"
-        className="flex flex-1 flex-col justify-center gap-1.5 rounded-b-lg border-x border-b border-sand/10 px-3 text-[0.55rem]"
-      >
-        <span className="text-sand/40">{"{"}</span>
-        {t.lignes.map(([cle, valeur], i) => (
-          <span key={cle} className="pl-3">
-            <span className="text-sage">&quot;{cle}&quot;</span>
-            <span className="text-sand/40">: </span>
-            <span className="text-terra">&quot;{valeur}&quot;</span>
-            {i < t.lignes.length - 1 && <span className="text-sand/40">,</span>}
-          </span>
-        ))}
-        <span className="text-sand/40">{"}"}</span>
-        {/* La requête suivante, déjà en train de partir */}
-        <span className="mt-1 flex items-center gap-1.5">
-          <span className="typing-line h-1.5 rounded-full bg-sage/70" />
-          <span className="h-2.5 w-0.5 shrink-0 bg-sand/80" />
-        </span>
-      </div>
-      <div className="mt-2 flex items-center gap-1.5 rounded-md bg-ink/70 px-2.5 py-1">
-        <span className="size-1.5 rounded-full bg-sage" aria-hidden="true" />
-        <span className="text-[0.5rem] text-sage">{t.note}</span>
       </div>
     </div>
   );

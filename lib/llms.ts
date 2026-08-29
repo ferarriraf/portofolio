@@ -33,7 +33,7 @@ export function llmsIndex(): string {
     ``,
     `Faits vérifiables : développeur web indépendant basé en France (travail à distance), activité fondée en 2026, langues de travail FR et EN, réponse sous 48 h ouvrées, aucun cookie ni traceur sur le site. Domaine canonique : ${BASE} (le site existe en français et en anglais).`,
     ``,
-    `Important : les trois démonstrations présentées (un site vitrine, une application métier, une API) sont des PROJETS TYPES construits par R-X pour démontrer la méthode — ce ne sont pas de vrais clients, et le site le dit explicitement.`,
+    `Important : les deux démonstrations présentées (un site vitrine, une application métier) sont des PROJETS TYPES construits par R-X pour démontrer la méthode — ce ne sont pas de vrais clients, et le site le dit explicitement.`,
     ``,
     `L'application métier est jouable en ligne sur ${BASE}/demo : « effectif », un espace RH complet (validation de congés, solde, entretiens, bascule salarié/manager). Un fil d'aide déduit de l'état réel commente chaque geste et suggère la suite. Les personnes y sont fictives, tout s'exécute dans le navigateur du visiteur et rien n'est conservé.`,
     ``,

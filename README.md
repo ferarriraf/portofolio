@@ -118,9 +118,10 @@ Code : `components/SecretModes.tsx`.
   par un champ-piège invisible et un délai minimal, pas en faisant
   déchiffrer des images au visiteur. Trois envois maximum par
   dix minutes et par adresse IP, comptés en mémoire — rien n'est stocké.
-- **Démonstrations assumées** : les trois démos (site vitrine, appli
-  métier, API) sont des projets types annoncés comme tels — aucun faux
-  client.
+- **Démonstrations assumées** : les deux démos (site vitrine, appli
+  métier) sont des projets types annoncés comme tels — aucun faux
+  client. La démo d'API a été retirée : une console, pour un artisan
+  qui cherche un site, est un mur.
 - **Une démo qui se manipule** (`/demo`) : « effectif », l'application
   métier en état de marche — validation de congés, solde qui bouge,
   entretiens à planifier, bascule salarié/manager. Tout tourne dans le

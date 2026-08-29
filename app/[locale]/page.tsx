@@ -21,7 +21,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata(locale, "home", "/");
 }
 
-const coverVariants = ["vitrine", "metier", "api"] as const;
+const coverVariants = ["vitrine", "metier"] as const;
 
 export default async function HomePage({ params }: Props) {
   const { locale } = await params;
