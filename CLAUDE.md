@@ -53,8 +53,11 @@ clients, années d'expérience ou promesses invérifiables
 ## Goûts visuels de l'utilisateur (durement acquis)
 
 - **Adoré** : glow phosphore terracotta (manifeste), effet vieille
-  TV/CRT, fenêtres terminal (démos API, écran tests), détails
-  d'artisanat précis, humour dev discret (« exit 0 » du footer).
+  TV/CRT, détails d'artisanat précis.
+  **Révisé par l'utilisateur** : « exit 0 » du pied de page a été retiré
+  — jugé inutile et trop pointu pour le public visé. Les fenêtres
+  terminal aussi (la démo API est partie). Le vocabulaire de console
+  n'a plus sa place sur ce site : ne pas le réintroduire.
 - **Détesté** : tout ce qui « fait IA » ou template, boutons keycap à
   étages d'ombre, liserés/lignes claires 1px sur fonds sombres, tilts
   de cartes à la souris, curseurs custom, polices outline, mouvements
@@ -78,10 +81,10 @@ clients, années d'expérience ou promesses invérifiables
   il ne porte JAMAIS une information qui ne soit pas déjà écrite en
   clair juste à côté ; il énonce un fait vérifiable, si possible
   chiffré. La lueur est en `--terra-hot`, le TEXTE jamais (3,3:1, sous
-  le seuil) — une ombre ne porte aucune information. Trois reçus
-  aujourd'hui : envoi du formulaire, copie de l'adresse, 404. Une ligne
-  mono posée sous un titre « parce que ça fait joli » et le terminal
-  redevient un costume.
+  le seuil) — une ombre ne porte aucune information. Deux reçus
+  aujourd'hui : l'envoi du formulaire et la copie de l'adresse. Une
+  ligne mono posée sous un titre « parce que ça fait joli » et le
+  procédé redevient un costume.
 - **Le fil de la démo** (`suivreFil` / `ligneDuFil` dans
   `lib/effectif.ts`, textes en `demo.fil`) : la ligne est DÉDUITE de
   l'état à chaque rendu, jamais d'un compteur d'étapes — c'est ce qui
@@ -91,18 +94,22 @@ clients, années d'expérience ou promesses invérifiables
   devient muet après ce geste. Ne JAMAIS y ajouter : bulle numérotée,
   fond assombri, flèche qui pointe, « étape 2/5 », minuteur qui relance,
   ni horloge fictive — c'est le template qu'on contourne.
-- **Une seule blague explicite par site** : `exit 0` au pied de page,
-  `exit 1` sur la 404. Rien d'autre, nulle part.
-- **RIEN NE BOUGE DE SOI-MÊME.** Règle structurante depuis le grand
-  silence (23 boucles `infinite` ramenées à 4). Une animation en boucle
-  doit se justifier en une phrase, sinon elle n'existe pas. Les quatre
-  survivantes : le bandeau du pied de page (voulu), le curseur de
-  `exit 0` (une machine qui attend qu'on tape), et les deux témoins du
-  poste rétro (à brancher sur le défilement réel). Avant d'ajouter une
-  `@keyframes ... infinite`, se demander ce qu'elle **dit** ; si la
+- **RIEN NE BOUGE DE SOI-MÊME.** Règle structurante. Le site est passé
+  de 23 animations en boucle à **une seule** : le bandeau du pied de
+  page, qui est voulu et qui a son bouton d'arrêt. Tout le reste répond
+  à un geste — les postes s'allument en entrant dans le champ, les
+  reçus s'estompent après une action. Avant d'ajouter une
+  `@keyframes … infinite`, se demander ce qu'elle **dit** ; si la
   réponse est « ça fait vivant », elle est refusée. Corollaire :
   `CountUp` a été supprimé — un chiffre qui monte alors qu'il n'a
   jamais changé de valeur est une fausse mesure.
+
+- **LA PAGE D'ACCUEIL DOIT RESTER COURTE.** Elle faisait 13,1 écrans de
+  haut ; l'utilisateur a dit que la parcourir « prend trop de temps et
+  d'énergie ». Les deux sections épinglées mangeaient 74 % du trajet
+  pour deux écrans de contenu réel. Elle en fait 6,9 aujourd'hui. Avant
+  d'ajouter une section épinglée en `vh`, mesurer ce qu'elle coûte en
+  écrans et se demander si le contenu le vaut.
 
 ## Contraintes techniques du site
 

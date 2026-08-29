@@ -70,8 +70,8 @@ qui reste affichée juste en dessous.
 | Les couleurs                          | `app/globals.css` (variables `:root` en tête) |
 | Les pages et leur mise en page        | `app/[locale]/…/page.tsx`                     |
 | Le titre magnétique du hero           | `components/MagneticTitle.tsx`                |
-| Le scrollytelling « méthode »         | `components/ProcessScroll.tsx`                |
-| Les trois démos types (écrans)        | `components/CaseMockup.tsx` + `work.mockups` dans `messages/*.json` |
+| Les cinq étapes de la méthode         | `components/ProcessScroll.tsx`                |
+| Les deux démos types (écrans)         | `components/CaseMockup.tsx` + `work.mockups` dans `messages/*.json` |
 | Le moniteur des démos (bezel, barre)  | `components/DemoWindow.tsx`                   |
 | La frise du déroulé (rail au scroll)  | `components/ProjectTimeline.tsx`              |
 | Le R-X gravé du pied de page          | `components/FooterMark.tsx`                   |
@@ -139,16 +139,19 @@ Code : `components/SecretModes.tsx`.
 - **Le reçu** : quand une machine a réellement agi, elle imprime une
   ligne courte en chasse fixe qui s'allume en phosphore terracotta puis
   se calme — la durée mesurée d'un envoi, l'adresse recomposée dans le
-  navigateur, `exit 1` sur la 404. La règle est écrite en tête de
+  navigateur. La règle est écrite en tête de
   `components/Recu.tsx` : un reçu ne s'affiche que si une machine a agi,
   et il ne porte jamais une information qui ne soit pas déjà écrite en
   clair juste à côté. On les supprime tous, le site reste entier.
 - **Rien ne bouge de soi-même** : le site est passé de 23 animations en
-  boucle à 4, chacune justifiable en une phrase — le bandeau du pied de
-  page, le curseur de `exit 0`, et les deux témoins du poste rétro. Les
-  halos du hero ne dérivent plus, les maquettes ne font plus semblant de
-  travailler, et les chiffres de la page « à propos » sont écrits plutôt
-  que comptés. Ce qui bouge sur ce site répond à un geste du visiteur.
+  boucle à **une seule**, le bandeau du pied de page — et il a son
+  bouton d'arrêt. Les halos du hero ne dérivent plus, les maquettes ne
+  font plus semblant de travailler, les chiffres sont écrits plutôt que
+  comptés, et chaque poste rétro s'allume quand il entre à l'écran. Tout
+  ce qui bouge sur ce site répond à un geste du visiteur.
+- **Une page d'accueil courte** : 6,9 écrans, contre 13,1 avant que les
+  deux sections épinglées ne soient raccourcies. Aucune section ne
+  confisque le défilement.
 - **Système de profondeur unifié** : une seule lumière (venant du haut),
   échelle d'ombres `shadow-elev-1..4`, arêtes ciselées
   `inset-shadow-cisele(-sombre)` façon boîtier du Mac, bandes pleine
