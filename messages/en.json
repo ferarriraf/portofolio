@@ -56,10 +56,10 @@
     "layerLabel": "'<h1 class=\"headline\">'",
     "marquee": [
       "Websites",
-      "Web apps",
-      "APIs",
-      "Performance",
-      "Accessibility",
+      "Online shops",
+      "Applications",
+      "Speed",
+      "Repairs",
       "Maintenance"
     ],
     "manifesto": {
@@ -70,8 +70,6 @@
       "eyebrow": "The method",
       "title": "Five steps, not one more",
       "online": "Live",
-      "prev": "Previous step",
-      "next": "Next step",
       "steps": [
         {
           "title": "Listening",

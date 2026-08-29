@@ -133,7 +133,7 @@ export default async function LocaleLayout({
             deux règles rendent le site lisible tel quel. La CSP autorise
             les styles en ligne, c'est donc sans effet de bord. */}
         <noscript>
-          <style>{`.ecran-boot{display:none!important}[data-entree]{opacity:1!important;transform:none!important;clip-path:none!important}`}</style>
+          <style>{`.ecran-boot{display:none!important}[data-entree]{opacity:1!important;transform:none!important;clip-path:none!important}[data-voile]{opacity:0!important}`}</style>
         </noscript>
         <NextIntlClientProvider>
           {/* Premier arrêt du clavier : sauter la navigation */}

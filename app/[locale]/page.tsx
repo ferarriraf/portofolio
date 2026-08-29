@@ -105,14 +105,12 @@ export default async function HomePage({ params }: Props) {
       {/* ——— Manifeste : les mots s'illuminent au fil du scroll ——— */}
       <ManifestoScroll lead={t("manifesto.lead")} emph={t("manifesto.emph")} />
 
-      {/* ——— Méthode : l'écran qui se transforme au scroll ——— */}
+      {/* ——— Méthode : cinq étapes, chacune sur son poste ——— */}
       <ProcessScroll
         eyebrow={t("process.eyebrow")}
         title={t("process.title")}
         steps={steps}
         onlineLabel={t("process.online")}
-        prevLabel={t("process.prev")}
-        nextLabel={t("process.next")}
         ecrans={t.raw("process.screens") as EcranTextes}
       />
 

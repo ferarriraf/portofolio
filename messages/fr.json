@@ -56,10 +56,10 @@
     "layerLabel": "'<h1 class=\"accroche\">'",
     "marquee": [
       "Sites web",
+      "Boutiques en ligne",
       "Applications",
-      "API",
-      "Performance",
-      "Accessibilité",
+      "Rapidité",
+      "Dépannage",
       "Maintenance"
     ],
     "manifesto": {
@@ -70,8 +70,6 @@
       "eyebrow": "La méthode",
       "title": "Cinq étapes, pas une de plus",
       "online": "En ligne",
-      "prev": "Étape précédente",
-      "next": "Étape suivante",
       "steps": [
         {
           "title": "Écoute",

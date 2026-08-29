@@ -12,24 +12,17 @@ import { motion, useTransform, type MotionValue } from "framer-motion";
 export default function RetroComputer({
   children,
   power,
-  faisceau,
-  activite,
   ombre = true,
 }: {
   children: ReactNode;
-  /** 0 = éteint, 1 = allumé. Absent : l'écran est allumé d'emblée. */
+  /**
+   * La mise sous tension, de 0 à 1. Elle pilote tout : le voile noir qui
+   * se rétracte, le flash de la ligne blanche, le faisceau qui écrit
+   * l'image, et le témoin d'activité. Absente, l'écran est simplement
+   * allumé et la machine reste immobile — elle ne fait jamais semblant
+   * de travailler.
+   */
   power?: MotionValue<number>;
-  /**
-   * Position du faisceau sur la dalle, de 0 (en haut) à 100 (en bas).
-   * Absent : aucun balayage — le tube ne fait pas semblant de travailler.
-   */
-  faisceau?: MotionValue<number>;
-  /**
-   * 1 pendant que l'écran change, 0 quand rien ne se passe. Pilote à la
-   * fois l'intensité du faisceau et le témoin d'activité : la machine ne
-   * s'agite que lorsqu'elle a quelque chose à écrire.
-   */
-  activite?: MotionValue<number>;
   /** false : l'ombre au sol est dessinée par le parent (poste qui pivote) */
   ombre?: boolean;
 }) {
@@ -79,11 +72,9 @@ export default function RetroComputer({
                 }}
               />
               {/* Le balayage du tube. Il ne tourne pas en boucle : il
-                  descend exactement pendant que l'écran change, et
-                  s'éteint dès que la nouvelle image est écrite. */}
-              {faisceau && activite && (
-                <Faisceau faisceau={faisceau} activite={activite} />
-              )}
+                  traverse la dalle UNE fois, pendant l'allumage, et
+                  s'éteint dès que l'image est écrite. */}
+              {power && <Faisceau power={power} />}
 
               {power && <PowerOn power={power} />}
             </div>
@@ -112,12 +103,7 @@ export default function RetroComputer({
               portée, qui repeindrait à chaque image. */}
           <span aria-hidden="true" className="relative size-2 shrink-0">
             <span className="absolute inset-0 rounded-full bg-sage-strong opacity-70" />
-            {activite && (
-              <motion.span
-                className="absolute -inset-[3px] rounded-full bg-sage-strong blur-[3px]"
-                style={{ opacity: activite }}
-              />
-            )}
+            {power && <Temoin power={power} />}
           </span>
         </div>
 
@@ -146,15 +132,11 @@ export default function RetroComputer({
  * entièrement il faut aller de -100 % (juste au-dessus) à 1011 %,
  * soit (100 - 9) / 9 — sans quoi elle s'arrêterait en chemin.
  */
-function Faisceau({
-  faisceau,
-  activite,
-}: {
-  faisceau: MotionValue<number>;
-  activite: MotionValue<number>;
-}) {
-  const y = useTransform(faisceau, [0, 100], ["-100%", "1011%"]);
-  const opacite = useTransform(activite, [0, 1], [0, 0.5]);
+function Faisceau({ power }: { power: MotionValue<number> }) {
+  const y = useTransform(power, [0, 1], ["-100%", "1011%"]);
+  // Il s'allume en entrant, s'éteint en sortant : on ne voit jamais la
+  // bande apparaître ou disparaître au milieu de la dalle.
+  const opacite = useTransform(power, [0, 0.12, 0.88, 1], [0, 0.5, 0.5, 0]);
 
   return (
     <motion.span
@@ -170,6 +152,17 @@ function Faisceau({
   );
 }
 
+/** Le témoin d'activité : un halo qui ne s'allume que pendant l'écriture. */
+function Temoin({ power }: { power: MotionValue<number> }) {
+  const opacite = useTransform(power, [0, 0.15, 0.9, 1], [0, 1, 1, 0.25]);
+  return (
+    <motion.span
+      className="absolute -inset-[3px] rounded-full bg-sage-strong blur-[3px]"
+      style={{ opacity: opacite }}
+    />
+  );
+}
+
 /** Mise sous tension : le noir se rétracte, une ligne blanche flashe. */
 function PowerOn({ power }: { power: MotionValue<number> }) {
   const voile = useTransform(power, [0, 0.55, 1], [1, 0.8, 0]);
@@ -178,8 +171,12 @@ function PowerOn({ power }: { power: MotionValue<number> }) {
 
   return (
     <>
+      {/* data-voile : sans JavaScript, ce voile est servi OPAQUE et les
+          cinq écrans du poste resteraient noirs. Le bloc <noscript> du
+          layout le lève. */}
       <motion.span
         aria-hidden="true"
+        data-voile
         className="pointer-events-none absolute inset-0 z-40 bg-ink-deep"
         style={{ opacity: voile }}
       />

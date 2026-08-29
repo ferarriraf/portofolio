@@ -54,7 +54,11 @@ export default function ManifestoScroll({ lead, emph }: ManifestoScrollProps) {
     <section
       ref={ref}
       className="relative bg-ink-deep text-sand"
-      style={{ height: "220vh" }}
+      /* 120 vh et non 220 : le texte s'illumine deux fois plus vite,
+         pour un contenu qui tient sur un ecran. Le glow phosphore
+         reste, c'est la plus belle chose du site — mais une phrase
+         ne peut pas couter deux ecrans de defilement. */
+      style={{ height: "120vh" }}
     >
       <div className="sticky top-0 flex h-svh items-center overflow-hidden">
         <TubeOverlays />
