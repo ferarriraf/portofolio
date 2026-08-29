@@ -67,11 +67,6 @@ export default function Footer() {
           <p>
             © {year} R-X. {t("footer.rights")}
           </p>
-          {/* Le dernier mot du site : la session se ferme proprement */}
-          <span aria-hidden="true" className="font-mono text-[0.7rem] text-sand/45">
-            rx@r-x:~$ exit 0
-            <span className="caret-blink ml-1 inline-block h-3 w-1.5 translate-y-px bg-sand/45" />
-          </span>
           <Link
             href="/mentions-legales"
             className="transition-colors hover:text-sand"

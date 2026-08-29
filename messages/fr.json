@@ -554,8 +554,7 @@
   "notFound": {
     "title": "Page introuvable",
     "text": "Cette page n'existe pas — ou plus. Un bon site commence par de bonnes routes ; celle-ci renvoie une 404.",
-    "back": "Retour à l'accueil",
-    "recu": "exit 1 · c'est la page qui manque, pas vous."
+    "back": "Retour à l'accueil"
   },
   "cookies": {
     "title": "Aucun cookie ici",

@@ -588,21 +588,6 @@ html.mode-retro body::after {
    réel depuis components/RetroComputer.tsx. La machine ne s'agite
    que lorsqu'elle a quelque chose à écrire. */
 
-@keyframes caret-blink {
-  0%,
-  45% {
-    opacity: 1;
-  }
-  50%,
-  100% {
-    opacity: 0;
-  }
-}
-
-.caret-blink {
-  animation: caret-blink 1s steps(1) infinite;
-}
-
 .dash-march {
   stroke-dasharray: 10 14;
 }
@@ -619,12 +604,6 @@ html.mode-retro body::after {
    de « exit 0 » (une machine qui attend qu'on tape), et les deux
    témoins du poste rétro — qui seront branchés sur le défilement réel
    au lot suivant. */
-@media (prefers-reduced-motion: reduce) {
-  .caret-blink {
-    animation: none;
-  }
-}
-
 /* ——— FAQ : la carte verdit à l'ouverture ——— */
 details.faq-carte[open] {
   background-color: var(--sage-wash);

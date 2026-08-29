@@ -554,8 +554,7 @@
   "notFound": {
     "title": "Page not found",
     "text": "This page doesn't exist — or not anymore. Good websites start with good routes; this one returns a 404.",
-    "back": "Back to home",
-    "recu": "exit 1 · it is the page that is missing, not you."
+    "back": "Back to home"
   },
   "cookies": {
     "title": "No cookies here",

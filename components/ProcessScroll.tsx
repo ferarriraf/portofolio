@@ -89,23 +89,31 @@ export default function ProcessScroll({
    * défiler — puis on joue la transition elle-même, à la vitesse où
    * elle se lit. On n'escamote que ce qui n'a rien à montrer.
    */
-  // Le défilement en cours, pour pouvoir l'interrompre : deux clics
-  // rapprochés lançaient deux animations qui se disputaient la page,
-  // et l'on n'arrivait jamais où l'on voulait.
+  // Le défilement en cours, et l'étape qu'il vise. Les deux comptent :
+  // pendant un déplacement, la position courante se trouve AU MILIEU
+  // d'une transition, et s'en servir pour décider où aller recalculait
+  // la même cible — deux clics rapprochés ne faisaient donc avancer que
+  // d'une étape, voire d'aucune près de la dernière.
   const defilement = useRef<{ stop: () => void } | null>(null);
+  const etapeVisee = useRef<number | null>(null);
 
   const sauter = (dir: 1 | -1) => {
-    defilement.current?.stop();
-
     const el = ref.current;
     if (!el) return;
 
-    const courant = Math.max(
-      0,
-      Math.min(steps.length - 1, Math.floor(scrollYProgress.get() * steps.length))
-    );
-    const cible = Math.max(0, Math.min(steps.length - 1, courant + dir));
+    const borner = (n: number) => Math.max(0, Math.min(steps.length - 1, n));
+
+    // Pendant un déplacement on part de la cible visée, pas de là où
+    // l'on se trouve : c'est ce qui permet d'enchaîner les clics.
+    const courant =
+      etapeVisee.current !== null
+        ? etapeVisee.current
+        : borner(Math.floor(scrollYProgress.get() * steps.length));
+    const cible = borner(courant + dir);
     if (cible === courant) return;
+
+    defilement.current?.stop();
+    etapeVisee.current = cible;
 
     const haut = el.getBoundingClientRect().top + window.scrollY;
     const course = el.offsetHeight - window.innerHeight;
@@ -141,6 +149,7 @@ export default function ProcessScroll({
       onUpdate: (v) => window.scrollTo({ top: v, behavior: "instant" }),
       onComplete: () => {
         defilement.current = null;
+        etapeVisee.current = null;
       },
     });
   };

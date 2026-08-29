@@ -112,6 +112,12 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
+      /* Next a besoin de savoir que le défilement doux vient du CSS :
+         sans cet attribut, il remonte la page en la faisant DÉFILER à
+         chaque navigation — on voyait tout le site repasser à l'envers
+         en changeant de langue. Avec, le retour en haut est instantané,
+         et les ancres gardent leur défilement doux. */
+      data-scroll-behavior="smooth"
       className={`${display.variable} ${bodyFont.variable} antialiased`}
     >
       <body className="flex min-h-dvh flex-col overflow-x-clip">
