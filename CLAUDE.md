@@ -204,6 +204,17 @@ clients, années d'expérience ou promesses invérifiables
   à un bug.
 - `pkill -f "next-server"` se tue lui-même (la commande contient le
   motif) : écrire `pkill -f "next[-]server"`.
+- La barre du haut est **fixe** : elle mange les 81 premiers pixels.
+  Sans `scroll-padding-top` sur `html`, tout ce qui amène un élément en
+  haut de l'écran le range DERRIÈRE elle — ancre, lien d'évitement,
+  retour du focus au clavier, restauration de position au rechargement.
+  La règle est posée dans `app/globals.css` : ne pas la retirer, et la
+  mettre à jour si la hauteur de la barre change.
+- Un titre posé à côté d'une carte se cale sur le BORD de la carte, pas
+  sur son TEXTE : la carte a son rembourrage, le titre n'en a aucun, et
+  il flotte une vingtaine de pixels trop haut. Comparer les lignes de
+  texte (`Range.getClientRects()`), pas les boîtes — `getBoundingClientRect`
+  inclut le rembourrage et fait croire que rien n'a bougé.
 - Les lettres du titre magnétique ont une largeur figée par lettre
   (sinon la graisse variable élargit les glyphes et fait trembler la
   ligne par reflow) et l'onde du clic est attachée au `<h1>` seul,
