@@ -95,15 +95,19 @@ export default function Topbar() {
   };
 
   return (
+    // Le verre est posé EN PERMANENCE, pas seulement au défilement.
+    // Deux raisons : c'est ce qui fait une plaque de verre plutôt qu'un
+    // fond qui apparaît, et `transition-all` animait sinon le flou
+    // lui-même à chaque franchissement du seuil — 300 ms de flou
+    // recalculé, cher sur la carte graphique et visible comme un
+    // clignotement. Seule l'arête change désormais avec le défilement.
     <header
-      className={`fixed inset-x-0 top-0 z-40 transition-all duration-300 ${
-        scrolled
-          ? "border-b border-line/70 bg-sand/85 shadow-elev-2 backdrop-blur-md"
-          : "border-b border-transparent bg-transparent"
+      className={`verre-liquide fixed inset-x-0 top-0 z-40 border-b transition-[border-color] duration-300 ${
+        scrolled ? "border-white/50" : "border-white/25"
       }`}
     >
       <div
-        className={`container-site flex items-center justify-between transition-all duration-300 ${
+        className={`container-site flex items-center justify-between transition-[height] duration-300 ${
           scrolled ? "h-16" : "h-20"
         }`}
       >
@@ -146,7 +150,7 @@ export default function Topbar() {
             aria-label={t("menuOpen")}
             aria-expanded={open}
             aria-controls={open ? "menu-mobile" : undefined}
-            className="press inline-flex size-10 items-center justify-center rounded-full border border-line bg-sand-card text-ink md:hidden"
+            className="press verre-liquide-pastille inline-flex size-10 items-center justify-center rounded-full border border-white/60 text-ink md:hidden"
           >
             <Menu className="size-5" />
           </button>
@@ -178,7 +182,7 @@ export default function Topbar() {
                 type="button"
                 onClick={() => setOpen(false)}
                 aria-label={t("menuClose")}
-                className="press inline-flex size-10 items-center justify-center rounded-full border border-line bg-sand-card text-ink"
+                className="press verre-liquide-pastille inline-flex size-10 items-center justify-center rounded-full border border-white/60 text-ink"
               >
                 <X className="size-5" />
               </button>

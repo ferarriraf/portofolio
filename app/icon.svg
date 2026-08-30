@@ -1,6 +1,18 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64">
-  <rect width="64" height="64" rx="14" fill="#f6f1e6"/>
-  <circle cx="32" cy="32" r="23" fill="none" stroke="#6e8a62" stroke-width="4"/>
-  <circle cx="32" cy="32" r="13" fill="none" stroke="#c1714b" stroke-width="4"/>
-  <circle cx="32" cy="32" r="4.5" fill="#2e3428"/>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="R-X">
+  <!-- Le logotype du site en icône : R-X, le tiret en terracotta.
+       Les deux lettres sont posées séparément, ancrées chacune sur son
+       bord, et la barre est dessinée entre elles : la composition ne
+       dépend donc d'aucune métrique de fonte. Si la police serif du
+       système diffère, les lettres changent un peu de dessin mais rien
+       ne se décale et la barre reste au centre.
+       Marges resserrées par rapport au visuel d'origine : à 16 px dans
+       un onglet, les grandes marges rendaient le sigle illisible. -->
+  <rect width="64" height="64" fill="#f6f1e6"/>
+  <text x="4" y="33" text-anchor="start" dominant-baseline="central"
+        font-family="Georgia, 'Times New Roman', Times, serif"
+        font-size="38" fill="#2e3428">R</text>
+  <rect x="27" y="30.5" width="10" height="4" fill="#d95f2e"/>
+  <text x="60" y="33" text-anchor="end" dominant-baseline="central"
+        font-family="Georgia, 'Times New Roman', Times, serif"
+        font-size="38" fill="#2e3428">X</text>
 </svg>

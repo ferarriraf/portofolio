@@ -83,6 +83,110 @@ html {
   }
 }
 
+/* ——— Verre liquide ———
+   Un vrai matériau, pas un simple flou. Ce qui fait qu'une surface se
+   lit comme du VERRE et non comme du brouillard, c'est la combinaison
+   de quatre choses, et il en manque toujours une dans les imitations :
+
+   1. la SATURATION. Le verre concentre la couleur de ce qu'il y a
+      derrière au lieu de la délaver. `saturate(180%)` fait tout le
+      travail : sans lui, un flou donne du calque dépoli, pas du verre.
+   2. deux REFLETS SPÉCULAIRES, pas un. Une lumière rasante en haut à
+      gauche, un rebond plus faible en bas à droite : c'est ce décalage
+      qui donne l'épaisseur. Un seul reflet centré fait plastique.
+   3. l'ARÊTE. Une ligne blanche d'un pixel sur le bord supérieur, une
+      ombre d'un pixel sur le bord inférieur : la tranche de la plaque.
+   4. l'OMBRE PORTÉE, large et très diluée — le verre flotte au-dessus
+      de la page, il n'y est pas collé.
+
+   Les reflets sont empilés dans `background` plutôt que posés en
+   pseudo-élément : un pseudo-élément en position absolue se peint APRÈS
+   le contenu et passerait devant le texte du menu.
+
+   Rien ne bouge : la règle du site tient ici aussi. Le verre réagit au
+   défilement et au survol, jamais tout seul.
+
+   POURQUOI LE TEINT RESTE COUVRANT (0,96 → 0,90, et pas 0,5). La barre
+   est fixe : en défilant, elle passe au-dessus de bandes sombres. Un
+   verre très transparent y laisse le fond noircir la surface, et le
+   texte du menu — encre douce sur clair — devient illisible.
+
+   Calculé sur le cas le plus défavorable, la barre au-dessus de
+   `--ink-deep` (#24291f) après `brightness(1.05)`, contraste des liens
+   inactifs (`--ink-soft`) :
+       teint 0,82 → 3,94:1  échec
+       teint 0,86 → 4,26:1  échec
+       teint 0,90 → 4,61:1  conforme
+   Le seuil WCAG 1.4.3 est à 4,5:1. On se cale donc à 0,90 en bas de la
+   plaque. Pour mémoire, l'ancienne barre opaque `bg-sand/85` plafonnait
+   à 4,17:1 : elle échouait déjà, ce n'est pas une régression mais une
+   correction.
+
+   Ce qui fait le verre ici, ce n'est pas la transparence : c'est la
+   saturation, les deux reflets et l'arête. On voit toujours les formes
+   défiler derrière, floues et saturées — c'est exactement ce qu'on
+   demande à une plaque de verre. */
+.verre-liquide {
+  background:
+    radial-gradient(
+      132% 92% at 12% -42%,
+      rgba(255, 255, 255, 0.5),
+      transparent 62%
+    ),
+    radial-gradient(
+      88% 72% at 94% 132%,
+      rgba(255, 255, 255, 0.26),
+      transparent 68%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(251, 248, 240, 0.96),
+      rgba(246, 241, 230, 0.9)
+    );
+  backdrop-filter: blur(18px) saturate(185%) brightness(1.05);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.9),
+    inset 0 -1px 0 rgba(46, 52, 40, 0.07),
+    0 14px 38px -22px rgba(46, 52, 40, 0.45);
+}
+
+/* La pastille : même matériau, mais une plaque épaisse et bombée. Le
+   reflet part plus haut et l'arête fait le tour complet — sur un objet
+   rond, la tranche est visible partout, pas seulement en haut. */
+.verre-liquide-pastille {
+  background:
+    radial-gradient(
+      118% 118% at 28% -18%,
+      rgba(255, 255, 255, 0.85),
+      transparent 58%
+    ),
+    radial-gradient(
+      92% 92% at 82% 118%,
+      rgba(255, 255, 255, 0.4),
+      transparent 62%
+    ),
+    linear-gradient(
+      to bottom,
+      rgba(251, 248, 240, 0.96),
+      rgba(237, 229, 210, 0.88)
+    );
+  backdrop-filter: blur(14px) saturate(190%) brightness(1.07);
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.95),
+    inset 0 -1px 0 rgba(46, 52, 40, 0.1),
+    0 8px 20px -10px rgba(46, 52, 40, 0.35);
+}
+
+/* Filet de sécurité : sans `backdrop-filter`, une surface à 54 %
+   d'opacité laisse passer le texte de la page dessous et le menu
+   devient illisible. On repasse alors en surface pleine. */
+@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
+  .verre-liquide,
+  .verre-liquide-pastille {
+    background: var(--sand-card);
+  }
+}
+
 body {
   background: var(--sand);
   color: var(--ink);
