@@ -66,6 +66,15 @@
 
 html {
   scroll-behavior: smooth;
+
+  /* La barre du haut est fixe : elle recouvre les 81 premiers pixels de
+     la page. Sans cette marge, TOUT ce qui amène quelque chose en haut
+     de l'écran le range dessous — un lien d'ancre, le lien d'évitement
+     « aller au contenu », le retour du focus au clavier, la restauration
+     de position du navigateur. On voyait alors le titre visé disparaître
+     sous le bandeau. La marge rend ces 81 pixels intouchables : le
+     navigateur s'arrête juste en dessous de la barre, avec un peu d'air. */
+  scroll-padding-top: 6.5rem;
 }
 
 @media (prefers-reduced-motion: reduce) {

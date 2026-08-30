@@ -46,7 +46,11 @@ export default async function ContactPage({ params }: Props) {
       <section className="container-site pb-28">
         <div className="grid gap-8 lg:grid-cols-[0.7fr_1.3fr] lg:gap-14">
           <Reveal>
-            <h2 className="font-display text-2xl font-bold tracking-tight text-ink md:text-3xl lg:sticky lg:top-28">
+            {/* pt-4 : la question de la première carte est décalée de son
+                propre rembourrage (py-6). Sans ce rappel, le titre se cale
+                sur le BORD de la carte et non sur le TEXTE de la question —
+                il flotte alors une vingtaine de pixels trop haut. */}
+            <h2 className="font-display text-2xl font-bold tracking-tight text-ink md:text-3xl lg:sticky lg:top-28 lg:pt-4">
               {t("faqTitle")}
             </h2>
           </Reveal>
