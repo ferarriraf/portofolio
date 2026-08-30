@@ -134,18 +134,22 @@
     "lede": "One craft: building websites and applications that load fast, last long and stay simple to evolve.",
     "offers": [
       {
+        "verb": "Build",
         "title": "Full websites",
         "text": "Brochure sites, e-commerce, portfolios: design, development, hosting and launch. A fast site, readable on every screen, that you can update yourself."
       },
       {
+        "verb": "Equip",
         "title": "Custom web applications",
         "text": "Business tools, dashboards, client areas: when off-the-shelf software doesn't fit the way you work, I build the tool around it."
       },
       {
+        "verb": "Connect",
         "title": "APIs & integrations",
         "text": "Connecting your tools together, automating repetitive tasks, exposing your data cleanly — so information flows without retyping."
       },
       {
+        "verb": "Repair",
         "title": "Maintenance & takeover",
         "text": "Audit of what exists, fixes, security updates, gradual modernisation: your site keeps living without starting over."
       }

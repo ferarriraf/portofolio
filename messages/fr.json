@@ -134,18 +134,22 @@
     "lede": "Un seul métier : construire des sites et des applications qui chargent vite, tiennent dans le temps et restent simples à faire évoluer.",
     "offers": [
       {
+        "verb": "Construire",
         "title": "Sites web complets",
         "text": "Vitrine, e-commerce, portfolio : conception, développement, hébergement et mise en ligne. Un site rapide, lisible sur tous les écrans, que vous pouvez mettre à jour vous-même."
       },
       {
+        "verb": "Outiller",
         "title": "Applications web sur mesure",
         "text": "Outils métier, tableaux de bord, espaces clients : quand un logiciel du commerce ne colle pas à votre façon de travailler, je construis l'outil autour d'elle."
       },
       {
+        "verb": "Relier",
         "title": "API & intégrations",
         "text": "Connecter vos outils entre eux, automatiser les tâches répétitives, exposer vos données proprement — pour que l'information circule sans ressaisie."
       },
       {
+        "verb": "Réparer",
         "title": "Maintenance & reprise",
         "text": "Audit de l'existant, corrections, mises à jour de sécurité, modernisation progressive : votre site continue de vivre sans repartir de zéro."
       }

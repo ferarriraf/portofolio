@@ -75,7 +75,7 @@ qui reste affichée juste en dessous.
 | Le moniteur des démos (bezel, barre)  | `components/DemoWindow.tsx`                   |
 | La frise du déroulé (rail au scroll)  | `components/ProjectTimeline.tsx`              |
 | Le R-X gravé du pied de page          | `components/FooterMark.tsx`                   |
-| Ombres, élévations, boutons keycap    | `app/globals.css` (tokens `--shadow-elev-*`, `--inset-shadow-cisele*`, `.btn`, `.bande-calque*`, `.card-offre`) |
+| Ombres, élévations, boutons keycap    | `app/globals.css` (tokens `--shadow-elev-*`, `--inset-shadow-cisele*`, `.btn`, `.bande-calque*`, `.bordereau-*`) |
 | Le poste rétro beige                  | `components/RetroComputer.tsx`                |
 | La fiche « En bref » (horloge, faits) | `components/StudioCard.tsx` + `about.card`    |
 | Navigation / pied de page             | `components/Topbar.tsx` / `components/Footer.tsx` |

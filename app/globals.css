@@ -262,40 +262,78 @@ body {
   .bande-calque-haut {
     box-shadow: inset 0 18px 30px -26px rgba(0, 0, 0, 0.5);
   }
+  /* ——— Le bordereau des offres ———
+     Ni carte ni grille : quatre lignes d'un seul document. Deux filets
+     d'encre traversent la fenêtre d'un bord à l'autre et bornent la
+     zone ; entre les lignes, un JOINT plutôt qu'un trait peint — une
+     arête sombre d'un pixel et sa lèvre éclairée juste dessous. C'est la
+     lumière unique du site qui tombe dans une rainure, la recette de
+     `--inset-shadow-cisele` appliquée à un imprimé. Jamais l'inverse
+     (lèvre au-dessus) : on est sur papier clair, la lumière vient du haut.
+
+     La coupure où s'assied la cote 01–04 est STRUCTURELLE — une colonne
+     de grille, pas un rectangle de fond posé par-dessus. Elle survit donc
+     au mode contraste forcé, où un masque disparaîtrait et où le filet
+     traverserait les chiffres.
+
+     Rien ici ne bouge, ne s'ouvre et ne se survole : il n'y a aucune
+     transition à neutraliser en mouvement réduit, et aucune fausse
+     promesse de clic sur un bloc qui n'est pas cliquable. */
+  .bordereau-filet,
+  .bordereau-joint {
+    /* Largeur de la coupure : « 01 » et son dégagement. */
+    --cote: 2.75rem;
+  }
+
+  /* MIROIR de `.container-site` (max-w-6xl = 72rem, px-6 = 1.5rem) : la
+     première colonne reproduit sa gouttière pour que la coupure tombe
+     à l'aplomb exact du bord gauche du texte. Si l'un des deux change,
+     changer l'autre. On mesure en pourcentage du conteneur et non en
+     `vw` : sinon la barre de défilement décale tout. */
+  .bordereau-filet {
+    display: grid;
+    grid-template-columns:
+      calc(max(0px, (100% - 72rem) / 2) + 1.5rem)
+      var(--cote)
+      1fr;
+  }
+  .bordereau-filet > span {
+    border-top: 2px solid var(--ink);
+  }
+  .bordereau-filet > span:nth-child(2) {
+    border-top: 0;
+  }
+
+  .bordereau-pied {
+    border-top: 2px solid var(--ink);
+  }
+
+  .bordereau-joint {
+    display: grid;
+    grid-template-columns: var(--cote) 1fr;
+    height: 2px;
+  }
+  .bordereau-joint > span {
+    grid-column: 2;
+    background-image: linear-gradient(
+      to bottom,
+      rgba(46, 52, 40, 0.32) 0 1px,
+      rgba(255, 255, 255, 0.9) 1px 2px
+    );
+  }
+
   .bande-calque-claire {
     box-shadow:
       inset 0 1px 0 rgba(255, 255, 255, 0.5),
       inset 0 12px 20px -20px rgba(46, 52, 40, 0.22),
       inset 0 -10px 18px -18px rgba(46, 52, 40, 0.16);
   }
-  /* Les cartes d'offres sont des plaques : un chant sauge dur dessous,
-     levée au survol — le chant s'étire, l'ombre s'élargit */
-  .card-offre {
-    border: 1px solid color-mix(in srgb, var(--sage) 45%, transparent);
-    box-shadow:
-      inset 0 1px 0 rgba(251, 248, 240, 0.55),
-      0 3px 0 var(--sage),
-      0 14px 34px -20px rgba(46, 52, 40, 0.22);
-    transition:
-      transform 0.45s cubic-bezier(0.22, 1, 0.36, 1),
-      box-shadow 0.45s cubic-bezier(0.22, 1, 0.36, 1);
-  }
-  @media (hover: hover) {
-    .card-offre:hover {
-      transform: translateY(-6px);
-      box-shadow:
-        inset 0 1px 0 rgba(251, 248, 240, 0.55),
-        0 9px 0 -3px var(--sage),
-        0 26px 48px -22px rgba(46, 52, 40, 0.32);
-    }
-  }
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .card-offre,
-  .card-offre:hover {
-    transform: none;
-    transition: none;
+@media (forced-colors: active) {
+  .bordereau-joint > span {
+    background-image: none;
+    border-top: 1px solid CanvasText;
   }
 }
 

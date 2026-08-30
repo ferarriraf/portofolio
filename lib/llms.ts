@@ -63,7 +63,7 @@ function section(locale: "fr" | "en"): string {
   T("");
   T(`## ${m.meta.services.title}`);
   T(m.services.lede);
-  for (const o of m.services.offers) T(`- **${o.title}** : ${o.text}`);
+  for (const o of m.services.offers) T(`- **${o.verb} — ${o.title}** : ${o.text}`);
   T(`${m.services.deliverables.title} :`);
   for (const i of m.services.deliverables.items) T(`- ${i}`);
   T("");
