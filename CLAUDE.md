@@ -204,6 +204,29 @@ clients, années d'expérience ou promesses invérifiables
   à un bug.
 - `pkill -f "next-server"` se tue lui-même (la commande contient le
   motif) : écrire `pkill -f "next[-]server"`.
+- **JAMAIS de `y` / `translate` dans `app/[locale]/template.tsx`.** Ce
+  bloc enveloppe TOUT le contenu de chaque page, et son état de départ
+  est servi dans le HTML. Un `y: 12` fait donc commencer la page entière
+  12 px trop bas. Or le navigateur, quand il restaure la position de
+  lecture après un rechargement, repère un élément et le remet où il
+  était, en mesurant AVEC ce décalage : il descend de 12 px, et cette
+  position est celle qu'il sauvegardera au rechargement suivant. **Ça
+  s'additionne** — sept F5 et ce qu'on lisait est derrière la barre.
+  L'opacité seule est sans danger ; pour un glissement, passer par un
+  `clip-path` (comme `Reveal` en mode masque), qui ne déplace pas la
+  boîte. Ce bug a coûté un audit entier.
+- Ce même bug était **invisible dans le volet de prévisualisation** :
+  celui-ci gèle `requestAnimationFrame`, l'animation n'allait jamais à
+  son terme, le décalage restait à 12 des deux côtés et s'annulait.
+  Quand une mesure de défilement ou d'animation contredit ce que
+  l'utilisateur décrit, soupçonner d'abord le volet — et vérifier que
+  `innerHeight` n'est pas à 0 (volet masqué : toutes les mesures de
+  géométrie sont alors nulles et trompeuses).
+- Ne jamais écrire `-webkit-backdrop-filter` à la main à côté de
+  `backdrop-filter` : le compilateur CSS supprime alors la version
+  standard et Firefox perd le flou — une surface translucide sans flou
+  laisse passer le texte du dessous et devient illisible. Il pose le
+  préfixe tout seul.
 - La barre du haut est **fixe** : elle mange les 81 premiers pixels.
   Sans `scroll-padding-top` sur `html`, tout ce qui amène un élément en
   haut de l'écran le range DERRIÈRE elle — ancre, lien d'évitement,
