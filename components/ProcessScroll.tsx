@@ -138,7 +138,7 @@ export default function ProcessScroll({
             aria-label={title}
             aria-orientation="vertical"
             onKeyDown={auClavier}
-            className="order-2 lg:order-1"
+            className="order-2 space-y-2.5 lg:order-1"
           >
             {steps.map((step, i) => {
               const ouvert = i === actif;
@@ -152,30 +152,26 @@ export default function ProcessScroll({
                   aria-controls="ecran-methode"
                   tabIndex={ouvert ? 0 : -1}
                   onClick={() => choisir(i)}
-                  className={`block w-full border-l-2 py-3 pl-5 text-left transition-colors duration-300 motion-reduce:transition-none ${
-                    ouvert
-                      ? "border-terra-strong"
-                      : "border-ink/12 hover:border-sage"
-                  }`}
+                  className="touche-etape block w-full cursor-pointer rounded-xl px-5 py-3.5 text-left"
                 >
                   <span className="flex items-baseline gap-3">
                     <span
-                      className={`font-mono text-xs font-bold tabular-nums transition-colors duration-300 motion-reduce:transition-none ${
-                        ouvert ? "text-terra-deep" : "text-ink/35"
+                      className={`font-mono text-xs font-bold tabular-nums ${
+                        ouvert ? "text-terra-deep" : "text-ink-soft"
                       }`}
                     >
                       0{i + 1}
                     </span>
                     <span
-                      className={`font-display text-lg font-bold tracking-tight transition-colors duration-300 motion-reduce:transition-none md:text-xl ${
-                        ouvert ? "text-ink" : "text-ink/45"
+                      className={`font-display text-lg font-bold tracking-tight md:text-xl ${
+                        ouvert ? "text-ink" : "text-ink-soft"
                       }`}
                     >
                       {step.title}
                     </span>
                   </span>
-                  {/* Le texte n'apparaît que sur l'étape ouverte : la
-                      liste reste courte, et le clic a une récompense. */}
+                  {/* Le texte n'apparaît que sur l'étape enfoncée : la
+                      liste reste courte, et l'appui a une récompense. */}
                   {ouvert && (
                     <span className="mt-2 block max-w-md text-sm leading-relaxed text-pretty text-ink-soft">
                       {step.text}
