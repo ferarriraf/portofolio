@@ -6,7 +6,9 @@ import {
   motion,
   useInView,
   useMotionValue,
+  useMotionValueEvent,
   useReducedMotion,
+  useScroll,
 } from "framer-motion";
 import { Check } from "lucide-react";
 import RetroComputer from "./RetroComputer";
@@ -39,20 +41,33 @@ type ProcessScrollProps = {
 };
 
 /**
- * La méthode : UN SEUL poste, cinq étapes sur lesquelles on clique.
+ * La méthode : UN SEUL poste, et c'est le défilement qui le pilote.
  *
- * Deux versions précédentes ont été écartées, et les deux raisons
- * comptent :
- *  · un scrollytelling épinglé — magnifique, mais sept écrans et demi
- *    de molette pour cinq phrases ;
- *  · cinq postes à la suite — court, mais cinq machines côte à côte
- *    n'ont aucun sens : ce n'est pas un magasin d'ordinateurs.
+ * Trois versions ont été écartées avant celle-ci, et les trois raisons
+ * comptent — ne pas les refaire :
+ *  · un scrollytelling épinglé sur 750 vh : magnifique, mais sept écrans
+ *    et demi de molette pour cinq phrases ;
+ *  · cinq postes à la suite : « je veux pas plusieurs écrans côte à
+ *    côte », et c'était juste — ce n'est pas un magasin d'ordinateurs ;
+ *  · un poste unique piloté au CLIC, avec les étapes en touches : le
+ *    propriétaire ne veut pas avoir à cliquer, et des touches empilées
+ *    ramenaient le motif de carte générique qu'on venait de chasser
+ *    ailleurs.
  *
- * Reste ce qui marchait dans les deux : un poste unique qui se
- * métamorphose. Sauf qu'on le pilote au clic et non au défilement, donc
- * la section tient sur un écran. À chaque changement, le tube repart de
- * zéro et le faisceau réécrit l'image — la machine ne s'agite que
- * lorsqu'elle a quelque chose à écrire, et le clic a une récompense.
+ * Donc : un seul poste, aucun bouton, aucun geste à comprendre. On passe
+ * devant, l'écran change. La liste à côté est du TEXTE, pas des
+ * commandes — rien n'est cliquable, donc personne ne se demande si ça
+ * l'est. Les cinq textes sont écrits en entier tout le temps : rien
+ * n'est caché derrière un geste, et la section reste lisible sans
+ * JavaScript.
+ *
+ * 220 vh, et pas 750. Le calcul, pour qui voudrait y toucher : la
+ * réserve de défilement utile vaut la hauteur de la section MOINS celle
+ * du bloc collant, soit 120 vh ici — répartis sur cinq étapes, environ
+ * 216 px chacune, soit deux crans de molette. À 180 vh on tombait à un
+ * seul cran par étape et les écrans défilaient sans qu'on ait le temps
+ * de les voir. Aucun défilement n'est confisqué pour autant : la page
+ * continue de descendre normalement pendant que l'écran se réécrit.
  */
 
 export default function ProcessScroll({
@@ -73,133 +88,103 @@ export default function ProcessScroll({
     <ScreenLaunch key="s5" onlineLabel={onlineLabel} />,
   ];
 
-  /* La mise sous tension du tube. Elle repart de zéro à CHAQUE
-     changement d'étape : le faisceau redescend et réécrit l'image.
-     C'est la règle du site — la machine ne s'agite que lorsqu'elle a
-     quelque chose à écrire — et c'est ce qui rend le clic satisfaisant. */
+  const ref = useRef<HTMLElement>(null);
   const power = useMotionValue(reduce ? 1 : 0);
-  const ref = useRef<HTMLDivElement>(null);
   const enVue = useInView(ref, { once: true, margin: "-15% 0px" });
 
-  const allumer = () => {
-    if (reduce) return;
-    power.set(0);
-    animate(power, 1, { duration: 0.75, ease: "easeOut" });
-  };
-
-  // Premier allumage : quand le poste entre dans le champ.
+  /* Le poste s'allume une fois, quand il entre dans le champ. Il ne se
+     rallume PAS à chaque étape : cinq mises sous tension d'affilée en
+     descendant, c'est précisément le « trop répétitif » qu'on nous a
+     reproché. À chaque changement, seule l'image se réécrit. */
   useEffect(() => {
     if (!enVue || reduce) return;
     const anim = animate(power, 1, { duration: 0.9, ease: "easeOut" });
     return () => anim.stop();
   }, [enVue, power, reduce]);
 
-  const choisir = (i: number) => {
-    if (i === actif) return;
-    setActif(i);
-    allumer();
-  };
+  /* L'étape suivie du défilement. On lit la progression et on en déduit
+     un indice — surtout PAS un `useTransform` à tableaux : cette forme
+     se compile en animation native liée au défilement, et sur une
+     section haute elle sort de sa plage et retombe sur sa première
+     valeur. Le piège est documenté dans CLAUDE.md, il a déjà coûté cher. */
+  const { scrollYProgress } = useScroll({
+    target: ref,
+    offset: ["start start", "end end"],
+  });
 
-  /* Navigation au clavier : le motif standard des onglets. Les flèches
-     se déplacent d'une étape, Origine et Fin vont aux extrémités. Un
-     seul onglet est dans l'ordre de tabulation à la fois. */
-  const auClavier = (e: React.KeyboardEvent<HTMLDivElement>) => {
-    const touches: Record<string, number> = {
-      ArrowDown: actif + 1,
-      ArrowRight: actif + 1,
-      ArrowUp: actif - 1,
-      ArrowLeft: actif - 1,
-      Home: 0,
-      End: steps.length - 1,
-    };
-    const vise = touches[e.key];
-    if (vise === undefined) return;
-    e.preventDefault();
-    const i = Math.max(0, Math.min(steps.length - 1, vise));
-    choisir(i);
-    document.getElementById(`etape-${i}`)?.focus();
-  };
+  useMotionValueEvent(scrollYProgress, "change", (p) => {
+    const i = Math.max(0, Math.min(steps.length - 1, Math.floor(p * steps.length)));
+    setActif((precedent) => (precedent === i ? precedent : i));
+  });
 
   return (
-    <section className="border-b border-line bg-sage-wash">
-      <div className="container-site py-24 md:py-28">
-        <SectionLabel n={2}>{eyebrow}</SectionLabel>
-        <h2 className="mt-5 max-w-3xl font-display text-4xl font-bold tracking-tight text-balance text-ink md:text-5xl">
-          {title}
-        </h2>
+    <section
+      ref={ref}
+      className="relative border-b border-line bg-sage-wash"
+      style={{ height: "220vh" }}
+    >
+      <div className="sticky top-0 flex min-h-svh flex-col justify-center py-16">
+        <div className="container-site">
+          <SectionLabel n={2}>{eyebrow}</SectionLabel>
+          <h2 className="mt-5 max-w-3xl font-display text-4xl font-bold tracking-tight text-balance text-ink md:text-5xl">
+            {title}
+          </h2>
 
-        <div
-          ref={ref}
-          className="mt-12 grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16"
-        >
-          {/* ——— Les cinq étapes, cliquables ——— */}
-          <div
-            role="tablist"
-            aria-label={title}
-            aria-orientation="vertical"
-            onKeyDown={auClavier}
-            className="order-2 space-y-2.5 lg:order-1"
-          >
-            {steps.map((step, i) => {
-              const ouvert = i === actif;
-              return (
-                <button
-                  key={step.title}
-                  id={`etape-${i}`}
-                  role="tab"
-                  type="button"
-                  aria-selected={ouvert}
-                  aria-controls="ecran-methode"
-                  tabIndex={ouvert ? 0 : -1}
-                  onClick={() => choisir(i)}
-                  className="touche-etape block w-full cursor-pointer rounded-xl px-5 py-3.5 text-left"
-                >
-                  <span className="flex items-baseline gap-3">
-                    <span
-                      className={`font-mono text-xs font-bold tabular-nums ${
-                        ouvert ? "text-terra-deep" : "text-ink-soft"
-                      }`}
-                    >
-                      0{i + 1}
+          <div className="mt-10 grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+            {/* ——— L'index de la méthode ———
+                Du texte, rien d'autre. Le filet à gauche passe en
+                terracotta sur l'étape en cours : c'est le seul repère,
+                et il suffit puisque l'écran d'à côté montre la même
+                étape au même moment. */}
+            <ol className="order-2 list-none lg:order-1">
+              {steps.map((step, i) => {
+                const ici = i === actif;
+                return (
+                  <li
+                    key={step.title}
+                    aria-current={ici ? "step" : undefined}
+                    className={`border-l-2 py-2.5 pl-5 transition-colors duration-500 motion-reduce:transition-none ${
+                      ici ? "border-terra-strong" : "border-ink/12"
+                    }`}
+                  >
+                    <span className="flex items-baseline gap-3">
+                      <span
+                        className={`font-mono text-xs font-bold tabular-nums transition-colors duration-500 motion-reduce:transition-none ${
+                          ici ? "text-terra-deep" : "text-ink-soft"
+                        }`}
+                      >
+                        0{i + 1}
+                      </span>
+                      <span
+                        className={`font-display text-lg font-bold tracking-tight transition-colors duration-500 motion-reduce:transition-none md:text-xl ${
+                          ici ? "text-ink" : "text-ink-soft"
+                        }`}
+                      >
+                        {step.title}
+                      </span>
                     </span>
-                    <span
-                      className={`font-display text-lg font-bold tracking-tight md:text-xl ${
-                        ouvert ? "text-ink" : "text-ink-soft"
-                      }`}
-                    >
-                      {step.title}
-                    </span>
-                  </span>
-                  {/* Le texte n'apparaît que sur l'étape enfoncée : la
-                      liste reste courte, et l'appui a une récompense. */}
-                  {ouvert && (
-                    <span className="mt-2 block max-w-md text-sm leading-relaxed text-pretty text-ink-soft">
+                    <span className="mt-1 block max-w-md text-sm leading-relaxed text-pretty text-ink-soft">
                       {step.text}
                     </span>
-                  )}
-                </button>
-              );
-            })}
-          </div>
+                  </li>
+                );
+              })}
+            </ol>
 
-          {/* ——— Le poste, un seul ——— */}
-          <div
-            id="ecran-methode"
-            role="tabpanel"
-            aria-labelledby={`etape-${actif}`}
-            className="order-1 lg:order-2"
-          >
-            <RetroComputer power={reduce ? undefined : power}>
-              <motion.div
-                key={actif}
-                initial={reduce ? false : { clipPath: "inset(0% 0% 100% 0%)" }}
-                animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
-                transition={{ duration: 0.55, ease: [0.32, 0, 0.2, 1] }}
-                className="absolute inset-0"
-              >
-                {screens[actif]}
-              </motion.div>
-            </RetroComputer>
+            {/* ——— Le poste, un seul ——— */}
+            <div className="order-1 lg:order-2">
+              <RetroComputer power={reduce ? undefined : power}>
+                <motion.div
+                  key={actif}
+                  initial={reduce ? false : { clipPath: "inset(0% 0% 100% 0%)" }}
+                  animate={{ clipPath: "inset(0% 0% 0% 0%)" }}
+                  transition={{ duration: 0.45, ease: [0.32, 0, 0.2, 1] }}
+                  className="absolute inset-0"
+                >
+                  {screens[actif]}
+                </motion.div>
+              </RetroComputer>
+            </div>
           </div>
         </div>
       </div>

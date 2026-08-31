@@ -241,60 +241,6 @@ body {
   .press:active {
     transform: translateY(1px) scale(0.97);
   }
-  /* ——— Les touches de la méthode ———
-     Le visiteur devait cliquer sur les cinq étapes, mais RIEN ne disait
-     qu'on pouvait appuyer : une ligne avec un filet à gauche, ça ne
-     ressemble pas à une commande, ça ressemble à du texte. Chaque étape
-     devient donc une vraie touche, dans le vocabulaire déjà employé par
-     les boutons du site — arête ciselée en haut, tranche dure en bas,
-     soulevée au repos.
-
-     Et surtout : c'est la POSITION de la touche qui dit l'état. Celle
-     qu'on regarde est enfoncée, sa tranche a disparu, l'ombre est passée
-     à l'intérieur. On lit l'état sans avoir à comparer deux couleurs —
-     ça marche aussi pour qui distingue mal les teintes. */
-  .touche-etape {
-    background: var(--sand-card);
-    border: 1px solid var(--line);
-    box-shadow:
-      var(--inset-shadow-cisele),
-      0 3px 0 color-mix(in srgb, var(--line) 78%, var(--ink)),
-      0 10px 20px -14px rgba(46, 52, 40, 0.35);
-    transition:
-      transform 0.16s ease-out,
-      box-shadow 0.16s ease-out,
-      background-color 0.2s ease-out,
-      border-color 0.2s ease-out;
-  }
-  @media (hover: hover) {
-    .touche-etape:hover[aria-selected="false"] {
-      transform: translateY(-2px);
-      border-color: color-mix(in srgb, var(--sage) 70%, transparent);
-      box-shadow:
-        var(--inset-shadow-cisele),
-        0 5px 0 color-mix(in srgb, var(--sage) 60%, var(--ink)),
-        0 16px 26px -16px rgba(46, 52, 40, 0.4);
-    }
-  }
-  /* L'appui : la touche descend jusqu'au fond de sa course. */
-  .touche-etape:active {
-    transform: translateY(3px);
-    box-shadow:
-      var(--inset-shadow-cisele),
-      0 0 0 color-mix(in srgb, var(--line) 78%, var(--ink)),
-      0 4px 10px -8px rgba(46, 52, 40, 0.35);
-  }
-  /* Enfoncée et maintenue : plus de tranche du tout, l'ombre est
-     passée À L'INTÉRIEUR. La touche est au fond de son logement. */
-  .touche-etape[aria-selected="true"] {
-    transform: translateY(3px);
-    background: var(--sage-wash);
-    border-color: color-mix(in srgb, var(--sage-strong) 45%, transparent);
-    box-shadow:
-      inset 0 2px 6px rgba(46, 52, 40, 0.2),
-      inset 0 -1px 0 rgba(255, 255, 255, 0.5);
-  }
-
   .eyebrow {
     @apply inline-flex items-center gap-2.5 text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-sage-deep;
   }
@@ -388,16 +334,6 @@ body {
   .bordereau-joint > span {
     background-image: none;
     border-top: 1px solid CanvasText;
-  }
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .touche-etape,
-  .touche-etape:hover[aria-selected="false"],
-  .touche-etape:active,
-  .touche-etape[aria-selected="true"] {
-    transform: none;
-    transition: none;
   }
 }
 

@@ -204,6 +204,18 @@ clients, années d'expérience ou promesses invérifiables
   à un bug.
 - `pkill -f "next-server"` se tue lui-même (la commande contient le
   motif) : écrire `pkill -f "next[-]server"`.
+- **La méthode (`ProcessScroll`) : QUATRE versions ont été rejetées.**
+  Ne pas en reproposer une cinquième sans lire celles-ci. 1) Un
+  scrollytelling épinglé sur 750 vh : « la page est trop longue à être
+  scrollée ». 2) Cinq postes côte à côte : « NAN MAIS C'EST QUOI ÇA, je
+  veux pas plusieurs écrans côte à côte ». 3) Un poste unique piloté au
+  CLIC, étapes en liste discrète : « le clic est pas très intuitif ».
+  4) Le même, étapes en touches de clavier bien visibles : « j'aime
+  vraiment pas la nouvelle mécanique » — l'affordance était réparée mais
+  des touches empilées ramènent le motif de carte générique qu'on venait
+  de chasser de la page services. Ce qui tient : **aucun bouton du
+  tout**, le défilement pilote, la liste est du TEXTE. Rien à cliquer,
+  donc personne ne se demande si c'est cliquable.
 - **JAMAIS de `y` / `translate` dans `app/[locale]/template.tsx`.** Ce
   bloc enveloppe TOUT le contenu de chaque page, et son état de départ
   est servi dans le HTML. Un `y: 12` fait donc commencer la page entière
