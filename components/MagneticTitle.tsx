@@ -158,8 +158,16 @@ export default function MagneticTitle({
     };
   }, [reduce]);
 
+  /* `select-none` sur les lettres : chacune est un inline-block — c'est
+     ce qui permet de leur donner une largeur figée et de les attirer
+     sous le curseur. Mais le navigateur dessine alors UNE BOÎTE DE
+     SÉLECTION PAR BLOC, de hauteurs inégales et séparées par des trous :
+     surligner le titre donnait un damier rose en escalier. On rend donc
+     ces lettres non sélectionnables, et on pose à côté une copie
+     invisible du titre — la phrase reste copiable, elle ne se surligne
+     simplement plus en morceaux. */
   const ligne = (texte: string, poidsRepos: number, retard: number) => (
-    <span aria-hidden="true" className="block overflow-hidden pb-[0.08em]">
+    <span aria-hidden="true" className="block overflow-hidden pb-[0.08em] select-none">
       <span
         className="block"
         style={{
@@ -206,6 +214,10 @@ export default function MagneticTitle({
       aria-label={`${lineA} ${lineB}`}
       className={className}
     >
+      {/* La copie que l'on peut sélectionner et copier. Invisible à
+          l'écran, et sans effet pour les lecteurs d'ecran : l'attribut
+          aria-label du titre l'emporte sur son contenu. */}
+      <span className="sr-only">{`${lineA} ${lineB}`}</span>
       {ligne(lineA, 280, 0.12)}
       {ligne(lineB, 800, 0.26)}
     </h1>

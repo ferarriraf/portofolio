@@ -112,7 +112,20 @@ export default function ProcessScroll({
     offset: ["start start", "end end"],
   });
 
+  /* La jauge est ecrite DIRECTEMENT dans le DOM, sans passer par un
+     `motion.span`. Deux raisons, et la seconde est la vraie :
+     · un rendu React par pixel de defilement redessinerait tout le
+       poste et ses ecrans pour une seule valeur qui change ;
+     · surtout, la boucle de rendu de framer-motion depend de
+       requestAnimationFrame — que le volet de previsualisation gele
+       quand il est masque. On ne peut alors plus verifier la jauge du
+       tout. Une ecriture directe est independante de cette boucle. */
+  const jauge = useRef<HTMLSpanElement>(null);
+
   useMotionValueEvent(scrollYProgress, "change", (p) => {
+    if (jauge.current) {
+      jauge.current.style.transform = `scaleY(${p})`;
+    }
     const i = Math.max(0, Math.min(steps.length - 1, Math.floor(p * steps.length)));
     setActif((precedent) => (precedent === i ? precedent : i));
   });
@@ -132,31 +145,45 @@ export default function ProcessScroll({
 
           <div className="mt-10 grid items-center gap-10 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
             {/* ——— L'index de la méthode ———
-                Du texte, rien d'autre. Le filet à gauche passe en
-                terracotta sur l'étape en cours : c'est le seul repère,
-                et il suffit puisque l'écran d'à côté montre la même
-                étape au même moment. */}
-            <ol className="order-2 list-none lg:order-1">
+                Du texte, rien d'autre — et un rail continu à gauche.
+
+                Le rail compte : avec un simple filet par étape, on
+                scrollait sans que rien ne bouge, puis l'état sautait
+                d'un coup. Ce temps mort donnait l'impression que la page
+                avait décroché. La jauge, elle, suit le défilement au
+                pixel : elle monte tant qu'on descend, même très
+                lentement, et l'étape en cours n'est que le palier
+                qu'elle vient de dépasser. */}
+            <div className="relative order-2 lg:order-1">
+              <span
+                aria-hidden="true"
+                className="absolute inset-y-0 left-0 w-[2px] bg-ink/12"
+              />
+              <span
+                ref={jauge}
+                aria-hidden="true"
+                style={{ transform: reduce ? "scaleY(1)" : "scaleY(0)" }}
+                className="absolute inset-y-0 left-0 w-[2px] origin-top bg-terra-strong"
+              />
+              <ol className="list-none">
               {steps.map((step, i) => {
                 const ici = i === actif;
                 return (
                   <li
                     key={step.title}
                     aria-current={ici ? "step" : undefined}
-                    className={`border-l-2 py-2.5 pl-5 transition-colors duration-500 motion-reduce:transition-none ${
-                      ici ? "border-terra-strong" : "border-ink/12"
-                    }`}
+                    className="py-2.5 pl-5"
                   >
                     <span className="flex items-baseline gap-3">
                       <span
-                        className={`font-mono text-xs font-bold tabular-nums transition-colors duration-500 motion-reduce:transition-none ${
+                        className={`font-mono text-xs font-bold tabular-nums transition-colors duration-200 motion-reduce:transition-none ${
                           ici ? "text-terra-deep" : "text-ink-soft"
                         }`}
                       >
                         0{i + 1}
                       </span>
                       <span
-                        className={`font-display text-lg font-bold tracking-tight transition-colors duration-500 motion-reduce:transition-none md:text-xl ${
+                        className={`font-display text-lg font-bold tracking-tight transition-colors duration-200 motion-reduce:transition-none md:text-xl ${
                           ici ? "text-ink" : "text-ink-soft"
                         }`}
                       >
@@ -169,7 +196,8 @@ export default function ProcessScroll({
                   </li>
                 );
               })}
-            </ol>
+              </ol>
+            </div>
 
             {/* ——— Le poste, un seul ——— */}
             <div className="order-1 lg:order-2">
