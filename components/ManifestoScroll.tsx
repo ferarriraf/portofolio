@@ -54,11 +54,14 @@ export default function ManifestoScroll({ lead, emph }: ManifestoScrollProps) {
     <section
       ref={ref}
       className="relative bg-ink-deep text-sand"
-      /* 120 vh et non 220 : le texte s'illumine deux fois plus vite,
-         pour un contenu qui tient sur un ecran. Le glow phosphore
-         reste, c'est la plus belle chose du site — mais une phrase
-         ne peut pas couter deux ecrans de defilement. */
-      style={{ height: "120vh" }}
+      /* 150 vh. L'histoire de ce reglage, pour ne pas la refaire :
+         220 vh au depart — « le texte qui brille prend trop de temps
+         a etre scrolle ». Descendu a 120 — « un poil trop court ».
+         150 est le point milieu, et c'est la valeur qui tient : la
+         phrase s'illumine sans qu'on attende, mais on a le temps de
+         la lire avant qu'elle ne parte. Le glow phosphore reste, c'est
+         la plus belle chose du site. */
+      style={{ height: "150vh" }}
     >
       <div className="sticky top-0 flex h-svh items-center overflow-hidden">
         <TubeOverlays />

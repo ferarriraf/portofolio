@@ -422,7 +422,12 @@ body {
 }
 
 .marquee-track {
-  animation: marquee var(--marquee-speed, 38s) linear infinite;
+  /* 84s, et pas 38 comme avant. Deux raisons cumulees : le bandeau
+     defilait trop vite, ET on y a ajoute deux mots — or la duree porte
+     un tour complet de piste, donc a duree egale une piste plus longue
+     defile PLUS vite. 84s ramene la vitesse a environ 60 % de ce
+     qu'elle etait, en tenant compte de l'allongement. */
+  animation: marquee var(--marquee-speed, 84s) linear infinite;
 }
 
 /* Le bandeau ne s'arrête PLUS au survol : on traversait la bande sans
