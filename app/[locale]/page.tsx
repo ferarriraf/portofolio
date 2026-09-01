@@ -4,7 +4,6 @@ import { ArrowRight, ArrowUpRight } from "lucide-react";
 import { Link } from "@/i18n/navigation";
 import Reveal from "@/components/Reveal";
 import CtaBand from "@/components/CtaBand";
-import BriqueHero from "@/components/BriqueHero";
 import CaseMockup, { type MockupTextes } from "@/components/CaseMockup";
 import DemoWindow from "@/components/DemoWindow";
 import MagneticTitle from "@/components/MagneticTitle";
@@ -69,18 +68,12 @@ export default async function HomePage({ params }: Props) {
               "radial-gradient(closest-side, rgba(169,191,160,0.26), transparent 70%)",
           }}
         />
-        {/* La brique : un bloc de construction en 3D sur le flanc droit,
-            derrière le texte (z-10 contre z-30). Elle s'incline vers le
-            curseur et ne bouge jamais seule. Grands écrans uniquement :
-            au doigt il n'y a pas de survol, et le hero mobile n'a pas la
-            place d'un objet décoratif. */}
-        <BriqueHero />
         <div className="container-site relative flex min-h-svh flex-col items-center justify-center pt-24 pb-14 text-center">
           <Reveal className="relative z-30">
             <SectionLabel>{t("eyebrow")}</SectionLabel>
           </Reveal>
 
-          <div className="relative z-30 mt-14 md:mt-16">
+          <div className="mt-14 md:mt-16">
             <SelectionFrame label={t("layerLabel")}>
               <MagneticTitle
                 lineA={t("titleA")}

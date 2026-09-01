@@ -130,21 +130,25 @@ clients, années d'expérience ou promesses invérifiables
   avec sortie visible et bouton de désactivation (WCAG 2.1.4).
 - `prefers-reduced-motion` respecté pour CHAQUE effet, sans exception.
 - Pas de nouvelle dépendance npm sans accord ; CSP stricte (aucune
-  ressource externe). **three.js a été réintroduit avec l'accord
-  explicite du propriétaire** (août 2026, pour la brique du hero et,
-  à venir, le boîtier du poste rétro). Les règles de tout usage 3D
-  sont écrites en tête de `components/Brique3D.tsx` : AUCUNE boucle de
-  rendu permanente (zéro image par seconde au repos), le canvas est
-  décoratif (aria-hidden, pointer-events:none, aucun contenu ne dépend
-  de lui), et three.js reste dans un morceau chargé après l'hydratation,
-  monté UNIQUEMENT si `(min-width: 80rem) and (hover: hover)` — le CSS
-  `hidden` seul n'empêcherait ni le téléchargement des ~530 Ko ni le
-  contexte WebGL sur mobile. L'inclinaison de la brique vers le curseur
-  a été approuvée EXPLICITEMENT (l'option retenue disait mot pour mot
-  « tourne quand la souris passe et jamais toute seule ») : elle ne
-  tombe pas sous le détesté « tilts de cartes à la souris », qui vise
-  les cartes de contenu — mais ne pas l'étendre à d'autres éléments
-  sans redemander.
+  ressource externe). **three.js est installé** (accord explicite du
+  propriétaire) mais **plus rien ne l'importe aujourd'hui** : il est
+  gardé pour le seul usage encore voulu, le boîtier du poste rétro.
+  Ne pas s'en servir pour autre chose sans redemander.
+- **LA BRIQUE 3D DU HERO A ÉTÉ REJETÉE ET RETIRÉE.** Un bloc de
+  construction en three.js avait été posé dans le hero (l'idée venait
+  de l'accroche « Le web, bien construit »). Verdict : « c'est quoi
+  cette merde — c'est pas bête mais hyper mal fait », puis
+  « horriblement moche ». Ne pas la refaire ; le propriétaire fournira
+  des exemples visuels avant toute nouvelle tentative de 3D.
+- **LA LEÇON DE MÉTHODE, plus importante que la brique elle-même** :
+  « regarde après avoir fait quand même ». La brique avait été vérifiée
+  à fond — zéro image par seconde au repos, morceau isolé du premier
+  chargement, contextes WebGL libérés, revue adversariale de 16 agents
+  — mais **jamais REGARDÉE en grand**. Tout était juste sauf l'objet,
+  qui était laid. Pour toute livraison visuelle : agrandir l'élément
+  (l'isoler en position fixe, 500 px, le reste de la page masqué),
+  prendre une capture, et LA REGARDER avant de pousser. Une vérification
+  mécanique ne remplace jamais un coup d'œil.
 - Français : espace insécable U+00A0 avant `: ; ? !` dans
   `messages/fr.json`.
 - **Formulaire de contact** : envoi par SMTP écrit à la main
