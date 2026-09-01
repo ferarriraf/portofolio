@@ -129,8 +129,22 @@ clients, années d'expérience ou promesses invérifiables
 - Clic droit désactivé hors champs de saisie ; modes cachés W/I/Konami
   avec sortie visible et bouton de désactivation (WCAG 2.1.4).
 - `prefers-reduced-motion` respecté pour CHAQUE effet, sans exception.
-- Pas de nouvelle dépendance npm sans accord (three.js a été retiré
-  exprès) ; CSP stricte (aucune ressource externe).
+- Pas de nouvelle dépendance npm sans accord ; CSP stricte (aucune
+  ressource externe). **three.js a été réintroduit avec l'accord
+  explicite du propriétaire** (août 2026, pour la brique du hero et,
+  à venir, le boîtier du poste rétro). Les règles de tout usage 3D
+  sont écrites en tête de `components/Brique3D.tsx` : AUCUNE boucle de
+  rendu permanente (zéro image par seconde au repos), le canvas est
+  décoratif (aria-hidden, pointer-events:none, aucun contenu ne dépend
+  de lui), et three.js reste dans un morceau chargé après l'hydratation,
+  monté UNIQUEMENT si `(min-width: 80rem) and (hover: hover)` — le CSS
+  `hidden` seul n'empêcherait ni le téléchargement des ~530 Ko ni le
+  contexte WebGL sur mobile. L'inclinaison de la brique vers le curseur
+  a été approuvée EXPLICITEMENT (l'option retenue disait mot pour mot
+  « tourne quand la souris passe et jamais toute seule ») : elle ne
+  tombe pas sous le détesté « tilts de cartes à la souris », qui vise
+  les cartes de contenu — mais ne pas l'étendre à d'autres éléments
+  sans redemander.
 - Français : espace insécable U+00A0 avant `: ; ? !` dans
   `messages/fr.json`.
 - **Formulaire de contact** : envoi par SMTP écrit à la main

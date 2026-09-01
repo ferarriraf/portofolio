@@ -76,6 +76,7 @@ qui reste affichée juste en dessous.
 | La frise du déroulé (rail au scroll)  | `components/ProjectTimeline.tsx`              |
 | Le R-X gravé du pied de page          | `components/FooterMark.tsx`                   |
 | Ombres, élévations, boutons keycap    | `app/globals.css` (tokens `--shadow-elev-*`, `--inset-shadow-cisele*`, `.btn`, `.bande-calque*`, `.bordereau-*`) |
+| La brique 3D du hero                  | `components/Brique3D.tsx` (via `BriqueHero.tsx`) |
 | Le poste rétro beige                  | `components/RetroComputer.tsx`                |
 | La fiche « En bref » (horloge, faits) | `components/StudioCard.tsx` + `about.card`    |
 | Navigation / pied de page             | `components/Topbar.tsx` / `components/Footer.tsx` |
