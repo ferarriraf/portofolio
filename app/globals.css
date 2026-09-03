@@ -315,13 +315,19 @@ body {
       inset 0 3px 7px rgba(90, 78, 58, 0.5),
       inset 0 -2px 0 rgba(255, 255, 255, 0.6);
   }
+  /* Les aérations, adoucies. Première version : une rainure de 2 px
+     très contrastée tous les 7 px, sur toute la largeur du menton — à
+     la taille réelle ça faisait une PALISSADE qui tirait l'œil plus
+     que l'écran. Un vrai boîtier a un court paquet de fentes, pas une
+     grille d'un bout à l'autre. Période resserrée, contraste divisé
+     par deux, et la largeur est bornée par la classe qui l'emploie. */
   .poste-grille {
     border-radius: 1px;
     background: repeating-linear-gradient(
       90deg,
-      rgba(70, 60, 44, 0.5) 0 2px,
-      rgba(255, 255, 255, 0.6) 2px 3px,
-      transparent 3px 7px
+      rgba(70, 60, 44, 0.26) 0 1px,
+      rgba(255, 255, 255, 0.34) 1px 2px,
+      transparent 2px 5px
     );
   }
   /* Estampée et non imprimée : c'est la lumière SOUS la lettre qui

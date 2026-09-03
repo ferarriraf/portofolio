@@ -236,8 +236,19 @@ export default function ProcessScroll({
 
           {/* Le poste. Collant sur grand écran seulement : c'est ce qui
               fait passer la bande dessous. `z-10` pour être devant les
-              filets. */}
-          <div className="relative z-10 mx-auto w-full max-w-[26rem] lg:sticky lg:top-[7.5rem]">
+              filets.
+
+              PLUS PETIT QU'AVANT, et surtout POSÉ. Sur téléphone il
+              occupait 38 % de la hauteur d'écran, seul, sans ombre au
+              sol : un grand aplat beige qui flottait sur le vert pâle.
+              Il est ramené à 17 rem sous `lg`, et un plan se dessine
+              sous lui — un objet posé sur une surface a une échelle,
+              un panneau qui flotte n'en a pas. */}
+          <div className="relative z-10 mx-auto w-full max-w-[17rem] pb-6 sm:max-w-[20rem] lg:sticky lg:top-[7.5rem] lg:max-w-[24rem] lg:pb-10">
+            <span
+              aria-hidden="true"
+              className="pointer-events-none absolute inset-x-[-8%] bottom-0 h-16 bg-[linear-gradient(to_bottom,rgba(46,52,40,0.08),transparent_72%)] [mask-image:linear-gradient(90deg,transparent,#000_16%,#000_84%,transparent)]"
+            />
             <RetroComputer power={reduce ? undefined : power}>
               <motion.div
                 key={actif}

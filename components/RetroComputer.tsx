@@ -91,7 +91,7 @@ export default function RetroComputer({
           <span className="poste-marque font-display text-[0.6rem] font-bold tracking-[0.22em] uppercase">
             R-X
           </span>
-          <span aria-hidden="true" className="poste-grille h-[9px] flex-1" />
+          <span aria-hidden="true" className="poste-grille ml-auto h-[7px] w-[34%]" />
           {/* Le témoin, au fond d'un puits percé. Un point plein qui ne
               bouge pas, et un halo qui ne s'allume que pendant
               l'écriture — deux couches superposées plutôt qu'une ombre
