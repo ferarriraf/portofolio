@@ -222,7 +222,28 @@ clients, années d'expérience ou promesses invérifiables
   à un bug.
 - `pkill -f "next-server"` se tue lui-même (la commande contient le
   motif) : écrire `pkill -f "next[-]server"`.
-- **La méthode (`ProcessScroll`) : QUATRE versions ont été rejetées.**
+- **La méthode (`ProcessScroll`) : CINQ versions ont été rejetées avant
+  celle qui tient.** La cinquième — liste épinglée pilotée au
+  défilement — a échoué sur un défaut MESURABLE : la section faisait
+  220 vh pour un bloc collant de 100 vh, soit **120 vh (55 %) pendant
+  lesquels pas un pixel ne bougeait**. « Ça fait vide, il ne se passe
+  rien » était une observation exacte, pas un goût. Ce qui tient
+  aujourd'hui : plus rien n'est épinglé sauf la machine, la hauteur de
+  la section est celle de son contenu, chaque filet se remplit sur sa
+  propre lecture et la ligne lue devient une bande de papier qui passe
+  derrière le poste. Mesuré après : section 2,20 → **1,50 écran**, page
+  6,92 → **6,37 écrans**, titres d'étape 20 → **38 px**.
+- **Sur téléphone, la liste passe AVANT la machine.** L'ancienne
+  version servait le poste en premier (400 px de haut) et les cinq
+  étapes tombaient sous la ligne de flottaison. C'est l'ordre du
+  balisage qui le règle, pas une hauteur.
+- **Les écrans du poste racontent une histoire suivie** : votre
+  restaurant qui veut prendre ses réservations en ligne. Ils affichaient
+  `npm test`, `app/reservation.tsx`, `API` et « 0 erreur ·
+  0 avertissement » — **sur la version française** — en 6,7 à 9,6 px.
+  Interdit par la règle du vocabulaire de console, et illisible à tout
+  âge. Tout y est désormais en `cqw` avec un plancher en px.
+- **Les quatre versions rejetées, pour mémoire :**
   Ne pas en reproposer une cinquième sans lire celles-ci. 1) Un
   scrollytelling épinglé sur 750 vh : « la page est trop longue à être
   scrollée ». 2) Cinq postes côte à côte : « NAN MAIS C'EST QUOI ÇA, je

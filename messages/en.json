@@ -95,28 +95,32 @@
         }
       ],
       "screens": {
-        "client": "You",
-        "notesTitre": "Call notes",
-        "notes": [
-          "Goal: online booking",
-          "Current: no website",
-          "Constraint: easy content updates"
+        "demande": [
+          "Take bookings online",
+          "Show the menu and opening hours",
+          "Be able to update it myself"
         ],
-        "enregistrement": "Call in progress",
-        "archiFront": "Pages",
-        "archiApi": "API",
-        "archiDb": "Database",
-        "archiLegende": "architecture — v1",
-        "codeFichier": "app/booking.tsx",
-        "codeOk": "0 errors · 0 warnings",
-        "testsTitre": "npm test",
-        "testsItems": [
-          "booking",
-          "form",
-          "mobile",
-          "loading"
+        "pages": [
+          "Home",
+          "Menu",
+          "Book",
+          "Find us"
         ],
-        "testsResume": "4 / 4 passed"
+        "formTitre": "Book a table",
+        "formDate": "Date",
+        "formDateValeur": "Sat 14",
+        "formHeure": "Time",
+        "formHeureValeur": "8:00 pm",
+        "formCouverts": "Guests",
+        "formCouvertsValeur": "4",
+        "formBouton": "Book",
+        "verifs": [
+          "On a phone",
+          "On a computer",
+          "When the network is slow"
+        ],
+        "adresse": "your-restaurant.com",
+        "enLigne": "Online"
       }
     },
     "work": {

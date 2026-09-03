@@ -262,6 +262,102 @@ body {
   .bande-calque-haut {
     box-shadow: inset 0 18px 30px -26px rgba(0, 0, 0, 0.5);
   }
+  /* ——— Le poste rétro, redessiné ———
+     Le poste avait TROIS rayons emboîtés de 38, 24 et 16 px : aucune
+     arête franche nulle part, et il se lisait « jouet » au milieu d'un
+     site dont toute la langue est ciselée. Sept corrections, dont la
+     première fait à elle seule la moitié du travail :
+
+     1. les rayons passent à 20 / 8 / 3 px, concentriques ;
+     2. la lumière vient du HAUT (178°) et non de 150° — le menton
+        devient la zone la plus sombre, et c'est ça, le volume ;
+     3. un angle de démoulage : les flancs fuient, comme une pièce
+        sortie d'un moule ;
+     4. la lèvre du bezel est inversée — ombre en haut, lumière
+        ramassée en bas, ce que fait une vraie lèvre en surplomb ;
+     5. le joint de dalle passe en caoutchouc sombre, plus noir que le
+        tube lui-même ;
+     6. les aérations deviennent des rainures creusées avec leur lèvre
+        éclairée, au lieu de trente traits d'un pixel ;
+     7. le témoin s'assied au fond d'un puits percé.
+
+     Jamais de liseré clair sur le fond sombre : la lumière ne se pose
+     que sur le beige. */
+  .poste-carter {
+    background:
+      radial-gradient(120% 80% at 30% -20%, rgba(255, 255, 255, 0.55), transparent 60%),
+      linear-gradient(
+        90deg,
+        rgba(90, 78, 58, 0.16),
+        transparent 18%,
+        transparent 82%,
+        rgba(90, 78, 58, 0.22)
+      ),
+      linear-gradient(178deg, #f7f0e1, #eae0cb 38%, #d9cbb0 78%, #cabb9f);
+    box-shadow:
+      0 26px 50px -26px rgba(46, 52, 40, 0.5),
+      inset 0 1px 0 rgba(255, 255, 255, 0.85),
+      inset 0 -2px 6px rgba(120, 105, 80, 0.25);
+  }
+  /* La ligne de joint de moulage fait le tour du carter. */
+  .poste-carter::after {
+    content: "";
+    position: absolute;
+    inset: 4px;
+    border-radius: 1rem 1rem 0.25rem 0.25rem;
+    border: 1px solid rgba(120, 105, 80, 0.16);
+    border-bottom-color: rgba(255, 255, 255, 0.4);
+    pointer-events: none;
+  }
+  .poste-creux {
+    background: linear-gradient(178deg, #cdbea3, #e0d5bd);
+    box-shadow:
+      inset 0 3px 7px rgba(90, 78, 58, 0.5),
+      inset 0 -2px 0 rgba(255, 255, 255, 0.6);
+  }
+  .poste-grille {
+    border-radius: 1px;
+    background: repeating-linear-gradient(
+      90deg,
+      rgba(70, 60, 44, 0.5) 0 2px,
+      rgba(255, 255, 255, 0.6) 2px 3px,
+      transparent 3px 7px
+    );
+  }
+  /* Estampée et non imprimée : c'est la lumière SOUS la lettre qui
+     creuse le beige. */
+  .poste-marque {
+    color: rgba(70, 60, 44, 0.62);
+    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.72);
+  }
+  .poste-puits {
+    width: 9px;
+    height: 9px;
+    border-radius: 50%;
+    background: #b3a68c;
+    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+    display: grid;
+    place-items: center;
+  }
+  .poste-diode {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    background: var(--terra-hot);
+  }
+  .poste-fente {
+    border-radius: 2px;
+    background: linear-gradient(180deg, rgba(60, 50, 36, 0.55), rgba(90, 78, 58, 0.25));
+    box-shadow:
+      inset 0 1px 2px rgba(0, 0, 0, 0.5),
+      0 1px 0 rgba(255, 255, 255, 0.55);
+  }
+  .poste-pied {
+    clip-path: polygon(6% 0, 94% 0, 100% 100%, 0 100%);
+    background: linear-gradient(178deg, #e3d8c0, #c3b498);
+    box-shadow: 0 8px 14px -8px rgba(46, 52, 40, 0.5);
+  }
+
   /* ——— Le bordereau des offres ———
      Ni carte ni grille : quatre lignes d'un seul document. Deux filets
      d'encre traversent la fenêtre d'un bord à l'autre et bornent la

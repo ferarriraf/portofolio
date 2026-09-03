@@ -95,28 +95,32 @@
         }
       ],
       "screens": {
-        "client": "Vous",
-        "notesTitre": "Notes d'échange",
-        "notes": [
-          "Objectif : réserver en ligne",
-          "Existant : aucun site",
-          "Contrainte : gérer les contenus seul"
+        "demande": [
+          "Prendre les réservations en ligne",
+          "Montrer la carte et les horaires",
+          "Pouvoir tout modifier moi-même"
         ],
-        "enregistrement": "Appel en cours",
-        "archiFront": "Pages",
-        "archiApi": "API",
-        "archiDb": "Base de données",
-        "archiLegende": "architecture — v1",
-        "codeFichier": "app/reservation.tsx",
-        "codeOk": "0 erreur · 0 avertissement",
-        "testsTitre": "npm test",
-        "testsItems": [
-          "réservation",
-          "formulaire",
-          "mobile",
-          "chargement"
+        "pages": [
+          "Accueil",
+          "La carte",
+          "Réserver",
+          "Nous trouver"
         ],
-        "testsResume": "4 / 4 réussis"
+        "formTitre": "Réserver une table",
+        "formDate": "Date",
+        "formDateValeur": "sam. 14",
+        "formHeure": "Heure",
+        "formHeureValeur": "20 h 00",
+        "formCouverts": "Couverts",
+        "formCouvertsValeur": "4",
+        "formBouton": "Réserver",
+        "verifs": [
+          "Sur téléphone",
+          "Sur ordinateur",
+          "Quand le réseau est lent"
+        ],
+        "adresse": "votre-restaurant.fr",
+        "enLigne": "En ligne"
       }
     },
     "work": {
