@@ -233,6 +233,17 @@ clients, années d'expérience ou promesses invérifiables
   propre lecture et la ligne lue devient une bande de papier qui passe
   derrière le poste. Mesuré après : section 2,20 → **1,50 écran**, page
   6,92 → **6,37 écrans**, titres d'étape 20 → **38 px**.
+- **Le poste se cale au MILIEU de la fenêtre, pas en haut.** Collé à
+  7,5 rem du bord supérieur, il se retrouvait à hauteur de la première
+  étape avec 600 px de vide sous lui dans sa colonne : « l'écran est
+  étrangement mis ». `calc(50svh − 11,5rem)` le centre, `max(7rem, …)`
+  l'empêche de passer sous la barre fixe sur les écrans courts.
+- **Le texte qui brille : 190 vh.** Historique complet pour ne pas
+  refaire le tour — 220 (« trop long »), 120 (« un poil trop court »),
+  150 (« toujours trop rapide »), 190 (demandé). On revient près de la
+  valeur de départ, mais en connaissance de cause : ce qui gênait à 220
+  n'était pas cette section, c'était qu'elle s'ajoutait à une méthode de
+  220 vh dont 120 étaient morts.
 - **Sur téléphone, la liste passe AVANT la machine.** L'ancienne
   version servait le poste en premier (400 px de haut) et les cinq
   étapes tombaient sous la ligne de flottaison. C'est l'ordre du

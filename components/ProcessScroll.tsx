@@ -243,8 +243,17 @@ export default function ProcessScroll({
               sol : un grand aplat beige qui flottait sur le vert pâle.
               Il est ramené à 17 rem sous `lg`, et un plan se dessine
               sous lui — un objet posé sur une surface a une échelle,
-              un panneau qui flotte n'en a pas. */}
-          <div className="relative z-10 mx-auto w-full max-w-[17rem] pb-6 sm:max-w-[20rem] lg:sticky lg:top-[7.5rem] lg:max-w-[24rem] lg:pb-10">
+              un panneau qui flotte n'en a pas.
+
+              ET IL SE CALE AU MILIEU DE L'ÉCRAN, pas en haut. Collé à
+              7,5 rem du bord supérieur, il se retrouvait à hauteur de
+              la PREMIÈRE étape avec 600 px de vide sous lui dans sa
+              colonne — il avait l'air coincé dans un coin au lieu
+              d'accompagner la lecture. `calc(50svh - 11,5rem)` le
+              centre sur la hauteur de fenêtre (11,5 rem = la moitié de
+              sa hauteur), et le `max(7rem, …)` l'empêche de remonter
+              sous la barre fixe sur les écrans courts. */}
+          <div className="relative z-10 mx-auto w-full max-w-[17rem] pb-6 sm:max-w-[20rem] lg:sticky lg:top-[max(7rem,calc(50svh-11.5rem))] lg:max-w-[24rem] lg:pb-10">
             <span
               aria-hidden="true"
               className="pointer-events-none absolute inset-x-[-8%] bottom-0 h-16 bg-[linear-gradient(to_bottom,rgba(46,52,40,0.08),transparent_72%)] [mask-image:linear-gradient(90deg,transparent,#000_16%,#000_84%,transparent)]"
