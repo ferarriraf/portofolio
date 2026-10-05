@@ -2,310 +2,227 @@
 
 # Contexte pour Claude — site r-x.fr
 
-Site vitrine bilingue (FR sans préfixe, EN sous `/en`) de **R-X,
-développeur web fullstack indépendant** (Node.js, React, Next.js,
-TypeScript), voix « je ». Domaine canonique **www.r-x.fr** (r-x.fr
-redirige en 308). Stack : Next.js 16 (App Router, Turbopack,
-`proxy.ts`), next-intl (chemins localisés), Tailwind v4, framer-motion,
-polices locales woff2. Voir le README pour les commandes, le
-déploiement et la table « où modifier quoi ».
+Site vitrine bilingue (FR sans préfixe, EN sous `/en`) de **Raf,
+développeur web indépendant installé dans le Gers**, qui signe **R-X**.
+Voix « je ». Public : **des commerçants, des restaurateurs et des
+artisans qui cherchent un site — pas des développeurs.** Domaine
+canonique **www.r-x.fr** (r-x.fr redirige en 308). Stack : Next.js 16
+(App Router, Turbopack, `proxy.ts`), next-intl (chemins localisés),
+Tailwind v4, polices locales woff2. Voir le README pour les commandes,
+le déploiement et la table « où modifier quoi ».
+
+## La refonte d'octobre 2026 (direction « L'atelier »)
+
+Le site a été **refait d'un bloc** le 5 octobre 2026, après un audit
+(8 lecteurs) qui concluait : socle technique sain, dessin fait par
+couches successives, et un site qui parlait aux développeurs alors que
+le public est l'artisan. Le propriétaire a tranché sur maquettes
+statiques (trois directions regardées côte à côte) et choisi la C.
+
+Ce qui définit le site maintenant — c'est le brief positif, à relire
+avant toute modification :
+
+- **La phrase du brief** : un restaurateur ou un plombier doit ressentir
+  en dix secondes *un artisan sérieux et calme*. Papier, une seule
+  lumière, peu de mots ; le site rassure avant de séduire.
+- **La matière, seule** : palette sable / sauge (structure) / terracotta
+  (action) / encre verte ; bandes d'encre en creux ; ombres teintées ;
+  arêtes ciselées sur papier ; letterpress au pied de page ; **une seule
+  lueur phosphore**, sur l'encre : la phrase du hero et les numéros de la
+  méthode. Nulle part ailleurs.
+- **Aucun objet de métier.** Retirés et à ne pas réintroduire : le cadre
+  de sélection « calque », les lettres magnétiques, le Mac rétro et ses
+  écrans, les fenêtres à pastilles, les modes cachés au clavier, le
+  message console, le clic droit bloqué, l'écran d'ouverture, le verre
+  liquide, la brique 3D, l'application RH jouable. three.js est
+  désinstallé.
+- **L'ordre du client** sur l'accueil : promesse → ce qui lui arrive →
+  preuve (deux projets types) → méthode → contact. Pas de section
+  épinglée, pas de molette morte. Mesuré au lancement : 4,7 écrans à
+  1400×900, 6,5 sur téléphone.
+- **Une personne** : Raf, dans le Gers. Pas de photo ni de téléphone.
+- **L'argent** : pas de chiffre (il n'en existe pas encore). Le site dit
+  comment on chiffre et une FAQ « Combien ça coûte ? » l'explique. Dès
+  que Raf fixe des « à partir de », ils entrent dans `services.pricing`.
+  Jamais inventés.
+- **Les engagements écrits** (`services.offers[].included`,
+  `services.pricing.items`, FAQ) sont des propositions que Raf doit
+  confirmer ou retirer ; ne pas en ajouter sans lui.
+- **Les textes** sont en registre professionnel, sobre et direct. Raf a
+  dit qu'il les réécrira lui-même plus tard ; d'ici là : pas de
+  formules, pas de listes de trois à effet, pas de « pas X, mais Y »,
+  pas d'apartés. Il a trouvé la première version « bot de ouf » — c'est
+  le critère.
+- **Barre du haut** : dans le flux (plus fixe), un bouton d'action à
+  droite et FR / EN en lettres. Elle prend la couleur de l'encre sur
+  l'accueil via `body:has(main [data-hero-encre]) .entete`.
+- **Le bandeau défilant** reste : ses mots sont des liens vers les offres
+  (`/services#id`), il a son bouton d'arrêt, il ne s'arrête pas au
+  survol.
+- **La démo** `/demo` et le projet « application métier » sont retirés ;
+  `/demo` et `/en/demo` redirigent (308) vers les démonstrations. Le
+  second projet type est une prise de rendez-vous (salon de coiffure).
 
 ## Méthode de travail (règles de l'utilisateur)
 
 - **Poser des questions avant** tout gros travail ou choix structurant
   (AskUserQuestion) — règle permanente, demandée explicitement.
 - **Demander avant d'interpréter** : si un retour désigne un élément de
-  façon ambiguë (« la barre », « le bandeau »), demander lequel avant
-  d'agir. Leçon apprise à mes dépens.
+  façon ambiguë (« la barre », « le bandeau »), demander lequel.
 - L'utilisateur est novice en Node/Next : expliquer pédagogiquement les
   choix techniques, en français.
+- **Regarder avant de pousser.** Leçon de la brique 3D (« regarde après
+  avoir fait quand même ») : toute livraison visuelle est capturée et
+  REGARDÉE, bureau et téléphone. Recette qui marche sur ce poste : servir
+  le build (`npx next start -p 3100`) puis
+  `msedge --headless=new --disable-gpu --user-data-dir=<dossier neuf>
+  --hide-scrollbars --timeout=8000 --window-size=1400,4000
+  --screenshot=<png> <url>`. Utiliser `--timeout`, PAS
+  `--virtual-time-budget` (le bandeau en boucle l'empêche de finir).
+  Les captures sortent avec le contenu de `main` à mi-opacité : c'est le
+  fondu d'entrée figé par le mode sans fenêtre, pas un défaut du site
+  (vérifié : opacité 1 dans un vrai navigateur). Le mode sans fenêtre
+  n'émule pas un téléphone : pour le mobile, mesurer dans le panneau de
+  prévisualisation (préréglage mobile + JavaScript), ses captures y sont
+  capricieuses mais ses mesures sont justes.
+- **Maquettes avant code** pour tout changement de direction : des
+  pages statiques à taille réelle, pas des descriptions.
 - À chaque modification : vérifier que robots.txt, sitemap.xml et
   llms*.txt reflètent le changement (générés au build depuis
   `messages/*.json`, `app/sitemap.ts`, `app/robots.txt/route.ts`,
-  `lib/llms.ts`) et tenir les fichiers .md à la main.
+  `lib/llms.ts` — les chemins y viennent du routage) et tenir les
+  fichiers .md à la main.
 - Flux : je committe et pousse ; l'utilisateur fait `git pull &&
   npm run build` sur le serveur Infomaniak (`~/sites/portofolio`, SSH)
   puis redémarre via le manager. Récupération serveur :
   `git fetch origin && git reset --hard origin/main && rm -rf .next`.
+- Ce poste : Node 24 LTS (installé le 5 octobre 2026), `npm run build`
+  et `npx eslint .` passent.
 
 ## Honnêteté (non négociable)
 
-Aucun vrai client à ce jour : les deux démos (Site vitrine /
-Application métier) sont des **projets types** construits pour montrer
-la méthode, et le site le dit explicitement (`work.note`, llms.txt).
-Une troisième démo montrait une réponse d'API : retirée, jugée trop
-technique. **Le public visé, ce sont des commerçants et des artisans
-qui cherchent un site — pas des développeurs.** C'est la règle de
-lecture de tout le contenu : un mot que ce public n'emploie pas est un
-mot de trop. L'offre « API & intégrations » reste sur /services ; c'est
-sa *démonstration* qui parlait un langage de console. L'application métier est **jouable** sur `/demo`
-(« effectif », `components/EffectifApp.tsx` + `lib/effectif.ts`) : elle
-doit tenir mot pour mot la promesse écrite dans `work.projects[1]`
-— « un tableau de bord qui montre ce qui attend une décision, et rien
-d'autre », « les demandes se valident en un clic ». Personnes fictives,
-état reconstruit à chaque chargement depuis la date du jour, tout dans
-le navigateur : **jamais** de base, d'appel réseau ni de persistance,
-et le bandeau bac à sable reste affiché. Seuls des faits vérifiables sont affichés (réponse sous
-48 h, FR/EN, 0 cookie, fondé en 2026). Ne jamais inventer de chiffres,
-clients, années d'expérience ou promesses invérifiables
-(« sécurisé » a été retiré pour ça).
+Aucun vrai client à ce jour : les deux démonstrations sont des
+**projets types** construits pour montrer la méthode, et chaque page
+qui les montre le dit (`home.proof.note`, `work.lede`, `work.note`,
+llms.txt). Seuls des faits vérifiables sont affichés (réponse sous deux
+jours ouvrés, FR/EN, 0 cookie, fondé en 2026, Gers). Ne jamais inventer
+de chiffres, clients, années d'expérience ou promesses invérifiables.
+« Tests automatisés » a été retiré (le dépôt n'en a pas) ; « sécurisé »
+aussi. Un mot que le public n'emploie pas est un mot de trop : le
+vocabulaire de console est banni du site.
 
 ## Goûts visuels de l'utilisateur (durement acquis)
 
-- **Adoré** : glow phosphore terracotta (manifeste), effet vieille
-  TV/CRT, détails d'artisanat précis.
-  **Révisé par l'utilisateur** : « exit 0 » du pied de page a été retiré
-  — jugé inutile et trop pointu pour le public visé. Les fenêtres
-  terminal aussi (la démo API est partie). Le vocabulaire de console
-  n'a plus sa place sur ce site : ne pas le réintroduire.
-- **Détesté** : tout ce qui « fait IA » ou template, boutons keycap à
-  étages d'ombre, liserés/lignes claires 1px sur fonds sombres, tilts
-  de cartes à la souris, curseurs custom, polices outline, mouvements
-  répétitifs ou « respiration », rotations 3D qui aplatissent l'objet.
-- Interactions discrètes : enfoncement 1px au clic, couleurs — pas de
-  levée au survol. Le bandeau défilant du footer est **voulu** ; le Mac
-  rétro est posé de trois quarts **immobile** ; la FAQ est éditoriale
-  sobre (l'habillage terminal a été essayé puis rejeté).
-- Le bandeau **ne s'arrête plus au survol** : le geste n'était pas
-  intentionnel et donnait l'impression d'une page plantée. Il s'arrête
-  par son bouton, qui existe aussi pour couvrir le critère WCAG 2.2.2 —
-  une animation infinie doit avoir une commande d'arrêt, et le survol
-  n'en est pas une au doigt ni au clavier. Ne pas retirer le bouton sans
-  retirer aussi l'animation.
-- Système de matière : une seule lumière, tokens `shadow-elev-1..4`,
-  arêtes `inset-shadow-cisele(-sombre)`, bandes en creux
-  `.bande-calque*` (sans liseré clair) — voir `app/globals.css`.
-- **Le reçu** (`components/Recu.tsx`) : trois règles écrites en tête du
-  fichier, à ne pas contourner. Un reçu ne s'affiche QUE si une machine
-  a réellement agi (pas au défilement, pas à l'apparition d'un bloc) ;
-  il ne porte JAMAIS une information qui ne soit pas déjà écrite en
-  clair juste à côté ; il énonce un fait vérifiable, si possible
-  chiffré. La lueur est en `--terra-hot`, le TEXTE jamais (3,3:1, sous
-  le seuil) — une ombre ne porte aucune information. Deux reçus
-  aujourd'hui : l'envoi du formulaire et la copie de l'adresse. Une
-  ligne mono posée sous un titre « parce que ça fait joli » et le
-  procédé redevient un costume.
-- **Le fil de la démo** (`suivreFil` / `ligneDuFil` dans
-  `lib/effectif.ts`, textes en `demo.fil`) : la ligne est DÉDUITE de
-  l'état à chaque rendu, jamais d'un compteur d'étapes — c'est ce qui
-  l'empêche de mentir sur un compte et ce qui rattrape un visiteur qui
-  agit dans le désordre. Aucun `useEffect`. Toute nouvelle action du
-  réducteur doit recevoir sa branche dans `ligneDuFil`, sinon le fil
-  devient muet après ce geste. Ne JAMAIS y ajouter : bulle numérotée,
-  fond assombri, flèche qui pointe, « étape 2/5 », minuteur qui relance,
-  ni horloge fictive — c'est le template qu'on contourne.
-- **RIEN NE BOUGE DE SOI-MÊME.** Règle structurante. Le site est passé
-  de 23 animations en boucle à **une seule** : le bandeau du pied de
-  page, qui est voulu et qui a son bouton d'arrêt. Tout le reste répond
-  à un geste — les postes s'allument en entrant dans le champ, les
-  reçus s'estompent après une action. Avant d'ajouter une
-  `@keyframes … infinite`, se demander ce qu'elle **dit** ; si la
-  réponse est « ça fait vivant », elle est refusée. Corollaire :
-  `CountUp` a été supprimé — un chiffre qui monte alors qu'il n'a
-  jamais changé de valeur est une fausse mesure.
-
-- **UN SEUL POSTE À L'ÉCRAN.** La méthode a connu trois versions, et
-  les deux premières ont été rejetées par l'utilisateur :
-  un scrollytelling épinglé (magnifique, mais 7,5 écrans de molette) ;
-  puis cinq postes à la suite (court, mais « je veux toujours qu'un seul
-  écran »). La bonne réponse est un poste unique piloté au CLIC, pas au
-  défilement. Ne jamais reproduire un poste par étape.
-- **LA PAGE D'ACCUEIL DOIT RESTER COURTE.** Elle faisait 13,1 écrans de
-  haut ; l'utilisateur a dit que la parcourir « prend trop de temps et
-  d'énergie ». Les deux sections épinglées mangeaient 74 % du trajet
-  pour deux écrans de contenu réel. Elle en fait 6,9 aujourd'hui. Avant
-  d'ajouter une section épinglée en `vh`, mesurer ce qu'elle coûte en
-  écrans et se demander si le contenu le vaut.
+- **Adoré** : la lueur phosphore terracotta sur l'encre (gardée, en un
+  seul endroit), les détails d'artisanat précis, la direction C
+  « L'atelier » (papier qui alterne avec des bandes d'encre).
+- **Détesté** : tout ce qui « fait IA » ou template (cartes 2×2, cartes
+  qui se soulèvent, keycaps à étages d'ombre, halos qui respirent,
+  chiffres qui montent, tilts à la souris, curseurs custom), les polices
+  outline, les liserés clairs 1 px sur fond sombre, les rotations 3D qui
+  aplatissent l'objet, plusieurs écrans côte à côte, les textes qui
+  sonnent machine.
+- Interactions discrètes : enfoncement 1 px au clic, changement de
+  couleur — pas de levée au survol. Un bloc qui réagit au survol sans
+  être cliquable est une promesse qu'on ne tient pas.
+- **RIEN NE BOUGE DE SOI-MÊME.** Une seule boucle infinie : le bandeau
+  du pied de page, voulu, avec son bouton d'arrêt (WCAG 2.2.2). Avant
+  d'ajouter une `@keyframes … infinite`, se demander ce qu'elle dit ; si
+  la réponse est « ça fait vivant », elle est refusée.
+- **Le reçu** (`components/Recu.tsx`) : ne s'affiche QUE si une machine
+  a réellement agi ; ne porte jamais une information absente en clair à
+  côté ; énonce un fait vérifiable. La lueur est en `--terra-hot`, le
+  texte jamais.
+- **Aucune molette morte** : c'est la vraie règle derrière « page
+  courte ». Chaque pixel de défilement doit faire changer quelque chose.
+  Avant toute section en `vh`, mesurer ce qu'elle coûte en écrans.
+- Pour mémoire, les cinq versions rejetées de l'ancienne section
+  « méthode » (scrollytelling épinglé, cinq postes côte à côte, poste
+  piloté au clic, touches de clavier, liste épinglée avec 55 % de
+  molette morte) et la brique 3D (« horriblement moche ») : tout ça est
+  parti avec la refonte. Ne pas y revenir.
 
 ## Contraintes techniques du site
 
 - **Zéro cookie, littéral** : `localeCookie: false` ET
   `localeDetection: false` dans `i18n/routing.ts` — la langue est
-  portée par l'URL seule (sinon les navigateurs anglophones sont
-  renvoyés vers /en à chaque clic sur FR).
+  portée par l'URL seule. Le seul stockage navigateur est la fermeture
+  du bandeau cookie (localStorage), et le bandeau le dit.
 - **Email jamais dans le HTML** ni dans les fichiers machine :
-  recomposé côté client (`components/MailLink.tsx`, morceaux
-  inversés). Ne jamais l'écrire en dur.
-- Clic droit désactivé hors champs de saisie ; modes cachés W/I/Konami
-  avec sortie visible et bouton de désactivation (WCAG 2.1.4).
+  recomposé côté client (`components/MailLink.tsx`, morceaux inversés).
 - `prefers-reduced-motion` respecté pour CHAQUE effet, sans exception.
 - Pas de nouvelle dépendance npm sans accord ; CSP stricte (aucune
-  ressource externe). **three.js est installé** (accord explicite du
-  propriétaire) mais **plus rien ne l'importe aujourd'hui** : il est
-  gardé pour le seul usage encore voulu, le boîtier du poste rétro.
-  Ne pas s'en servir pour autre chose sans redemander.
-- **LA BRIQUE 3D DU HERO A ÉTÉ REJETÉE ET RETIRÉE.** Un bloc de
-  construction en three.js avait été posé dans le hero (l'idée venait
-  de l'accroche « Le web, bien construit »). Verdict : « c'est quoi
-  cette merde — c'est pas bête mais hyper mal fait », puis
-  « horriblement moche ». Ne pas la refaire ; le propriétaire fournira
-  des exemples visuels avant toute nouvelle tentative de 3D.
-- **LA LEÇON DE MÉTHODE, plus importante que la brique elle-même** :
-  « regarde après avoir fait quand même ». La brique avait été vérifiée
-  à fond — zéro image par seconde au repos, morceau isolé du premier
-  chargement, contextes WebGL libérés, revue adversariale de 16 agents
-  — mais **jamais REGARDÉE en grand**. Tout était juste sauf l'objet,
-  qui était laid. Pour toute livraison visuelle : agrandir l'élément
-  (l'isoler en position fixe, 500 px, le reste de la page masqué),
-  prendre une capture, et LA REGARDER avant de pousser. Une vérification
-  mécanique ne remplace jamais un coup d'œil.
+  ressource externe : pas de CDN, pas de Google Fonts, pas d'image
+  distante). framer-motion ne sert plus qu'au bandeau cookie et au
+  formulaire ; l'entrée de page est en CSS.
 - Français : espace insécable U+00A0 avant `: ; ? !` dans
-  `messages/fr.json`.
+  `messages/fr.json`. Les deux fichiers de langue sont générés par un
+  script qui vérifie la parité des clés (275 clés par langue au
+  lancement) ; en cas de gros changement de texte, refaire pareil
+  plutôt qu'éditer à la main.
 - **Formulaire de contact** : envoi par SMTP écrit à la main
-  (`lib/smtp.ts`, zéro dépendance — le choix nodemailer reste ouvert,
-  il suffirait de réécrire `envoyerCourriel`). Réglages **uniquement**
-  en variables d'environnement (`.env.example`) : ne jamais écrire
+  (`lib/smtp.ts`, zéro dépendance). Réglages **uniquement** en
+  variables d'environnement (`.env.example`) : ne jamais écrire
   l'adresse d'arrivée ni le mot de passe dans le code. Anti-robots =
   champ-piège invisible + délai minimal + 3 envois / 10 min par IP,
-  jamais de captcha. Sans réglages, le formulaire annonce
-  honnêtement qu'il est indisponible — il ne dit jamais « merci » à
-  vide.
+  jamais de captcha. Sans réglages, le formulaire annonce honnêtement
+  qu'il est indisponible.
+- La carte de partage (`app/og/[locale]/route.tsx`) est dessinée au
+  build en sans-serif système : le moteur d'image ne lit pas les woff2.
 
 ## Pièges connus (ne pas retomber dedans)
 
 - Ne JAMAIS filtrer `npm run build` avec grep : TypeScript tourne
   APRÈS « Compiled successfully » — toujours lire la fin et vérifier
   le code de sortie.
+- `git rm` avec une liste de fichiers avorte ENTIÈREMENT si un seul
+  chemin n'existe pas, sans rien supprimer : vérifier la sortie.
 - `perl -pe 's/ /\x{00a0}/'` écrit un octet 0xA0 nu (UTF-8 invalide,
-  Turbopack refuse le JSON) : passer par Python et des octets
-  `\xc2\xa0`, en évitant les « à » (0xC3 0xA0).
+  Turbopack refuse le JSON) : passer par Python (`json.dump`,
+  `ensure_ascii=False`).
 - eslint `react-hooks/set-state-in-effect` : différer avec
-  `setTimeout(0)` (pattern BootScreen/CopyEmail).
-- framer-motion scroll-linked → WAAPI : plages d'entrée dans [0,1].
-- **LE PIÈGE LE PLUS COÛTEUX DU DÉPÔT.** Dans un composant lié au
-  défilement, ne JAMAIS écrire `useTransform(p, [entrées], [sorties])` :
-  framer-motion le traduit en animation NATIVE calée sur une
-  ViewTimeline. Sur une section épinglée haute (750 vh), cette timeline
-  sort de sa plage — mesurée à −37 % — et hors plage chaque animation
-  retombe sur sa PREMIÈRE image-clé : l'étape 01 réapparaissait à pleine
-  opacité par-dessus l'étape 04, les numéros se superposaient et tout
-  semblait bloqué. Écrire la forme fonction :
-  `useTransform(p, (v) => interpoler(v, [entrées], [sorties]))`, avec
-  l'outil de `lib/interpoler.ts`.
-- **Le panneau de prévisualisation gèle `requestAnimationFrame` quand
-  il est masqué.** Toute animation pilotée par JavaScript y reste
-  bloquée sur sa valeur de départ, alors que les animations natives
-  continuent de tourner. Conséquence : on ne peut pas valider un effet
-  lié au défilement depuis ce panneau, et une mesure « figée » n'y
-  prouve rien. Vérifier la logique en Node et la structure dans le DOM,
-  puis faire confirmer le rendu par l'utilisateur.
-- next-intl ICU : `{` s'échappe avec des quotes autour de `{param}`.
-  **`<` aussi** : un message contenant `<h1 class="…">` est lu comme
-  une balise et lève `INVALID_TAG` à chaque rendu (le texte s'affiche
-  quand même, mais le serveur logue une erreur). Entourer d'apostrophes
-  simples : `'<h1 class=\"accroche\">'` — cas vécu sur `home.layerLabel`.
+  `setTimeout(0)` (pattern CopyEmail / MailLink).
 - eslint `react-hooks/refs` : regrouper des `useRef` dans un objet puis
-  lire `objet.champ` dans le JSX est refusé (« Cannot access refs
-  during render »). Une variable par ref.
-- Node lit les `.ts` sans les compiler : les « propriétés de
-  paramètre » (`constructor(private socket: X)`) le font échouer, alors
-  que Turbopack les accepte. Déclarer le champ explicitement, sinon les
-  fichiers de `lib/` ne sont plus testables hors du site.
-- Un `<label>` qui **enveloppe** un `<select>` avale le texte des
-  `<option>` dans le nom accessible (« MotifCongés payésRTT… »).
-  Toujours relier par `htmlFor`/`id` autour d'une liste déroulante.
+  lire `objet.champ` dans le JSX est refusé. Une variable par ref.
 - **React joue chaque effet DEUX fois en développement.** Un effet qui
-  écrit dans `sessionStorage` au montage puis lit cette valeur pour
-  décider quoi afficher se sabote lui-même au second passage (vécu sur
-  `BootScreen` : l'ouverture ne se jouait jamais en local, mais aurait
-  marché en production — le pire des cas). Écrire le marqueur à la FIN
-  de la séquence, jamais au montage.
-- L'écran d'ouverture (`.ecran-boot` dans `globals.css`) est en CSS pur,
-  **disparition comprise** : sans ça un visiteur sans JavaScript reste
-  sur un aplat de sable. Les durées `--boot-*` du CSS et `SEQUENCE_MS`
-  du composant sont un miroir l'une de l'autre — changer l'une sans
-  l'autre laisse le nœud en place ou le retire en pleine ouverture.
-- Toute donnée datée affichée côté client doit attendre le montage
-  (drapeau `monte` + `setTimeout(0)`), sinon le rendu serveur et celui
-  du navigateur divergent. Et caler les dates de démo sur des jours
-  ouvrés : un créneau tombé un samedi affiche « 0 jour » et fait croire
-  à un bug.
-- `pkill -f "next-server"` se tue lui-même (la commande contient le
-  motif) : écrire `pkill -f "next[-]server"`.
-- **La méthode (`ProcessScroll`) : CINQ versions ont été rejetées avant
-  celle qui tient.** La cinquième — liste épinglée pilotée au
-  défilement — a échoué sur un défaut MESURABLE : la section faisait
-  220 vh pour un bloc collant de 100 vh, soit **120 vh (55 %) pendant
-  lesquels pas un pixel ne bougeait**. « Ça fait vide, il ne se passe
-  rien » était une observation exacte, pas un goût. Ce qui tient
-  aujourd'hui : plus rien n'est épinglé sauf la machine, la hauteur de
-  la section est celle de son contenu, chaque filet se remplit sur sa
-  propre lecture et la ligne lue devient une bande de papier qui passe
-  derrière le poste. Mesuré après : section 2,20 → **1,50 écran**, page
-  6,92 → **6,37 écrans**, titres d'étape 20 → **38 px**.
-- **Le poste se cale au MILIEU de la fenêtre, pas en haut.** Collé à
-  7,5 rem du bord supérieur, il se retrouvait à hauteur de la première
-  étape avec 600 px de vide sous lui dans sa colonne : « l'écran est
-  étrangement mis ». `calc(50svh − 11,5rem)` le centre, `max(7rem, …)`
-  l'empêche de passer sous la barre fixe sur les écrans courts.
-- **Le texte qui brille : 190 vh.** Historique complet pour ne pas
-  refaire le tour — 220 (« trop long »), 120 (« un poil trop court »),
-  150 (« toujours trop rapide »), 190 (demandé). On revient près de la
-  valeur de départ, mais en connaissance de cause : ce qui gênait à 220
-  n'était pas cette section, c'était qu'elle s'ajoutait à une méthode de
-  220 vh dont 120 étaient morts.
-- **Sur téléphone, la liste passe AVANT la machine.** L'ancienne
-  version servait le poste en premier (400 px de haut) et les cinq
-  étapes tombaient sous la ligne de flottaison. C'est l'ordre du
-  balisage qui le règle, pas une hauteur.
-- **Les écrans du poste racontent une histoire suivie** : votre
-  restaurant qui veut prendre ses réservations en ligne. Ils affichaient
-  `npm test`, `app/reservation.tsx`, `API` et « 0 erreur ·
-  0 avertissement » — **sur la version française** — en 6,7 à 9,6 px.
-  Interdit par la règle du vocabulaire de console, et illisible à tout
-  âge. Tout y est désormais en `cqw` avec un plancher en px.
-- **Les quatre versions rejetées, pour mémoire :**
-  Ne pas en reproposer une cinquième sans lire celles-ci. 1) Un
-  scrollytelling épinglé sur 750 vh : « la page est trop longue à être
-  scrollée ». 2) Cinq postes côte à côte : « NAN MAIS C'EST QUOI ÇA, je
-  veux pas plusieurs écrans côte à côte ». 3) Un poste unique piloté au
-  CLIC, étapes en liste discrète : « le clic est pas très intuitif ».
-  4) Le même, étapes en touches de clavier bien visibles : « j'aime
-  vraiment pas la nouvelle mécanique » — l'affordance était réparée mais
-  des touches empilées ramènent le motif de carte générique qu'on venait
-  de chasser de la page services. Ce qui tient : **aucun bouton du
-  tout**, le défilement pilote, la liste est du TEXTE. Rien à cliquer,
-  donc personne ne se demande si c'est cliquable.
+  écrit un marqueur au montage puis le lit pour décider quoi afficher se
+  sabote au second passage. Écrire le marqueur à la FIN de la séquence.
+- next-intl ICU : `{` s'échappe avec des quotes ; **`<` aussi** — un
+  message contenant une balise lève `INVALID_TAG` à chaque rendu.
+- Node lit les `.ts` sans les compiler : pas de « propriétés de
+  paramètre » (`constructor(private x: X)`) dans `lib/`, sinon les
+  fichiers ne sont plus testables hors du site.
+- Un `<label>` qui **enveloppe** un `<select>` avale le texte des
+  `<option>` dans le nom accessible. Toujours `htmlFor`/`id`.
+- Toute donnée datée affichée côté client doit attendre le montage,
+  sinon le rendu serveur et celui du navigateur divergent.
+- `pkill -f "next-server"` se tue lui-même : écrire `pkill -f "next[-]server"`.
 - **JAMAIS de `y` / `translate` dans `app/[locale]/template.tsx`.** Ce
   bloc enveloppe TOUT le contenu de chaque page, et son état de départ
-  est servi dans le HTML. Un `y: 12` fait donc commencer la page entière
-  12 px trop bas. Or le navigateur, quand il restaure la position de
-  lecture après un rechargement, repère un élément et le remet où il
-  était, en mesurant AVEC ce décalage : il descend de 12 px, et cette
-  position est celle qu'il sauvegardera au rechargement suivant. **Ça
-  s'additionne** — sept F5 et ce qu'on lisait est derrière la barre.
-  L'opacité seule est sans danger ; pour un glissement, passer par un
-  `clip-path` (comme `Reveal` en mode masque), qui ne déplace pas la
-  boîte. Ce bug a coûté un audit entier.
-- Ce même bug était **invisible dans le volet de prévisualisation** :
-  celui-ci gèle `requestAnimationFrame`, l'animation n'allait jamais à
-  son terme, le décalage restait à 12 des deux côtés et s'annulait.
-  Quand une mesure de défilement ou d'animation contredit ce que
-  l'utilisateur décrit, soupçonner d'abord le volet — et vérifier que
-  `innerHeight` n'est pas à 0 (volet masqué : toutes les mesures de
-  géométrie sont alors nulles et trompeuses).
+  est servi dans le HTML. Un décalage de départ est additionné par le
+  navigateur à chaque restauration de position (loi vérifiée en
+  production : nouvelle position = ancienne + décalage − décalage
+  courant ; sept F5 et le texte lu est passé derrière le haut de
+  l'écran). L'opacité seule est sans danger. Ce bug a coûté un audit.
+- **Le panneau de prévisualisation gèle `requestAnimationFrame`, les
+  transitions CSS et les styles calculés des pseudo-éléments quand il
+  est masqué**, et rapporte `innerHeight: 0` : une mesure de géométrie
+  faite dans cet état est nulle et trompeuse. Ses captures expirent
+  souvent (« did not finish rendering ») : le JavaScript, lui, répond.
+  Pour regarder, passer par Edge sans fenêtre (recette plus haut).
 - Ne jamais écrire `-webkit-backdrop-filter` à la main à côté de
-  `backdrop-filter` : le compilateur CSS supprime alors la version
-  standard et Firefox perd le flou — une surface translucide sans flou
-  laisse passer le texte du dessous et devient illisible. Il pose le
-  préfixe tout seul.
-- La barre du haut est **fixe** : elle mange les 81 premiers pixels.
-  Sans `scroll-padding-top` sur `html`, tout ce qui amène un élément en
-  haut de l'écran le range DERRIÈRE elle — ancre, lien d'évitement,
-  retour du focus au clavier, restauration de position au rechargement.
-  La règle est posée dans `app/globals.css` : ne pas la retirer, et la
-  mettre à jour si la hauteur de la barre change.
-- Un titre posé à côté d'une carte se cale sur le BORD de la carte, pas
-  sur son TEXTE : la carte a son rembourrage, le titre n'en a aucun, et
-  il flotte une vingtaine de pixels trop haut. Comparer les lignes de
-  texte (`Range.getClientRects()`), pas les boîtes — `getBoundingClientRect`
-  inclut le rembourrage et fait croire que rien n'a bougé.
-- Les lettres du titre magnétique ont une largeur figée par lettre
-  (sinon la graisse variable élargit les glyphes et fait trembler la
-  ligne par reflow) et l'onde du clic est attachée au `<h1>` seul,
-  pas à `window` — ne pas retirer ces mécanismes.
+  `backdrop-filter` : le compilateur CSS supprime la version standard.
+- Un titre posé à côté d'un bloc rembourré se cale sur le BORD du bloc,
+  pas sur son TEXTE : comparer les lignes de texte
+  (`Range.getClientRects()`), pas les boîtes.
+- Dans un fichier HTML servi sans l'enveloppe de l'artefact, `[hidden]`
+  est battu par un `display: grid` d'auteur : toujours poser
+  `[hidden]{display:none!important}` dans le CSS des maquettes.
 
 ## Mentions légales
 
-Les champs `[À compléter]` de la clé `legal` (raison sociale, SIRET,
-directeur de publication) attendent les informations de l'utilisateur.
+La page dit honnêtement que les informations d'identification de
+l'entreprise (dénomination, forme juridique, SIRET, adresse) sont en
+cours d'enregistrement. Dès que Raf les fournit, les écrire dans
+`legal.editor.text` des deux langues. Tant qu'elles manquent, le site
+n'est pas conforme à la LCEN : le rappeler sans harceler.

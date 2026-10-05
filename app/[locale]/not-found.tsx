@@ -5,11 +5,10 @@ export default function NotFound() {
   const t = useTranslations("notFound");
 
   return (
-    <div className="container-site flex min-h-svh flex-col items-center justify-center py-32 text-center">
-      <h1 className="mt-9 font-display text-4xl font-bold tracking-tight text-ink">
-        {t("title")}
-      </h1>
-      <p className="mt-4 max-w-md leading-relaxed text-ink-soft">{t("text")}</p>
+    <div className="container-site pt-16 pb-24 md:pt-24 md:pb-32">
+      <p className="eyebrow">404</p>
+      <h1 className="titre-1 mt-5 text-ink">{t("title")}</h1>
+      <p className="lede mt-6">{t("text")}</p>
       <Link href="/" className="btn btn-primary mt-9">
         {t("back")}
       </Link>

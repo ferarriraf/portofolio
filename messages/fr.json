@@ -1,29 +1,25 @@
 {
   "meta": {
-    "siteName": "R-X — Développement web",
+    "siteName": "R-X — Création de sites web",
     "home": {
-      "title": "R-X — Développeur web fullstack",
-      "description": "R-X conçoit, développe et maintient des sites et applications web rapides, fiables et faciles à faire évoluer. Node.js, React, Next.js, TypeScript — du premier échange à la mise en ligne."
+      "title": "R-X — Création de sites web pour commerces et artisans",
+      "description": "Raf, développeur web indépendant dans le Gers. Sites vitrine, réservation en ligne, outils sur mesure et reprise de sites existants, pour les commerces, les restaurants et les artisans."
     },
     "services": {
-      "title": "Services — Développement web",
-      "description": "Sites complets, applications sur mesure, API et intégrations, maintenance : le développement web du besoin à la mise en ligne."
+      "title": "Services — Sites, outils et reprise",
+      "description": "Site vitrine, boutique en ligne, prise de rendez-vous, outil sur mesure, reprise d'un site existant. Ce qui est compris est écrit, le devis est fixe."
     },
     "work": {
       "title": "Démonstrations",
-      "description": "Démonstrations : un site vitrine et une application métier — deux projets types construits de bout en bout pour montrer la méthode."
-    },
-    "demo": {
-      "title": "Démonstration jouable",
-      "description": "effectif, l'espace RH : une application métier complète à essayer directement dans le navigateur — congés, validations, entretiens. Données fictives, rien n'est conservé."
+      "description": "Deux projets types construits de bout en bout : un site vitrine avec réservation et une prise de rendez-vous en ligne."
     },
     "about": {
       "title": "À propos",
-      "description": "R-X, développeur web indépendant : la personne qui écoute votre besoin est celle qui écrit le code."
+      "description": "Raf, développeur web indépendant dans le Gers. Un seul interlocuteur, du premier échange à la mise en ligne."
     },
     "contact": {
       "title": "Contact",
-      "description": "Parlons de votre projet web. Réponse sous deux jours ouvrés."
+      "description": "Décrivez votre projet. Réponse sous deux jours ouvrés."
     },
     "legal": {
       "title": "Mentions légales",
@@ -36,6 +32,7 @@
     "work": "Démonstrations",
     "about": "À propos",
     "contact": "Contact",
+    "cta": "Écrivez-moi",
     "menuOpen": "Ouvrir le menu",
     "menuClose": "Fermer le menu",
     "ariaMain": "principal",
@@ -47,173 +44,208 @@
     "en": "English"
   },
   "home": {
-    "eyebrow": "Développeur web indépendant",
-    "titleA": "Le web,",
-    "titleB": "bien construit.",
-    "lede": "R-X conçoit, développe et maintient des sites et des applications web rapides, fiables et faciles à faire évoluer — avec un seul interlocuteur : celui qui écrit le code.",
-    "ctaServices": "Voir les services",
-    "ctaContact": "Discuter de votre projet",
-    "layerLabel": "'<h1 class=\"accroche\">'",
-    "marquee": [
-      "Sites web",
-      "Boutiques en ligne",
-      "Applications",
-      "Prise de rendez-vous",
-      "Automatisation",
-      "Refonte",
-      "Espace client",
-      "Maintenance"
-    ],
-    "manifesto": {
-      "lead": "Un bon site ne se fait pas remarquer.",
-      "emph": "Il fait son travail."
+    "eyebrow": "Développeur web indépendant · Gers",
+    "titleA": "Un bon site ne se fait pas remarquer.",
+    "titleB": "Il fait son travail.",
+    "lede": "Je m'appelle Raf. Je crée des sites pour les commerces, les restaurants et les artisans. Rapides, lisibles, et que vous pouvez mettre à jour vous-même.",
+    "ctaPrimary": "Décrire votre projet",
+    "ctaSecondary": "Voir deux exemples",
+    "problems": {
+      "eyebrow": "Ce qui vous amène",
+      "title": "Trois situations courantes",
+      "items": [
+        {
+          "q": "On ne vous trouve pas sur Google.",
+          "r": "Vos horaires, votre adresse et vos prestations sont écrits là où les moteurs de recherche les lisent. Le site est rapide et correctement structuré, ce qui compte pour le référencement."
+        },
+        {
+          "q": "Les réservations passent encore par le téléphone.",
+          "r": "Une page de réservation ou de prise de rendez-vous reçoit les demandes à votre place, y compris en dehors des heures d'ouverture."
+        },
+        {
+          "q": "Votre site existe, mais plus personne n'ose y toucher.",
+          "r": "Je reprends l'existant, je corrige ce qui ne fonctionne plus et je vous rends la main sur les textes et les photos."
+        }
+      ]
+    },
+    "proof": {
+      "eyebrow": "Deux projets types",
+      "title": "Ce que ça donne, concrètement",
+      "note": "Ces deux sites ont été construits de bout en bout pour montrer la méthode. Il n'y a pas de client derrière.",
+      "cta": "Voir les deux projets en détail"
     },
     "process": {
       "eyebrow": "La méthode",
       "title": "Cinq étapes, pas une de plus",
-      "online": "En ligne",
       "steps": [
         {
           "title": "Écoute",
-          "text": "Un premier échange pour cerner votre activité, vos objectifs et vos contraintes. Sans jargon, sans engagement."
+          "text": "Un premier échange d'une demi-heure pour comprendre votre activité, vos clients et ce qui vous manque. Gratuit et sans engagement."
         },
         {
-          "title": "Architecture",
-          "text": "Choix techniques, schéma des données, découpage des pages : les fondations avant les murs."
+          "title": "Devis",
+          "text": "Nous fixons ensemble les pages, les textes, les photos et qui fournit quoi. Vous recevez un devis écrit qui précise ce qui est compris."
         },
         {
-          "title": "Développement",
-          "text": "Le code s'écrit par petites étapes visibles : vous suivez l'avancement sur une adresse privée, pas sur des promesses."
+          "title": "Construction",
+          "text": "Le site se construit par étapes visibles. Vous suivez l'avancement sur une adresse privée et vous réagissez au fur et à mesure."
         },
         {
-          "title": "Tests",
-          "text": "Navigateurs, mobiles, réseaux lents, erreurs de saisie : ce qui casse ici ne cassera pas chez vous."
+          "title": "Vérifications",
+          "text": "Chaque page est testée sur téléphone, sur ordinateur, avec une connexion lente et avec des erreurs de saisie dans les formulaires."
         },
         {
           "title": "Mise en ligne",
-          "text": "Déploiement, nom de domaine, sauvegardes — et un œil attentif après la livraison."
+          "text": "Nom de domaine, hébergement et sauvegardes sont configurés. Je reste disponible après la livraison."
         }
-      ],
-      "screens": {
-        "demande": [
-          "Prendre les réservations en ligne",
-          "Montrer la carte et les horaires",
-          "Pouvoir tout modifier moi-même"
-        ],
-        "pages": [
-          "Accueil",
-          "La carte",
-          "Réserver",
-          "Nous trouver"
-        ],
-        "formTitre": "Réserver une table",
-        "formDate": "Date",
-        "formDateValeur": "sam. 14",
-        "formHeure": "Heure",
-        "formHeureValeur": "20 h 00",
-        "formCouverts": "Couverts",
-        "formCouvertsValeur": "4",
-        "formBouton": "Réserver",
-        "verifs": [
-          "Sur téléphone",
-          "Sur ordinateur",
-          "Quand le réseau est lent"
-        ],
-        "adresse": "votre-restaurant.fr",
-        "enLigne": "En ligne"
+      ]
+    },
+    "contact": {
+      "title": "Décrivez votre activité et ce dont vous avez besoin.",
+      "text": "Trois lignes suffisent pour commencer. Je vous réponds sous deux jours ouvrés.",
+      "button": "Écrire à Raf"
+    },
+    "marquee": [
+      {
+        "label": "Sites vitrine",
+        "offer": "construire"
+      },
+      {
+        "label": "Boutiques en ligne",
+        "offer": "construire"
+      },
+      {
+        "label": "Prise de rendez-vous",
+        "offer": "construire"
+      },
+      {
+        "label": "Réservations",
+        "offer": "construire"
+      },
+      {
+        "label": "Outils sur mesure",
+        "offer": "outiller"
+      },
+      {
+        "label": "Espace client",
+        "offer": "outiller"
+      },
+      {
+        "label": "Outils reliés entre eux",
+        "offer": "relier"
+      },
+      {
+        "label": "Reprise d'un site existant",
+        "offer": "reprendre"
+      },
+      {
+        "label": "Maintenance",
+        "offer": "reprendre"
       }
-    },
-    "work": {
-      "eyebrow": "Démonstrations",
-      "title": "Deux démos types, pour montrer la méthode",
-      "cta": "Toutes les démonstrations"
-    },
-    "cta": {
-      "title": "Un projet, une question ?",
-      "text": "Un brief d'une page ou trois lignes dans un email : tout commence par un message.",
-      "button": "Écrivez-moi"
-    }
+    ]
   },
   "services": {
     "eyebrow": "Services",
-    "title": "Le développement web, du besoin à la mise en ligne",
-    "lede": "Un seul métier : construire des sites et des applications qui chargent vite, tiennent dans le temps et restent simples à faire évoluer.",
+    "title": "Ce que vous pouvez me confier",
+    "lede": "Quatre types d'interventions, du site vitrine à la reprise d'un site existant. Pour chacune, ce qui est compris est écrit.",
+    "includedLabel": "Compris",
     "offers": [
       {
+        "id": "construire",
         "verb": "Construire",
-        "title": "Sites web complets",
-        "text": "Vitrine, e-commerce, portfolio : conception, développement, hébergement et mise en ligne. Un site rapide, lisible sur tous les écrans, que vous pouvez mettre à jour vous-même."
+        "title": "Un site pour votre activité",
+        "text": "Site vitrine, boutique en ligne, réservation ou prise de rendez-vous. Je m'occupe de la conception, de la construction et de la mise en ligne. Vous pouvez ensuite modifier les textes et les photos vous-même.",
+        "included": [
+          "Nom de domaine et hébergement configurés",
+          "Site lisible sur téléphone et sur ordinateur",
+          "Prise en main pour les mises à jour courantes",
+          "Suivi après la mise en ligne"
+        ]
       },
       {
+        "id": "outiller",
         "verb": "Outiller",
-        "title": "Applications web sur mesure",
-        "text": "Outils métier, tableaux de bord, espaces clients : quand un logiciel du commerce ne colle pas à votre façon de travailler, je construis l'outil autour d'elle."
+        "title": "Un outil adapté à votre façon de travailler",
+        "text": "Planning, devis, suivi des commandes, espace client. Quand un logiciel du commerce ne correspond pas à votre organisation, je construis l'outil autour de celle-ci.",
+        "included": [
+          "Prise en main avec vous",
+          "Documentation des gestes du quotidien",
+          "Vos données restent les vôtres"
+        ]
       },
       {
+        "id": "relier",
         "verb": "Relier",
-        "title": "API & intégrations",
-        "text": "Connecter vos outils entre eux, automatiser les tâches répétitives, exposer vos données proprement — pour que l'information circule sans ressaisie."
+        "title": "Vos outils connectés entre eux",
+        "text": "La réservation qui remplit l'agenda, la commande qui génère la facture. L'information circule sans ressaisie.",
+        "included": [
+          "Schéma écrit de ce qui va où",
+          "Vérification de chaque échange de données"
+        ]
       },
       {
-        "verb": "Réparer",
-        "title": "Maintenance & reprise",
-        "text": "Audit de l'existant, corrections, mises à jour de sécurité, modernisation progressive : votre site continue de vivre sans repartir de zéro."
+        "id": "reprendre",
+        "verb": "Reprendre",
+        "title": "Un site existant à remettre en état",
+        "text": "Site lent, cassé ou impossible à modifier. J'établis un état des lieux, je corrige ce qui doit l'être et je modernise sans tout refaire.",
+        "included": [
+          "État des lieux écrit avant intervention",
+          "Corrections priorisées avec vous"
+        ]
       }
     ],
-    "deliverables": {
-      "eyebrow": "Livrables",
-      "title": "Ce que vous recevez",
+    "pricing": {
+      "eyebrow": "Tarifs",
+      "title": "Comment je chiffre",
       "items": [
-        "Le code source complet — il vous appartient",
-        "Un site déployé, nom de domaine et hébergement configurés",
-        "Une documentation simple pour les gestes du quotidien",
-        "Un interlocuteur unique, pendant et après le projet"
-      ]
+        "Un premier échange d'une demi-heure, gratuit.",
+        "Un devis écrit, valable pour l'ensemble du projet.",
+        "Le devis précise ce qui est compris et ce qui ne l'est pas."
+      ],
+      "faqQ": "Combien ça coûte ?",
+      "faqA": "Il n'y a pas de grille tarifaire publique : un site de trois pages et une boutique en ligne n'ont pas le même coût. Après un premier échange, vous recevez un devis écrit, avant tout engagement."
     },
     "cta": {
-      "title": "Votre site mérite mieux ?",
-      "text": "Décrivez votre outil, votre site ou votre idée — je vous dis franchement ce qui est possible, en combien de temps, et pour quel budget.",
-      "button": "Parler de votre projet"
+      "title": "Vous avez un projet en tête ?",
+      "text": "Décrivez votre activité et votre besoin. Je vous dis ce qui est possible, dans quel délai, et je vous envoie un devis.",
+      "button": "Décrire votre projet"
     }
   },
   "work": {
     "eyebrow": "Démonstrations",
-    "title": "Deux démos types, pour montrer la méthode",
-    "lede": "Aucun de ces projets n'est un vrai client : ce sont deux démonstrations construites de bout en bout — un site vitrine et une application métier — pour montrer comment je travaille plutôt que de le raconter.",
-    "challengeLabel": "Le besoin",
-    "resultLabel": "Ce que je livre",
+    "title": "Deux projets types",
+    "lede": "Ces deux sites ont été construits de bout en bout pour montrer la méthode. Il n'y a pas de client derrière : votre projet prendra leur place.",
+    "needLabel": "Le besoin",
+    "deliveredLabel": "Ce qui est livré",
+    "note": "Projets types construits par R-X. Aucun vrai client derrière ces écrans.",
     "projects": [
       {
-        "name": "Site vitrine",
+        "id": "ceramique",
+        "name": "Site vitrine avec réservation",
         "sector": "Atelier de céramique",
+        "need": "Être trouvé sur le web, montrer les pièces et prendre les réservations d'ateliers, sans dépendre de quelqu'un à chaque mise à jour.",
+        "delivered": "Un site rapide, modifiable sans compétence technique, avec une page de réservation et un référencement soigné.",
         "tags": [
-          "SEO",
+          "Référencement",
           "Mobile",
           "Réservations"
-        ],
-        "challenge": "Être trouvé sur le web, montrer l'atelier, prendre des réservations — sans dépendre de quelqu'un à chaque mise à jour.",
-        "result": "Un site rapide et lisible, modifiable sans compétence technique, avec réservation intégrée et un référencement soigné."
+        ]
       },
       {
-        "name": "Application métier",
-        "sector": "Équipe RH",
+        "id": "salon",
+        "name": "Prise de rendez-vous en ligne",
+        "sector": "Salon de coiffure",
+        "need": "Des rendez-vous pris sans décrocher le téléphone en pleine prestation, et un agenda à jour.",
+        "delivered": "Les créneaux disponibles en ligne, une confirmation envoyée au client, un agenda qui se remplit seul.",
         "tags": [
-          "Tableau de bord",
-          "Congés"
-        ],
-        "challenge": "Des congés validés par email, des entretiens suivis dans trois tableurs : l'information se perd et se ressaisit.",
-        "result": "Un tableau de bord qui montre ce qui attend une décision, et rien d'autre. Les demandes se valident en un clic."
+          "Rendez-vous",
+          "Confirmation par email",
+          "Agenda"
+        ]
       }
     ],
-    "note": "Démonstrations construites par R-X : aucun vrai client derrière ces écrans. Votre projet prendra leur place ici.",
-    "cta": {
-      "title": "Votre projet ici ?",
-      "text": "Racontez-moi où ça coince : c'est souvent le début d'un beau projet.",
-      "button": "Me contacter"
-    },
     "mockups": {
-      "vitrine": {
-        "fenetre": "atelier-gres.fr",
+      "ceramique": {
         "marque": "Atelier Grès",
         "menu": [
           "Créations",
@@ -221,262 +253,147 @@
           "Contact"
         ],
         "titre": "La céramique, cuite au bois",
-        "lede": "Pièces uniques, tournées à la main",
-        "action": "Réserver un atelier",
-        "cartes": [
-          "Bols",
-          "Vases",
-          "Cours"
-        ]
+        "sousTitre": "Pièces uniques, tournées à la main",
+        "action": "Réserver un atelier"
       },
-      "metier": {
-        "fenetre": "effectif — espace RH",
-        "titre": "Demandes de congés",
-        "badge": "3 en attente",
-        "lignes": [
-          [
-            "Camille R.",
-            "24–28 août"
-          ],
-          [
-            "Yanis B.",
-            "2–6 sept."
-          ],
-          [
-            "Léa M.",
-            "15 sept."
-          ]
+      "salon": {
+        "marque": "Salon Marguerite",
+        "titre": "Prendre rendez-vous",
+        "jour": "Mardi 14",
+        "creneaux": [
+          "9 h 30",
+          "10 h 30",
+          "11 h 30",
+          "14 h",
+          "15 h",
+          "16 h 30"
         ],
-        "valide": "Validée",
-        "action": "Tout valider"
+        "pris": "Pris",
+        "action": "Confirmer 10 h 30"
       }
     },
-    "essayer": "Essayer la démonstration"
-  },
-  "demo": {
-    "eyebrow": "Démonstration jouable",
-    "title": "effectif — l'espace RH",
-    "lede": "L'application métier de la page Démonstrations, pour de vrai. Validez une demande, posez des congés, planifiez un entretien : tout répond.",
-    "fenetre": "effectif — espace RH",
-    "bacASable": "Bac à sable : les personnes sont fictives, tout se passe dans votre navigateur, rien n'est envoyé ni conservé. Rechargez la page et tout repart à zéro.",
-    "chargement": "Ouverture de l'espace…",
-    "sansJs": "Cette démonstration a besoin de JavaScript pour fonctionner. Le reste du site, lui, s'en passe très bien.",
-    "roleLabel": "Vous êtes",
-    "roles": {
-      "salarie": "Salarié",
-      "manager": "Manager"
-    },
-    "reinitialiser": "Remettre à zéro",
-    "onglets": {
-      "tableau": "Tableau de bord",
-      "conges": "Congés",
-      "entretiens": "Entretiens"
-    },
-    "services": {
-      "atelier": "Atelier",
-      "commercial": "Commercial",
-      "comptabilite": "Comptabilité"
-    },
-    "motifs": {
-      "payes": "Congés payés",
-      "rtt": "RTT",
-      "sansSolde": "Sans solde",
-      "familial": "Événement familial"
-    },
-    "typesEntretien": {
-      "annuel": "Entretien annuel",
-      "professionnel": "Entretien professionnel",
-      "arrivee": "Point d'arrivée"
-    },
-    "statuts": {
-      "attente": "En attente",
-      "validee": "Validée",
-      "refusee": "Refusée",
-      "aPlanifier": "À planifier",
-      "planifie": "Planifié",
-      "fait": "Fait"
-    },
-    "tableau": {
-      "titre": "Ce qui attend une décision",
-      "rien": "Rien n'attend de décision. C'est exactement le but.",
-      "demandes": "{n, plural, =0 {Aucune demande de congés} one {# demande de congés} other {# demandes de congés}}",
-      "entretiens": "{n, plural, =0 {Aucun entretien à planifier} one {# entretien à planifier} other {# entretiens à planifier}}",
-      "traiter": "Traiter",
-      "absentsTitre": "Absents aujourd'hui",
-      "absentsVide": "Personne n'est absent aujourd'hui.",
-      "equipeTitre": "L'équipe"
-    },
-    "conges": {
-      "soldeTitre": "Votre solde",
-      "soldeSur": "sur {total} jours par an",
-      "jours": "{n, plural, one {# jour ouvré} other {# jours ouvrés}}",
-      "demanderTitre": "Poser des congés",
-      "debut": "Du",
-      "fin": "Au",
-      "motif": "Motif",
-      "envoyer": "Envoyer la demande",
-      "fileTitre": "Demandes à traiter",
-      "fileVide": "Aucune demande en attente. La file est vide.",
-      "mesTitre": "Mes demandes",
-      "mesVide": "Vous n'avez encore rien demandé.",
-      "historiqueTitre": "Historique de l'équipe",
-      "valider": "Valider",
-      "refuser": "Refuser",
-      "erreurVide": "Choisissez une date de début et une date de fin.",
-      "erreurOrdre": "La date de fin doit suivre la date de début.",
-      "erreurOuvres": "Ce créneau ne contient aucun jour ouvré : c'est un week-end.",
-      "erreurSolde": "Il ne vous reste pas assez de jours."
-    },
-    "entretiens": {
-      "titre": "Entretiens",
-      "planifier": "Planifier",
-      "cloturer": "Marquer comme fait",
-      "choisirDate": "Date de l'entretien",
-      "vide": "Aucun entretien."
-    },
-    "fil": {
-      "ouverture": "Vous êtes le manager d'une équipe de quatre. {n, plural, one {# chose attend} other {# choses attendent}} votre décision : ouvrez l'onglet {conges}.",
-      "congesManager": "Chaque demande tient sur une ligne. Tout se règle ici : {valider}, ou {refuser}. Rien à remplir.",
-      "valider": "Validée. {n, plural, =0 {La file est vide} one {Il reste # demande en attente} other {Il reste # demandes en attente}}, et le compteur de l'onglet vient de le noter.",
-      "refuser": "Refusée. La ligne quitte la file et va se ranger dans l'historique de l'équipe, juste en dessous. Rien ne se perd.",
-      "essayezSalarie": "Vous venez de décider pour quelqu'un d'autre. Passez {salarie} pour voir la même application du côté de celui qui demande.",
-      "roleSalarie": "Même application, autres droits : dans l'onglet {conges}, vous ne voyez plus que votre solde et vos propres demandes.",
-      "congesSalarie": "Votre solde est à gauche, à jour. Deux dates, un motif, puis {envoyer}.",
-      "demander": "Demande partie. Votre solde ne bougera qu'une fois la demande validée : repassez {manager} pour la voir arriver dans la file.",
-      "roleManager": "De retour côté manager : la file affiche les demandes de toute l'équipe, et vous pouvez trancher.",
-      "essayezEntretiens": "Les congés ne sont pas tout. L'onglet {entretiens} liste ce qui n'a pas encore de date.",
-      "entretiens": "{n, plural, one {# entretien attend une date} other {# entretiens attendent une date}}, et personne d'autre ne peut la poser. Une date au choix, puis {planifier}.",
-      "planifier": "Entretien calé au {date} — il passe en « Planifié » et disparaît de ce qui attend une décision.",
-      "cloturer": "Marqué comme fait. L'entretien reste dans la liste avec sa date : rien n'est effacé, tout se relit.",
-      "reinitialise": "Démonstration remise à zéro. Les dates sont recalculées à partir d'aujourd'hui, comme au premier chargement.",
-      "fin": "Plus rien n'attend de décision. C'est exactement le but : un outil qui ne montre que ce qui en attend une.",
-      "finLien": "Parlons du vôtre.",
-      "neutre": "effectif — tout se passe dans votre navigateur, rien n'en sort.",
-      "masquer": "Masquer",
-      "masquerLong": "Masquer le guide",
-      "afficher": "Guide",
-      "afficherLong": "Afficher le guide"
+    "cta": {
+      "title": "Votre projet à la place de ceux-ci ?",
+      "text": "Décrivez votre activité. Je vous réponds sous deux jours ouvrés.",
+      "button": "Écrire à Raf"
     }
   },
   "about": {
     "eyebrow": "À propos",
     "title": "Un développeur, pas une agence",
-    "lede": "R-X, c'est un développeur web indépendant : la personne qui écoute votre besoin est celle qui écrit le code. Pas d'intermédiaire, pas de perte en ligne.",
-    "storyTitle": "De bout en bout, volontairement",
-    "story1": "Je m'occupe de tout le cycle : comprendre le besoin, choisir la technique, développer, tester, mettre en ligne, maintenir. Vous n'expliquez votre projet qu'une seule fois — les décisions sont plus rapides, les réponses plus franches.",
-    "story2": "Je crois au code sobre. Peu de dépendances, des choix techniques justifiés, des pages qui chargent vite : chaque ligne gagne sa place en servant le projet, ou elle sort. C'est exigeant à écrire, reposant à utiliser — et bien plus simple à maintenir.",
-    "valuesEyebrow": "Mes convictions",
-    "valuesTitle": "Trois règles, aucune exception",
-    "values": [
-      {
-        "title": "Sobriété",
-        "text": "Chaque dépendance ajoutée est une dette. Je code ce qui sert, je retire ce qui alourdit."
-      },
-      {
-        "title": "Rigueur",
-        "text": "Code versionné, tests automatisés, sauvegardes : rien ne part en ligne sans avoir été vérifié."
-      },
-      {
-        "title": "Transparence",
-        "text": "Des devis clairs, des délais tenus — et la vérité quand quelque chose coince."
-      }
-    ],
-    "cta": {
-      "title": "Envie d'un regard technique sur votre site ?",
-      "text": "Envoyez-moi une adresse, je vous dis ce que j'y vois : vitesse, sécurité, points à reprendre.",
-      "button": "Écrivez-moi"
+    "lede": "Je m'appelle Raf. Je suis développeur web indépendant, installé dans le Gers. La personne qui lit votre message est celle qui construit votre site.",
+    "who": {
+      "title": "Comment je travaille",
+      "p1": "Je prends en charge l'ensemble du projet : comprendre le besoin, choisir la technique, construire, vérifier, mettre en ligne et maintenir. Vous expliquez votre projet une seule fois, les décisions sont rapides et les réponses directes.",
+      "p2": "Je privilégie des sites simples à maintenir : peu de composants externes, des choix techniques justifiés, des pages qui chargent vite. C'est plus de travail au départ et beaucoup moins de problèmes ensuite."
     },
-    "card": {
+    "facts": {
       "title": "En bref",
-      "basedLabel": "Basé en",
-      "basedValue": "France · à distance",
-      "sinceLabel": "Depuis",
-      "sinceValue": "2026",
-      "langLabel": "Langues",
-      "langValue": "FR · EN",
-      "availability": "Disponible pour de nouveaux projets"
+      "items": [
+        {
+          "label": "Prénom",
+          "value": "Raf"
+        },
+        {
+          "label": "Région",
+          "value": "Gers, Occitanie"
+        },
+        {
+          "label": "Activité",
+          "value": "Depuis 2026"
+        },
+        {
+          "label": "Langues",
+          "value": "Français, anglais"
+        },
+        {
+          "label": "Réponse",
+          "value": "Sous deux jours ouvrés"
+        }
+      ]
     },
-    "figuresTitle": "En quelques chiffres",
-    "figures": [
-      {
-        "chiffre": "48 h",
-        "libelle": "pour vous répondre, au plus"
-      },
-      {
-        "chiffre": "2",
-        "libelle": "langues de travail : FR et EN"
-      },
-      {
-        "chiffre": "0",
-        "libelle": "cookie, traceur ou mesure d'audience"
-      }
-    ],
-    "toolsTitle": "L'atelier",
-    "tools": [
-      "TypeScript",
-      "React & Next.js",
-      "Node.js",
-      "Git",
-      "Tests automatisés",
-      "Accessibilité RGAA / WCAG"
-    ],
-    "timelineTitle": "Le déroulé d'un projet",
-    "timeline": [
-      {
-        "quand": "Semaine 1",
-        "moi": "J'écoute, je cadre, je chiffre.",
-        "client": "Vous racontez votre activité."
-      },
-      {
-        "quand": "Semaines 2–3",
-        "moi": "Architecture et premières pages.",
-        "client": "Vous suivez sur une adresse privée."
-      },
-      {
-        "quand": "Semaines 4–6",
-        "moi": "Développement, tests, contenus.",
-        "client": "Vous essayez, vous signalez ce qui coince."
-      },
-      {
-        "quand": "Dernière semaine",
-        "moi": "Mise en ligne et passation.",
-        "client": "Vous recevez les clés — et le code."
-      }
-    ],
-    "timelineYou": "vous"
+    "how": {
+      "title": "Le déroulé d'un projet",
+      "youLabel": "Vous",
+      "meLabel": "Moi",
+      "steps": [
+        {
+          "quand": "Semaine 1",
+          "moi": "J'écoute, je cadre et je chiffre.",
+          "client": "Vous décrivez votre activité et votre besoin."
+        },
+        {
+          "quand": "Semaines 2 à 3",
+          "moi": "Structure du site et premières pages.",
+          "client": "Vous suivez l'avancement sur une adresse privée."
+        },
+        {
+          "quand": "Semaines 4 à 6",
+          "moi": "Construction, vérifications, mise en place des contenus.",
+          "client": "Vous essayez le site et signalez ce qui ne va pas."
+        },
+        {
+          "quand": "Dernière semaine",
+          "moi": "Mise en ligne et passation.",
+          "client": "Vous recevez les accès et le code du site."
+        }
+      ]
+    },
+    "principles": {
+      "title": "Trois engagements",
+      "items": [
+        {
+          "title": "Sobriété",
+          "text": "Chaque composant ajouté doit servir le projet. Ce qui alourdit sans servir est retiré."
+        },
+        {
+          "title": "Vérification",
+          "text": "Chaque page est vérifiée sur téléphone, sur ordinateur et avec une connexion lente avant d'être mise en ligne. Le code est versionné et sauvegardé."
+        },
+        {
+          "title": "Transparence",
+          "text": "Un devis écrit avant de commencer, et une information immédiate si quelque chose modifie le calendrier."
+        }
+      ]
+    },
+    "cta": {
+      "title": "Une question sur votre site actuel ?",
+      "text": "Envoyez-moi son adresse. Je vous dis ce que j'y vois : vitesse, lisibilité, points à reprendre.",
+      "button": "Écrire à Raf"
+    }
   },
   "contact": {
     "eyebrow": "Contact",
     "title": "Parlons de votre projet",
-    "lede": "Un brief d'une page ou trois lignes dans un email : tout commence par un message.",
+    "lede": "Décrivez votre activité et ce dont vous avez besoin. Trois lignes suffisent pour commencer.",
     "form": {
       "nom": "Votre nom",
       "email": "Votre email",
       "message": "Votre message",
-      "messageIndice": "Trois lignes suffisent : ce que vous voulez construire, et pour quand.",
+      "messageIndice": "Votre activité, ce que vous voulez construire, et pour quand.",
       "envoyer": "Envoyer le message",
       "envoiEnCours": "Envoi en cours…",
       "promesse": "Réponse sous deux jours ouvrés.",
       "piege": "Laissez ce champ vide",
       "merciTitre": "Message envoyé",
-      "merciTexte": "Merci. Je vous réponds sous deux jours ouvrés, à l'adresse que vous venez de me laisser.",
-      "recu": "remis au serveur de messagerie en {ms} ms",
+      "merciTexte": "Merci. Je vous réponds sous deux jours ouvrés, à l'adresse que vous venez d'indiquer.",
+      "recu": "remis au serveur de messagerie en {ms} ms",
       "erreurs": {
         "nomVide": "Indiquez votre nom.",
         "nomLong": "Ce nom dépasse 80 caractères.",
-        "emailVide": "Indiquez votre email, sans quoi je n'ai aucun moyen de vous répondre.",
+        "emailVide": "Indiquez votre email, sans quoi je ne peux pas vous répondre.",
         "emailInvalide": "Cette adresse ne ressemble pas à un email.",
         "messageCourt": "Message un peu court : vingt caractères au minimum.",
-        "messageLong": "Message trop long : 4 000 caractères au maximum.",
+        "messageLong": "Message trop long : 4 000 caractères au maximum.",
         "trop": "Vous venez d'envoyer plusieurs messages. Réessayez dans quelques minutes.",
         "envoi": "L'envoi a échoué. Écrivez-moi directement à l'adresse ci-dessous.",
         "indisponible": "Le formulaire est momentanément indisponible. Écrivez-moi directement à l'adresse ci-dessous."
       }
     },
-    "autre": "Ou, si vous préférez votre propre messagerie",
-    "emailLabel": "Écrivez-moi",
+    "autre": "Ou depuis votre propre messagerie",
+    "emailLabel": "Adresse",
     "copy": "Copier l'adresse",
-    "copied": "Adresse copiée !",
+    "copied": "Adresse copiée",
     "recuCopie": "adresse recomposée dans votre navigateur · absente du code de la page",
     "mailto": "Ouvrir votre messagerie",
     "reply": "Réponse sous deux jours ouvrés.",
@@ -484,15 +401,27 @@
     "faq": [
       {
         "q": "Comment démarre un projet ?",
-        "a": "Par un échange gratuit d'une trentaine de minutes, en visio. Vous racontez, je questionne — puis je vous envoie une proposition écrite, claire et sans surprise."
+        "a": "Par un échange d'une trentaine de minutes, gratuit, par téléphone ou en visio. Vous décrivez votre activité et votre besoin, puis je vous envoie une proposition écrite."
+      },
+      {
+        "q": "Combien ça coûte ?",
+        "a": "Il n'y a pas de grille tarifaire publique : un site de trois pages et une boutique en ligne n'ont pas le même coût. Après un premier échange, vous recevez un devis écrit, avant tout engagement."
+      },
+      {
+        "q": "Quels sont les délais ?",
+        "a": "De deux à huit semaines selon l'ampleur du projet. Le délai est indiqué dans la proposition. Si un imprévu modifie le calendrier, vous en êtes informé immédiatement."
+      },
+      {
+        "q": "Qui fournit les textes et les photos ?",
+        "a": "Vous, en règle générale : personne ne connaît votre activité mieux que vous. Je relis les textes et je vous indique ce qui manque. Si vous n'avez pas de photos, nous en parlons dès le départ."
       },
       {
         "q": "Travaillez-vous à distance ?",
-        "a": "Oui, entièrement. Des points réguliers en visio et une version de démonstration accessible en continu : vous voyez le site avancer sans attendre la grande révélation finale."
+        "a": "Oui. Je suis installé dans le Gers et je travaille avec des clients partout en France. Des points réguliers en visio et une version de démonstration accessible en continu."
       },
       {
-        "q": "Quels sont vos délais ?",
-        "a": "De deux à huit semaines selon l'ampleur. Le délai est annoncé dès la proposition, et si un imprévu bouscule le calendrier, vous êtes prévenu aussitôt."
+        "q": "Et après la mise en ligne ?",
+        "a": "Vous recevez les accès et le code du site, avec une prise en main pour les mises à jour courantes. Pour la suite, une maintenance peut être proposée sur devis."
       }
     ]
   },
@@ -500,7 +429,7 @@
     "title": "Mentions légales",
     "editor": {
       "title": "Éditeur du site",
-      "text": "R-X — [Raison sociale à compléter]\n[Forme juridique, capital social]\n[Adresse du siège social]\n[Numéro SIRET]\nDirecteur de la publication : [À compléter]"
+      "text": "Ce site est édité par Raf, développeur web indépendant installé dans le Gers.\nLes informations d'identification de l'entreprise (dénomination, forme juridique, numéro SIRET, adresse) sont en cours d'enregistrement et seront publiées sur cette page dès qu'elles seront disponibles.\nDirecteur de la publication : Raf."
     },
     "host": {
       "title": "Hébergement",
@@ -517,17 +446,21 @@
     "contactLabel": "Contact :"
   },
   "footer": {
-    "tagline": "Développeur web indépendant — des sites rapides, fiables, faits pour durer.",
+    "tagline": "Création de sites web pour les commerces, les restaurants et les artisans.",
+    "who": "Raf · développeur web indépendant · Gers",
     "navTitle": "Navigation",
     "contactTitle": "Contact",
+    "langTitle": "Langue",
     "legal": "Mentions légales",
     "rights": "Tous droits réservés.",
+    "noCookie": "Aucun cookie, aucun traceur.",
+    "marqueeLabel": "Ce que je construis",
     "marqueePause": "Mettre le bandeau en pause",
     "marqueeLecture": "Relancer le bandeau"
   },
   "notFound": {
     "title": "Page introuvable",
-    "text": "Cette page n'existe pas — ou plus. Un bon site commence par de bonnes routes ; celle-ci renvoie une 404.",
+    "text": "Cette adresse ne correspond à aucune page du site.",
     "back": "Retour à l'accueil"
   },
   "cookies": {
@@ -538,16 +471,5 @@
   },
   "a11y": {
     "skip": "Aller au contenu"
-  },
-  "secret": {
-    "wireframe": "Mode fil de fer",
-    "inspection": "Mode inspection",
-    "retro": "Mode 1988",
-    "sortie": "{touche} ou Échap pour quitter",
-    "sortieEchap": "Échap pour quitter",
-    "couper": "Couper les raccourcis",
-    "consoleTitre": "R-X · développement web",
-    "consoleTexte": "Vous êtes du métier ? Essayez les touches W et I. Et si vous connaissez le vieux code de manette… Écrivez-moi : l'adresse est sur la page contact.",
-    "consoleReactiver": "Raccourcis coupés. Pour les réactiver : localStorage.removeItem(\"{cle}\") puis rechargez."
   }
 }

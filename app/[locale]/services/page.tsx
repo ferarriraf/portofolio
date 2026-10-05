@@ -1,10 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Check } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
-import Reveal from "@/components/Reveal";
-import CtaBand from "@/components/CtaBand";
-import SplitHeading from "@/components/SplitHeading";
+import ContactBand from "@/components/ContactBand";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -14,123 +11,79 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata(locale, "services", "/services");
 }
 
+type Offre = { id: string; verb: string; title: string; text: string; included: string[] };
+
+/**
+ * Les offres en bordereau : quatre lignes d'un même document, le verbe
+ * dans la marge, ce qui est compris en colonne de droite. Rien ne
+ * s'ouvre, rien ne se survole — tout est lisible d'un coup. Chaque
+ * ligne a son ancre : les mots du bandeau du pied de page y renvoient.
+ */
 export default async function ServicesPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("services");
 
-  const offers = t.raw("offers") as {
-    verb: string;
-    title: string;
-    text: string;
-  }[];
-  const deliverables = t.raw("deliverables.items") as string[];
+  const offers = t.raw("offers") as Offre[];
+  const pricing = t.raw("pricing.items") as string[];
 
   return (
     <>
       <PageHeader eyebrow={t("eyebrow")} title={t("title")} lede={t("lede")} />
 
-      {/* ——— Le bordereau ———
-          Ni carte ni grille : quatre lignes d'un seul document. Deux
-          filets d'encre traversent la fenêtre et bornent la zone ;
-          entre les lignes, un joint creusé plutôt qu'un trait peint.
-          La cote 01–04 s'assied DANS la coupure du filet, comme une
-          cote sur un plan.
-
-          Rien ne s'ouvre, rien ne se survole, rien ne se clique — parce
-          que rien n'est caché. Les quatre paragraphes sont lisibles en
-          entier, tout le temps, sans JavaScript. Un bloc qui se colore
-          au survol sans être cliquable est une promesse qu'on ne tient
-          pas ; le visiteur qui veut agir a le bouton juste en dessous. */}
-      <section className="pb-16 md:pb-24">
-        {/* Filet de tête : hors du conteneur, donc d'un bord de la
-            fenêtre à l'autre, interrompu à l'aplomb du bord gauche du
-            texte pour laisser passer la cote. */}
-        <div aria-hidden="true" className="bordereau-filet">
-          <span />
-          <span />
-          <span />
-        </div>
-
-        <ol className="container-site list-none">
-          {offers.map((offer, i) => (
-            <li key={offer.title} className="relative">
-              {/* La première ligne n'a pas de joint : c'est le filet de
-                  tête qui l'ouvre. */}
-              {i > 0 && (
-                <span aria-hidden="true" className="bordereau-joint">
-                  <span />
-                </span>
-              )}
-
-              {/* La cote est décorative : l'ordre est déjà porté par le
-                  <ol>, un lecteur d'écran n'a pas à l'entendre deux fois. */}
-              <span
-                aria-hidden="true"
-                className="absolute top-0 left-0 -translate-y-1/2 font-mono text-xs font-bold tracking-[0.16em] tabular-nums text-ink-soft"
-              >
-                0{i + 1}
-              </span>
-
-              <div className="grid gap-x-10 pt-7 pb-8 md:grid-cols-[1.2fr_0.8fr] md:items-start md:pt-8 md:pb-9 lg:gap-x-16">
-                <div>
-                  {/* Le mot du client avant le mot du métier. La graisse
-                      300 face au 800 du titre : c'est l'écart de graisse
-                      qui hiérarchise, pas une couleur ni une pastille. */}
-                  <p className="font-display text-[clamp(1.2rem,2.6vw,1.75rem)] leading-[1.15] font-light tracking-tight text-ink-soft">
-                    {offer.verb}
-                  </p>
-                  <h2 className="mt-1 font-display text-[clamp(1.6rem,4vw,2.4rem)] leading-[1.06] font-extrabold tracking-[-0.03em] text-balance text-ink">
-                    {offer.title}
-                  </h2>
-                </div>
-                <p className="mt-4 max-w-[46ch] text-[1.0625rem] leading-[1.65] text-pretty text-ink-soft md:mt-0 md:pt-3">
-                  {offer.text}
-                </p>
+      <section className="container-site pb-16 md:pb-24">
+        <ol className="filets filets-forts">
+          {offers.map((offer) => (
+            <li
+              key={offer.id}
+              id={offer.id}
+              className="grid gap-x-10 gap-y-4 py-8 scroll-mt-6 md:grid-cols-[7rem_minmax(0,1fr)_15rem] md:py-10 lg:gap-x-14"
+            >
+              <p className="font-display text-lg font-light text-ink-soft">{offer.verb}</p>
+              <div>
+                <h2 className="titre-2 text-ink">{offer.title}</h2>
+                <p className="mt-4 max-w-[54ch] text-ink-soft">{offer.text}</p>
+              </div>
+              <div className="text-sm">
+                <p className="font-semibold text-ink">{t("includedLabel")}</p>
+                <ul className="mt-2 space-y-1.5 text-ink-soft">
+                  {offer.included.map((item) => (
+                    <li key={item} className="flex gap-2">
+                      <span aria-hidden="true" className="mt-[0.55em] size-1.5 shrink-0 rounded-full bg-terra-hot" />
+                      {item}
+                    </li>
+                  ))}
+                </ul>
               </div>
             </li>
           ))}
         </ol>
-
-        {/* Filet de pied : il ferme, il ne numérote pas. */}
-        <div aria-hidden="true" className="bordereau-pied" />
       </section>
 
-      {/* ——— Livrables : bloc sauge plein ——— */}
-      <section className="bande-calque bg-sage-deep text-sand">
-        <div className="container-site grid gap-12 py-24 md:py-32 lg:grid-cols-[1fr_1.3fr] lg:items-center">
+      {/* ——— Comment je chiffre ——— */}
+      <section className="container-site pb-16 md:pb-24">
+        <p className="eyebrow">{t("pricing.eyebrow")}</p>
+        <div className="mt-4 grid gap-10 md:grid-cols-2">
           <div>
-            <Reveal>
-              <span className="eyebrow eyebrow-invert">{t("deliverables.eyebrow")}</span>
-            </Reveal>
-            <SplitHeading
-              text={t("deliverables.title")}
-              delay={0.06}
-              className="mt-5 font-display text-4xl font-bold tracking-tight text-sand md:text-5xl"
-            />
+            <h2 className="titre-2 text-ink">{t("pricing.title")}</h2>
+            <ul className="filets mt-6">
+              {pricing.map((item) => (
+                <li key={item} className="py-3 text-ink-soft">
+                  {item}
+                </li>
+              ))}
+            </ul>
           </div>
-          <ul className="grid gap-5 sm:grid-cols-2">
-            {deliverables.map((item, i) => (
-              <li key={item}>
-                <Reveal delay={0.05 * i}>
-                  <div className="flex items-start gap-3.5">
-                    <span className="mt-0.5 inline-flex size-7 shrink-0 items-center justify-center rounded-full bg-terra">
-                      <Check className="size-4 text-ink-deep" />
-                    </span>
-                    <span className="leading-relaxed text-sand/90">{item}</span>
-                  </div>
-                </Reveal>
-              </li>
-            ))}
-          </ul>
+          <div className="md:pt-[0.4em]">
+            <h3 className="titre-3 text-ink">{t("pricing.faqQ")}</h3>
+            <p className="mt-4 max-w-[50ch] text-ink-soft">{t("pricing.faqA")}</p>
+          </div>
         </div>
       </section>
 
-      <CtaBand
-        title={t("cta.title")}
-        text={t("cta.text")}
-        buttonLabel={t("cta.button")}
-      />
+      <div className="pb-16 md:pb-24">
+        <ContactBand title={t("cta.title")} text={t("cta.text")} buttonLabel={t("cta.button")} />
+      </div>
     </>
   );
 }

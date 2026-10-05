@@ -53,6 +53,10 @@ const nextConfig: NextConfig = {
         destination: "https://www.r-x.fr/:chemin*",
         permanent: true,
       },
+      // La démonstration jouable a été retirée lors de la refonte
+      // d'octobre 2026 : les anciens liens mènent aux projets types.
+      { source: "/demo", destination: "/realisations", permanent: true },
+      { source: "/en/demo", destination: "/en/work", permanent: true },
     ];
   },
   async headers() {

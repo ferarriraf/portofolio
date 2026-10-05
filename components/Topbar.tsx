@@ -1,7 +1,6 @@
 "use client";
 
 import { useEffect, useRef, useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import { Menu, X } from "lucide-react";
 import { useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
@@ -16,35 +15,31 @@ const links: { href: AppPathname; key: "services" | "work" | "about" | "contact"
   { href: "/contact", key: "contact" },
 ];
 
+/**
+ * La barre du haut. Dans le flux de la page, pas fixe : elle se lit une
+ * fois puis laisse la place. À droite, ce qu'un visiteur cherche — le
+ * bouton pour écrire, et la langue en lettres, sans drapeaux.
+ *
+ * Sa couleur suit la surface qu'elle ouvre (papier ou encre) : voir
+ * `.entete` dans globals.css, piloté par le marqueur du hero.
+ */
 export default function Topbar() {
   const t = useTranslations("nav");
   const pathname = usePathname();
-  const [scrolled, setScrolled] = useState(false);
   const [open, setOpen] = useState(false);
   const burgerRef = useRef<HTMLButtonElement>(null);
   const fermerRef = useRef<HTMLButtonElement>(null);
   const overlayRef = useRef<HTMLDivElement>(null);
 
-  useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 12);
-    onScroll();
-    window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
-  }, []);
-
-  // Referme le menu mobile à chaque navigation. On compare le chemin
-  // rendu au chemin courant : fermer depuis un effet déclencherait un
-  // rendu en cascade.
+  // Referme le menu à chaque navigation, sans passer par un effet.
   const [menuPath, setMenuPath] = useState(pathname);
   if (menuPath !== pathname) {
     setMenuPath(pathname);
     if (open) setOpen(false);
   }
 
-  // Bloque le défilement de la page quand le menu plein écran est ouvert,
-  // et déplace le focus : vers « Fermer » à l'ouverture, retour au bouton
-  // du menu à la fermeture — sans quoi le clavier reste perdu derrière
-  // l'overlay.
+  // Menu ouvert : la page ne défile plus, le focus va sur « Fermer »,
+  // et revient sur le bouton du menu à la fermeture.
   const dejaOuvert = useRef(false);
   useEffect(() => {
     document.documentElement.style.overflow = open ? "hidden" : "";
@@ -59,9 +54,8 @@ export default function Topbar() {
     };
   }, [open]);
 
-  // Si la fenêtre repasse en largeur desktop pendant que le menu est
-  // ouvert, l'overlay disparaît en CSS : on ferme aussi l'état, sinon
-  // le défilement resterait verrouillé sans aucun moyen de le rendre.
+  // Si la fenêtre repasse en largeur bureau, le menu se ferme : sinon le
+  // défilement resterait verrouillé sans aucun moyen de le rendre.
   useEffect(() => {
     if (!open) return;
     const mq = window.matchMedia("(min-width: 768px)");
@@ -72,16 +66,14 @@ export default function Topbar() {
     return () => mq.removeEventListener("change", onChange);
   }, [open]);
 
-  // Échap ferme ; Tab reste enfermé dans le menu tant qu'il est ouvert
+  // Échap ferme ; Tab reste dans le menu tant qu'il est ouvert.
   const onOverlayKeyDown = (e: React.KeyboardEvent) => {
     if (e.key === "Escape") {
       setOpen(false);
       return;
     }
     if (e.key !== "Tab") return;
-    const focusables = overlayRef.current?.querySelectorAll<HTMLElement>(
-      "a[href], button"
-    );
+    const focusables = overlayRef.current?.querySelectorAll<HTMLElement>("a[href], button");
     if (!focusables || focusables.length === 0) return;
     const premier = focusables[0];
     const dernier = focusables[focusables.length - 1];
@@ -95,27 +87,13 @@ export default function Topbar() {
   };
 
   return (
-    // Le verre est posé EN PERMANENCE, pas seulement au défilement.
-    // Deux raisons : c'est ce qui fait une plaque de verre plutôt qu'un
-    // fond qui apparaît, et `transition-all` animait sinon le flou
-    // lui-même à chaque franchissement du seuil — 300 ms de flou
-    // recalculé, cher sur la carte graphique et visible comme un
-    // clignotement. Seule l'arête change désormais avec le défilement.
-    <header
-      className={`verre-liquide fixed inset-x-0 top-0 z-40 border-b transition-[border-color] duration-300 ${
-        scrolled ? "border-white/50" : "border-white/25"
-      }`}
-    >
-      <div
-        className={`container-site flex items-center justify-between transition-[height] duration-300 ${
-          scrolled ? "h-16" : "h-20"
-        }`}
-      >
+    <header className="entete">
+      <div className="container-site flex h-20 items-center gap-6">
         <Link href="/" aria-label={t("home")} className="shrink-0">
           <Logo />
         </Link>
 
-        <nav className="hidden items-center gap-8 md:flex" aria-label={t("ariaMain")}>
+        <nav className="hidden flex-1 items-center justify-center gap-7 md:flex" aria-label={t("ariaMain")}>
           {links.map((l) => {
             const active = pathname === l.href;
             return (
@@ -123,26 +101,25 @@ export default function Topbar() {
                 key={l.href}
                 href={l.href}
                 aria-current={active ? "page" : undefined}
-                className={`hit-area relative text-sm font-medium transition-colors duration-200 ${
-                  active ? "text-ink" : "text-ink-soft hover:text-ink"
+                className={`text-[0.95rem] font-medium transition-colors duration-200 hover:text-[var(--nav-texte)] ${
+                  active
+                    ? "text-[var(--nav-texte)] underline decoration-terra-hot decoration-2 underline-offset-[0.55em]"
+                    : "text-[var(--nav-texte-doux)]"
                 }`}
               >
                 {t(l.key)}
-                {active && (
-                  <span
-                    aria-hidden="true"
-                    className="absolute -bottom-2 left-1/2 size-1.5 -translate-x-1/2 rounded-full bg-terra-strong"
-                  />
-                )}
               </Link>
             );
           })}
         </nav>
 
-        <div className="flex items-center gap-3">
+        <div className="ml-auto flex items-center gap-4 md:ml-0">
           <div className="hidden md:block">
             <LangSwitcher />
           </div>
+          <Link href="/contact" className="btn btn-primary hidden px-5 py-2.5 sm:inline-flex">
+            {t("cta")}
+          </Link>
           <button
             ref={burgerRef}
             type="button"
@@ -150,87 +127,69 @@ export default function Topbar() {
             aria-label={t("menuOpen")}
             aria-expanded={open}
             aria-controls={open ? "menu-mobile" : undefined}
-            className="press verre-liquide-pastille inline-flex size-10 items-center justify-center rounded-full border border-white/60 text-ink md:hidden"
+            className="press inline-flex size-11 items-center justify-center rounded-full border border-current/30 text-[var(--nav-texte)] md:hidden"
           >
             <Menu className="size-5" />
           </button>
         </div>
       </div>
 
-      <AnimatePresence>
-        {open && (
-          <motion.div
-            ref={overlayRef}
-            id="menu-mobile"
-            tabIndex={-1}
-            role="dialog"
-            aria-modal="true"
-            aria-label={t("ariaMainMobile")}
-            onKeyDown={onOverlayKeyDown}
-            initial={{ opacity: 0 }}
-            animate={{ opacity: 1 }}
-            exit={{ opacity: 0 }}
-            transition={{ duration: 0.25 }}
-            className="fixed inset-0 z-50 flex flex-col bg-sand md:hidden"
-          >
-            <div className="container-site flex h-20 items-center justify-between">
-              <Link href="/" aria-label={t("home")} onClick={() => setOpen(false)}>
-                <Logo />
-              </Link>
-              <button
-                ref={fermerRef}
-                type="button"
-                onClick={() => setOpen(false)}
-                aria-label={t("menuClose")}
-                className="press verre-liquide-pastille inline-flex size-10 items-center justify-center rounded-full border border-white/60 text-ink"
-              >
-                <X className="size-5" />
-              </button>
-            </div>
-
-            <motion.nav
-              aria-label={t("ariaMainMobile")}
-              className="container-site mt-6 flex flex-col gap-2"
-              initial="hidden"
-              animate="show"
-              variants={{
-                show: { transition: { staggerChildren: 0.07, delayChildren: 0.05 } },
-              }}
+      {open && (
+        <div
+          ref={overlayRef}
+          id="menu-mobile"
+          tabIndex={-1}
+          role="dialog"
+          aria-modal="true"
+          aria-label={t("ariaMainMobile")}
+          onKeyDown={onOverlayKeyDown}
+          className="menu-mobile fixed inset-0 z-50 flex flex-col bg-sand text-ink md:hidden"
+        >
+          <div className="container-site flex h-20 items-center justify-between">
+            <Link href="/" aria-label={t("home")} onClick={() => setOpen(false)}>
+              <Logo />
+            </Link>
+            <button
+              ref={fermerRef}
+              type="button"
+              onClick={() => setOpen(false)}
+              aria-label={t("menuClose")}
+              className="press inline-flex size-11 items-center justify-center rounded-full border border-ink/30 text-ink"
             >
-              {[{ href: "/" as AppPathname, key: "home" as const }, ...links].map(
-                (l) => {
-                  const active = pathname === l.href;
-                  return (
-                    <motion.div
-                      key={l.href}
-                      variants={{
-                        hidden: { opacity: 0, y: 18 },
-                        show: { opacity: 1, y: 0 },
-                      }}
-                      transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-                    >
-                      <Link
-                        href={l.href}
-                        onClick={() => setOpen(false)}
-                        aria-current={active ? "page" : undefined}
-                        className={`flex items-center gap-3 py-3 font-display text-3xl font-bold tracking-tight ${
-                          active ? "text-terra-strong" : "text-ink"
-                        }`}
-                      >
-                        {t(l.key)}
-                      </Link>
-                    </motion.div>
-                  );
-                }
-              )}
-            </motion.nav>
+              <X className="size-5" />
+            </button>
+          </div>
 
-            <div className="container-site mt-auto pb-10">
-              <LangSwitcher onNavigate={() => setOpen(false)} />
-            </div>
-          </motion.div>
-        )}
-      </AnimatePresence>
+          <nav aria-label={t("ariaMainMobile")} className="container-site mt-4">
+            <ul className="filets">
+              {[{ href: "/" as AppPathname, key: "home" as const }, ...links].map((l) => {
+                const active = pathname === l.href;
+                return (
+                  <li key={l.href}>
+                    <Link
+                      href={l.href}
+                      onClick={() => setOpen(false)}
+                      aria-current={active ? "page" : undefined}
+                      className={`block py-4 font-display text-3xl font-bold tracking-tight ${
+                        active ? "text-terra-deep" : "text-ink"
+                      }`}
+                    >
+                      {t(l.key)}
+                    </Link>
+                  </li>
+                );
+              })}
+            </ul>
+          </nav>
+
+          <div className="container-site mt-auto flex flex-wrap items-center justify-between gap-4 pb-10">
+            <LangSwitcher onNavigate={() => setOpen(false)} />
+            <Link href="/contact" className="btn btn-primary" onClick={() => setOpen(false)}>
+              {t("cta")}
+            </Link>
+          </div>
+        </div>
+      )}
     </header>
   );
 }

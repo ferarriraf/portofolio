@@ -64,105 +64,75 @@ qui reste affichée juste en dessous.
 
 ## Où modifier quoi
 
-| Vous voulez changer…                  | Fichier(s)                                    |
-| ------------------------------------- | --------------------------------------------- |
-| Les textes français / anglais         | `messages/fr.json` / `messages/en.json`       |
-| Les couleurs                          | `app/globals.css` (variables `:root` en tête) |
-| Les pages et leur mise en page        | `app/[locale]/…/page.tsx`                     |
-| Le titre magnétique du hero           | `components/MagneticTitle.tsx`                |
-| Les cinq étapes de la méthode         | `components/ProcessScroll.tsx`                |
-| Les deux démos types (écrans)         | `components/CaseMockup.tsx` + `work.mockups` dans `messages/*.json` |
-| Le moniteur des démos (bezel, barre)  | `components/DemoWindow.tsx`                   |
-| La frise du déroulé (rail au scroll)  | `components/ProjectTimeline.tsx`              |
-| Le R-X gravé du pied de page          | `components/FooterMark.tsx`                   |
-| Ombres, élévations, boutons keycap    | `app/globals.css` (tokens `--shadow-elev-*`, `--inset-shadow-cisele*`, `.btn`, `.bande-calque*`, `.bordereau-*`) |
-| Le poste rétro beige                  | `components/RetroComputer.tsx`                |
-| La fiche « En bref » (horloge, faits) | `components/StudioCard.tsx` + `about.card`    |
-| Navigation / pied de page             | `components/Topbar.tsx` / `components/Footer.tsx` |
-| Bandeau « aucun cookie »              | `components/CookieNotice.tsx`                 |
-| La démo jouable « effectif » (écran)  | `components/EffectifApp.tsx`                  |
-| Ses règles (congés, entretiens)       | `lib/effectif.ts`                             |
-| Ses textes                            | clé `demo` dans `messages/*.json`             |
-| Le fil qui guide la démo              | `suivreFil` / `ligneDuFil` dans `lib/effectif.ts`, textes en `demo.fil` |
-| Le formulaire de contact (apparence)  | `components/ContactForm.tsx`                  |
-| Ses règles (validation, anti-robots)  | `lib/contact.ts`                              |
-| L'envoi du mail (protocole SMTP)      | `lib/smtp.ts` + `app/[locale]/contact/actions.ts` |
-| Ses textes et messages d'erreur       | clé `contact.form` dans `messages/*.json`     |
-| Les reçus (ligne mono + lueur)        | `components/Recu.tsx` + `.recu*` dans `app/globals.css` |
-| Écran d'ouverture (logo puis cercle)   | `components/BootScreen.tsx` + `.ecran-boot` dans `app/globals.css` |
-| Redirections, en-têtes de sécurité    | `next.config.ts`                              |
+| Vous voulez changer…                    | Fichier(s)                                    |
+| --------------------------------------- | --------------------------------------------- |
+| Les textes français / anglais           | `messages/fr.json` / `messages/en.json`       |
+| Les couleurs, l'échelle de titres, les filets, les boutons, la lueur | `app/globals.css` (tokens `:root`, puis `@layer components`) |
+| Les pages et leur mise en page          | `app/[locale]/…/page.tsx`                     |
+| La barre du haut (menu, FR/EN, bouton)  | `components/Topbar.tsx`, `components/LangSwitcher.tsx` |
+| Le pied de page et le bandeau défilant  | `components/Footer.tsx`, `components/Marquee.tsx` ; mots dans `home.marquee` |
+| Les deux projets types (aperçus)        | `components/Apercu.tsx` + `work.mockups` dans `messages/*.json` |
+| L'appel final de chaque page            | `components/ContactBand.tsx`                  |
+| L'en-tête des pages intérieures         | `components/PageHeader.tsx`                   |
+| Bandeau « aucun cookie »                | `components/CookieNotice.tsx`                 |
+| Le formulaire de contact (apparence)    | `components/ContactForm.tsx`                  |
+| Ses règles (validation, anti-robots)    | `lib/contact.ts`                              |
+| L'envoi du mail (protocole SMTP)        | `lib/smtp.ts` + `app/[locale]/contact/actions.ts` |
+| Ses textes et messages d'erreur         | clé `contact.form` dans `messages/*.json`     |
+| L'adresse email (recomposée côté client)| `components/MailLink.tsx`, `components/CopyEmail.tsx` |
+| Les reçus (ligne qui s'allume)          | `components/Recu.tsx` + `.recu*` dans `app/globals.css` |
+| La carte de partage (réseaux sociaux)   | `app/og/[locale]/route.tsx`                   |
+| Les fichiers pour robots et agents IA   | `lib/llms.ts`, `app/sitemap.ts`, `app/robots.txt/route.ts` |
+| Redirections, en-têtes de sécurité      | `next.config.ts`                              |
 
 Tous les textes visibles passent par `messages/*.json` : chaque clé
 existe dans les deux langues.
 
-## Modes cachés (volontairement non annoncés sur le site)
-
-- **W** : mode fil de fer — tout le site en structure.
-- **I** : mode inspection — grille + dimensions de l'élément survolé.
-- **↑↑↓↓←→←→BA** : mode 1988 (vert phosphore).
-- **Échap** quitte n'importe quel mode ; un badge indique toujours la sortie.
-- Un message d'accueil attend les curieux dans la console du navigateur.
-
-Code : `components/SecretModes.tsx`.
-
 ## Choix assumés
 
-- **Aucun cookie, aucun traceur** : rien n'est déposé (le bandeau le dit,
-  le clic « Compris » est mémorisé en localStorage, pas en cookie).
+- **Public** : des commerçants, des restaurateurs et des artisans qui
+  cherchent un site. Tout le site est écrit dans leurs mots ; aucun
+  objet de métier (fenêtre de code, console, maquette d'éditeur) n'y
+  figure.
+- **Aucun cookie, aucun traceur** : rien n'est déposé. Le bandeau le dit,
+  et seule sa fermeture est mémorisée (localStorage, pas un cookie).
 - **Email masqué aux robots** : l'adresse est recomposée côté client
-  (`components/MailLink.tsx`) ; elle n'apparaît jamais dans le HTML servi.
-- **Clic droit désactivé** hors champs de saisie (`components/NoContextMenu.tsx`).
+  (`components/MailLink.tsx`) ; elle n'apparaît jamais dans le HTML servi
+  ni dans les fichiers machine.
 - **Formulaire sans captcha ni service tiers** : le message part par la
   boîte mail du domaine, via un client SMTP écrit à la main
   (`lib/smtp.ts`, aucune dépendance ajoutée). Les robots sont écartés
-  par un champ-piège invisible et un délai minimal, pas en faisant
-  déchiffrer des images au visiteur. Trois envois maximum par
-  dix minutes et par adresse IP, comptés en mémoire — rien n'est stocké.
-- **Démonstrations assumées** : les deux démos (site vitrine, appli
-  métier) sont des projets types annoncés comme tels — aucun faux
-  client. La démo d'API a été retirée : une console, pour un artisan
-  qui cherche un site, est un mur.
-- **Une démo qui se manipule** (`/demo`) : « effectif », l'application
-  métier en état de marche — validation de congés, solde qui bouge,
-  entretiens à planifier, bascule salarié/manager. Tout tourne dans le
-  navigateur du visiteur : aucun appel réseau, aucune base, rien de
-  conservé, et un bandeau le dit avant qu'on y touche.
-- **Un fil qui guide, pas une visite guidée** : une ligne d'état dans le
-  bâti du moniteur commente ce qui vient de se passer et suggère la
-  suite. Elle est *déduite de l'état réel*, jamais d'un compteur
-  d'étapes — donc elle ne peut pas annoncer un compte périmé, celui qui
-  fait les choses dans le désordre est rattrapé sans reculer d'un cran,
-  et « Remettre à zéro » la rejoue gratuitement. Pas de bulle numérotée,
-  pas de fond assombri, rien à fermer pour continuer.
-- `prefers-reduced-motion` est respecté partout (animations coupées ou
-  remplacées par un état statique).
-- **Le reçu** : quand une machine a réellement agi, elle imprime une
-  ligne courte en chasse fixe qui s'allume en phosphore terracotta puis
-  se calme — la durée mesurée d'un envoi, l'adresse recomposée dans le
-  navigateur. La règle est écrite en tête de
-  `components/Recu.tsx` : un reçu ne s'affiche que si une machine a agi,
-  et il ne porte jamais une information qui ne soit pas déjà écrite en
-  clair juste à côté. On les supprime tous, le site reste entier.
-- **Rien ne bouge de soi-même** : le site est passé de 23 animations en
-  boucle à **une seule**, le bandeau du pied de page — et il a son
-  bouton d'arrêt. Les halos du hero ne dérivent plus, les maquettes ne
-  font plus semblant de travailler, les chiffres sont écrits plutôt que
-  comptés, et chaque poste rétro s'allume quand il entre à l'écran. Tout
-  ce qui bouge sur ce site répond à un geste du visiteur.
-- **Une page d'accueil courte** : 6,9 écrans, contre 13,1 avant que les
-  deux sections épinglées ne soient raccourcies. Aucune section ne
-  confisque le défilement.
-- **Système de profondeur unifié** : une seule lumière (venant du haut),
-  échelle d'ombres `shadow-elev-1..4`, arêtes ciselées
-  `inset-shadow-cisele(-sombre)` façon boîtier du Mac, bandes pleine
-  largeur en creux (`.bande-calque*`), boutons « touche de clavier »
-  (tranche dure, soulevés au survol, enfoncés au clic).
+  par un champ-piège invisible et un délai minimal. Trois envois maximum
+  par dix minutes et par adresse IP, comptés en mémoire.
+- **Démonstrations assumées** : les deux projets types (site vitrine
+  avec réservation, prise de rendez-vous) sont annoncés comme tels sur
+  chaque page qui les montre — aucun faux client. L'ancienne démo
+  jouable `/demo` a été retirée ; l'adresse redirige vers les
+  démonstrations.
+- **Pas de prix affiché** : il n'existe pas encore de grille. Le site
+  dit comment un projet est chiffré (échange gratuit, devis écrit, ce
+  qui est compris) et une FAQ « Combien ça coûte ? » l'explique.
+- **Rien ne bouge de soi-même** : une seule animation en boucle, le
+  bandeau du pied de page, avec son bouton d'arrêt. L'entrée de page est
+  un fondu CSS. `prefers-reduced-motion` est respecté partout.
+- **Une seule lueur** : la phrase du hero et les numéros de la méthode,
+  sur l'encre. Nulle part ailleurs.
+- **Le reçu** : quand une machine a réellement agi (un envoi, une copie),
+  elle imprime une ligne courte qui s'allume puis se calme. La règle est
+  écrite en tête de `components/Recu.tsx`.
+- **Système de matière** : papier sable et bandes d'encre en creux, une
+  seule lumière venue du haut, ombres teintées d'encre, arêtes ciselées
+  sur papier, filets pour les listes, pas de cartes. Échelle de titres
+  en quatre rangs (`.titre-hero`, `.titre-1..3`) et un seul rythme de
+  section (`.section`), définis dans `app/globals.css`.
 
 ## À compléter
 
-- **Mentions légales** : les champs `[À compléter]` dans
-  `messages/fr.json` et `messages/en.json`, clé `legal` (raison sociale,
-  SIRET, directeur de publication).
+- **Mentions légales** : la page dit que les informations
+  d'identification de l'entreprise sont en cours d'enregistrement. Dès
+  qu'elles existent (dénomination, forme juridique, SIRET, adresse),
+  les écrire dans `messages/fr.json` et `messages/en.json`, clé
+  `legal.editor.text`.
 - **Variables d'envoi du formulaire** : `SMTP_MOTDEPASSE` (et les
   autres réglages de `.env.example`) à saisir dans le manager
   Infomaniak. Tant que ce n'est pas fait, le formulaire s'affiche mais

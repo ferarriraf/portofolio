@@ -1,26 +1,46 @@
 @import "tailwindcss";
 
+/* ═══════════════════════════════════════════════════════════════════
+   r-x.fr — feuille de style unique.
+
+   Refonte d'octobre 2026 (direction « L'atelier ») : le site garde sa
+   MATIÈRE — papier sable, encre verte, sauge pour la structure,
+   terracotta pour l'action, une seule lumière venue du haut, arêtes
+   ciselées, lueur phosphore — et perd tous les objets de métier.
+
+   Ce fichier décrit un SYSTÈME, pas des objets : une échelle de titres
+   (une seule logique, en clamp), un rythme de section, une recette de
+   filets, deux surfaces (papier / encre), et c'est tout. Si une règle
+   n'est utilisée qu'à un endroit, elle appartient au composant, pas
+   ici.
+   ═══════════════════════════════════════════════════════════════════ */
+
 :root {
-  /* Palette — sable / sauge / terracotta, tons pastels */
+  /* Palette — sable / sauge / terracotta, encre verte (jamais de noir pur) */
   --sand: #f6f1e6;
   --sand-deep: #ede5d2;
   --sand-card: #fbf8f0;
   --ink: #2e3428;
   --ink-soft: #5c6353;
+  --ink-deep: #24291f;
   --sage: #a9bfa0;
   --sage-strong: #6e8a62;
   --sage-deep: #33452c;
+  --sage-wash: #dde8d3;
   --terra: #dfa184;
   --terra-strong: #c1714b;
   --terra-soft: #f3dccb;
-  --line: #ddd3bd;
-  --ink-deep: #24291f;
+  --terra-wash: #f6e2d0;
   /* Les deux accents sont écartés en valeur, pas seulement en teinte :
      la terracotta signale l'action, la sauge porte la structure. */
   --terra-deep: #8f3d1c;
   --terra-hot: #d95f2e;
-  --sage-wash: #dde8d3;
-  --terra-wash: #f6e2d0;
+  --line: #ddd3bd;
+
+  /* Sur l'encre : le texte secondaire et les arêtes en creux. Un seul
+     endroit pour les régler, au lieu de `sand/70` répété partout. */
+  --encre-texte-doux: rgb(246 241 230 / 0.72);
+  --encre-creux: rgb(0 0 0 / 0.42);
 }
 
 @theme inline {
@@ -29,52 +49,42 @@
   --color-sand-card: var(--sand-card);
   --color-ink: var(--ink);
   --color-ink-soft: var(--ink-soft);
+  --color-ink-deep: var(--ink-deep);
   --color-sage: var(--sage);
   --color-sage-strong: var(--sage-strong);
   --color-sage-deep: var(--sage-deep);
+  --color-sage-wash: var(--sage-wash);
   --color-terra: var(--terra);
   --color-terra-strong: var(--terra-strong);
   --color-terra-soft: var(--terra-soft);
-  --color-line: var(--line);
-  --color-ink-deep: var(--ink-deep);
+  --color-terra-wash: var(--terra-wash);
   --color-terra-deep: var(--terra-deep);
   --color-terra-hot: var(--terra-hot);
-  --color-sage-wash: var(--sage-wash);
-  --color-terra-wash: var(--terra-wash);
+  --color-line: var(--line);
+  --color-encre-doux: var(--encre-texte-doux);
   --font-display: var(--font-display);
   --font-body: var(--font-body);
 
-  /* Échelle d'élévation : une seule lumière (en haut, celle du boîtier
-     du Mac), ombres teintées d'encre — jamais de noir pur. Chaque
-     niveau = une ombre de contact serrée + une ambiante large. */
+  /* Échelle d'élévation : une seule lumière, en haut ; ombres teintées
+     d'encre, jamais de noir pur. Trois niveaux suffisent. */
   --shadow-elev-1:
     0 1px 2px rgba(46, 52, 40, 0.07), 0 3px 10px -4px rgba(46, 52, 40, 0.14);
   --shadow-elev-2:
     0 2px 3px rgba(46, 52, 40, 0.06), 0 12px 28px -14px rgba(46, 52, 40, 0.28);
   --shadow-elev-3:
     0 3px 6px rgba(46, 52, 40, 0.06), 0 26px 48px -22px rgba(46, 52, 40, 0.42);
-  --shadow-elev-4:
-    0 6px 12px rgba(36, 41, 31, 0.08), 0 40px 80px -28px rgba(36, 41, 31, 0.6);
 
-  /* Arêtes ciselées, comme le boîtier du Mac : liseré de lumière en
-     haut, appui discret en bas */
+  /* Arête ciselée : liseré de lumière en haut, appui discret en bas.
+     Sur papier clair uniquement — sur l'encre, pas de liseré clair. */
   --inset-shadow-cisele:
     inset 0 1px 0 rgba(255, 255, 255, 0.6), inset 0 -1px 0 rgba(46, 52, 40, 0.06);
-  --inset-shadow-cisele-sombre:
-    inset 0 1px 0 rgba(246, 241, 230, 0.12), inset 0 -1px 0 rgba(0, 0, 0, 0.38);
 }
 
 html {
   scroll-behavior: smooth;
-
-  /* La barre du haut est fixe : elle recouvre les 81 premiers pixels de
-     la page. Sans cette marge, TOUT ce qui amène quelque chose en haut
-     de l'écran le range dessous — un lien d'ancre, le lien d'évitement
-     « aller au contenu », le retour du focus au clavier, la restauration
-     de position du navigateur. On voyait alors le titre visé disparaître
-     sous le bandeau. La marge rend ces 81 pixels intouchables : le
-     navigateur s'arrête juste en dessous de la barre, avec un peu d'air. */
-  scroll-padding-top: 6.5rem;
+  /* La barre du haut n'est plus fixe : une ancre peut remonter jusqu'au
+     bord, on garde juste un peu d'air. */
+  scroll-padding-top: 1.5rem;
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -83,114 +93,12 @@ html {
   }
 }
 
-/* ——— Verre liquide ———
-   Un vrai matériau, pas un simple flou. Ce qui fait qu'une surface se
-   lit comme du VERRE et non comme du brouillard, c'est la combinaison
-   de quatre choses, et il en manque toujours une dans les imitations :
-
-   1. la SATURATION. Le verre concentre la couleur de ce qu'il y a
-      derrière au lieu de la délaver. `saturate(180%)` fait tout le
-      travail : sans lui, un flou donne du calque dépoli, pas du verre.
-   2. deux REFLETS SPÉCULAIRES, pas un. Une lumière rasante en haut à
-      gauche, un rebond plus faible en bas à droite : c'est ce décalage
-      qui donne l'épaisseur. Un seul reflet centré fait plastique.
-   3. l'ARÊTE. Une ligne blanche d'un pixel sur le bord supérieur, une
-      ombre d'un pixel sur le bord inférieur : la tranche de la plaque.
-   4. l'OMBRE PORTÉE, large et très diluée — le verre flotte au-dessus
-      de la page, il n'y est pas collé.
-
-   Les reflets sont empilés dans `background` plutôt que posés en
-   pseudo-élément : un pseudo-élément en position absolue se peint APRÈS
-   le contenu et passerait devant le texte du menu.
-
-   Rien ne bouge : la règle du site tient ici aussi. Le verre réagit au
-   défilement et au survol, jamais tout seul.
-
-   POURQUOI LE TEINT RESTE COUVRANT (0,96 → 0,90, et pas 0,5). La barre
-   est fixe : en défilant, elle passe au-dessus de bandes sombres. Un
-   verre très transparent y laisse le fond noircir la surface, et le
-   texte du menu — encre douce sur clair — devient illisible.
-
-   Calculé sur le cas le plus défavorable, la barre au-dessus de
-   `--ink-deep` (#24291f) après `brightness(1.05)`, contraste des liens
-   inactifs (`--ink-soft`) :
-       teint 0,82 → 3,94:1  échec
-       teint 0,86 → 4,26:1  échec
-       teint 0,90 → 4,61:1  conforme
-   Le seuil WCAG 1.4.3 est à 4,5:1. On se cale donc à 0,90 en bas de la
-   plaque. Pour mémoire, l'ancienne barre opaque `bg-sand/85` plafonnait
-   à 4,17:1 : elle échouait déjà, ce n'est pas une régression mais une
-   correction.
-
-   Ce qui fait le verre ici, ce n'est pas la transparence : c'est la
-   saturation, les deux reflets et l'arête. On voit toujours les formes
-   défiler derrière, floues et saturées — c'est exactement ce qu'on
-   demande à une plaque de verre. */
-.verre-liquide {
-  background:
-    radial-gradient(
-      132% 92% at 12% -42%,
-      rgba(255, 255, 255, 0.5),
-      transparent 62%
-    ),
-    radial-gradient(
-      88% 72% at 94% 132%,
-      rgba(255, 255, 255, 0.26),
-      transparent 68%
-    ),
-    linear-gradient(
-      to bottom,
-      rgba(251, 248, 240, 0.96),
-      rgba(246, 241, 230, 0.9)
-    );
-  backdrop-filter: blur(18px) saturate(185%) brightness(1.05);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.9),
-    inset 0 -1px 0 rgba(46, 52, 40, 0.07),
-    0 14px 38px -22px rgba(46, 52, 40, 0.45);
-}
-
-/* La pastille : même matériau, mais une plaque épaisse et bombée. Le
-   reflet part plus haut et l'arête fait le tour complet — sur un objet
-   rond, la tranche est visible partout, pas seulement en haut. */
-.verre-liquide-pastille {
-  background:
-    radial-gradient(
-      118% 118% at 28% -18%,
-      rgba(255, 255, 255, 0.85),
-      transparent 58%
-    ),
-    radial-gradient(
-      92% 92% at 82% 118%,
-      rgba(255, 255, 255, 0.4),
-      transparent 62%
-    ),
-    linear-gradient(
-      to bottom,
-      rgba(251, 248, 240, 0.96),
-      rgba(237, 229, 210, 0.88)
-    );
-  backdrop-filter: blur(14px) saturate(190%) brightness(1.07);
-  box-shadow:
-    inset 0 1px 0 rgba(255, 255, 255, 0.95),
-    inset 0 -1px 0 rgba(46, 52, 40, 0.1),
-    0 8px 20px -10px rgba(46, 52, 40, 0.35);
-}
-
-/* Filet de sécurité : sans `backdrop-filter`, une surface à 54 %
-   d'opacité laisse passer le texte de la page dessous et le menu
-   devient illisible. On repasse alors en surface pleine. */
-@supports not ((backdrop-filter: blur(1px)) or (-webkit-backdrop-filter: blur(1px))) {
-  .verre-liquide,
-  .verre-liquide-pastille {
-    background: var(--sand-card);
-  }
-}
-
 body {
   background: var(--sand);
   color: var(--ink);
   font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 1.0625rem;
+  line-height: 1.6;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
 }
@@ -204,7 +112,7 @@ body {
   outline: 2px solid var(--sage-strong);
   outline-offset: 3px;
   border-radius: 2px;
-  /* Halo clair sous le contour : le focus reste lisible sur les aplats sombres */
+  /* Halo clair sous le contour : le focus reste lisible sur l'encre */
   box-shadow: 0 0 0 4px var(--sand);
 }
 
@@ -212,230 +120,265 @@ body {
   .container-site {
     @apply mx-auto w-full max-w-6xl px-6;
   }
-  /* Boutons sobres : la couleur fait le travail, le clic s'enfonce
-     d'un pixel — pas d'étages d'ombre */
+
+  /* ——— Rythme vertical : UNE valeur de section pour tout le site ——— */
+  .section {
+    @apply py-16 md:py-24;
+  }
+
+  /* ——— Échelle typographique ———
+     Une seule logique (clamp), quatre rangs, une graisse par rang.
+     Le hero est le seul à passer 4,5 rem. Les interlignages et les
+     approches sont fixés ici et nulle part ailleurs. */
+  .titre-hero {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.5rem, 7vw, 5.5rem);
+    line-height: 1;
+    letter-spacing: -0.04em;
+    text-wrap: balance;
+  }
+  .titre-1 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(2.2rem, 5.5vw, 4.25rem);
+    line-height: 1.02;
+    letter-spacing: -0.035em;
+    text-wrap: balance;
+  }
+  .titre-2 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.75rem, 3.6vw, 2.75rem);
+    line-height: 1.08;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  .titre-3 {
+    font-family: var(--font-display);
+    font-weight: 700;
+    font-size: clamp(1.25rem, 2vw, 1.5rem);
+    line-height: 1.2;
+    letter-spacing: -0.02em;
+  }
+  .eyebrow {
+    @apply block text-xs font-semibold tracking-[0.16em] uppercase text-sage-deep;
+  }
+  .lede {
+    @apply text-lg leading-[1.5] text-ink-soft md:text-xl;
+    text-wrap: pretty;
+    max-width: 38em;
+  }
+
+  /* ——— Boutons : la couleur fait le travail, le clic s'enfonce d'un
+     pixel. Pas d'étages d'ombre, pas de levée au survol. ——— */
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-2 rounded-full border border-transparent px-6 py-3 text-sm font-semibold transition-colors duration-200;
   }
   .btn:active {
     transform: translateY(1px);
   }
-  /* Le contour de focus des boutons reste dans la famille : encre
-     neutre, pas le vert soutenu du focus global qui jure sur pastel */
   .btn:focus-visible {
     outline-color: var(--ink);
   }
+  .btn-lg {
+    @apply px-7 py-3.5 text-base;
+  }
   .btn-primary {
-    @apply bg-terra-deep text-sand-card hover:bg-ink;
+    @apply bg-terra-hot text-white hover:bg-terra-deep;
   }
   .btn-secondary {
-    @apply border border-line bg-sand-card text-ink hover:border-sage hover:text-sage-deep;
+    @apply border-ink bg-transparent text-ink hover:bg-ink hover:text-sand;
   }
-  .btn-light {
-    @apply bg-sand text-ink hover:bg-sand-card;
+  /* Sur l'encre : le contour prend la couleur du papier */
+  .btn-secondary-encre {
+    @apply border-sand/55 bg-transparent text-sand hover:bg-sand hover:text-ink;
   }
-  /* Enfoncement discret des commandes rondes (burger, fermer, flèches) */
   .press {
     transition: transform 0.12s ease-out;
   }
   .press:active {
     transform: translateY(1px) scale(0.97);
   }
-  .eyebrow {
-    @apply inline-flex items-center gap-2.5 text-[0.78rem] font-semibold uppercase tracking-[0.18em] text-sage-deep;
-  }
-  /* Sur les aplats sombres, l'étiquette passe en sauge claire */
-  .eyebrow-invert {
-    @apply text-sage;
-  }
-  .btn-lg {
-    @apply px-8 py-4 text-base;
-  }
-  /* Bandes pleine largeur : le papier sable porte son ombre le long de
-     la découpe — les cartes se posent SUR la page, les bandes s'ouvrent
-     SOUS elle. Même lumière que l'échelle d'élévation. */
-  .bande-calque {
-    box-shadow:
-      inset 0 16px 28px -24px rgba(0, 0, 0, 0.55),
-      inset 0 -14px 24px -22px rgba(0, 0, 0, 0.35);
-  }
-  .bande-calque-haut {
-    box-shadow: inset 0 18px 30px -26px rgba(0, 0, 0, 0.5);
-  }
-  /* ——— Le poste rétro, redessiné ———
-     Le poste avait TROIS rayons emboîtés de 38, 24 et 16 px : aucune
-     arête franche nulle part, et il se lisait « jouet » au milieu d'un
-     site dont toute la langue est ciselée. Sept corrections, dont la
-     première fait à elle seule la moitié du travail :
 
-     1. les rayons passent à 20 / 8 / 3 px, concentriques ;
-     2. la lumière vient du HAUT (178°) et non de 150° — le menton
-        devient la zone la plus sombre, et c'est ça, le volume ;
-     3. un angle de démoulage : les flancs fuient, comme une pièce
-        sortie d'un moule ;
-     4. la lèvre du bezel est inversée — ombre en haut, lumière
-        ramassée en bas, ce que fait une vraie lèvre en surplomb ;
-     5. le joint de dalle passe en caoutchouc sombre, plus noir que le
-        tube lui-même ;
-     6. les aérations deviennent des rainures creusées avec leur lèvre
-        éclairée, au lieu de trente traits d'un pixel ;
-     7. le témoin s'assied au fond d'un puits percé.
+  /* ——— Les deux surfaces ———
+     Le papier est le fond du site. L'encre est une bande en CREUX :
+     l'ombre tombe dedans par le haut, et il n'y a aucun liseré clair
+     sur ses bords. */
+  .bande-encre {
+    background: var(--ink-deep);
+    color: var(--sand);
+    box-shadow:
+      inset 0 16px 28px -24px rgba(0, 0, 0, 0.6),
+      inset 0 -14px 24px -22px rgba(0, 0, 0, 0.4);
+  }
 
-     Jamais de liseré clair sur le fond sombre : la lumière ne se pose
-     que sur le beige. */
-  .poste-carter {
-    background:
-      radial-gradient(120% 80% at 30% -20%, rgba(255, 255, 255, 0.55), transparent 60%),
-      linear-gradient(
-        90deg,
-        rgba(90, 78, 58, 0.16),
-        transparent 18%,
-        transparent 82%,
-        rgba(90, 78, 58, 0.22)
-      ),
-      linear-gradient(178deg, #f7f0e1, #eae0cb 38%, #d9cbb0 78%, #cabb9f);
-    box-shadow:
-      0 26px 50px -26px rgba(46, 52, 40, 0.5),
-      inset 0 1px 0 rgba(255, 255, 255, 0.85),
-      inset 0 -2px 6px rgba(120, 105, 80, 0.25);
+  /* ——— La lueur phosphore ———
+     Le seul éclat du site, réservé à l'encre : la phrase du hero et les
+     numéros de la méthode. Le TEXTE est en terracotta claire (6,9:1 sur
+     l'encre), seule l'ombre est vive — une ombre ne porte aucune
+     information, elle a le droit de l'être. */
+  .lueur {
+    color: var(--terra);
+    text-shadow:
+      0 0 18px rgba(217, 95, 46, 0.55),
+      0 0 42px rgba(217, 95, 46, 0.3);
   }
-  /* La ligne de joint de moulage fait le tour du carter. */
-  .poste-carter::after {
-    content: "";
-    position: absolute;
-    inset: 4px;
-    border-radius: 1rem 1rem 0.25rem 0.25rem;
-    border: 1px solid rgba(120, 105, 80, 0.16);
-    border-bottom-color: rgba(255, 255, 255, 0.4);
-    pointer-events: none;
+  .lueur-douce {
+    color: var(--terra);
+    text-shadow: 0 0 14px rgba(217, 95, 46, 0.5);
   }
-  .poste-creux {
-    background: linear-gradient(178deg, #cdbea3, #e0d5bd);
-    box-shadow:
-      inset 0 3px 7px rgba(90, 78, 58, 0.5),
-      inset 0 -2px 0 rgba(255, 255, 255, 0.6);
+
+  /* ——— Les filets ———
+     La recette de liste du site : un filet au-dessus de chaque ligne,
+     un filet qui ferme. Sur papier, un trait de la couleur de ligne ;
+     sur l'encre, une rainure plus sombre que le fond (jamais un trait
+     clair). C'est ce qui a tenu sur la page Services : un document,
+     pas des cartes. */
+  .filets {
+    @apply list-none p-0 m-0;
   }
-  /* Les aérations, adoucies. Première version : une rainure de 2 px
-     très contrastée tous les 7 px, sur toute la largeur du menton — à
-     la taille réelle ça faisait une PALISSADE qui tirait l'œil plus
-     que l'écran. Un vrai boîtier a un court paquet de fentes, pas une
-     grille d'un bout à l'autre. Période resserrée, contraste divisé
-     par deux, et la largeur est bornée par la classe qui l'emploie. */
-  .poste-grille {
-    border-radius: 1px;
-    background: repeating-linear-gradient(
-      90deg,
-      rgba(70, 60, 44, 0.26) 0 1px,
-      rgba(255, 255, 255, 0.34) 1px 2px,
-      transparent 2px 5px
-    );
+  .filets > li {
+    border-top: 1px solid var(--line);
   }
-  /* Estampée et non imprimée : c'est la lumière SOUS la lettre qui
-     creuse le beige. */
-  .poste-marque {
-    color: rgba(70, 60, 44, 0.62);
-    text-shadow: 0 1px 0 rgba(255, 255, 255, 0.72);
+  .filets > li:last-child {
+    border-bottom: 1px solid var(--line);
   }
-  .poste-puits {
-    width: 9px;
-    height: 9px;
-    border-radius: 50%;
-    background: #b3a68c;
-    box-shadow: inset 0 1px 2px rgba(0, 0, 0, 0.6);
+  .filets-forts > li {
+    border-top-width: 2px;
+    border-top-color: var(--ink);
+  }
+  .filets-forts > li:last-child {
+    border-bottom: 0;
+  }
+  .bande-encre .filets > li {
+    border-color: var(--encre-creux);
+  }
+
+  /* ——— L'aperçu d'un projet type ———
+     Un aplat de papier plus clair, posé sur la page, et non une fenêtre
+     de navigateur : le visiteur voit un site, pas un outil. Tout ce qui
+     est dedans se mesure en largeur de conteneur avec un plancher en
+     pixels — la leçon des anciens écrans du poste : rien sous 12 px. */
+  .apercu {
+    container-type: inline-size;
+    aspect-ratio: 4 / 3;
+    background: var(--sand-card);
+    border-radius: 0.375rem;
+    box-shadow: var(--inset-shadow-cisele), var(--shadow-elev-2);
+    padding: 9% 9% 8%;
     display: grid;
-    place-items: center;
+    align-content: space-between;
+    color: var(--ink);
   }
-  .poste-diode {
-    width: 4px;
-    height: 4px;
-    border-radius: 50%;
+  .apercu-marque {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    font-size: max(14px, 3.4cqw);
+    line-height: 1;
+  }
+  .apercu-menu {
+    display: flex;
+    gap: max(10px, 3cqw);
+    font-size: max(12px, 2.2cqw);
+    color: var(--ink-soft);
+  }
+  .apercu-titre {
+    font-family: var(--font-display);
+    font-weight: 700;
+    letter-spacing: -0.025em;
+    line-height: 1.08;
+    font-size: max(18px, 5.4cqw);
+    text-wrap: balance;
+  }
+  .apercu-sous {
+    font-size: max(13px, 2.6cqw);
+    color: var(--ink-soft);
+    margin-top: 0.35em;
+  }
+  .apercu-bouton {
+    justify-self: start;
+    font-weight: 600;
+    font-size: max(12px, 2.4cqw);
+    line-height: 1;
+    padding: 0.8em 1.3em;
+    border-radius: 999px;
     background: var(--terra-hot);
+    color: #fff;
   }
-  .poste-fente {
-    border-radius: 2px;
-    background: linear-gradient(180deg, rgba(60, 50, 36, 0.55), rgba(90, 78, 58, 0.25));
-    box-shadow:
-      inset 0 1px 2px rgba(0, 0, 0, 0.5),
-      0 1px 0 rgba(255, 255, 255, 0.55);
-  }
-  .poste-pied {
-    clip-path: polygon(6% 0, 94% 0, 100% 100%, 0 100%);
-    background: linear-gradient(178deg, #e3d8c0, #c3b498);
-    box-shadow: 0 8px 14px -8px rgba(46, 52, 40, 0.5);
-  }
-
-  /* ——— Le bordereau des offres ———
-     Ni carte ni grille : quatre lignes d'un seul document. Deux filets
-     d'encre traversent la fenêtre d'un bord à l'autre et bornent la
-     zone ; entre les lignes, un JOINT plutôt qu'un trait peint — une
-     arête sombre d'un pixel et sa lèvre éclairée juste dessous. C'est la
-     lumière unique du site qui tombe dans une rainure, la recette de
-     `--inset-shadow-cisele` appliquée à un imprimé. Jamais l'inverse
-     (lèvre au-dessus) : on est sur papier clair, la lumière vient du haut.
-
-     La coupure où s'assied la cote 01–04 est STRUCTURELLE — une colonne
-     de grille, pas un rectangle de fond posé par-dessus. Elle survit donc
-     au mode contraste forcé, où un masque disparaîtrait et où le filet
-     traverserait les chiffres.
-
-     Rien ici ne bouge, ne s'ouvre et ne se survole : il n'y a aucune
-     transition à neutraliser en mouvement réduit, et aucune fausse
-     promesse de clic sur un bloc qui n'est pas cliquable. */
-  .bordereau-filet,
-  .bordereau-joint {
-    /* Largeur de la coupure : « 01 » et son dégagement. */
-    --cote: 2.75rem;
-  }
-
-  /* MIROIR de `.container-site` (max-w-6xl = 72rem, px-6 = 1.5rem) : la
-     première colonne reproduit sa gouttière pour que la coupure tombe
-     à l'aplomb exact du bord gauche du texte. Si l'un des deux change,
-     changer l'autre. On mesure en pourcentage du conteneur et non en
-     `vw` : sinon la barre de défilement décale tout. */
-  .bordereau-filet {
+  .apercu-creneaux {
     display: grid;
-    grid-template-columns:
-      calc(max(0px, (100% - 72rem) / 2) + 1.5rem)
-      var(--cote)
-      1fr;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: max(6px, 1.6cqw);
   }
-  .bordereau-filet > span {
-    border-top: 2px solid var(--ink);
+  .apercu-creneau {
+    font-size: max(12px, 2.4cqw);
+    font-weight: 600;
+    text-align: center;
+    padding: 0.7em 0.4em;
+    border-radius: 0.3em;
+    background: var(--sage-wash);
+    color: var(--sage-deep);
+    font-variant-numeric: tabular-nums;
   }
-  .bordereau-filet > span:nth-child(2) {
-    border-top: 0;
+  .apercu-creneau[data-pris] {
+    background: var(--sand-deep);
+    color: var(--ink-soft);
+    text-decoration: line-through;
+    text-decoration-color: rgba(46, 52, 40, 0.4);
   }
-
-  .bordereau-pied {
-    border-top: 2px solid var(--ink);
-  }
-
-  .bordereau-joint {
-    display: grid;
-    grid-template-columns: var(--cote) 1fr;
-    height: 2px;
-  }
-  .bordereau-joint > span {
-    grid-column: 2;
-    background-image: linear-gradient(
-      to bottom,
-      rgba(46, 52, 40, 0.32) 0 1px,
-      rgba(255, 255, 255, 0.9) 1px 2px
-    );
+  .apercu-creneau[data-choisi] {
+    background: var(--sage-strong);
+    color: #fff;
   }
 
-  .bande-calque-claire {
-    box-shadow:
-      inset 0 1px 0 rgba(255, 255, 255, 0.5),
-      inset 0 12px 20px -20px rgba(46, 52, 40, 0.22),
-      inset 0 -10px 18px -18px rgba(46, 52, 40, 0.16);
+  /* ——— Le logotype gravé du pied de page ———
+     Letterpress : lumière dessous, ombre dessus, comme une plaque
+     frappée dans l'encre. Immobile. */
+  .marque-gravee {
+    color: #1e2318;
+    text-shadow:
+      0 1px 0 rgba(246, 241, 230, 0.1),
+      0 -1px 0 rgba(0, 0, 0, 0.4);
   }
-}
 
-@media (forced-colors: active) {
-  .bordereau-joint > span {
-    background-image: none;
-    border-top: 1px solid CanvasText;
+  /* ——— Transition entre pages ———
+     Un fondu, rien d'autre. JAMAIS de translation ici : ce bloc
+     enveloppe toute la page et un décalage de départ est additionné
+     par le navigateur à chaque restauration de position (voir
+     CLAUDE.md). Une animation CSS tourne sans JavaScript : pas de
+     dépendance pour l'entrée de page. */
+  .entree {
+    animation: entree 0.4s ease-out both;
+  }
+  @keyframes entree {
+    from {
+      opacity: 0;
+    }
+    to {
+      opacity: 1;
+    }
+  }
+
+  /* ——— Menu mobile : il apparaît, il ne glisse pas ——— */
+  .menu-mobile {
+    animation: entree 0.2s ease-out both;
+  }
+
+  /* ——— FAQ : du texte à filets, sans carte ——— */
+  .faq summary {
+    list-style: none;
+    cursor: pointer;
+  }
+  .faq summary::-webkit-details-marker {
+    display: none;
+  }
+  .faq[open] .faq-chevron {
+    transform: rotate(180deg);
+  }
+  .faq-chevron {
+    transition: transform 0.25s ease-out;
   }
 }
 
@@ -444,32 +387,32 @@ body {
   .press:active {
     transform: none;
   }
+  .entree,
+  .menu-mobile {
+    animation: none;
+  }
+  .faq-chevron {
+    transition: none;
+  }
 }
 
 /* ——— Reçus ———
    La ligne qu'imprime une machine quand elle vient d'agir : elle
-   s'allume en phosphore terracotta, puis se calme et reste lisible
-   aussi longtemps qu'on la regarde.
-
-   La lueur est en terracotta vif, le TEXTE jamais : --terra-hot sur
-   sable ne fait que 3,3:1, sous le seuil. Une ombre ne porte aucune
-   information, elle a le droit d'être vive ; le texte part de
-   --terra-deep (6,5:1) et finit sur --ink-soft (5,5:1). */
-
+   s'allume en phosphore terracotta, puis se calme et reste lisible.
+   La lueur est en terracotta vive, le TEXTE jamais (3,3:1 sur sable,
+   sous le seuil) : il part de --terra-deep et finit sur --ink-soft. */
 .recu {
   --recu-eclat: var(--terra-deep);
   --recu-calme: var(--ink-soft);
   /* La place est réservée d'avance : sans ça, l'apparition du reçu
-     ferait remonter tout l'écran au moment exact du clic. */
+     ferait remonter l'écran au moment exact du clic. */
   min-height: 2.4em;
   margin: 0;
 }
-
 .recu-sombre {
   --recu-eclat: var(--terra);
-  --recu-calme: rgb(246 241 230 / 0.7);
+  --recu-calme: var(--encre-texte-doux);
 }
-
 .recu-vif {
   display: inline-flex;
   align-items: baseline;
@@ -477,7 +420,6 @@ body {
   color: var(--recu-calme);
   animation: remanence 1.2s ease-out both;
 }
-
 .recu-carre {
   width: 0.42em;
   height: 0.42em;
@@ -485,9 +427,7 @@ body {
   background: var(--terra-hot);
   translate: 0 -0.05em;
 }
-
-/* Une seule itération, jamais infinite : le reçu n'est pas un témoin
-   qui clignote, c'est une trace qui s'estompe. */
+/* Une seule itération, jamais infinite : une trace qui s'estompe. */
 @keyframes remanence {
   from {
     color: var(--recu-eclat);
@@ -498,395 +438,50 @@ body {
     text-shadow: 0 0 0 transparent;
   }
 }
-
-/* Le fil de la démonstration : même rémanence que les reçus, mais sur
-   de la prose. Donc la couleur et l'éclat, jamais la mise en forme en
-   ligne — la chasse fixe reste réservée aux lignes qui sont un fait
-   plus un chiffre. C'est cette frontière qui empêche le vocabulaire
-   terminal de redevenir un costume. */
-.fil-vif {
-  color: var(--recu-calme);
-  animation: remanence 1.2s ease-out both;
-}
-
 @media (prefers-reduced-motion: reduce) {
-  .recu-vif,
-  .fil-vif {
+  .recu-vif {
     animation: none;
   }
 }
 
-/* ——— Bandeau défilant ——— */
+/* ——— Bandeau défilant ———
+   La seule animation en boucle du site. Elle est voulue, elle a son
+   bouton d'arrêt (WCAG 2.2.2), et elle ne s'arrête pas au survol :
+   traverser la bande sans intention la figeait et faisait croire à une
+   page plantée. */
 @keyframes marquee {
   to {
     transform: translateX(-50%);
   }
 }
-
 .marquee-track {
-  /* 84s, et pas 38 comme avant. Deux raisons cumulees : le bandeau
-     defilait trop vite, ET on y a ajoute deux mots — or la duree porte
-     un tour complet de piste, donc a duree egale une piste plus longue
-     defile PLUS vite. 84s ramene la vitesse a environ 60 % de ce
-     qu'elle etait, en tenant compte de l'allongement. */
   animation: marquee var(--marquee-speed, 84s) linear infinite;
 }
-
-/* Le bandeau ne s'arrête PLUS au survol : on traversait la bande sans
-   intention, elle se figeait, et on croyait la page plantée. Il s'arrête
-   quand on le demande, par le bouton du composant — qui fonctionne aussi
-   au doigt et au clavier, là où le survol n'existe pas. */
 .marquee-slot[data-pause="true"] .marquee-track {
   animation-play-state: paused;
 }
-
 @media (prefers-reduced-motion: reduce) {
   .marquee-track {
     animation: none;
   }
 }
 
-/* Les trois halos du hero ne dérivent plus : ils restent des plans de
-   lumière fixes. Rien ne bouge sur cette page avant que le visiteur
-   n'ait fait un geste — c'est la règle du site depuis le grand
-   silence, et c'est ce qui rend lisible ce qui bouge vraiment. */
-
-/* ——— Écran d'ouverture ———
-   Le logotype grandit et se dissout, et le site s'ouvre par un cercle
-   qui part exactement d'où il était : la marque est la porte d'entrée.
-
-   Tout est en CSS, y compris la DISPARITION. Deux raisons : un onglet
-   ouvert en arrière-plan ne fait pas tourner les animations pilotées
-   par frame, et surtout un visiteur sans JavaScript verrait sinon un
-   aplat de sable à la place du site — le HTML complet est pourtant
-   déjà là, dessous. */
-
-:root {
-  /* Le logotype se pose, puis le cercle part de lui. Aucune barre
-     de progression : elle se remplissait sur une duree fixe et ne
-     mesurait aucun chargement — la seule fausse mesure du site. */
-  --boot-attente: 0.35s;
-  --boot-marque: 0.45s; /* le logotype grandit et se dissout */
-  --boot-iris: 0.9s; /* le cercle s'ouvre */
-  --boot-centre: 46%; /* hauteur du logotype : c'est de là que part le cercle */
+/* ——— Barre du haut ———
+   Elle n'est plus fixe et n'est plus en verre : elle fait partie de la
+   page. Sur l'accueil, le hero est une bande d'encre qui commence au
+   bord supérieur ; la barre prend alors la couleur de l'encre, sans
+   JavaScript, grâce au marqueur posé sur le hero. */
+.entete {
+  --nav-fond: var(--sand);
+  --nav-texte: var(--ink);
+  --nav-texte-doux: var(--ink-soft);
+  background: var(--nav-fond);
+  color: var(--nav-texte);
 }
-
-.ecran-boot {
-  position: fixed;
-  inset: 0;
-  z-index: 120;
-  /* Rien n'est cliquable ici : aucun clic ne doit se perdre contre le
-     voile, surtout s'il devait rester en place. */
-  pointer-events: none;
-  animation: boot-fin 0s linear
-    calc(var(--boot-attente) + var(--boot-marque) + var(--boot-iris)) forwards;
-}
-
-@keyframes boot-fin {
-  to {
-    visibility: hidden;
-  }
-}
-
-/* Le fond plein, qui passe la main à l'iris à la seconde exacte */
-.ecran-boot__fond {
-  position: absolute;
-  inset: 0;
-  background: var(--sand);
-  animation: boot-fond 0s linear var(--boot-attente) forwards;
-}
-
-@keyframes boot-fond {
-  to {
-    opacity: 0;
-  }
-}
-
-/* L'iris : un disque de rayon nul dont l'ombre portée couvre l'écran.
-   Le disque grandit, l'ombre est repoussée dehors, le site apparaît par
-   le trou. Aucune propriété exotique — ça marche dans tous les
-   navigateurs, et la couverture de départ est garantie : 120vmax
-   dépasse largement la diagonale d'un écran (≈ 71vmax). */
-.ecran-boot__iris {
-  position: absolute;
-  top: var(--boot-centre);
-  left: 50%;
-  width: 0;
-  height: 0;
-  border-radius: 50%;
-  transform: translate(-50%, -50%);
-  box-shadow: 0 0 0 120vmax var(--sand);
-  animation: boot-iris var(--boot-iris) cubic-bezier(0.5, 0, 0.2, 1)
-    var(--boot-attente) forwards;
-}
-
-@keyframes boot-iris {
-  from {
-    width: 0;
-    height: 0;
-  }
-  to {
-    width: 260vmax;
-    height: 260vmax;
-  }
-}
-
-/* Le logotype grandit et se dissout au moment précis où le cercle part
-   de lui — l'un devient l'autre. */
-.ecran-boot__marque {
-  position: absolute;
-  top: var(--boot-centre);
-  left: 50%;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  transform: translate(-50%, -50%);
-  animation: boot-marque var(--boot-marque) cubic-bezier(0.22, 1, 0.36, 1)
-    var(--boot-attente) forwards;
-}
-
-/* Le logotype s'efface aux deux tiers de sa course : sans quoi il
-   traînerait par-dessus le titre que le cercle vient de découvrir. Il
-   continue de grandir une fois invisible, pour que le mouvement se
-   prolonge dans le cercle au lieu de s'arrêter net. */
-@keyframes boot-marque {
-  0% {
-    opacity: 1;
-    transform: translate(-50%, -50%) scale(1);
-  }
-  65% {
-    opacity: 0;
-  }
-  100% {
-    opacity: 0;
-    transform: translate(-50%, -50%) scale(2.6);
-  }
-}
-
-/* Mouvement réduit : pas d'ouverture du tout, le site est là d'emblée */
-@media (prefers-reduced-motion: reduce) {
-  .ecran-boot {
-    display: none;
-  }
-}
-
-@keyframes boot-logo {
-  from {
-    opacity: 0;
-    transform: translateY(10px);
-  }
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
-}
-
-.boot-logo {
-  animation: boot-logo 0.5s cubic-bezier(0.22, 1, 0.36, 1) both;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .boot-logo {
-    animation: none;
-  }
-}
-
-/* Montée des lignes du titre à l'arrivée */
-@keyframes title-rise {
-  from {
-    transform: translateY(108%);
-  }
-  to {
-    transform: translateY(0);
-  }
-}
-
-/* ——— Signature R-X : la zone cliquable se révèle au survol ———
-   Un rectangle en pointillés, comme sur un wireframe : l'objet du
-   métier devient l'interaction du site. */
-.hit-area {
-  position: relative;
-}
-
-.hit-area::after {
-  content: "";
-  position: absolute;
-  inset: -0.45rem -0.6rem;
-  border: 1px dashed currentColor;
-  border-radius: 0.4rem;
-  opacity: 0;
-  transform: scale(0.94);
-  transition:
-    opacity 0.22s ease,
-    transform 0.22s cubic-bezier(0.22, 1, 0.36, 1);
-  pointer-events: none;
-}
-
-.hit-area:hover::after,
-.hit-area:focus-visible::after {
-  opacity: 0.55;
-  transform: scale(1);
-}
-
-@media (prefers-reduced-motion: reduce) {
-  .hit-area::after {
-    transition: opacity 0.15s linear;
-    transform: none;
-  }
-  .hit-area:hover::after,
-  .hit-area:focus-visible::after {
-    transform: none;
-  }
-}
-
-/* ——— Modes cachés ———
-   Trois lectures du même site : le fil de fer, l'inspecteur, et 1988.
-   Rien ne les annonce ; on les trouve au clavier. */
-
-/* W — tout redevient structure */
-html.mode-wireframe body {
-  background: #f2f1ee;
-}
-
-html.mode-wireframe
-  *:not(svg):not(svg *):not([data-hors-wireframe]):not(
-    [data-hors-wireframe] *
-  ) {
-  background-color: transparent !important;
-  background-image: none !important;
-  box-shadow: none !important;
-  color: #5b5f5a !important;
-  border-color: #a9aca6 !important;
-  text-shadow: none !important;
-}
-
-html.mode-wireframe section,
-html.mode-wireframe article,
-html.mode-wireframe header,
-html.mode-wireframe footer,
-html.mode-wireframe details,
-html.mode-wireframe .btn {
-  outline: 1px dashed #b6b9b2;
-  outline-offset: -1px;
-}
-
-html.mode-wireframe img,
-html.mode-wireframe canvas,
-html.mode-wireframe svg {
-  opacity: 0.18;
-  filter: grayscale(1);
-}
-
-/* I — la grille et les cotes apparaissent */
-html.mode-inspection *:hover {
-  outline: 1px solid rgba(217, 95, 46, 0.85) !important;
-  outline-offset: 1px;
-}
-
-html.mode-inspection body::before {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 60;
-  pointer-events: none;
-  background-image: repeating-linear-gradient(
-    to right,
-    rgba(217, 95, 46, 0.14) 0 1px,
-    transparent 1px 8.3333%
-  );
-}
-
-/* L'étiquette de calque n'apparaît qu'à l'inspecteur */
-.etiquette-calque {
-  display: none;
-}
-
-html.mode-inspection .etiquette-calque {
-  display: block;
-}
-
-/* Konami — le site en 1988 */
-html.mode-retro body {
-  background: #06120a;
-}
-
-html.mode-retro *:not([data-hors-wireframe]) {
-  background-color: transparent !important;
-  background-image: none !important;
-  color: #4ee88a !important;
-  border-color: #2f7d4d !important;
-  box-shadow: none !important;
-  font-family: ui-monospace, "SFMono-Regular", Menlo, monospace !important;
-  letter-spacing: 0 !important;
-  border-radius: 0 !important;
-}
-
-html.mode-retro img,
-html.mode-retro canvas,
-html.mode-retro svg {
-  filter: grayscale(1) sepia(1) hue-rotate(75deg) saturate(4);
-  opacity: 0.75;
-}
-
-html.mode-retro body::after {
-  content: "";
-  position: fixed;
-  inset: 0;
-  z-index: 100;
-  pointer-events: none;
-  background: repeating-linear-gradient(
-    to bottom,
-    rgba(0, 0, 0, 0.32) 0 1px,
-    transparent 1px 3px
-  );
-}
-
-/* Le balayage du tube et le témoin d'activité du poste beige ne
-   sont plus des boucles CSS : ils sont pilotés par le défilement
-   réel depuis components/RetroComputer.tsx. La machine ne s'agite
-   que lorsqu'elle a quelque chose à écrire. */
-
-.dash-march {
-  stroke-dasharray: 10 14;
-}
-
-/* La « ligne en train de s'écrire » ne s'écrit plus : elle est écrite.
-   Sans son animation elle n'aurait aucune largeur — on la fige aux
-   deux tiers, ce que le bloc mouvement réduit prescrivait déjà. */
-.typing-line {
-  width: 66%;
-}
-
-/* Il ne reste que trois animations en boucle dans tout le site, et
-   chacune se justifie : le bandeau du pied de page (voulu), le curseur
-   de « exit 0 » (une machine qui attend qu'on tape), et les deux
-   témoins du poste rétro — qui seront branchés sur le défilement réel
-   au lot suivant. */
-/* ——— FAQ : la carte verdit à l'ouverture ——— */
-details.faq-carte[open] {
-  background-color: var(--sage-wash);
-}
-
-/* ——— FAQ : la réponse tombe à l'ouverture ——— */
-@keyframes faq-sortie {
-  from {
-    opacity: 0;
-    transform: translateY(-6px);
-  }
-  to {
-    opacity: 1;
-    transform: none;
-  }
-}
-
-details[open] .faq-sortie {
-  animation: faq-sortie 0.35s ease-out;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  details[open] .faq-sortie {
-    animation: none;
-  }
+body:has(main [data-hero-encre]) .entete {
+  --nav-fond: var(--ink-deep);
+  --nav-texte: var(--sand);
+  --nav-texte-doux: var(--encre-texte-doux);
 }
 
 /* Grain de papier très léger sur tout le site */

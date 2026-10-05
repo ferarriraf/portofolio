@@ -4,15 +4,7 @@ import type { AppPathname } from "@/i18n/routing";
 
 const BASE = "https://www.r-x.fr";
 
-const pages: AppPathname[] = [
-  "/",
-  "/services",
-  "/realisations",
-  "/demo",
-  "/a-propos",
-  "/contact",
-  "/mentions-legales",
-];
+const pages: AppPathname[] = ["/", "/services", "/realisations", "/a-propos", "/contact", "/mentions-legales"];
 
 /** Chaque page existe deux fois — une entrée par langue, chacune
     déclarant l'autre en alternative. */

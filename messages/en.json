@@ -1,29 +1,25 @@
 {
   "meta": {
-    "siteName": "R-X — Web development",
+    "siteName": "R-X — Web design and development",
     "home": {
-      "title": "R-X — Fullstack web developer",
-      "description": "R-X designs, builds and maintains fast, dependable, easy-to-evolve websites and web applications. Node.js, React, Next.js, TypeScript — from first conversation to launch."
+      "title": "R-X — Websites for shops, restaurants and tradespeople",
+      "description": "Raf, independent web developer based in the Gers, France. Showcase websites, online booking, custom tools and takeovers of existing sites, for shops, restaurants and tradespeople."
     },
     "services": {
-      "title": "Services — Web development",
-      "description": "Full websites, custom web applications, APIs and integrations, maintenance: web development from need to launch."
+      "title": "Services — Websites, tools and takeovers",
+      "description": "Showcase website, online shop, appointment booking, custom tool, takeover of an existing site. What is included is written down, the quote is fixed."
     },
     "work": {
       "title": "Demonstrations",
-      "description": "Demonstrations: a brochure site and a business application — two typical projects built end to end to show the method."
-    },
-    "demo": {
-      "title": "Playable demo",
-      "description": "effectif, the HR space: a complete business application you can try right in your browser — time off, approvals, reviews. Fictional data, nothing is kept."
+      "description": "Two sample projects built end to end: a showcase website with booking and an online appointment system."
     },
     "about": {
       "title": "About",
-      "description": "R-X, an independent web developer: the person who listens to your needs is the one who writes the code."
+      "description": "Raf, independent web developer in the Gers, France. One person from the first conversation to launch."
     },
     "contact": {
       "title": "Contact",
-      "description": "Let's talk about your web project. Reply within two working days."
+      "description": "Describe your project. Reply within two working days."
     },
     "legal": {
       "title": "Legal notice",
@@ -36,6 +32,7 @@
     "work": "Demonstrations",
     "about": "About",
     "contact": "Contact",
+    "cta": "Get in touch",
     "menuOpen": "Open menu",
     "menuClose": "Close menu",
     "ariaMain": "main",
@@ -47,452 +44,384 @@
     "en": "English"
   },
   "home": {
-    "eyebrow": "Independent web developer",
-    "titleA": "The web,",
-    "titleB": "built right.",
-    "lede": "R-X designs, builds and maintains fast, dependable, easy-to-evolve websites and web applications — with a single point of contact: the person writing the code.",
-    "ctaServices": "See the services",
-    "ctaContact": "Discuss your project",
-    "layerLabel": "'<h1 class=\"headline\">'",
-    "marquee": [
-      "Websites",
-      "Online shops",
-      "Applications",
-      "Online booking",
-      "Automation",
-      "Redesign",
-      "Client portal",
-      "Maintenance"
-    ],
-    "manifesto": {
-      "lead": "A good website goes unnoticed.",
-      "emph": "It just does its job."
+    "eyebrow": "Independent web developer · Gers, France",
+    "titleA": "A good website doesn't draw attention to itself.",
+    "titleB": "It does its job.",
+    "lede": "My name is Raf. I build websites for shops, restaurants and tradespeople. Fast, readable, and easy for you to update yourself.",
+    "ctaPrimary": "Describe your project",
+    "ctaSecondary": "See two examples",
+    "problems": {
+      "eyebrow": "Why people get in touch",
+      "title": "Three common situations",
+      "items": [
+        {
+          "q": "People can't find you on Google.",
+          "r": "Your opening hours, address and services are written where search engines read them. The site is fast and properly structured, which matters for ranking."
+        },
+        {
+          "q": "Bookings still come in by phone.",
+          "r": "A booking or appointment page takes requests for you, including outside opening hours."
+        },
+        {
+          "q": "Your site exists, but nobody dares touch it anymore.",
+          "r": "I take over the existing site, fix what no longer works and hand the texts and photos back to you."
+        }
+      ]
+    },
+    "proof": {
+      "eyebrow": "Two sample projects",
+      "title": "What it looks like in practice",
+      "note": "These two sites were built end to end to show the method. There is no client behind them.",
+      "cta": "See both projects in detail"
     },
     "process": {
       "eyebrow": "The method",
       "title": "Five steps, not one more",
-      "online": "Live",
       "steps": [
         {
           "title": "Listening",
-          "text": "A first conversation to understand your business, your goals and your constraints. No jargon, no commitment."
+          "text": "A first half-hour conversation to understand your business, your customers and what you are missing. Free, no commitment."
         },
         {
-          "title": "Architecture",
-          "text": "Technical choices, data model, page breakdown: foundations before walls."
+          "title": "Quote",
+          "text": "Together we settle the pages, the texts, the photos and who provides what. You receive a written quote that states what is included."
         },
         {
-          "title": "Development",
-          "text": "The code grows in small, visible steps: you follow progress on a private URL, not on promises."
+          "title": "Build",
+          "text": "The site is built in visible stages. You follow progress on a private address and react as it takes shape."
         },
         {
-          "title": "Testing",
-          "text": "Browsers, phones, slow networks, typing mistakes: what breaks here won't break on your side."
+          "title": "Checks",
+          "text": "Every page is tested on phones, on desktop, on a slow connection and with typing mistakes in the forms."
         },
         {
           "title": "Launch",
-          "text": "Deployment, domain name, backups — and a careful eye after delivery."
+          "text": "Domain name, hosting and backups are set up. I remain available after delivery."
         }
-      ],
-      "screens": {
-        "demande": [
-          "Take bookings online",
-          "Show the menu and opening hours",
-          "Be able to update it myself"
-        ],
-        "pages": [
-          "Home",
-          "Menu",
-          "Book",
-          "Find us"
-        ],
-        "formTitre": "Book a table",
-        "formDate": "Date",
-        "formDateValeur": "Sat 14",
-        "formHeure": "Time",
-        "formHeureValeur": "8:00 pm",
-        "formCouverts": "Guests",
-        "formCouvertsValeur": "4",
-        "formBouton": "Book",
-        "verifs": [
-          "On a phone",
-          "On a computer",
-          "When the network is slow"
-        ],
-        "adresse": "your-restaurant.com",
-        "enLigne": "Online"
+      ]
+    },
+    "contact": {
+      "title": "Describe your business and what you need.",
+      "text": "Three lines are enough to start. I reply within two working days.",
+      "button": "Write to Raf"
+    },
+    "marquee": [
+      {
+        "label": "Showcase websites",
+        "offer": "construire"
+      },
+      {
+        "label": "Online shops",
+        "offer": "construire"
+      },
+      {
+        "label": "Appointment booking",
+        "offer": "construire"
+      },
+      {
+        "label": "Reservations",
+        "offer": "construire"
+      },
+      {
+        "label": "Custom tools",
+        "offer": "outiller"
+      },
+      {
+        "label": "Client area",
+        "offer": "outiller"
+      },
+      {
+        "label": "Connected tools",
+        "offer": "relier"
+      },
+      {
+        "label": "Existing site takeover",
+        "offer": "reprendre"
+      },
+      {
+        "label": "Maintenance",
+        "offer": "reprendre"
       }
-    },
-    "work": {
-      "eyebrow": "Demonstrations",
-      "title": "Two demo builds, to show the method",
-      "cta": "All demonstrations"
-    },
-    "cta": {
-      "title": "A project, a question?",
-      "text": "A one-page brief or three lines in an email: everything starts with a message.",
-      "button": "Write to me"
-    }
+    ]
   },
   "services": {
     "eyebrow": "Services",
-    "title": "Web development, from need to launch",
-    "lede": "One craft: building websites and applications that load fast, last long and stay simple to evolve.",
+    "title": "What you can entrust to me",
+    "lede": "Four kinds of work, from a showcase website to taking over an existing site. For each one, what is included is written down.",
+    "includedLabel": "Included",
     "offers": [
       {
+        "id": "construire",
         "verb": "Build",
-        "title": "Full websites",
-        "text": "Brochure sites, e-commerce, portfolios: design, development, hosting and launch. A fast site, readable on every screen, that you can update yourself."
+        "title": "A website for your business",
+        "text": "Showcase site, online shop, reservations or appointment booking. I handle design, build and launch. You can then edit texts and photos yourself.",
+        "included": [
+          "Domain name and hosting set up",
+          "Readable on phones and desktop",
+          "Hands-on session for everyday updates",
+          "Follow-up after launch"
+        ]
       },
       {
+        "id": "outiller",
         "verb": "Equip",
-        "title": "Custom web applications",
-        "text": "Business tools, dashboards, client areas: when off-the-shelf software doesn't fit the way you work, I build the tool around it."
+        "title": "A tool that fits the way you work",
+        "text": "Scheduling, quotes, order tracking, client area. When off-the-shelf software doesn't match how you operate, I build the tool around your organisation.",
+        "included": [
+          "Hands-on session with you",
+          "Documentation of everyday tasks",
+          "Your data stays yours"
+        ]
       },
       {
+        "id": "relier",
         "verb": "Connect",
-        "title": "APIs & integrations",
-        "text": "Connecting your tools together, automating repetitive tasks, exposing your data cleanly — so information flows without retyping."
+        "title": "Your tools talking to each other",
+        "text": "The booking that fills the calendar, the order that produces the invoice. Information flows without retyping.",
+        "included": [
+          "Written diagram of what goes where",
+          "Every data exchange verified"
+        ]
       },
       {
-        "verb": "Repair",
-        "title": "Maintenance & takeover",
-        "text": "Audit of what exists, fixes, security updates, gradual modernisation: your site keeps living without starting over."
+        "id": "reprendre",
+        "verb": "Take over",
+        "title": "An existing site to put right",
+        "text": "Slow, broken or impossible to edit. I write up an assessment, fix what needs fixing and modernise without starting over.",
+        "included": [
+          "Written assessment before any work",
+          "Fixes prioritised with you"
+        ]
       }
     ],
-    "deliverables": {
-      "eyebrow": "Deliverables",
-      "title": "What you receive",
+    "pricing": {
+      "eyebrow": "Pricing",
+      "title": "How I quote",
       "items": [
-        "The complete source code — it belongs to you",
-        "A deployed site, domain name and hosting configured",
-        "Simple documentation for everyday updates",
-        "A single point of contact, during and after the project"
-      ]
+        "A first half-hour conversation, free of charge.",
+        "A written quote covering the whole project.",
+        "The quote states what is included and what is not."
+      ],
+      "faqQ": "How much does it cost?",
+      "faqA": "There is no public price list: a three-page site and an online shop do not cost the same. After a first conversation you receive a written quote, before any commitment."
     },
     "cta": {
-      "title": "Does your site deserve better?",
-      "text": "Tell me about your tool, your site or your idea — I'll tell you frankly what's possible, how long it takes, and for what budget.",
-      "button": "Talk about your project"
+      "title": "Have a project in mind?",
+      "text": "Describe your business and what you need. I tell you what is possible, in what timeframe, and send you a quote.",
+      "button": "Describe your project"
     }
   },
   "work": {
     "eyebrow": "Demonstrations",
-    "title": "Two demo builds, to show the method",
-    "lede": "None of these projects is a real client: they are two demonstrations built end to end — a brochure site and a business application — to show how I work rather than describe it.",
-    "challengeLabel": "The need",
-    "resultLabel": "What I deliver",
+    "title": "Two sample projects",
+    "lede": "These two sites were built end to end to show the method. There is no client behind them: your project will take their place.",
+    "needLabel": "The need",
+    "deliveredLabel": "What is delivered",
+    "note": "Sample projects built by R-X. No real client behind these screens.",
     "projects": [
       {
-        "name": "Brochure site",
-        "sector": "Ceramics workshop",
+        "id": "ceramique",
+        "name": "Showcase website with booking",
+        "sector": "Pottery studio",
+        "need": "Be found online, show the pieces and take workshop bookings, without depending on someone for every update.",
+        "delivered": "A fast site, editable without technical skills, with a booking page and careful search engine optimisation.",
         "tags": [
           "SEO",
           "Mobile",
           "Bookings"
-        ],
-        "challenge": "Being found on the web, showing the workshop, taking bookings — without depending on someone for every update.",
-        "result": "A fast, readable site the owner can update without technical skills, with built-in booking and careful SEO."
+        ]
       },
       {
-        "name": "Business application",
-        "sector": "HR team",
+        "id": "salon",
+        "name": "Online appointment booking",
+        "sector": "Hair salon",
+        "need": "Appointments taken without answering the phone mid-service, and an up-to-date calendar.",
+        "delivered": "Available slots online, a confirmation sent to the customer, a calendar that fills itself.",
         "tags": [
-          "Dashboard",
-          "Leave"
-        ],
-        "challenge": "Leave approved by email, reviews tracked across three spreadsheets: information gets lost and retyped.",
-        "result": "A dashboard that shows what needs a decision, and nothing else. Requests are approved in one click."
+          "Appointments",
+          "Email confirmation",
+          "Calendar"
+        ]
       }
     ],
-    "note": "Demonstrations built by R-X: no real client behind these screens. Your project will take their place here.",
-    "cta": {
-      "title": "Your project here?",
-      "text": "Tell me where it hurts: that's often how a good project begins.",
-      "button": "Contact me"
-    },
     "mockups": {
-      "vitrine": {
-        "fenetre": "atelier-gres.fr",
+      "ceramique": {
         "marque": "Atelier Grès",
         "menu": [
-          "Work",
-          "Classes",
+          "Pieces",
+          "Workshops",
           "Contact"
         ],
         "titre": "Wood-fired ceramics",
-        "lede": "One-of-a-kind pieces, thrown by hand",
-        "action": "Book a class",
-        "cartes": [
-          "Bowls",
-          "Vases",
-          "Classes"
-        ]
+        "sousTitre": "One-off pieces, thrown by hand",
+        "action": "Book a workshop"
       },
-      "metier": {
-        "fenetre": "effectif — HR workspace",
-        "titre": "Leave requests",
-        "badge": "3 pending",
-        "lignes": [
-          [
-            "Camille R.",
-            "24–28 Aug"
-          ],
-          [
-            "Yanis B.",
-            "2–6 Sept"
-          ],
-          [
-            "Léa M.",
-            "15 Sept"
-          ]
+      "salon": {
+        "marque": "Salon Marguerite",
+        "titre": "Book an appointment",
+        "jour": "Tuesday 14",
+        "creneaux": [
+          "9:30",
+          "10:30",
+          "11:30",
+          "2:00",
+          "3:00",
+          "4:30"
         ],
-        "valide": "Approved",
-        "action": "Approve all"
+        "pris": "Taken",
+        "action": "Confirm 10:30"
       }
     },
-    "essayer": "Try the demo"
-  },
-  "demo": {
-    "eyebrow": "Playable demo",
-    "title": "effectif — the HR space",
-    "lede": "The business application from the Work page, for real. Approve a request, book time off, schedule a review: everything responds.",
-    "fenetre": "effectif — HR space",
-    "bacASable": "Sandbox: the people are fictional, everything happens in your browser, nothing is sent or kept. Reload the page and it all starts over.",
-    "chargement": "Opening the space…",
-    "sansJs": "This demo needs JavaScript to run. The rest of the site does perfectly well without it.",
-    "roleLabel": "You are",
-    "roles": {
-      "salarie": "Employee",
-      "manager": "Manager"
-    },
-    "reinitialiser": "Reset",
-    "onglets": {
-      "tableau": "Dashboard",
-      "conges": "Time off",
-      "entretiens": "Reviews"
-    },
-    "services": {
-      "atelier": "Workshop",
-      "commercial": "Sales",
-      "comptabilite": "Accounting"
-    },
-    "motifs": {
-      "payes": "Paid leave",
-      "rtt": "Time in lieu",
-      "sansSolde": "Unpaid leave",
-      "familial": "Family event"
-    },
-    "typesEntretien": {
-      "annuel": "Annual review",
-      "professionnel": "Career review",
-      "arrivee": "Onboarding check-in"
-    },
-    "statuts": {
-      "attente": "Pending",
-      "validee": "Approved",
-      "refusee": "Declined",
-      "aPlanifier": "To schedule",
-      "planifie": "Scheduled",
-      "fait": "Done"
-    },
-    "tableau": {
-      "titre": "What needs a decision",
-      "rien": "Nothing needs a decision. That is exactly the point.",
-      "demandes": "{n, plural, =0 {No time-off requests} one {# time-off request} other {# time-off requests}}",
-      "entretiens": "{n, plural, =0 {No reviews to schedule} one {# review to schedule} other {# reviews to schedule}}",
-      "traiter": "Handle",
-      "absentsTitre": "Away today",
-      "absentsVide": "Nobody is away today.",
-      "equipeTitre": "The team"
-    },
-    "conges": {
-      "soldeTitre": "Your balance",
-      "soldeSur": "out of {total} days a year",
-      "jours": "{n, plural, one {# working day} other {# working days}}",
-      "demanderTitre": "Book time off",
-      "debut": "From",
-      "fin": "To",
-      "motif": "Reason",
-      "envoyer": "Send request",
-      "fileTitre": "Requests to handle",
-      "fileVide": "No pending requests. The queue is empty.",
-      "mesTitre": "My requests",
-      "mesVide": "You have not asked for anything yet.",
-      "historiqueTitre": "Team history",
-      "valider": "Approve",
-      "refuser": "Decline",
-      "erreurVide": "Pick a start date and an end date.",
-      "erreurOrdre": "The end date must come after the start date.",
-      "erreurOuvres": "That range has no working day in it: it is a weekend.",
-      "erreurSolde": "You do not have enough days left."
-    },
-    "entretiens": {
-      "titre": "Reviews",
-      "planifier": "Schedule",
-      "cloturer": "Mark as done",
-      "choisirDate": "Review date",
-      "vide": "No reviews."
-    },
-    "fil": {
-      "ouverture": "You manage a team of four. {n, plural, one {# thing is} other {# things are}} waiting on you: open the {conges} tab.",
-      "congesManager": "Each request is a single line. It is all settled here: {valider}, or {refuser}. Nothing to fill in.",
-      "valider": "Approved. {n, plural, =0 {The queue is empty} one {# request is still pending} other {# requests are still pending}}, and the tab counter has already noticed.",
-      "refuser": "Declined. The line leaves the queue and goes into the team history just below. Nothing is lost.",
-      "essayezSalarie": "You have just decided for somebody else. Switch to {salarie} to see the same application from the requester's side.",
-      "roleSalarie": "Same application, different rights: in the {conges} tab you now only see your own balance and your own requests.",
-      "congesSalarie": "Your balance is on the left, up to date. Two dates, a reason, then {envoyer}.",
-      "demander": "Request sent. Your balance will not move until it is approved: switch back to {manager} to watch it land in the queue.",
-      "roleManager": "Back on the manager side: the queue shows the whole team's requests, and you get to decide.",
-      "essayezEntretiens": "Time off is not everything. The {entretiens} tab lists what still has no date.",
-      "entretiens": "{n, plural, one {# review needs a date} other {# reviews need a date}}, and nobody else can set one. Any date will do, then {planifier}.",
-      "planifier": "Review set for {date} — it flips to “Scheduled” and drops off the list of what needs a decision.",
-      "cloturer": "Marked as done. The review stays in the list with its date: nothing is erased, everything can be read back.",
-      "reinitialise": "Demo reset. The dates are recomputed from today, exactly as on first load.",
-      "fin": "Nothing needs a decision any more. That is exactly the point: a tool that shows only what does.",
-      "finLien": "Let's talk about yours.",
-      "neutre": "effectif — everything happens in your browser, nothing leaves it.",
-      "masquer": "Hide",
-      "masquerLong": "Hide the guide",
-      "afficher": "Guide",
-      "afficherLong": "Show the guide"
+    "cta": {
+      "title": "Your project in their place?",
+      "text": "Describe your business. I reply within two working days.",
+      "button": "Write to Raf"
     }
   },
   "about": {
     "eyebrow": "About",
     "title": "A developer, not an agency",
-    "lede": "R-X is an independent web developer: the person who listens to your needs is the one who writes the code. No middle layer, no signal loss.",
-    "storyTitle": "End to end, on purpose",
-    "story1": "I handle the whole cycle: understanding the need, choosing the tech, building, testing, launching, maintaining. You only explain your project once — decisions come faster, answers come straighter.",
-    "story2": "I believe in restrained code. Few dependencies, justified technical choices, pages that load fast: every line earns its place by serving the project, or it goes. Demanding to write, restful to use — and far simpler to maintain.",
-    "valuesEyebrow": "What I believe",
-    "valuesTitle": "Three rules, zero exceptions",
-    "values": [
-      {
-        "title": "Restraint",
-        "text": "Every added dependency is a debt. I code what serves, and remove what weighs things down."
-      },
-      {
-        "title": "Rigour",
-        "text": "Versioned code, automated tests, backups: nothing goes live without being checked."
-      },
-      {
-        "title": "Transparency",
-        "text": "Clear quotes, deadlines kept — and the truth when something gets stuck."
-      }
-    ],
+    "lede": "My name is Raf. I am an independent web developer based in the Gers, in south-west France. The person reading your message is the one who builds your site.",
+    "who": {
+      "title": "How I work",
+      "p1": "I take care of the whole project: understanding the need, choosing the technology, building, checking, launching and maintaining. You explain your project once, decisions are quick and answers are direct.",
+      "p2": "I favour sites that are simple to maintain: few external components, justified technical choices, pages that load fast. More work at the start, far fewer problems later."
+    },
+    "facts": {
+      "title": "In brief",
+      "items": [
+        {
+          "label": "First name",
+          "value": "Raf"
+        },
+        {
+          "label": "Region",
+          "value": "Gers, Occitanie (France)"
+        },
+        {
+          "label": "Active",
+          "value": "Since 2026"
+        },
+        {
+          "label": "Languages",
+          "value": "French, English"
+        },
+        {
+          "label": "Reply",
+          "value": "Within two working days"
+        }
+      ]
+    },
+    "how": {
+      "title": "How a project unfolds",
+      "youLabel": "You",
+      "meLabel": "Me",
+      "steps": [
+        {
+          "quand": "Week 1",
+          "moi": "I listen, scope and quote.",
+          "client": "You describe your business and your need."
+        },
+        {
+          "quand": "Weeks 2 to 3",
+          "moi": "Site structure and first pages.",
+          "client": "You follow progress on a private address."
+        },
+        {
+          "quand": "Weeks 4 to 6",
+          "moi": "Build, checks, content in place.",
+          "client": "You try the site and report what is wrong."
+        },
+        {
+          "quand": "Final week",
+          "moi": "Launch and handover.",
+          "client": "You receive the access details and the site's code."
+        }
+      ]
+    },
+    "principles": {
+      "title": "Three commitments",
+      "items": [
+        {
+          "title": "Restraint",
+          "text": "Every component added must serve the project. Whatever adds weight without purpose is removed."
+        },
+        {
+          "title": "Verification",
+          "text": "Every page is checked on phones, on desktop and on a slow connection before going live. The code is versioned and backed up."
+        },
+        {
+          "title": "Transparency",
+          "text": "A written quote before starting, and immediate notice if anything changes the schedule."
+        }
+      ]
+    },
     "cta": {
-      "title": "Want a technical look at your site?",
-      "text": "Send me a URL, and I'll tell you what I see: speed, security, things worth fixing.",
-      "button": "Write to me"
-    },
-    "card": {
-      "title": "At a glance",
-      "basedLabel": "Based in",
-      "basedValue": "France · remote",
-      "sinceLabel": "Since",
-      "sinceValue": "2026",
-      "langLabel": "Languages",
-      "langValue": "FR · EN",
-      "availability": "Available for new projects"
-    },
-    "figuresTitle": "In numbers",
-    "figures": [
-      {
-        "chiffre": "48 h",
-        "libelle": "to get back to you, at most"
-      },
-      {
-        "chiffre": "2",
-        "libelle": "working languages: FR and EN"
-      },
-      {
-        "chiffre": "0",
-        "libelle": "cookies, trackers or analytics"
-      }
-    ],
-    "toolsTitle": "The workshop",
-    "tools": [
-      "TypeScript",
-      "React & Next.js",
-      "Node.js",
-      "Git",
-      "Automated testing",
-      "WCAG / RGAA accessibility"
-    ],
-    "timelineTitle": "How a project unfolds",
-    "timeline": [
-      {
-        "quand": "Week 1",
-        "moi": "I listen, scope and quote.",
-        "client": "You tell me about your business."
-      },
-      {
-        "quand": "Weeks 2–3",
-        "moi": "Architecture and first pages.",
-        "client": "You follow along on a private URL."
-      },
-      {
-        "quand": "Weeks 4–6",
-        "moi": "Development, testing, content.",
-        "client": "You try it and flag what feels off."
-      },
-      {
-        "quand": "Final week",
-        "moi": "Launch and handover.",
-        "client": "You get the keys — and the code."
-      }
-    ],
-    "timelineYou": "you"
+      "title": "A question about your current site?",
+      "text": "Send me its address. I tell you what I see: speed, readability, what needs attention.",
+      "button": "Write to Raf"
+    }
   },
   "contact": {
     "eyebrow": "Contact",
     "title": "Let's talk about your project",
-    "lede": "A one-page brief or three lines in an email: everything starts with a message.",
+    "lede": "Describe your business and what you need. Three lines are enough to start.",
     "form": {
       "nom": "Your name",
       "email": "Your email",
       "message": "Your message",
-      "messageIndice": "Three lines are enough: what you want to build, and by when.",
-      "envoyer": "Send message",
+      "messageIndice": "Your business, what you want to build, and by when.",
+      "envoyer": "Send the message",
       "envoiEnCours": "Sending…",
       "promesse": "Reply within two working days.",
       "piege": "Leave this field empty",
       "merciTitre": "Message sent",
-      "merciTexte": "Thank you. I'll reply within two working days, to the address you just gave me.",
+      "merciTexte": "Thank you. I will reply within two working days, to the address you just gave.",
       "recu": "handed to the mail server in {ms} ms",
       "erreurs": {
-        "nomVide": "Please tell me your name.",
-        "nomLong": "That name is longer than 80 characters.",
-        "emailVide": "Please give me an email, otherwise I have no way to reply.",
-        "emailInvalide": "That address doesn't look like an email.",
-        "messageCourt": "That's a little short: twenty characters minimum.",
-        "messageLong": "That's too long: 4,000 characters maximum.",
-        "trop": "You've just sent several messages. Try again in a few minutes.",
+        "nomVide": "Please enter your name.",
+        "nomLong": "This name exceeds 80 characters.",
+        "emailVide": "Please enter your email, otherwise I cannot reply.",
+        "emailInvalide": "This doesn't look like an email address.",
+        "messageCourt": "The message is a little short: twenty characters minimum.",
+        "messageLong": "The message is too long: 4,000 characters maximum.",
+        "trop": "You have just sent several messages. Try again in a few minutes.",
         "envoi": "Sending failed. Write to me directly at the address below.",
         "indisponible": "The form is temporarily unavailable. Write to me directly at the address below."
       }
     },
-    "autre": "Or, if you prefer your own mail app",
-    "emailLabel": "Write to me",
-    "copy": "Copy address",
-    "copied": "Address copied!",
-    "recuCopie": "address rebuilt in your browser · absent from the page source",
-    "mailto": "Open your email app",
+    "autre": "Or from your own email client",
+    "emailLabel": "Address",
+    "copy": "Copy the address",
+    "copied": "Address copied",
+    "recuCopie": "address assembled in your browser · absent from the page's code",
+    "mailto": "Open your email client",
     "reply": "Reply within two working days.",
     "faqTitle": "Frequently asked questions",
     "faq": [
       {
         "q": "How does a project start?",
-        "a": "With a free thirty-minute video call. You talk, I ask questions — then I send you a written proposal, clear and without surprises."
+        "a": "With a free conversation of about thirty minutes, by phone or video call. You describe your business and your need, then I send you a written proposal."
+      },
+      {
+        "q": "How much does it cost?",
+        "a": "There is no public price list: a three-page site and an online shop do not cost the same. After a first conversation you receive a written quote, before any commitment."
+      },
+      {
+        "q": "What are the timelines?",
+        "a": "Two to eight weeks depending on the scope. The timeline is stated in the proposal. If something unexpected changes the schedule, you are informed immediately."
+      },
+      {
+        "q": "Who provides the texts and photos?",
+        "a": "You, as a rule: nobody knows your business better than you. I proofread the texts and tell you what is missing. If you have no photos, we discuss it from the start."
       },
       {
         "q": "Do you work remotely?",
-        "a": "Yes, entirely. Regular video check-ins and a demo version available at all times: you watch the site move forward instead of waiting for a grand final reveal."
+        "a": "Yes. I am based in the Gers and work with clients across France and beyond. Regular video calls and a demo version available at all times."
       },
       {
-        "q": "What are your lead times?",
-        "a": "Two to eight weeks depending on scope. The timeline is stated in the proposal, and if something unexpected shifts it, you hear about it right away."
+        "q": "What happens after launch?",
+        "a": "You receive the access details and the site's code, with a hands-on session for everyday updates. Ongoing maintenance can be quoted separately."
       }
     ]
   },
@@ -500,7 +429,7 @@
     "title": "Legal notice",
     "editor": {
       "title": "Site publisher",
-      "text": "R-X — [Company name to complete]\n[Legal form, share capital]\n[Registered office address]\n[SIRET number]\nPublication director: [To complete]"
+      "text": "This site is published by Raf, independent web developer based in the Gers, France.\nThe business identification details (company name, legal form, SIRET number, address) are being registered and will be published on this page as soon as they are available.\nPublication director: Raf."
     },
     "host": {
       "title": "Hosting",
@@ -517,37 +446,30 @@
     "contactLabel": "Contact:"
   },
   "footer": {
-    "tagline": "Independent web developer — fast, dependable websites, built to last.",
+    "tagline": "Websites for shops, restaurants and tradespeople.",
+    "who": "Raf · independent web developer · Gers, France",
     "navTitle": "Navigation",
     "contactTitle": "Contact",
+    "langTitle": "Language",
     "legal": "Legal notice",
     "rights": "All rights reserved.",
+    "noCookie": "No cookies, no trackers.",
+    "marqueeLabel": "What I build",
     "marqueePause": "Pause the ticker",
     "marqueeLecture": "Resume the ticker"
   },
   "notFound": {
     "title": "Page not found",
-    "text": "This page doesn't exist — or not anymore. Good websites start with good routes; this one returns a 404.",
-    "back": "Back to home"
+    "text": "This address does not match any page on the site.",
+    "back": "Back to the home page"
   },
   "cookies": {
     "title": "No cookies here",
-    "text": "This site sets no cookies, no trackers, no analytics. Only the dismissal of this notice is stored on your device.",
+    "text": "This site sets no cookies, no trackers, no analytics. Only the closing of this banner is remembered on your device.",
     "button": "Got it",
     "more": "Legal notice"
   },
   "a11y": {
     "skip": "Skip to content"
-  },
-  "secret": {
-    "wireframe": "Wireframe mode",
-    "inspection": "Inspect mode",
-    "retro": "1988 mode",
-    "sortie": "{touche} or Esc to exit",
-    "sortieEchap": "Esc to exit",
-    "couper": "Disable shortcuts",
-    "consoleTitre": "R-X · web development",
-    "consoleTexte": "In the trade? Try the W and I keys. And if you know the old controller code… Write to me: the address is on the contact page.",
-    "consoleReactiver": "Shortcuts disabled. To bring them back: localStorage.removeItem(\"{cle}\") then reload."
   }
 }

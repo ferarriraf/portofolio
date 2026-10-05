@@ -8,13 +8,13 @@ export function generateStaticParams() {
 
 /**
  * La carte de partage (réseaux sociaux, messageries), dessinée au
- * build dans la palette du site — une par langue, à une adresse
- * stable et sans redirection : /og/fr et /og/en.
+ * build dans la matière du hero : encre, la phrase, le mot qui luit.
+ * Une par langue, à une adresse stable : /og/fr et /og/en.
+ *
+ * Le moteur d'image ne lit pas les woff2 du site : la police de secours
+ * est une sans-serif système. Les textes sont ceux de l'accueil.
  */
-export async function GET(
-  _req: Request,
-  { params }: { params: Promise<{ locale: string }> }
-) {
+export async function GET(_req: Request, { params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   const fr = locale !== "en";
 
@@ -27,43 +27,34 @@ export async function GET(
           display: "flex",
           flexDirection: "column",
           justifyContent: "space-between",
-          background: "#f6f1e6",
+          background: "#24291f",
+          color: "#f6f1e6",
           padding: 72,
           fontFamily: "sans-serif",
         }}
       >
-        <div style={{ display: "flex", alignItems: "center", gap: 18 }}>
-          <div
-            style={{
-              width: 14,
-              height: 14,
-              borderRadius: 999,
-              background: "#6e8a62",
-            }}
-          />
-          <div style={{ fontSize: 28, color: "#5c6353", letterSpacing: 2 }}>
-            www.r-x.fr
+        <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between" }}>
+          <div style={{ display: "flex", fontSize: 54, fontWeight: 800, letterSpacing: -3 }}>
+            R<span style={{ color: "#d95f2e" }}>-</span>X
+          </div>
+          <div style={{ fontSize: 24, color: "#a9bfa0", letterSpacing: 3 }}>
+            {fr ? "DÉVELOPPEUR WEB INDÉPENDANT · GERS" : "INDEPENDENT WEB DEVELOPER · GERS, FRANCE"}
           </div>
         </div>
 
         <div style={{ display: "flex", flexDirection: "column" }}>
-          <div style={{ display: "flex", fontSize: 130, fontWeight: 700, color: "#2e3428" }}>
-            R<span style={{ color: "#d95f2e" }}>-</span>X
+          <div style={{ display: "flex", fontSize: 64, fontWeight: 700, lineHeight: 1.05, letterSpacing: -2 }}>
+            {fr ? "Un bon site ne se fait pas remarquer." : "A good website doesn't draw attention to itself."}
           </div>
-          <div style={{ display: "flex", fontSize: 44, color: "#2e3428", marginTop: 8 }}>
-            {fr
-              ? "Développeur web fullstack"
-              : "Fullstack web developer"}
-          </div>
-          <div style={{ display: "flex", fontSize: 30, color: "#5c6353", marginTop: 14 }}>
-            {fr ? "Le web, bien construit." : "The web, built right."}
+          <div style={{ display: "flex", fontSize: 64, fontWeight: 700, lineHeight: 1.05, letterSpacing: -2, color: "#dfa184" }}>
+            {fr ? "Il fait son travail." : "It does its job."}
           </div>
         </div>
 
-        <div style={{ display: "flex", gap: 10 }}>
-          <div style={{ flex: 3, height: 16, borderRadius: 999, background: "#d95f2e", display: "flex" }} />
-          <div style={{ flex: 2, height: 16, borderRadius: 999, background: "#a9bfa0", display: "flex" }} />
-          <div style={{ flex: 1, height: 16, borderRadius: 999, background: "#24291f", display: "flex" }} />
+        <div style={{ display: "flex", fontSize: 26, color: "rgba(246,241,230,0.72)" }}>
+          {fr
+            ? "Sites web pour les commerces, les restaurants et les artisans · www.r-x.fr"
+            : "Websites for shops, restaurants and tradespeople · www.r-x.fr"}
         </div>
       </div>
     ),

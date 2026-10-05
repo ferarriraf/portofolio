@@ -1,12 +1,8 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { PlayCircle } from "lucide-react";
-import { Link } from "@/i18n/navigation";
 import PageHeader from "@/components/PageHeader";
-import Reveal from "@/components/Reveal";
-import CtaBand from "@/components/CtaBand";
-import CaseMockup, { type MockupTextes } from "@/components/CaseMockup";
-import DemoWindow from "@/components/DemoWindow";
+import ContactBand from "@/components/ContactBand";
+import Apercu, { type MockupTextes } from "@/components/Apercu";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -16,7 +12,14 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata(locale, "work", "/realisations");
 }
 
-const coverVariants = ["vitrine", "metier"] as const;
+type Projet = {
+  id: keyof MockupTextes;
+  name: string;
+  sector: string;
+  need: string;
+  delivered: string;
+  tags: string[];
+};
 
 export default async function WorkPage({ params }: Props) {
   const { locale } = await params;
@@ -24,93 +27,49 @@ export default async function WorkPage({ params }: Props) {
   const t = await getTranslations("work");
 
   const mockups = t.raw("mockups") as MockupTextes;
-  const projects = t.raw("projects") as {
-    name: string;
-    sector: string;
-    tags: string[];
-    challenge: string;
-    result: string;
-  }[];
+  const projects = t.raw("projects") as Projet[];
 
   return (
     <>
       <PageHeader eyebrow={t("eyebrow")} title={t("title")} lede={t("lede")} />
 
-      <section className="container-site space-y-20 pb-16 md:space-y-28">
-        {projects.map((p, i) => (
-          <Reveal key={p.name}>
-            <article className="grid items-center gap-8 lg:grid-cols-2 lg:gap-14">
-              {/* La démo, montée dans son moniteur */}
-              <Reveal
-                variant="mask"
-                className={i % 2 === 1 ? "lg:order-2" : ""}
-              >
-                <DemoWindow titre={mockups[coverVariants[i]].fenetre}>
-                  <CaseMockup variant={coverVariants[i]} textes={mockups} />
-                </DemoWindow>
-              </Reveal>
+      <section className="container-site pb-16 md:pb-24">
+        <ol className="filets filets-forts">
+          {projects.map((p, i) => (
+            <li key={p.id} className="grid items-center gap-8 py-10 md:grid-cols-2 md:gap-14 md:py-14">
+              <div className={i % 2 === 1 ? "md:order-2" : ""}>
+                <Apercu variant={p.id} textes={mockups} />
+              </div>
               <div>
-                <p className="text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">
-                  {p.sector}
-                </p>
-                <h2 className="mt-3 font-display text-3xl font-bold tracking-tight text-ink md:text-4xl">
-                  {p.name}
-                </h2>
-                <ul className="mt-4 flex flex-wrap gap-2">
+                <p className="eyebrow">{p.sector}</p>
+                <h2 className="titre-2 mt-3 text-ink">{p.name}</h2>
+                <ul className="mt-4 flex flex-wrap gap-x-4 gap-y-1 text-sm text-ink-soft">
                   {p.tags.map((tag) => (
-                    <li
-                      key={tag}
-                      className="rounded-full border border-line bg-sand-card px-3 py-1 text-xs font-medium text-ink-soft inset-shadow-cisele"
-                    >
+                    <li key={tag} className="flex items-center gap-2">
+                      <span aria-hidden="true" className="size-1.5 rounded-full bg-sage-strong" />
                       {tag}
                     </li>
                   ))}
                 </ul>
-                <dl className="mt-7 space-y-6">
+                <dl className="mt-7 space-y-5">
                   <div>
-                    <dt className="text-xs font-semibold uppercase tracking-[0.16em] text-terra-deep">
-                      {t("challengeLabel")}
-                    </dt>
-                    <dd className="mt-2 leading-relaxed text-ink-soft">
-                      {p.challenge}
-                    </dd>
+                    <dt className="text-sm font-semibold text-ink">{t("needLabel")}</dt>
+                    <dd className="mt-1.5 text-ink-soft">{p.need}</dd>
                   </div>
                   <div>
-                    <dt className="text-xs font-semibold uppercase tracking-[0.16em] text-sage-deep">
-                      {t("resultLabel")}
-                    </dt>
-                    <dd className="mt-2 leading-relaxed text-ink-soft">
-                      {p.result}
-                    </dd>
+                    <dt className="text-sm font-semibold text-ink">{t("deliveredLabel")}</dt>
+                    <dd className="mt-1.5 text-ink-soft">{p.delivered}</dd>
                   </div>
                 </dl>
-                {/* L'application métier n'est plus une capture : elle
-                    s'ouvre et elle répond. */}
-                {coverVariants[i] === "metier" && (
-                  <Link href="/demo" className="btn btn-primary mt-7">
-                    <PlayCircle className="size-4" aria-hidden="true" />
-                    {t("essayer")}
-                  </Link>
-                )}
               </div>
-            </article>
-          </Reveal>
-        ))}
-        <p className="flex items-start gap-2.5 rounded-2xl bg-sand-deep px-5 py-4 text-sm text-ink-soft inset-shadow-cisele">
-          <span
-            aria-hidden="true"
-            className="mt-1.5 inline-block size-1.5 shrink-0 rounded-full bg-terra-hot"
-          />
-          {t("note")}
-        </p>
+            </li>
+          ))}
+        </ol>
+        <p className="mt-6 max-w-xl border-l-2 border-terra pl-4 text-sm text-ink-soft">{t("note")}</p>
       </section>
 
-      <div className="pt-8">
-        <CtaBand
-          title={t("cta.title")}
-          text={t("cta.text")}
-          buttonLabel={t("cta.button")}
-        />
+      <div className="pb-16 md:pb-24">
+        <ContactBand title={t("cta.title")} text={t("cta.text")} buttonLabel={t("cta.button")} />
       </div>
     </>
   );

@@ -68,7 +68,7 @@ export default function ContactForm() {
         initial={reduire ? false : { opacity: 0, y: 8 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.45, ease: [0.22, 1, 0.36, 1] }}
-        className="rounded-3xl border border-sage bg-sage-wash px-8 py-14 text-center inset-shadow-cisele md:py-16"
+        className="rounded-xl border border-sage bg-sage-wash px-8 py-14 text-center inset-shadow-cisele md:py-16"
       >
         <span className="inline-flex size-12 items-center justify-center rounded-full bg-sage-deep">
           <Check className="size-6 text-sand-card" aria-hidden="true" />
@@ -123,7 +123,7 @@ export default function ContactForm() {
     <form
       action={action}
       noValidate
-      className="rounded-3xl border border-line bg-sand-card px-6 py-8 shadow-elev-1 inset-shadow-cisele md:px-10 md:py-10"
+      className="rounded-xl border border-line bg-sand-card px-6 py-8 shadow-elev-1 inset-shadow-cisele md:px-10 md:py-10"
     >
       {/* Champ-piège : hors de l'écran, hors du parcours clavier, hors
           de l'arbre d'accessibilité. Un humain ne le voit jamais ;

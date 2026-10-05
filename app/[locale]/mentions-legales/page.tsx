@@ -1,7 +1,6 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
 import PageHeader from "@/components/PageHeader";
-import Reveal from "@/components/Reveal";
 import MailLink from "@/components/MailLink";
 import { pageMetadata } from "@/lib/seo";
 
@@ -22,25 +21,22 @@ export default async function LegalPage({ params }: Props) {
   return (
     <>
       <PageHeader eyebrow="r-x.fr" title={t("title")} />
-      <section className="container-site pb-28">
-        <div className="max-w-3xl space-y-10">
+      <section className="container-site pb-16 md:pb-24">
+        <dl className="filets filets-forts max-w-3xl">
           {sections.map((key) => (
-            <Reveal key={key}>
-              <h2 className="font-display text-xl font-bold text-ink">
-                {t(`${key}.title`)}
-              </h2>
-              <p className="mt-3 leading-relaxed whitespace-pre-line text-ink-soft">
+            <div key={key} className="grid gap-x-10 gap-y-2 border-t-2 border-ink py-7 md:grid-cols-[14rem_1fr]">
+              <dt className="titre-3 text-ink">{t(`${key}.title`)}</dt>
+              <dd className="whitespace-pre-line text-ink-soft">
                 {t(`${key}.text`)}
-              </p>
-              {key === "editor" && (
-                <p className="mt-2 leading-relaxed text-ink-soft">
-                  {t("contactLabel")}{" "}
-                  <MailLink className="underline underline-offset-2 hover:text-ink" />
-                </p>
-              )}
-            </Reveal>
+                {key === "editor" && (
+                  <p className="mt-2">
+                    {t("contactLabel")} <MailLink className="underline underline-offset-4 hover:text-ink" />
+                  </p>
+                )}
+              </dd>
+            </div>
           ))}
-        </div>
+        </dl>
       </section>
     </>
   );

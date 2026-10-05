@@ -6,10 +6,7 @@ import { getTranslations, setRequestLocale } from "next-intl/server";
 import { routing } from "@/i18n/routing";
 import Topbar from "@/components/Topbar";
 import Footer from "@/components/Footer";
-import BootScreen from "@/components/BootScreen";
 import CookieNotice from "@/components/CookieNotice";
-import SecretModes from "@/components/SecretModes";
-import NoContextMenu from "@/components/NoContextMenu";
 import "../globals.css";
 
 const display = localFont({
@@ -83,7 +80,7 @@ export default async function LocaleLayout({
   const tm = await getTranslations("meta");
 
   // Données structurées : uniquement des faits vérifiables — pas de
-  // notes fabriquées, pas d'email (masqué aux robots par choix)
+  // notes fabriquées, pas d'email (masqué aux robots par choix).
   const jsonLd = {
     "@context": "https://schema.org",
     "@graph": [
@@ -93,8 +90,10 @@ export default async function LocaleLayout({
         name: "R-X",
         description: tm("home.description"),
         url: "https://www.r-x.fr",
-        logo: "https://www.r-x.fr/og/fr",
+        image: "https://www.r-x.fr/og/fr",
         foundingDate: "2026",
+        founder: { "@type": "Person", name: "Raf" },
+        address: { "@type": "PostalAddress", addressRegion: "Gers", addressCountry: "FR" },
         areaServed: "FR",
         knowsLanguage: ["fr", "en"],
       },
@@ -114,44 +113,31 @@ export default async function LocaleLayout({
       lang={locale}
       /* Next a besoin de savoir que le défilement doux vient du CSS :
          sans cet attribut, il remonte la page en la faisant DÉFILER à
-         chaque navigation — on voyait tout le site repasser à l'envers
-         en changeant de langue. Avec, le retour en haut est instantané,
-         et les ancres gardent leur défilement doux. */
+         chaque navigation. */
       data-scroll-behavior="smooth"
       className={`${display.variable} ${bodyFont.variable} antialiased`}
     >
       <body className="flex min-h-dvh flex-col overflow-x-clip">
-        <script
-          type="application/ld+json"
-          dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
-        />
+        <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }} />
 
-        {/* Filet de sécurité : le HTML servi est complet, mais trois
-            couches le masquent en attendant que React prenne la main —
-            l'écran d'ouverture, l'entrée de page et les blocs dévoilés
-            au défilement. Sans JavaScript, personne ne les lève. Ces
-            deux règles rendent le site lisible tel quel. La CSP autorise
-            les styles en ligne, c'est donc sans effet de bord. */}
+        {/* Sans JavaScript, l'entrée de page reste lisible : l'animation
+            CSS tourne de toute façon, cette règle est une sécurité. */}
         <noscript>
-          <style>{`.ecran-boot{display:none!important}[data-entree]{opacity:1!important;transform:none!important;clip-path:none!important}[data-voile]{opacity:0!important}`}</style>
+          <style>{`[data-entree]{opacity:1!important;animation:none!important}`}</style>
         </noscript>
         <NextIntlClientProvider>
-          {/* Premier arrêt du clavier : sauter la navigation */}
           <a
             href="#contenu"
             className="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[130] focus:rounded-full focus:bg-ink-deep focus:px-5 focus:py-2.5 focus:text-sm focus:font-semibold focus:text-sand"
           >
             {t("skip")}
           </a>
-          <BootScreen />
           <Topbar />
           <main id="contenu" tabIndex={-1} className="flex-1 outline-none">
             {children}
           </main>
           <Footer />
           <CookieNotice />
-          <SecretModes />
-          <NoContextMenu />
         </NextIntlClientProvider>
       </body>
     </html>

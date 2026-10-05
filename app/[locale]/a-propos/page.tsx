@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
 import { getTranslations, setRequestLocale } from "next-intl/server";
-import { Feather, Handshake, Ruler } from "lucide-react";
 import PageHeader from "@/components/PageHeader";
-import Reveal from "@/components/Reveal";
-import StudioCard from "@/components/StudioCard";
-import ProjectTimeline from "@/components/ProjectTimeline";
-import SectionLabel from "@/components/SectionLabel";
-import CtaBand from "@/components/CtaBand";
+import ContactBand from "@/components/ContactBand";
 import { pageMetadata } from "@/lib/seo";
 
 type Props = { params: Promise<{ locale: string }> };
@@ -16,140 +11,79 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   return pageMetadata(locale, "about", "/a-propos");
 }
 
-const valueIcons = [Feather, Ruler, Handshake];
-
 export default async function AboutPage({ params }: Props) {
   const { locale } = await params;
   setRequestLocale(locale);
   const t = await getTranslations("about");
 
-  const values = t.raw("values") as { title: string; text: string }[];
-  const figures = t.raw("figures") as {
-    chiffre: string;
-    libelle: string;
-  }[];
-  const tools = t.raw("tools") as string[];
-  const timeline = t.raw("timeline") as {
-    quand: string;
-    moi: string;
-    client: string;
-  }[];
+  const facts = t.raw("facts.items") as { label: string; value: string }[];
+  const steps = t.raw("how.steps") as { quand: string; moi: string; client: string }[];
+  const principles = t.raw("principles.items") as { title: string; text: string }[];
 
   return (
     <>
       <PageHeader eyebrow={t("eyebrow")} title={t("title")} lede={t("lede")} />
 
-      {/* ——— Histoire + carte « radiographie » ——— */}
-      <section className="container-site grid items-center gap-10 pb-24 lg:grid-cols-[1.1fr_0.9fr] lg:gap-16">
-        <Reveal>
-          <h2 className="font-display text-3xl font-bold tracking-tight text-ink md:text-4xl">
-            {t("storyTitle")}
-          </h2>
-          <p className="mt-6 leading-relaxed text-ink-soft">{t("story1")}</p>
-          <p className="mt-4 leading-relaxed text-ink-soft">{t("story2")}</p>
-        </Reveal>
-
-        <Reveal delay={0.1}>
-          {/* Les faits du studio, et l'heure qui tourne */}
-          <StudioCard />
-        </Reveal>
-      </section>
-
-      {/* ——— Les chiffres et l'atelier ——— */}
-      <section className="bande-calque-claire border-y border-line bg-sand-deep">
-        <div className="container-site grid gap-12 py-16 md:py-20 lg:grid-cols-[1.15fr_0.85fr] lg:gap-16">
-          <div>
-            <Reveal>
-              <SectionLabel>{t("figuresTitle")}</SectionLabel>
-            </Reveal>
-            <dl className="mt-8 grid gap-8 sm:grid-cols-3">
-              {figures.map((f, i) => (
-                <Reveal key={f.libelle} delay={0.07 * i}>
-                  {/* Le chiffre est écrit, pas compté : il n'a jamais
-                      changé de valeur, l'animer était une fausse mesure. */}
-                  <dt className="font-display text-5xl font-[800] tracking-tight text-terra-deep tabular-nums md:text-6xl">
-                    {f.chiffre}
-                  </dt>
-                  <dd className="mt-2 text-sm leading-snug text-ink-soft">
-                    {f.libelle}
-                  </dd>
-                </Reveal>
-              ))}
-            </dl>
-          </div>
-
-          <div>
-            <Reveal>
-              <SectionLabel>{t("toolsTitle")}</SectionLabel>
-            </Reveal>
-            <ul className="mt-8 flex flex-wrap gap-2">
-              {tools.map((outil, i) => (
-                <Reveal key={outil} delay={0.04 * i}>
-                  <li className="rounded-full border border-line bg-sand-card px-3.5 py-1.5 text-sm font-medium text-ink inset-shadow-cisele">
-                    {outil}
-                  </li>
-                </Reveal>
-              ))}
-            </ul>
-          </div>
+      {/* ——— Comment je travaille + les faits ——— */}
+      <section className="container-site grid gap-12 pb-16 md:pb-24 lg:grid-cols-[1.2fr_0.8fr] lg:gap-20">
+        <div>
+          <h2 className="titre-2 text-ink">{t("who.title")}</h2>
+          <p className="mt-6 text-ink-soft">{t("who.p1")}</p>
+          <p className="mt-4 text-ink-soft">{t("who.p2")}</p>
+        </div>
+        <div>
+          <h2 className="eyebrow">{t("facts.title")}</h2>
+          <dl className="filets mt-4">
+            {facts.map((f) => (
+              <div key={f.label} className="flex items-baseline justify-between gap-6 border-t border-line py-3 last:border-b">
+                <dt className="text-sm text-ink-soft">{f.label}</dt>
+                <dd className="text-right font-semibold text-ink">{f.value}</dd>
+              </div>
+            ))}
+          </dl>
         </div>
       </section>
 
-      {/* ——— Le déroulé d'un projet, semaine par semaine ——— */}
-      <section className="container-site py-20 md:py-24">
-        <Reveal>
-          <SectionLabel n={1}>{t("timelineTitle")}</SectionLabel>
-        </Reveal>
-        <ProjectTimeline etapes={timeline} youLabel={t("timelineYou")} />
+      {/* ——— Le déroulé d'un projet ——— */}
+      <section className="container-site pb-16 md:pb-24">
+        <h2 className="titre-2 text-ink">{t("how.title")}</h2>
+        <ol className="filets filets-forts mt-8">
+          {steps.map((s) => (
+            <li key={s.quand} className="grid gap-x-8 gap-y-2 py-6 md:grid-cols-[9rem_1fr_1fr]">
+              <p className="eyebrow pt-1">{s.quand}</p>
+              <p>
+                <span className="mr-2 text-xs font-semibold tracking-[0.12em] text-terra-deep uppercase">{t("how.meLabel")}</span>
+                <span className="font-semibold text-ink">{s.moi}</span>
+              </p>
+              <p className="text-ink-soft">
+                <span className="mr-2 text-xs font-semibold tracking-[0.12em] text-sage-deep uppercase">{t("how.youLabel")}</span>
+                {s.client}
+              </p>
+            </li>
+          ))}
+        </ol>
       </section>
 
-      {/* ——— Convictions : bloc sauge plein ——— */}
-      <section className="bande-calque bg-sage-deep text-sand">
-        <div className="container-site py-20">
-          <Reveal>
-            <SectionLabel n={2} invert>
-              {t("valuesEyebrow")}
-            </SectionLabel>
-            <h2 className="mt-4 font-display text-3xl font-bold tracking-tight text-sand md:text-4xl">
-              {t("valuesTitle")}
-            </h2>
-          </Reveal>
-          <div className="mt-12 grid gap-6 md:grid-cols-3">
-            {values.map((value, i) => {
-              const Icon = valueIcons[i];
-              return (
-                <Reveal key={value.title} delay={0.07 * i} className="h-full">
-                  {/* Cartes en creux sur l'aplat : le rang les distingue */}
-                  <article className="group relative h-full overflow-hidden rounded-3xl border border-sand/20 p-8 transition-colors duration-300 hover:bg-sand/5 md:p-10">
-                    <span
-                      aria-hidden="true"
-                      className="absolute top-5 right-7 font-display text-5xl font-[240] text-sand/25"
-                    >
-                      0{i + 1}
-                    </span>
-                    <span className="inline-flex size-14 items-center justify-center rounded-full bg-sand text-sage-deep transition-transform duration-500 group-hover:rotate-12">
-                      <Icon className="size-5" />
-                    </span>
-                    <h3 className="mt-6 font-display text-2xl font-bold text-sand">
-                      {value.title}
-                    </h3>
-                    <p className="mt-3 leading-relaxed text-sand/75">
-                      {value.text}
-                    </p>
-                  </article>
-                </Reveal>
-              );
-            })}
-          </div>
+      {/* ——— Trois engagements, sur l'encre ——— */}
+      <section className="bande-encre">
+        <div className="container-site section">
+          <h2 className="titre-2 text-sand">{t("principles.title")}</h2>
+          <ul className="filets mt-10 grid gap-x-10 md:grid-cols-3">
+            {principles.map((p, i) => (
+              <li key={p.title} className="py-6 md:border-b md:border-[var(--encre-creux)]">
+                <span aria-hidden="true" className="lueur-douce font-display text-base tabular-nums">
+                  0{i + 1}
+                </span>
+                <h3 className="titre-3 mt-3 text-sand">{p.title}</h3>
+                <p className="mt-3 text-encre-doux">{p.text}</p>
+              </li>
+            ))}
+          </ul>
         </div>
       </section>
 
-      <div className="pt-24">
-        <CtaBand
-          title={t("cta.title")}
-          text={t("cta.text")}
-          buttonLabel={t("cta.button")}
-        />
+      <div className="section">
+        <ContactBand title={t("cta.title")} text={t("cta.text")} buttonLabel={t("cta.button")} />
       </div>
     </>
   );
