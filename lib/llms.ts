@@ -67,7 +67,6 @@ function section(locale: Locale): string {
   const m = messages(locale);
   const t: string[] = [];
   const T = (s: string) => t.push(s);
-  const est = locale === "fr";
 
   T(`# ${m.meta.home.title}`);
   T("");
@@ -101,11 +100,8 @@ function section(locale: Locale): string {
   T(m.about.lede);
   T(m.about.who.p1);
   T(m.about.who.p2);
+  T(m.about.who.p3);
   T(`${m.about.facts.title} : ${m.about.facts.items.map((f) => `${f.label} — ${f.value}`).join(" ; ")}.`);
-  T(`${m.about.how.title} :`);
-  for (const e of m.about.how.steps) T(`- ${e.quand} — ${e.moi} (${est ? "côté client" : "client side"} : ${e.client})`);
-  T(`${m.about.principles.title} :`);
-  for (const v of m.about.principles.items) T(`- **${v.title}** : ${v.text}`);
   T("");
   T(`## ${m.meta.contact.title}`);
   T(`${m.contact.lede} ${m.contact.reply}`);

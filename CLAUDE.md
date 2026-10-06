@@ -54,8 +54,25 @@ avant toute modification :
   pas d'apartés. Il a trouvé la première version « bot de ouf » — c'est
   le critère.
 - **Barre du haut** : dans le flux (plus fixe), un bouton d'action à
-  droite et FR / EN en lettres. Elle prend la couleur de l'encre sur
-  l'accueil via `body:has(main [data-hero-encre]) .entete`.
+  droite et FR / EN **avec leurs petits drapeaux** (`components/Flags.tsx`,
+  redemandés par le propriétaire le 5 octobre : « c'était pas mal »).
+  Elle prend la couleur de l'encre sur l'accueil via
+  `body:has(main [data-hero-encre]) .entete`.
+- **Pas de fondu au premier chargement.** Le fondu d'entrée ne joue
+  qu'entre deux pages : `app/[locale]/template.tsx` pose la classe
+  `entree-anime` dans un `useLayoutEffect` (avant le premier dessin)
+  seulement si `<html data-navigue>` est déjà là, et pose ce marqueur
+  sinon. Au rechargement, fondre toute la page depuis le papier faisait
+  un éclair clair avant le hero sombre : « le flash blanc du reload ».
+  Piège vécu : poser le marqueur depuis un composant à part après le
+  premier rendu relance l'animation sur la page déjà affichée — c'est
+  pire que le flash.
+- **Page À propos** : du texte et une liste de faits, c'est tout. Les
+  « Trois engagements » en colonnes numérotées et le « Déroulé d'un
+  projet » (tableau semaines / moi / vous) ont été jugés « trop IA » le
+  6 octobre et retirés ; les engagements vivent en un paragraphe
+  (`about.who.p3`). Ne pas réintroduire de colonnes numérotées ni de
+  frise.
 - **Le bandeau défilant** reste : ses mots sont des liens vers les offres
   (`/services#id`), il a son bouton d'arrêt, il ne s'arrête pas au
   survol.

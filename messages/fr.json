@@ -285,7 +285,8 @@
     "who": {
       "title": "Comment je travaille",
       "p1": "Je prends en charge l'ensemble du projet : comprendre le besoin, choisir la technique, construire, vérifier, mettre en ligne et maintenir. Vous expliquez votre projet une seule fois, les décisions sont rapides et les réponses directes.",
-      "p2": "Je privilégie des sites simples à maintenir : peu de composants externes, des choix techniques justifiés, des pages qui chargent vite. C'est plus de travail au départ et beaucoup moins de problèmes ensuite."
+      "p2": "Je privilégie des sites simples à maintenir : peu de composants externes, des choix techniques justifiés, des pages qui chargent vite. C'est plus de travail au départ et beaucoup moins de problèmes ensuite.",
+      "p3": "Ce qui est ajouté doit servir le projet ; ce qui alourdit sans servir est retiré. Chaque page est vérifiée sur téléphone, sur ordinateur et avec une connexion lente avant d'être mise en ligne. Le devis est écrit avant de commencer, et vous êtes prévenu immédiatement si quelque chose modifie le calendrier."
     },
     "facts": {
       "title": "En bref",
@@ -309,50 +310,6 @@
         {
           "label": "Réponse",
           "value": "Sous deux jours ouvrés"
-        }
-      ]
-    },
-    "how": {
-      "title": "Le déroulé d'un projet",
-      "youLabel": "Vous",
-      "meLabel": "Moi",
-      "steps": [
-        {
-          "quand": "Semaine 1",
-          "moi": "J'écoute, je cadre et je chiffre.",
-          "client": "Vous décrivez votre activité et votre besoin."
-        },
-        {
-          "quand": "Semaines 2 à 3",
-          "moi": "Structure du site et premières pages.",
-          "client": "Vous suivez l'avancement sur une adresse privée."
-        },
-        {
-          "quand": "Semaines 4 à 6",
-          "moi": "Construction, vérifications, mise en place des contenus.",
-          "client": "Vous essayez le site et signalez ce qui ne va pas."
-        },
-        {
-          "quand": "Dernière semaine",
-          "moi": "Mise en ligne et passation.",
-          "client": "Vous recevez les accès et le code du site."
-        }
-      ]
-    },
-    "principles": {
-      "title": "Trois engagements",
-      "items": [
-        {
-          "title": "Sobriété",
-          "text": "Chaque composant ajouté doit servir le projet. Ce qui alourdit sans servir est retiré."
-        },
-        {
-          "title": "Vérification",
-          "text": "Chaque page est vérifiée sur téléphone, sur ordinateur et avec une connexion lente avant d'être mise en ligne. Le code est versionné et sauvegardé."
-        },
-        {
-          "title": "Transparence",
-          "text": "Un devis écrit avant de commencer, et une information immédiate si quelque chose modifie le calendrier."
         }
       ]
     },

@@ -2,10 +2,12 @@
 
 import { useLocale, useTranslations } from "next-intl";
 import { Link, usePathname } from "@/i18n/navigation";
+import { FlagFR, FlagGB } from "./Flags";
 
 /**
- * FR / EN en lettres. Pas de drapeaux : un drapeau désigne un pays, pas
- * une langue, et c'étaient les seules couleurs saturées hors palette.
+ * FR / EN avec leurs petits drapeaux : le propriétaire y tient
+ * (« c'était pas mal »). La langue active est en lettres pleines, l'autre
+ * en retrait ; la couleur suit la barre (papier ou encre).
  */
 export default function LangSwitcher({
   onNavigate,
@@ -18,32 +20,31 @@ export default function LangSwitcher({
   const t = useTranslations("lang");
 
   const options = [
-    { code: "fr" as const, short: "FR", full: t("fr") },
-    { code: "en" as const, short: "EN", full: t("en") },
+    { code: "fr" as const, short: "FR", full: t("fr"), flag: <FlagFR /> },
+    { code: "en" as const, short: "EN", full: t("en"), flag: <FlagGB /> },
   ];
 
   return (
-    <nav aria-label={t("label")} className="inline-flex items-center gap-1 text-[0.8rem] font-semibold tracking-[0.08em]">
-      {options.map((o, i) => {
+    <nav aria-label={t("label")} className="inline-flex items-center gap-1 text-[0.8rem] font-semibold tracking-[0.06em]">
+      {options.map((o) => {
         const active = o.code === locale;
         return (
-          <span key={o.code} className="inline-flex items-center gap-1">
-            {i > 0 && <span aria-hidden="true" className="text-[var(--nav-texte-doux,var(--ink-soft))]">/</span>}
-            <Link
-              href={pathname}
-              locale={o.code}
-              aria-current={active ? "true" : undefined}
-              onClick={onNavigate}
-              aria-label={o.full}
-              className={`px-1.5 py-2 transition-colors duration-200 ${
-                active
-                  ? "text-[var(--nav-texte,var(--ink))]"
-                  : "text-[var(--nav-texte-doux,var(--ink-soft))] hover:text-[var(--nav-texte,var(--ink))]"
-              }`}
-            >
-              {o.short}
-            </Link>
-          </span>
+          <Link
+            key={o.code}
+            href={pathname}
+            locale={o.code}
+            aria-current={active ? "true" : undefined}
+            onClick={onNavigate}
+            aria-label={o.full}
+            className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-2 transition-colors duration-200 ${
+              active
+                ? "text-[var(--nav-texte,var(--ink))]"
+                : "text-[var(--nav-texte-doux,var(--ink-soft))] opacity-80 hover:opacity-100 hover:text-[var(--nav-texte,var(--ink))]"
+            }`}
+          >
+            {o.flag}
+            <span>{o.short}</span>
+          </Link>
         );
       })}
     </nav>

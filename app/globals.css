@@ -81,6 +81,9 @@
 }
 
 html {
+  /* Le fond est posé sur <html> aussi : c'est lui qu'on voit pendant
+     le premier rendu et en sur-défilement, pas du blanc. */
+  background: var(--sand);
   scroll-behavior: smooth;
   /* La barre du haut n'est plus fixe : une ancre peut remonter jusqu'au
      bord, on garde juste un peu d'air. */
@@ -344,12 +347,16 @@ body {
   }
 
   /* ——— Transition entre pages ———
-     Un fondu, rien d'autre. JAMAIS de translation ici : ce bloc
-     enveloppe toute la page et un décalage de départ est additionné
-     par le navigateur à chaque restauration de position (voir
-     CLAUDE.md). Une animation CSS tourne sans JavaScript : pas de
-     dépendance pour l'entrée de page. */
-  .entree {
+     Un fondu, rien d'autre — et SEULEMENT entre deux pages, jamais au
+     premier chargement ni au rechargement (fondre toute la page depuis
+     le papier faisait un éclair clair avant la bande d'encre du hero).
+     La classe est posée par `app/[locale]/template.tsx` avant le premier
+     dessin, uniquement si une page a déjà été affichée dans l'onglet.
+
+     JAMAIS de translation ici : ce bloc enveloppe toute la page et un
+     décalage de départ est additionné par le navigateur à chaque
+     restauration de position (voir CLAUDE.md). */
+  .entree-anime {
     animation: entree 0.4s ease-out both;
   }
   @keyframes entree {
@@ -387,7 +394,7 @@ body {
   .press:active {
     transform: none;
   }
-  .entree,
+  .entree-anime,
   .menu-mobile {
     animation: none;
   }

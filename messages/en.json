@@ -285,7 +285,8 @@
     "who": {
       "title": "How I work",
       "p1": "I take care of the whole project: understanding the need, choosing the technology, building, checking, launching and maintaining. You explain your project once, decisions are quick and answers are direct.",
-      "p2": "I favour sites that are simple to maintain: few external components, justified technical choices, pages that load fast. More work at the start, far fewer problems later."
+      "p2": "I favour sites that are simple to maintain: few external components, justified technical choices, pages that load fast. More work at the start, far fewer problems later.",
+      "p3": "What is added must serve the project; what adds weight without purpose is removed. Every page is checked on phones, on desktop and on a slow connection before going live. The quote is written before work starts, and you are told immediately if anything changes the schedule."
     },
     "facts": {
       "title": "In brief",
@@ -309,50 +310,6 @@
         {
           "label": "Reply",
           "value": "Within two working days"
-        }
-      ]
-    },
-    "how": {
-      "title": "How a project unfolds",
-      "youLabel": "You",
-      "meLabel": "Me",
-      "steps": [
-        {
-          "quand": "Week 1",
-          "moi": "I listen, scope and quote.",
-          "client": "You describe your business and your need."
-        },
-        {
-          "quand": "Weeks 2 to 3",
-          "moi": "Site structure and first pages.",
-          "client": "You follow progress on a private address."
-        },
-        {
-          "quand": "Weeks 4 to 6",
-          "moi": "Build, checks, content in place.",
-          "client": "You try the site and report what is wrong."
-        },
-        {
-          "quand": "Final week",
-          "moi": "Launch and handover.",
-          "client": "You receive the access details and the site's code."
-        }
-      ]
-    },
-    "principles": {
-      "title": "Three commitments",
-      "items": [
-        {
-          "title": "Restraint",
-          "text": "Every component added must serve the project. Whatever adds weight without purpose is removed."
-        },
-        {
-          "title": "Verification",
-          "text": "Every page is checked on phones, on desktop and on a slow connection before going live. The code is versioned and backed up."
-        },
-        {
-          "title": "Transparency",
-          "text": "A written quote before starting, and immediate notice if anything changes the schedule."
         }
       ]
     },
