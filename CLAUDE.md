@@ -80,6 +80,40 @@ avant toute modification :
   `/demo` et `/en/demo` redirigent (308) vers les démonstrations. Le
   second projet type est une prise de rendez-vous (salon de coiffure).
 
+## Audit de sécurité du 21 octobre 2026 — ce qui reste à faire
+
+Audit complet (code, site en ligne en lecture seule, tests actifs du
+formulaire). Le propriétaire a choisi de ne corriger que le critique
+(Next 16.3.1 → 16.4.2, trois failles connues dont une dans `next/og`).
+**Le reste est constaté et non corrigé, dans l'ordre d'importance :**
+
+1. **Limite d'envois contournable** : `empreinteVisiteur()` dans
+   `app/[locale]/contact/actions.ts` lit la PREMIÈRE valeur de
+   `x-forwarded-for`, or le proxy Infomaniak AJOUTE l'IP réelle à la
+   fin sans effacer ce que le client envoie. Vérifié en production :
+   un en-tête forgé ouvre un nouveau compteur. Correctif : lire la
+   dernière valeur, et ajouter un plafond global de secours.
+2. `app/og/[locale]/route.tsx` : ajouter `export const dynamicParams =
+   false` (`/og/zzz` répond 200 aujourd'hui).
+3. `Reply-To` : le nom du visiteur n'est pas mis entre guillemets dans
+   `lib/smtp.ts` (`encoderAdresse`) ; refuser `< > " , ;` dans l'email
+   (`FORME_EMAIL` de `lib/contact.ts`) et échapper le nom.
+4. Répondre 405 aux méthodes autres que GET/HEAD/POST dans `proxy.ts`
+   (PUT/DELETE → 200, TRACE → 500 aujourd'hui).
+5. `npm audit fix` pour js-yaml, brace-expansion, source-map-js (outils
+   de développement, non servis).
+6. En-tête `Cross-Origin-Opener-Policy: same-origin`, fichier
+   `/.well-known/security.txt`, enregistrement DNS CAA (manager
+   Infomaniak), CSP sans `'unsafe-inline'` pour les scripts (coûte la
+   mise en cache : à discuter).
+7. Le dépôt est public : l'adresse de commit y est visible.
+
+Vérifié sain : TLS 1.2/1.3 seuls, HSTS, redirections, aucun cookie,
+aucun fichier sensible exposé, aucun secret dans l'historique git,
+client SMTP correct, SPF `-all` et DMARC `p=reject`. **Le SMTP n'est
+toujours pas réglé en production** : le formulaire répond
+« indisponible » à tous.
+
 ## Méthode de travail (règles de l'utilisateur)
 
 - **Poser des questions avant** tout gros travail ou choix structurant
